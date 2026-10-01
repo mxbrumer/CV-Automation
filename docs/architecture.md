@@ -23,7 +23,7 @@ Source brief: [prompts/project-setup.md](../prompts/project-setup.md). This file
 |---|---|---|
 | `hf.co/danish-foundation-models/DFM-Mimir-GGUF:Q4_K_M` | 4.2 GB, 100% GPU | Arch `hrm_text`, 1.79B params, **4096 ctx**. Danish QA correct. `format=json` extraction correct. ~118 tok/s. **Tool-call test: no tool call emitted** despite `tools` capability. |
 | `qwen2.5:14b` (installed) | 9.5 GB, 100% GPU | Tool-call test: correct `find_application(company, title)` call. |
-| `gemma4:12b` (not yet pulled) | 7.6 GB file per Ollama library; VRAM not measured | **Not yet tested on this machine.** Library lists tools, thinking and vision capabilities and a 256K context. Plan 04 verifies tool calls, Danish extraction, Danish writing and VRAM. |
+| `gemma4:12b` as `ajs-gemma` (plan 04, 2026-09-30) | 8.2 GB at `num_ctx` 32768 with q8_0 KV cache; 10.8 GB total GPU with `bge-m3` loaded, 100% GPU | Tool call 18/18, `job_brief` extraction 18/18 (Danish and English), ~63 tok/s. Danish writing rating pending. Details: [model-evaluation.md](model-evaluation.md). |
 
 Windows itself holds about 1.5 GB of VRAM (`nvidia-smi`, 2026-09-28), so roughly 10.7 GB is usable. qwen2.5:14b + Mimir (≈13.7 GB) could not both be resident, which is why the first version of D1 batched work per model. `gemma4:12b` + `bge-m3` (≈8.8 GB before KV cache) are expected to fit together, so the revised D1 needs no model swapping; plan 04 confirms this.
 

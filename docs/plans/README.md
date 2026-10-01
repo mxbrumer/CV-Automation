@@ -9,7 +9,7 @@ Each plan is sized for **one agent session**. Read [../architecture.md](../archi
 | 01 | [Claude setup & repo scaffold](01-claude-setup-and-scaffold.md) | – | done |
 | 02 | [CI/CD & release versioning](02-ci-cd-and-releases.md) | 01 | done |
 | 03 | [Docker infrastructure](03-docker-infrastructure.md) | 01 | done |
-| 04 | [Local models setup & evaluation](04-local-models.md) | 03 | todo |
+| 04 | [Local models setup & evaluation](04-local-models.md) | 03 | in progress |
 | 05 | [Database schema & migrations](05-database-schema.md) | 03 | todo |
 | 06 | [FastAPI core & tool endpoints](06-fastapi-core.md) | 05 | todo |
 | 07 | [Email intake & posting fetcher](07-email-intake.md) | 06 | todo |
@@ -44,3 +44,7 @@ _(append here)_
 - (03 → 10) Phoenix stores SQLite data in `DATA_ROOT/phoenix` (`PHOENIX_WORKING_DIR`); telemetry is off in Phoenix and LangFlow. LangFlow has `PHOENIX_COLLECTOR_ENDPOINT=http://phoenix:6006`, but trace delivery has not been verified.
 - (03) This machine had an unrelated `langflow` container (`langflowai/langflow:latest`) publishing port 7860. The user agreed to stop it and set its restart policy to `no`. If `dev.ps1 up` fails with "port is already allocated", check `docker ps` for other stacks.
 - (02) On this machine git's OpenSSL backend fails TLS to github.com (likely HTTPS interception by antivirus or a proxy). The repo-local git config sets `http.sslBackend=schannel`, and `uvx` needs `--system-certs`.
+- (04 → 08, 09) Request JSON from Gemma 4 with `format: <JSON schema>` (Ollama structured outputs), never `format: "json"`. On Ollama 0.34.4, `format: "json"` with `think: false` makes Gemma emit broken JSON (e.g. `{"thought": 2024.05}`). Always send `think` explicitly: Gemma 4 thinks by default. See `docs/model-evaluation.md`.
+- (04 → 06, 08) Ollama's scheduler evicts `bge-m3` when `ajs-gemma` loads after it, but keeps both when Gemma loads first. The worker should warm up `ajs-gemma` before the first embedding call, and send the same `num_ctx`/`keep_alive` (`LLM_NUM_CTX`, `LLM_KEEP_ALIVE` in `infra/.env.example`) on every call. Those settings and `LLM_AGENT_MODEL`/`LLM_WRITER_MODEL`/`EMBED_MODEL` are not yet passed to any container in `docker-compose.yml`.
+- (04 → 05) `backend/evals/model_bench.py` is a standalone uv script (PEP 723 inline deps) because `backend/pyproject.toml` does not exist yet. When plan 05 creates the project, keep `evals/` out of the package and out of `mypy`'s `files` (or type-check it separately).
+- (04 → 08) The matcher rubric needs to handle relocation. With equal weights, location and language cost a relocating candidate 30–40 of 100 points (benchmark totals 48–76 vs the D8 threshold 70). Decide with the user: a relocation statement in the profile, criterion weights, or a location filter. Use thinking on at temperature 0.3, capped at 3072 output tokens, with one retry with thinking off when the cap is hit (`docs/model-evaluation.md`).

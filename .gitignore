@@ -21,6 +21,7 @@ coverage/
 # Runtime data (DATA_ROOT lives outside the repo; guard against local copies)
 /DATA_ROOT/
 /data/
+training-data/
 *.eml
 
 # Claude Code local settings
