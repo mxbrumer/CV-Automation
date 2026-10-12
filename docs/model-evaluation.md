@@ -62,7 +62,9 @@ Three criteria (skills, experience, domain; D10), each 0–5, total scaled to 0�
 | EN-2 | 80 | 87 | 2.8 s | 16 s |
 | EN-3 | 80 | invalid (cap) | 2.7 s | 129 s |
 
-- Thinking off: 6/6 valid. Thinking on: 4/6 valid; the 2 failures are runaway thinking that hit the 8192-token cap in the harness (~130 s). Successful thinking calls used about 700–1700 tokens (2.7k–6.1k characters), so the 3072-token cap and the retry with thinking off (Decisions) still apply.
+- **Cap and fallback implemented in the harness (2026-10-12):** `THINK_MAX_TOKENS` is now 3072. A thinking call that ends with `done_reason: length` is retried once with `think: false`, and both attempts are recorded (`fallback_think_off`, `capped_wall_s`). A forced test with a 150-token cap confirmed the path: capped after 3.5 s, then a valid answer from the thinking-off retry (6.4 s total).
+- **Second run (r3, same settings, cap 3072): no runaways.** 6/6 valid with thinking on, totals 80–100 (thinking off 73–93), mean |off − on| 5.7 points, criteria agree in 72%, mean wall 18 s on vs 3.7 s off. So runaways are intermittent (2 of 6 in r2, 0 of 6 in r3); the fallback has not yet fired on a natural runaway.
+- First run (r2, cap 8192): thinking off 6/6 valid. Thinking on: 4/6 valid; the 2 failures are runaway thinking that hit the 8192-token cap in the harness (~130 s). Successful thinking calls used about 700–1700 tokens (2.7k–6.1k characters), so the 3072-token cap and the retry with thinking off (Decisions) still apply.
 - Mean |off − on| is 11.8 points on the valid pairs and the criteria agree in 42% of cases; thinking on scores higher.
 - **With only skills, experience and domain, every posting scores 73–100.** All of them are above the old threshold of 55, so the rubric alone does not separate postings. The D8 threshold is set from the user's would-apply labels (below).
 

@@ -47,9 +47,10 @@ EMBED_MODEL = os.environ.get("EMBED_MODEL", "bge-m3")
 KEEP_ALIVE = "30m"
 AGENT_TEMPERATURE = 0.2
 WRITER_TEMPERATURE = 0.7
-# Output cap for thinking calls. Gemma 4 at temperature 0 can think until num_ctx is full
-# (30k tokens, 8 min in the first run); a capped runaway is recorded as a failure.
-THINK_MAX_TOKENS = 8192
+# Output cap for thinking calls. Gemma 4 can loop in its reasoning until num_ctx is full (30k tokens,
+# 8 min in the first run). Successful calls use at most ~1700 tokens. A call that hits the cap is retried
+# once with thinking off (plan 04 decision); both attempts are recorded in `detail`.
+THINK_MAX_TOKENS = 3072
 # Output caps for the other calls. Without them a model can generate until the HTTP timeout
 # (Mimir looped on schema-constrained JSON with context shifting in the first run).
 TOOL_MAX_TOKENS = 512
@@ -380,20 +381,30 @@ def task_rubric(o: Ollama, cfg: ModelCfg, name: str, text: str, profile: str, th
         },
         {"role": "user", "content": f"CANDIDATE\n{profile}\n\nJOB POSTING\n{text}"},
     ]
-    resp, wall = o.chat(
-        cfg,
-        messages,
-        temperature=temperature,
-        fmt=json_format(mode, RUBRIC_SCHEMA),
-        think=think,
-        num_predict=THINK_MAX_TOKENS if think else JSON_MAX_TOKENS,
-    )
+    def attempt(th: bool) -> tuple[dict[str, Any], float]:
+        return o.chat(
+            cfg,
+            messages,
+            temperature=temperature,
+            fmt=json_format(mode, RUBRIC_SCHEMA),
+            think=th,
+            num_predict=THINK_MAX_TOKENS if th else JSON_MAX_TOKENS,
+        )
+
+    resp, wall = attempt(think)
+    fallback: dict[str, Any] = {}
+    if think and resp.get("done_reason") == "length":
+        fallback = {"capped_wall_s": round(wall, 1), "capped_eval_tokens": int(resp.get("eval_count", 0))}
+        resp, wall2 = attempt(False)
+        wall += wall2
     content = resp.get("message", {}).get("content", "")
     thinking = resp.get("message", {}).get("thinking") or ""
     detail: dict[str, Any] = {
         "temperature": temperature,
         "thinking_chars": len(thinking),
         "done_reason": resp.get("done_reason"),
+        "fallback_think_off": bool(fallback),
+        **fallback,
     }
     if not content.strip():
         detail["thinking_tail"] = thinking[-400:]
