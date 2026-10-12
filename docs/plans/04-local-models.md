@@ -5,6 +5,22 @@
 ## Goal
 Pin the local models, confirm with a small repeatable benchmark that `gemma4:12b` covers every LLM role (D1, revised 2026-09-28), and fix `num_ctx` and the VRAM strategy.
 
+## Re-run (added 2026-10-12): do this section; steps 1–6 below were done on Ollama 0.34.4
+Ollama is now 0.40.3, and the rubric (D10), output language (A2) and templates (A6) changed, so every number in `docs/model-evaluation.md` is stale.
+
+**Prerequisites (stop and ask if missing):** the user has finished `DATA_ROOT/profile/cover_letter_template.md` (drafted 2026-10-12, rewritten by the user) and `recruiter_email_template.md`, and has rated the old `2026-09-30-*-ratings.csv` files or said to skip them.
+
+**Harness changes** in `backend/evals/model_bench.py`:
+- Default `--models ajs-gemma`; keep the baseline configs but do not run them.
+- `RUBRIC_CRITERIA` → `skills`, `experience`, `domain` (D10). Add `location`, `relocation_ok`, `required_languages`, `danish_required` to the `job_brief` extraction schema instead, and check them against the labels.
+- `letter` task: fill `cover_letter_template.md` with brief + CV, **always English** (A2), full letter not a paragraph.
+- New `email` task: fill `recruiter_email_template.md`; check that every `{{ }}` placeholder is resolved and the body is ≤ 150 words.
+- Both writing outputs go to the blind ratings CSV (1–5, the user rates).
+
+**Run:** `scripts/pull-models.ps1` (recreates `ajs-gemma` if needed), then the full suite with `--repeats 3`. Re-check on 0.40.3: the `format: "json"` + `think: false` bug (Follow-up 04 → 08, 09), and co-residency with `bge-m3` plus the eviction order. Update or delete those Follow-ups to match.
+
+**Then:** set the D8 threshold from the rated rubric totals (the default is 55; pick the value that separates postings the user labels "would apply" from the rest), and replace the stale tables in `docs/model-evaluation.md`.
+
 ## Known facts (from architecture §1; don't re-test unless versions change)
 - Usable VRAM is about 10.7 GB, because Windows holds about 1.5 GB of the 12 GB.
 - `gemma4:12b`: 7.6 GB file, 256K max context, tools + thinking per the Ollama library. **Not yet tested on this machine.**
@@ -29,6 +45,7 @@ Pin the local models, confirm with a small repeatable benchmark that `gemma4:12b
 - [ ] Benchmark runs end-to-end; summary committed in `docs/model-evaluation.md`.
 - [ ] Decision recorded: `num_ctx`, `keep_alive`, thinking on/off per task, flash attention/KV cache settings.
 - [ ] If Gemma fails the tool-call test, or Mimir clearly wins the blind Danish writing rating, **stop and ask the user** before changing D1.
+- [ ] Re-run (2026-10-12): suite run on Ollama 0.40.3 with the 3-criterion rubric, the template-based letter and the email tasks; ratings filled in; D8 threshold confirmed with the user; Follow-ups 04 → 08/09 re-verified.
 
 ## Out of scope
 LangFlow flows (08/09).

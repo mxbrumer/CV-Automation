@@ -6,9 +6,9 @@
 Human-in-the-loop review: see generated documents next to templates, refine them via a local-LLM chat, approve into the queue.
 
 ## Backend additions (same session)
-- `POST /api/v1/applications/{id}/artifacts/{kind}/chat` `{message}` → streams (SSE) a revised full Markdown document plus a short explanation. Uses Ollama model `LLM_AGENT_MODEL` (**ajs-gemma**, A3) directly from the backend via `httpx` (not LangFlow; lower latency). Prompt includes: current document, brief, relevant CV evidence, user instruction, rule "don't invent facts not in cv_master". Persist turns in `chat_message`.
+- `POST /api/v1/postings/{id}/artifacts/{kind}/chat` `{message}` → streams (SSE) a revised full Markdown document plus a short explanation. Uses Ollama model `LLM_AGENT_MODEL` (**ajs-gemma**, A3) directly from the backend via `httpx` (not LangFlow; lower latency). Prompt includes: current document, brief, relevant CV evidence, user instruction, rule "don't invent facts not in cv.md". Persist turns in `chat_message`.
 - `POST .../chat/accept` → saves proposal as new artifact version (re-renders PDF).
-- `PATCH /applications/{id}/posting-text` for `needs_manual_text` items → re-queues analysis.
+- `PATCH /postings/{id}/posting-text` for `needs_manual_text` items → re-queues analysis.
 - Serve templates read-only: already in plan 06 (`/profile/templates/{kind}`).
 
 ## UI
