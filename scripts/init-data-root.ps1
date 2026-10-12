@@ -4,7 +4,7 @@
 
 .DESCRIPTION
   DATA_ROOT is resolved from, in order: the -DataRoot parameter, the DATA_ROOT
-  environment variable, DATA_ROOT in infra/.env, then C:\JobSearchData.
+  environment variable, DATA_ROOT in infra/.env, then C:\dev\JobSearchData.
   Refuses paths inside OneDrive or inside the repo.
 #>
 param(
@@ -23,7 +23,7 @@ function Get-DotEnvValue([string]$Path, [string]$Name) {
 
 if (-not $DataRoot) { $DataRoot = $env:DATA_ROOT }
 if (-not $DataRoot) { $DataRoot = Get-DotEnvValue (Join-Path $RepoRoot 'infra\.env') 'DATA_ROOT' }
-if (-not $DataRoot) { $DataRoot = 'C:\JobSearchData' }
+if (-not $DataRoot) { $DataRoot = 'C:\dev\JobSearchData' }
 
 $full = [System.IO.Path]::GetFullPath($DataRoot).TrimEnd('\')
 $forbidden = @($RepoRoot, $env:OneDrive, $env:OneDriveConsumer, $env:OneDriveCommercial) | Where-Object { $_ }

@@ -9,7 +9,7 @@ Local-only pipeline: Jobindex RSS feeds → LangFlow agents (Ollama) → FastAPI
 - **Local LLMs only**, through Ollama. No cloud LLM SDKs or API keys anywhere.
 - **FastAPI is the only owner of the DB schema and blob storage.** LangFlow calls FastAPI tool endpoints and never touches Postgres app tables.
 - **No personal data in git**: CV, templates, emails, `.env`, anything under `DATA_ROOT/profile/`. The repo holds only `*.example.md` stubs.
-- `DATA_ROOT` (default `C:\JobSearchData`) stays **outside OneDrive**.
+- `DATA_ROOT` (default `C:\dev\JobSearchData`) stays **outside OneDrive**.
 - Conventional Commits (`feat:`, `fix:`, `chore:`, `docs:`, `ci:`); one branch per plan, `feat/NN-short-name`.
 - Do not re-decide architecture. If a decision proves wrong, stop, ask the user, then update architecture.md.
 - Stay in scope of the current plan; put discoveries under **Follow-ups** in the plans README.

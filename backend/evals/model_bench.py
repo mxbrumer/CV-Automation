@@ -17,7 +17,7 @@ Outputs go to DATA_ROOT/evals/ and are never committed:
 
 Usage (from the repo root):
     uv run backend/evals/model_bench.py run [--tag f16] [--models ajs-gemma,mimir,qwen] [--repeats 3]
-    uv run backend/evals/model_bench.py score C:/JobSearchData/evals/<date>-ratings.csv
+    uv run backend/evals/model_bench.py score C:/dev/JobSearchData/evals/<date>-ratings.csv
 """
 
 from __future__ import annotations
@@ -40,7 +40,7 @@ from typing import Any
 import httpx
 from jsonschema import Draft202012Validator
 
-DATA_ROOT = Path(os.environ.get("DATA_ROOT", r"C:\JobSearchData"))
+DATA_ROOT = Path(os.environ.get("DATA_ROOT", r"C:\dev\JobSearchData"))
 OLLAMA_URL = os.environ.get("OLLAMA_URL", "http://127.0.0.1:11434")
 EMBED_MODEL = os.environ.get("EMBED_MODEL", "bge-m3")
 KEEP_ALIVE = "30m"

@@ -35,7 +35,7 @@ Harness: [backend/evals/model_bench.py](../backend/evals/model_bench.py) (standa
 
 ```powershell
 uv run backend/evals/model_bench.py run --tag f16 --rubric-temps 0.3
-uv run backend/evals/model_bench.py score C:/JobSearchData/evals/<date>-<tag>-ratings.csv
+uv run backend/evals/model_bench.py score C:/dev/JobSearchData/evals/<date>-<tag>-ratings.csv
 ```
 
 ### Agent tasks
