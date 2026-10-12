@@ -2,21 +2,22 @@
 # requires-python = ">=3.12"
 # dependencies = ["httpx>=0.27", "jsonschema>=4.23"]
 # ///
-"""Plan 04 model benchmark: ajs-gemma vs the DFM-Mimir and qwen2.5:14b baselines.
+"""Plan 04 model benchmark for ajs-gemma (the baseline configs stay available via --models mimir,qwen).
 
 Calls the Ollama HTTP API directly. Inputs are real postings in
 DATA_ROOT/profile/eval_postings/*.md (or .txt) with an optional labels.json:
 
-    {"DA-posting-1.md": {"company": "...", "title": "...", "language": "da", "has_contact": true}}
+    {"DA-posting-1.md": {"company": "...", "title": "...", "language": "da", "has_contact": true,
+                          "location": "Aarhus", "danish_required": false}}   (the last two are optional)
 
 Outputs go to DATA_ROOT/evals/ and are never committed:
     <date>[-tag].md             report
     <date>[-tag]-raw.jsonl      one line per model call
-    <date>[-tag]-ratings.csv    blind cover-letter paragraphs; fill in the `rating` column (1-5)
+    <date>[-tag]-ratings.csv    blind cover letters and recruiter emails; fill in the `rating` column (1-5)
     <date>[-tag]-key.json       row id -> model (do not open before rating)
 
 Usage (from the repo root):
-    uv run backend/evals/model_bench.py run [--tag f16] [--models ajs-gemma,mimir,qwen] [--repeats 3]
+    uv run backend/evals/model_bench.py run [--tag t1] [--models ajs-gemma] [--repeats 3]
     uv run backend/evals/model_bench.py score C:/dev/JobSearchData/evals/<date>-ratings.csv
 """
 
@@ -53,6 +54,9 @@ THINK_MAX_TOKENS = 8192
 # (Mimir looped on schema-constrained JSON with context shifting in the first run).
 TOOL_MAX_TOKENS = 512
 JSON_MAX_TOKENS = 2048
+# Writing checks (plan 04): no placeholder left, and a word range.
+LETTER_WORDS = (150, 450)
+EMAIL_MAX_WORDS = 150
 
 
 @dataclass(frozen=True)
@@ -73,7 +77,7 @@ def model_table(num_ctx: int) -> dict[str, ModelCfg]:
 
 # Tasks each model takes part in (plan 04 step 4).
 TASKS_BY_MODEL = {
-    "ajs-gemma": ("tool", "extract", "rubric", "letter"),
+    "ajs-gemma": ("tool", "extract", "rubric", "letter", "email"),
     "mimir": ("tool", "extract", "letter"),
     "qwen": ("tool", "extract"),
 }
@@ -98,7 +102,19 @@ NULLABLE_STR = {"type": ["string", "null"]}
 JOB_BRIEF_SCHEMA: dict[str, Any] = {
     "type": "object",
     "additionalProperties": False,
-    "required": ["title", "company", "language", "contact", "must_have", "nice_to_have", "keywords"],
+    "required": [
+        "title",
+        "company",
+        "language",
+        "contact",
+        "must_have",
+        "nice_to_have",
+        "keywords",
+        "location",
+        "relocation_ok",
+        "required_languages",
+        "danish_required",
+    ],
     "properties": {
         "title": {"type": "string", "minLength": 1},
         "company": {"type": "string", "minLength": 1},
@@ -111,10 +127,15 @@ JOB_BRIEF_SCHEMA: dict[str, Any] = {
         "must_have": {"type": "array", "items": {"type": "string"}},
         "nice_to_have": {"type": "array", "items": {"type": "string"}},
         "keywords": {"type": "array", "items": {"type": "string"}, "maxItems": 25},
+        "location": NULLABLE_STR,
+        "relocation_ok": {"type": ["boolean", "null"]},
+        "required_languages": {"type": "array", "items": {"type": "string"}, "maxItems": 6},
+        "danish_required": {"type": "boolean"},
     },
 }
 
-RUBRIC_CRITERIA = ("skills", "experience", "domain", "language", "location")
+# D10: location and language are flags in job_brief, not scored.
+RUBRIC_CRITERIA = ("skills", "experience", "domain")
 RUBRIC_SCHEMA: dict[str, Any] = {
     "type": "object",
     "required": ["scores", "rationale"],
@@ -305,6 +326,10 @@ def task_extract(o: Ollama, cfg: ModelCfg, name: str, text: str, label: dict[str
             f"JSON schema:\n{json.dumps(JOB_BRIEF_SCHEMA)}\n"
             "Rules: language is the posting language as an ISO 639-1 code (da or en). contact is the named recruiter "
             "or contact person with name, email and phone (null for unknown fields), or null if nobody is named. "
+            "location is the work location as written (city or region), or null. relocation_ok is true if the posting "
+            "offers relocation support or accepts candidates who still have to move, false if it requires living "
+            "locally already, null if not stated. required_languages lists the ISO 639-1 codes of languages the "
+            "posting requires (not 'nice to have'). danish_required is true only if Danish is required. "
             "List items are short (at most 12 words) and in the posting's language. At most 25 keywords.",
         },
         {"role": "user", "content": text},
@@ -335,6 +360,10 @@ def task_extract(o: Ollama, cfg: ModelCfg, name: str, text: str, label: dict[str
             "title": title_match(str(data.get("title", "")), label["title"]),
             "contact": has_contact == label["has_contact"],
         }
+        if "danish_required" in label:
+            detail["fields"]["danish_required"] = data.get("danish_required") == label["danish_required"]
+        if label.get("location"):
+            detail["fields"]["location"] = name_match(str(data.get("location") or ""), label["location"])
     return Call(cfg.alias, "extract", name, valid, wall, detail=detail, **timing(resp))
 
 
@@ -344,9 +373,9 @@ def task_rubric(o: Ollama, cfg: ModelCfg, name: str, text: str, profile: str, th
             "role": "system",
             "content": "You score how well a candidate matches a job posting. Score each criterion from 0 (no match) "
             "to 5 (perfect match): skills (required technical skills), experience (seniority and years), domain "
-            "(industry and problem area), language (required spoken/written languages), location (work location "
-            "and relocation). Be strict: 3 means a partial match. Reply with one JSON object and nothing else: "
-            '{"scores": {"skills": int, "experience": int, "domain": int, "language": int, "location": int}, '
+            "(industry and problem area). Do not score location or spoken languages; they are handled separately. "
+            "Be strict: 3 means a partial match. Reply with one JSON object and nothing else: "
+            '{"scores": {"skills": int, "experience": int, "domain": int}, '
             '"rationale": "at most 60 words"}',
         },
         {"role": "user", "content": f"CANDIDATE\n{profile}\n\nJOB POSTING\n{text}"},
@@ -381,24 +410,79 @@ def task_rubric(o: Ollama, cfg: ModelCfg, name: str, text: str, profile: str, th
     return Call(cfg.alias, "rubric", name, not errors, wall, think=think, detail=detail, **timing(resp))
 
 
-def task_letter(o: Ollama, cfg: ModelCfg, name: str, text: str, profile: str, lang: str) -> Call:
-    language = {"da": "Danish", "en": "English"}[lang]
+def read_template(name: str) -> str:
+    text = (DATA_ROOT / "profile" / name).read_text(encoding="utf-8")
+    return re.sub(r"<!--.*?-->\s*", "", text, flags=re.DOTALL).strip()
+
+
+def extract_brief(o: Ollama, cfg: ModelCfg, text: str) -> dict[str, Any] | None:
+    """Job brief that feeds the writing tasks (same schema as task_extract)."""
     messages = [
         {
             "role": "system",
-            "content": f"You write cover letters. Write in {language}. Output only the requested paragraph: no heading, "
-            "no greeting, no sign-off, no placeholders.",
+            "content": "Extract a job brief from the posting. Reply with one JSON object and nothing else, matching this "
+            f"JSON schema:\n{json.dumps(JOB_BRIEF_SCHEMA)}\nList items are short and in the posting's language.",
         },
+        {"role": "user", "content": text},
+    ]
+    resp, _ = o.chat(cfg, messages, temperature=AGENT_TEMPERATURE, fmt=JOB_BRIEF_SCHEMA, think=False, num_predict=JSON_MAX_TOKENS)
+    try:
+        data = parse_json(resp.get("message", {}).get("content", ""))
+    except (json.JSONDecodeError, TypeError):
+        return None
+    return data if isinstance(data, dict) else None
+
+
+WRITER_RULES = (
+    "Fill the template. Each {{ ... }} is an instruction: replace it with text that follows the instruction, using only "
+    "facts from the job brief, the posting or the candidate CV. Keep every sentence outside {{ }} exactly as written. "
+    "Write English only. Never claim a skill, employer, date or degree that is not in the CV. Output only the finished "
+    "text: no commentary, no code fences, no remaining {{ }} and no placeholders."
+)
+
+
+def word_count(text: str) -> int:
+    return len(re.findall(r"\S+", text))
+
+
+def writer_messages(system: str, template: str, brief: dict[str, Any] | None, text: str, profile: str) -> list[dict[str, str]]:
+    brief_json = json.dumps(brief, ensure_ascii=False) if brief else "(none)"
+    return [
+        {"role": "system", "content": system},
         {
             "role": "user",
-            "content": f"CANDIDATE\n{profile}\n\nJOB POSTING\n{text}\n\nWrite the middle paragraph of the candidate's "
-            f"cover letter for this job, in {language}, 120-160 words, first person. Use concrete evidence from the "
-            "candidate profile that matches the most important requirements of the posting.",
+            "content": f"TEMPLATE\n{template}\n\nJOB BRIEF\n{brief_json}\n\nJOB POSTING\n{text}\n\nCANDIDATE CV\n{profile}",
         },
     ]
-    resp, wall = o.chat(cfg, messages, temperature=WRITER_TEMPERATURE, think=False, num_predict=600)
+
+
+def task_letter(o: Ollama, cfg: ModelCfg, name: str, text: str, profile: str, brief: dict[str, Any] | None) -> Call:
+    today = datetime.now().astimezone().strftime("%d %B %Y").lstrip("0")
+    messages = writer_messages(
+        WRITER_RULES + f" Today's date is {today}.", read_template("cover_letter_template.md"), brief, text, profile
+    )
+    resp, wall = o.chat(cfg, messages, temperature=WRITER_TEMPERATURE, think=False, num_predict=1500)
     content = (resp.get("message", {}).get("content") or "").strip()
-    return Call(cfg.alias, "letter", name, bool(content), wall, detail={"text": content, "language": lang}, **timing(resp))
+    words = word_count(content)
+    unresolved = "{{" in content or "}}" in content
+    ok = bool(content) and not unresolved and LETTER_WORDS[0] <= words <= LETTER_WORDS[1]
+    detail = {"text": content, "kind": "letter", "words": words, "unresolved": unresolved}
+    return Call(cfg.alias, "letter", name, ok, wall, detail=detail, **timing(resp))
+
+
+def task_email(o: Ollama, cfg: ModelCfg, name: str, text: str, profile: str, brief: dict[str, Any] | None) -> Call:
+    contact = (brief or {}).get("contact") or {}
+    recruiter = contact.get("name") or "Hiring Team"
+    messages = writer_messages(
+        WRITER_RULES + f" The recruiter to greet is: {recruiter}.", read_template("recruiter_email_template.md"), brief, text, profile
+    )
+    resp, wall = o.chat(cfg, messages, temperature=WRITER_TEMPERATURE, think=False, num_predict=700)
+    content = (resp.get("message", {}).get("content") or "").strip()
+    words = word_count(content)
+    unresolved = "{{" in content or "}}" in content
+    ok = bool(content) and not unresolved and words <= EMAIL_MAX_WORDS
+    detail = {"text": content, "kind": "email", "words": words, "unresolved": unresolved}
+    return Call(cfg.alias, "email", name, ok, wall, detail=detail, **timing(resp))
 
 
 # --- run ---------------------------------------------------------------------
@@ -529,16 +613,18 @@ def run(args: argparse.Namespace) -> None:
                             )
                 if is_gemma:
                     record(residency_check(o, alias, cfg.name, f"{name} analysis"))
-            if "letter" in model_tasks:
+            if "letter" in model_tasks or "email" in model_tasks:
                 for name, text in postings:
-                    lang = posting_lang(name, labels.get(name, {}))
-                    guarded(task_letter, o, cfg, name, text, profile, lang, task="letter", posting=name)
+                    brief = extract_brief(o, cfg, text)
+                    for task, fn in (("letter", task_letter), ("email", task_email)):
+                        if task in model_tasks:
+                            guarded(fn, o, cfg, name, text, profile, brief, task=task, posting=name)
                     if is_gemma:
                         o.embed(text[:2000])
                         record(residency_check(o, alias, cfg.name, f"{name} generation"))
 
     total_s = time.perf_counter() - started
-    letters = [c for c in calls if c.task == "letter" and c.ok]
+    letters = [c for c in calls if c.task in ("letter", "email") and c.detail.get("text")]
     if letters:
         write_ratings(out, stem, letters)
     report = render_report(args, stem, calls, total_s, o.version(), profile_path.exists(), labels)
@@ -556,11 +642,11 @@ def write_ratings(out: Path, stem: str, letters: list[Call]) -> None:
     key: dict[str, str] = {}
     with (out / f"{stem}-ratings.csv").open("w", encoding="utf-8-sig", newline="") as f:
         w = csv.writer(f)
-        w.writerow(["id", "posting", "language", "text", "rating", "comment"])
+        w.writerow(["id", "posting", "kind", "text", "rating", "comment"])
         for i, c in enumerate(rows, 1):
             rid = f"L{i:02d}"
             key[rid] = c.model
-            w.writerow([rid, c.posting, c.detail["language"], c.detail["text"], "", ""])
+            w.writerow([rid, c.posting, c.task, c.detail["text"], "", ""])
     (out / f"{stem}-key.json").write_text(json.dumps(key, indent=2), encoding="utf-8")
 
 
@@ -675,12 +761,23 @@ def render_report(
         lines += [f"- {c.posting}: missing={c.detail['missing']} partial={c.detail['partial']}" for c in res if not c.ok]
 
     lines += ["", "## Failures", ""]
-    bad = [c for c in calls if not c.ok and c.task != "letter"]
+    bad = [c for c in calls if not c.ok]
     lines += [f"- {c.model} {c.task} {c.posting}: `{json.dumps(c.detail, ensure_ascii=False)[:300]}`" for c in bad] or ["None."]
-    if any(c.task == "letter" and c.ok for c in calls):
+    writing = [c for c in calls if c.task in ("letter", "email")]
+    if writing:
         lines += [
             "",
-            "## Cover-letter rating",
+            "## Writing checks and rating",
+            "",
+            "| Task | Checks passed | Mean words |",
+            "|---|---|---|",
+            *[
+                f"| {t} | {pct(sum(c.ok for c in writing if c.task == t), len([c for c in writing if c.task == t]))} | "
+                f"{sum(c.detail.get('words', 0) for c in writing if c.task == t) / max(1, len([c for c in writing if c.task == t])):.0f} |"
+                for t in ("letter", "email")
+            ],
+            "",
+            "Checks: no `{{ }}` left; letter 150-450 words; email at most 150 words.",
             "",
             (
                 f"Rate `{stem}-ratings.csv` (column `rating`, 1–5) without opening `{stem}-key.json`, then run "
@@ -702,21 +799,21 @@ def score(args: argparse.Namespace) -> None:
                 continue
             model = key[row["id"]]
             r = int(row["rating"])
-            by.setdefault((model, row["language"]), []).append(r)
+            by.setdefault((model, row["kind"]), []).append(r)
             by.setdefault((model, "all"), []).append(r)
     if not by:
         sys.exit("No ratings filled in yet.")
-    print("| Model | Language | n | Mean rating |\n|---|---|---|---|")
-    for (model, lang), rs in sorted(by.items()):
-        print(f"| {model} | {lang} | {len(rs)} | {sum(rs) / len(rs):.2f} |")
+    print("| Model | Kind | n | Mean rating |\n|---|---|---|---|")
+    for (model, kind), rs in sorted(by.items()):
+        print(f"| {model} | {kind} | {len(rs)} | {sum(rs) / len(rs):.2f} |")
 
 
 def main() -> None:
     p = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sub = p.add_subparsers(dest="cmd", required=True)
     r = sub.add_parser("run", help="run the benchmark")
-    r.add_argument("--models", default="ajs-gemma,mimir,qwen")
-    r.add_argument("--tasks", default="tool,extract,rubric,letter")
+    r.add_argument("--models", default="ajs-gemma")
+    r.add_argument("--tasks", default="tool,extract,rubric,letter,email")
     r.add_argument("--repeats", type=int, default=3, help="repeats for the tool and extract tasks")
     r.add_argument("--num-ctx", type=int, default=int(os.environ.get("LLM_NUM_CTX", "32768")))
     r.add_argument("--postings", default=str(DATA_ROOT / "profile" / "eval_postings"))

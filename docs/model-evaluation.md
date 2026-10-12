@@ -1,6 +1,6 @@
 # Model evaluation (plan 04)
 
-Measured on 2026-09-29/30 on the machine in [architecture.md §1](architecture.md#1-verified-environment-2026-09-28): RTX 5070 12 GB, Windows 11, Ollama 0.34.4 (native). Raw results and reports stay in `DATA_ROOT/evals/` and are not committed. This page holds only aggregates.
+Measured on 2026-09-29/30 (Ollama 0.34.4) and **re-run on 2026-10-12 on Ollama 0.40.3** on the machine in [architecture.md §1](architecture.md#1-verified-environment-2026-09-28): RTX 5070 12 GB, Windows 11, native Ollama. Sections marked *(0.40.3)* are current; unmarked VRAM numbers are from 0.34.4 and were only spot-checked. Raw results and reports stay in `DATA_ROOT/evals/` and are not committed. This page holds only aggregates.
 
 ## Decisions
 
@@ -13,8 +13,8 @@ Measured on 2026-09-29/30 on the machine in [architecture.md §1](architecture.m
 | Flash attention | `OLLAMA_FLASH_ATTENTION=1` (user env var) | Already on by default in 0.34.4 (`--flash-attn auto`). Set explicitly because the quantized KV cache requires it. |
 | KV cache | `OLLAMA_KV_CACHE_TYPE=q8_0` (user env var) **kept** | Saves ~0.45 GB at 32k (Gemma 8.70 → 8.24 GB dedicated; total GPU 10.98 → 10.77 GB with both models). Agent tasks identical to f16, same speed. |
 | Thinking | **off** for tool calls, extraction, writing and chat edits. **on** for rubric scoring at temperature 0.3, capped at 3072 output tokens, retried once with thinking off if the cap is hit | See [Rubric](#rubric-scoring-thinking-off-vs-on). Gemma 4 thinks by default, so every request sends `think` explicitly. |
-| JSON output | `format: <JSON schema>` (structured outputs), never `format: "json"` | With `format: "json"` and `think: false`, Gemma 4 emits broken JSON on 0.34.4 (e.g. `{"thought": 2024.05}`, 6/6 failures). With a schema: 18/18 valid. |
-| Temperatures | agent 0.2, rubric 0.3, writer 0.7, set per request | The Modelfile sets none, so agent and writer calls share one loaded model. |
+| JSON output | `format: <JSON schema>` (structured outputs), never `format: "json"` | Re-verified on 0.40.3: `format: "json"` + `think: false` gave 0/6 valid (extra text after the JSON, or the model's reasoning inside it); a schema gave 6/6. |
+| Temperatures | agent 0.2 (extraction retried at 0.5 when the JSON is invalid), rubric 0.3, writer 0.7, set per request | The Modelfile sets none, so agent and writer calls share one loaded model. At 0.2, `job_brief` extraction of one Danish posting failed 3/3 with truncated JSON (the server stops with `done_reason: stop`, probably its token-repeat limit); at 0.5 and 0.8 it succeeded 4/4. |
 
 ### Setup commands
 
@@ -31,47 +31,56 @@ Check: the server log (`%LOCALAPPDATA%\Ollama\server.log`) prints `OLLAMA_FLASH_
 
 ## Benchmark
 
-Harness: [backend/evals/model_bench.py](../backend/evals/model_bench.py) (standalone uv script). Inputs: 6 real postings (3 Danish, 3 English) with hand-made labels (company, title, language, contact present). The rubric and letter tasks use the user's CV. Tool and extraction ran 3 times per posting.
+Harness: [backend/evals/model_bench.py](../backend/evals/model_bench.py) (standalone uv script). Inputs: 6 real postings (3 Danish, 3 English) with hand-made labels (company, title, language, contact present). The rubric and writing tasks use the user's CV and templates. Tool and extraction ran 3 times per posting.
 
 ```powershell
-uv run backend/evals/model_bench.py run --tag f16 --rubric-temps 0.3
+uv run --system-certs backend/evals/model_bench.py run --tag r2 --rubric-temps 0.3
 uv run backend/evals/model_bench.py score C:/dev/JobSearchData/evals/<date>-<tag>-ratings.csv
 ```
 
-### Agent tasks
+### Agent tasks *(0.40.3)*
+
+6 postings (3 Danish, 3 English), 3 repeats. `job_brief` now also holds `location`, `relocation_ok`, `required_languages`, `danish_required` (D10).
 
 | Model | `find_application` tool call correct | `job_brief` schema valid | Brief fields correct | Gen tok/s | Prompt tok/s |
 |---|---|---|---|---|---|
-| **ajs-gemma** (f16 KV) | **18/18** | **18/18** | **72/72** | 62.7 | ~3000 |
-| **ajs-gemma** (q8_0 KV) | **18/18** | **18/18** | **72/72** | 63.8 | ~3500 |
-| qwen2.5:14b (baseline) | 18/18 | 18/18 | 72/72 | 60.0 | ~7300 |
-| DFM-Mimir Q4_K_M (baseline) | 0/18 | 0/18 | – | 79.4 | – |
+| **ajs-gemma** (q8_0 KV, `num_ctx` 32768) | **18/18** | 15/18 | 60/60 of the valid ones | 63.5 | ~1550 |
 
-- "Correct" tool call: `find_application` called with the labelled company and title (normalized match). "Brief fields": language, company, title and contact presence.
-- Mimir never emits a tool call (it answers in text). For extraction it fills the 2048-token output cap without producing valid JSON, with both `format: <schema>` and `format: "json"` (0/6 each). It stays a writing baseline only.
+- The 3 invalid extractions are one Danish posting at temperature 0.2 (see Decisions). Mimir and qwen2.5:14b were not re-run (D1 note, 2026-10-12); their 0.34.4 results stand: Mimir 0/18 on tools and JSON, qwen 18/18 and 18/18.
+- "Correct" tool call: `find_application` called with the labelled company and title (normalized match).
 
-### Rubric scoring: thinking off vs on
+### Rubric scoring: thinking off vs on *(0.40.3)*
 
-Five criteria (skills, experience, domain, language, location), each 0–5, total scaled to 0–100.
+Three criteria (skills, experience, domain; D10), each 0–5, total scaled to 0–100, temperature 0.3.
 
-| Run | Valid off | Valid on | Mean \|off − on\| | Criteria equal | Mean wall off | Mean wall on (ok calls) |
-|---|---|---|---|---|---|---|
-| f16, temperature 0 | 6/6 | 5/6 | 10.4 | 40% | 3.3 s | 17 s |
-| f16, temperature 0.3 | 6/6 | 6/6 | 7.3 | 40% | 4.5 s | 21 s |
-| q8_0, temperature 0.3 | 6/6 | 4/6 | 7.0 | 55% | 3.1 s | 19 s |
+| Posting | Total off | Total on | Wall off | Wall on |
+|---|---|---|---|---|
+| DA-1 | 93 | invalid (cap) | 2.8 s | 129 s |
+| DA-2 | 87 | 100 | 2.9 s | 27 s |
+| DA-3 | 73 | 87 | 3.0 s | 21 s |
+| EN-1 | 80 | 93 | 2.9 s | 13 s |
+| EN-2 | 80 | 87 | 2.8 s | 16 s |
+| EN-3 | 80 | invalid (cap) | 2.7 s | 129 s |
 
-- **Runaway thinking.** In 3 of 18 thinking calls, Gemma kept rewording its rationale until the 8192-token cap (~130 s) and never answered. With an earlier CV draft that gave no language levels, all 4 thinking calls at temperature 0 did this. Successful thinking calls used at most 1550 tokens and 25 s, so a 3072-token cap catches a runaway in ~50 s. The sample is too small to attribute the two q8_0 runaways to the KV cache: agent tasks were identical, and sampling at 0.3 is random.
-- **Thinking off misreads the profile.** It scored an English-native candidate 1–3/5 on language for English postings. Thinking on gave 3–4, and on Danish postings it matched the stated Danish level more closely. Thinking off is cheap but its errors are systematic, so the matcher uses thinking on with the cap and fallback above.
-- **Matcher design note for plan 08:** location and language are equal-weight criteria. A candidate who is relocating loses 30–40 points on them, so totals stayed between 48 and 76 even with strong skills and experience scores, which leaves little margin around the D8 threshold of 70. Plan 08 must account for relocation intent (profile statement, criterion weights, or a filter).
+- Thinking off: 6/6 valid. Thinking on: 4/6 valid; the 2 failures are runaway thinking that hit the 8192-token cap in the harness (~130 s). Successful thinking calls used about 700–1700 tokens (2.7k–6.1k characters), so the 3072-token cap and the retry with thinking off (Decisions) still apply.
+- Mean |off − on| is 11.8 points on the valid pairs and the criteria agree in 42% of cases; thinking on scores higher.
+- **With only skills, experience and domain, every posting scores 73–100.** All of them are above the old threshold of 55, so the rubric alone does not separate postings. The D8 threshold is set from the user's would-apply labels (below).
 
-### Cover-letter paragraph (Danish and English), blind rating
+### Writing tasks *(0.40.3)*
 
-| Model | Danish mean (n) | English mean (n) |
+Always English (A2), filled from `cover_letter_template.md` / `recruiter_email_template.md`, thinking off, temperature 0.7.
+
+| Task | Checks passed | Mean words |
 |---|---|---|
-| ajs-gemma | pending | pending |
-| DFM-Mimir | pending | pending |
+| Cover letter (150–450 words, no `{{ }}` left) | 6/6 | 227 |
+| Recruiter email (≤ 150 words, no `{{ }}` left) | 6/6 | 142 |
 
-All 12 paragraphs were generated (6 per model, 120–160 words requested). Ratings are pending: the user rates `DATA_ROOT/evals/2026-09-30-f16-ratings.csv`. If Mimir clearly wins the Danish rows, D1 is revisited with the user first.
+The blind 1–5 ratings (`DATA_ROOT/evals/2026-10-12-r2-ratings.csv`) are pending. The automated checks do not judge quality or invented facts.
+
+### Co-residency *(0.40.3)*
+
+- `/api/ps` showed both models fully on GPU in 11/12 checks after postings. The miss is the first load: Gemma loaded after `bge-m3` evicts it. Controlled test: `bge-m3` then Gemma leaves **only Gemma**; Gemma then `bge-m3` leaves **both**, 100% GPU. Same behaviour as 0.34.4, so the worker still warms up `ajs-gemma` first.
+- Peak `nvidia-smi` memory.used: 10,747 MiB of 12,227 MiB.
 
 ### VRAM (both models loaded, `nvidia-smi`)
 
