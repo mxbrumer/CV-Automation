@@ -17,13 +17,13 @@ The goal of this project is to automate much of the job search and application p
 * Folder on the user's local machine for blob storage
 * FastAPI
 * React Frontend
-* LLM DFM-Mimir: https://huggingface.co/danish-foundation-models/DFM-Mimir
+* LLM: gemma4:12b
 
 
 ## User Provided Information (these files are a work in progress) ##
-* Detailed user CV.
-* Cover letter template
-* Recruiter email template
+* Detailed user CV: "C:\JobSearchData\profile\cv.md"
+* Cover letter template:
+* Recruiter email template: "C:\JobSearchData\profile\cover_letter_template.md"
 
 ## Planned Agentic Workflow (this should be done with multiple agents) ##
 1. An email will be recieved with newly posted jobs.
