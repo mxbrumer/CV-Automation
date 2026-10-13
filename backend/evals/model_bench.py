@@ -115,6 +115,7 @@ JOB_BRIEF_SCHEMA: dict[str, Any] = {
         "relocation_ok",
         "required_languages",
         "danish_required",
+        "company_values",
     ],
     "properties": {
         "title": {"type": "string", "minLength": 1},
@@ -132,6 +133,7 @@ JOB_BRIEF_SCHEMA: dict[str, Any] = {
         "relocation_ok": {"type": ["boolean", "null"]},
         "required_languages": {"type": "array", "items": {"type": "string"}, "maxItems": 6},
         "danish_required": {"type": "boolean"},
+        "company_values": {"type": "array", "items": {"type": "string"}, "maxItems": 3},
     },
 }
 
@@ -331,6 +333,8 @@ def task_extract(o: Ollama, cfg: ModelCfg, name: str, text: str, label: dict[str
             "offers relocation support or accepts candidates who still have to move, false if it requires living "
             "locally already, null if not stated. required_languages lists the ISO 639-1 codes of languages the "
             "posting requires (not 'nice to have'). danish_required is true only if Danish is required. "
+            "company_values lists values, principles or ways of working the posting itself states about the company "
+            "(at most 3 short phrases of up to 4 words, in English); use [] if it states none. Never invent values. "
             "List items are short (at most 12 words) and in the posting's language. At most 25 keywords.",
         },
         {"role": "user", "content": text},
@@ -432,23 +436,32 @@ def extract_brief(o: Ollama, cfg: ModelCfg, text: str) -> dict[str, Any] | None:
         {
             "role": "system",
             "content": "Extract a job brief from the posting. Reply with one JSON object and nothing else, matching this "
-            f"JSON schema:\n{json.dumps(JOB_BRIEF_SCHEMA)}\nList items are short and in the posting's language.",
+            f"JSON schema:\n{json.dumps(JOB_BRIEF_SCHEMA)}\nList items are short and in the posting's language, except "
+            "company_values (English). company_values holds only values the posting itself states about the company; "
+            "use [] if it states none. Never invent values.",
         },
         {"role": "user", "content": text},
     ]
-    resp, _ = o.chat(cfg, messages, temperature=AGENT_TEMPERATURE, fmt=JOB_BRIEF_SCHEMA, think=False, num_predict=JSON_MAX_TOKENS)
-    try:
-        data = parse_json(resp.get("message", {}).get("content", ""))
-    except (json.JSONDecodeError, TypeError):
-        return None
-    return data if isinstance(data, dict) else None
+    # Retry at a higher temperature: at 0.2 some postings end in truncated JSON or a server "token repeat limit" error.
+    for temperature in (AGENT_TEMPERATURE, 0.5, 0.8):
+        try:
+            resp, _ = o.chat(cfg, messages, temperature=temperature, fmt=JOB_BRIEF_SCHEMA, think=False, num_predict=JSON_MAX_TOKENS)
+            data = parse_json(resp.get("message", {}).get("content", ""))
+            if isinstance(data, dict) and not list(Draft202012Validator(JOB_BRIEF_SCHEMA).iter_errors(data)):
+                return data
+        except (RuntimeError, json.JSONDecodeError, TypeError):
+            continue
+    return None
 
 
 WRITER_RULES = (
     "Fill the template. Each {{ ... }} is an instruction: replace it with text that follows the instruction, using only "
     "facts from the job brief, the posting or the candidate CV. Keep every sentence outside {{ }} exactly as written. "
     "Write English only. Never claim a skill, employer, date or degree that is not in the CV. Output only the finished "
-    "text: no commentary, no code fences, no remaining {{ }} and no placeholders."
+    "text: no commentary, no code fences, no remaining {{ }} and no placeholders. Write job titles in English. "
+    "For 'values' placeholders use only job_brief.company_values. If it is empty, do not mention diversity, inclusion "
+    "or other generic values: describe the company's stated mission or domain instead (for example 'building secure "
+    "banking technology'), taken from the posting."
 )
 
 
