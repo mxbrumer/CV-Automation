@@ -1,0 +1,12 @@
+from pydantic_settings import BaseSettings, SettingsConfigDict
+
+
+class Settings(BaseSettings):
+    model_config = SettingsConfigDict(env_file=".env", extra="ignore")
+
+    database_url: str = "postgresql+psycopg://jobsearch:jobsearch@localhost:5432/jobsearch"
+    match_threshold: int = 55
+
+
+def get_settings() -> Settings:
+    return Settings()

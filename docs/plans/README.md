@@ -10,7 +10,7 @@ Each plan is sized for **one agent session**. Read [../architecture.md](../archi
 | 02 | [CI/CD & release versioning](02-ci-cd-and-releases.md) | 01 | done |
 | 03 | [Docker infrastructure](03-docker-infrastructure.md) | 01 | done |
 | 04 | [Local models setup & evaluation](04-local-models.md) | 03 | done |
-| 05 | [Database schema & migrations](05-database-schema.md) | 03 | todo |
+| 05 | [Database schema & migrations](05-database-schema.md) | 03 | done |
 | 06 | [FastAPI core & tool endpoints](06-fastapi-core.md) | 05 | todo |
 | 07 | [Feed intake & posting fetcher](07-feed-intake.md) | 06 | todo |
 | 08 | [LangFlow flows: analysis → match](08-langflow-analysis-flows.md) | 04, 06 | todo |
@@ -50,3 +50,6 @@ _(append here)_
 - (04 → 05) `backend/evals/model_bench.py` is a standalone uv script (PEP 723 inline deps) because `backend/pyproject.toml` does not exist yet. When plan 05 creates the project, keep `evals/` out of the package and out of `mypy`'s `files` (or type-check it separately).
 - (04 → 09) Email ratings were deferred on 2026-10-12. The first run rated 1.83 because of invented company values; `company_values` in `job_brief` fixes that, but the user has not re-rated. Re-rate `DATA_ROOT/evals/2026-10-12-r7-ratings.csv` (email rows) during plan 09. Also settle the email length check: the template alone is ~135 words, so a ≤ 150-word cap fails 3 of 6; use ~170 or shorten values to one word each. The brief schema gains `company_values` and four D10 fields (`location`, `relocation_ok`, `required_languages`, `danish_required`), so plan 08's analyst output must include them.
 - (04 → 08) Relocation: **decided 2026-10-12 as D10** (location/language are flags, not scored; threshold 55). With equal weights, location and language cost a relocating candidate 30–40 of 100 points (benchmark totals 48–76 vs the D8 threshold 70). Use thinking on at temperature 0.3, capped at 3072 output tokens, with one retry with thinking off when the cap is hit (`docs/model-evaluation.md`).
+- (05 → 06, 11) Dashboard counts are a SQL function, not a view: `SELECT * FROM dashboard_counts(<threshold>)` returns `reviewed`, `awaiting_match_review`, `good_match` (`match_score >= threshold`). The API passes `MATCH_THRESHOLD` (D8).
+- (05 → 06, 07) Plan 05 uses `uv_build` and the `ajs` package in `backend/src/ajs`. `ajs.domain.normalize` has `normalize_company` and `normalize_title` for the A5 dedup. Scratch DB for local tests: `DATABASE_URL=postgresql+psycopg://jobsearch_scratch:jobsearch@127.0.0.1:5432/jobsearch_test` (role and DB created by hand in the compose Postgres, not in git). Use `127.0.0.1`, not `localhost`: `localhost` made each Postgres connection from Windows take about a minute.
+- (05) On this machine `uv` needs `UV_SYSTEM_CERTS=1` (TLS interception, same cause as the git note above).
