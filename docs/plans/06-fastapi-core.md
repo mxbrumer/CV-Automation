@@ -33,7 +33,7 @@ Backend API that owns DB + blob storage, serves the frontend, exposes "tool" end
 
 ## Acceptance criteria
 - [x] `uv run pytest` covers: dedup find (exact URL, fuzzy match, no match), status transition validation (incl. gate 1: only `awaiting_match_review` accepts a match decision), match score math + threshold, blob path traversal rejection, queue ordering incl. skip.
-- [ ] _(not verified in Docker: image build fails on TLS interception, see Follow-ups; `/health` and `/docs` verified with uvicorn on the host)_ `docker compose up backend` → `GET /health` 200; `/docs` lists all endpoints.
+- [x] `docker compose up backend` → `GET /health` 200; `/docs` lists all endpoints.
 - [x] Requests without API key → 401.
 
 ## Out of scope

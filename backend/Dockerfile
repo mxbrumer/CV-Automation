@@ -3,12 +3,16 @@ FROM python:3.12-slim
 # WeasyPrint system libraries (used from plan 09 on) and curl for the healthcheck.
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
-        libpango-1.0-0 libpangoft2-1.0-0 libharfbuzz0b libharfbuzz-subset0 fonts-dejavu-core curl \
+        libpango-1.0-0 libpangoft2-1.0-0 libharfbuzz0b libharfbuzz-subset0 fonts-dejavu-core curl ca-certificates \
     && rm -rf /var/lib/apt/lists/*
 
+# Optional extra root CAs (*.crt in backend/certs, git-ignored) for machines behind TLS
+# interception; uv then reads the system store.
+COPY certs/ /usr/local/share/ca-certificates/extra/
+RUN update-ca-certificates
 COPY --from=ghcr.io/astral-sh/uv:0.11 /uv /usr/local/bin/uv
 
-ENV UV_COMPILE_BYTECODE=1 UV_LINK_MODE=copy UV_PROJECT_ENVIRONMENT=/opt/venv PYTHONUNBUFFERED=1
+ENV UV_COMPILE_BYTECODE=1 UV_LINK_MODE=copy UV_NATIVE_TLS=1 UV_PROJECT_ENVIRONMENT=/opt/venv PYTHONUNBUFFERED=1
 WORKDIR /app
 
 COPY pyproject.toml uv.lock README.md ./
