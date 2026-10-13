@@ -1,6 +1,6 @@
 # AI Job Search
 
-A local-only assistant that turns job-alert emails into reviewed, ready-to-send applications. It polls an inbox over IMAP, splits alerts into postings, deduplicates them, scores each against your CV, and drafts a tailored CV, cover letter and recruiter email in Danish or English. Every LLM runs locally through Ollama, and applications are always submitted manually after you review them in the web UI.
+A local-only assistant that turns Jobindex job postings into reviewed, ready-to-send applications. It polls Jobindex RSS feeds, deduplicates postings, scores each against your CV, asks you to confirm good matches, and drafts a tailored CV, cover letter and recruiter email in English. Every LLM runs locally through Ollama, and applications are always submitted manually after you review them in the web UI.
 
 ## Prerequisites
 

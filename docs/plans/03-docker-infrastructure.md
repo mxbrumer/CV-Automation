@@ -6,7 +6,7 @@
 One `docker compose` stack for Postgres, Phoenix, LangFlow, backend and frontend, with data outside OneDrive (D6) and Ollama on the host (D2).
 
 ## Steps
-1. **`DATA_ROOT`** (default `C:\JobSearchData`): script `scripts/init-data-root.ps1` creates
+1. **`DATA_ROOT`** (default `C:\dev\JobSearchData`): script `scripts/init-data-root.ps1` creates
    `applications/`, `profile/`, `postgres/`, `phoenix/`, `langflow/`, `backups/`. Idempotent.
 2. **`infra/.env.example`** (copy to `infra/.env`, gitignored). Vars: `DATA_ROOT`, `POSTGRES_USER/PASSWORD/DB` (app DB `jobsearch`), `LANGFLOW_DB`, `LANGFLOW_SUPERUSER`, `LANGFLOW_SUPERUSER_PASSWORD`, `LANGFLOW_API_KEY`, `BACKEND_API_KEY`, `OLLAMA_BASE_URL=http://host.docker.internal:11434`, `PHOENIX_COLLECTOR_ENDPOINT`, `IMAP_*` (plan 07), `MATCH_THRESHOLD=70`.
 3. **`infra/docker-compose.yml`** services (all ports bound to `127.0.0.1` per A1):
@@ -24,12 +24,12 @@ One `docker compose` stack for Postgres, Phoenix, LangFlow, backend and frontend
 6. Update CLAUDE.md "How to run" if commands differ.
 
 ## Acceptance criteria
-- [ ] `scripts/dev.ps1 up` → `postgres`, `phoenix`, `langflow` healthy (`docker compose ps`).
-- [ ] LangFlow UI at http://127.0.0.1:7860 logs in with superuser; `langflow` DB contains its tables (`\dt` via `docker compose exec postgres psql`).
-- [ ] Phoenix UI at http://127.0.0.1:6006.
-- [ ] Ollama reachable from the langflow container (step 4).
-- [ ] Nothing written under the OneDrive repo path at runtime.
-- [ ] `docker compose config -q` passes (CI infra job).
+- [x] `scripts/dev.ps1 up` → `postgres`, `phoenix`, `langflow` healthy (`docker compose ps`).
+- [x] LangFlow UI at http://127.0.0.1:7860 logs in with superuser; `langflow` DB contains its tables (`\dt` via `docker compose exec postgres psql`).
+- [x] Phoenix UI at http://127.0.0.1:6006.
+- [x] Ollama reachable from the langflow container (step 4).
+- [x] Nothing written under the OneDrive repo path at runtime.
+- [x] `docker compose config -q` passes (CI infra job).
 
 ## Out of scope
 Backend/frontend code and Dockerfile contents beyond placeholders (06, 11).

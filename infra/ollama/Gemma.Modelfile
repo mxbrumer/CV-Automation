@@ -1,0 +1,10 @@
+# ajs-gemma: the single app LLM (D1). Build with scripts/pull-models.ps1
+# (or: ollama create ajs-gemma -f infra/ollama/Gemma.Modelfile).
+#
+# FROM gemma4:12b inherits the built-in gemma4 renderer/parser (chat template,
+# stop tokens, tool-call and thinking parsing) and the sampling defaults
+# (top_k 64, top_p 0.95). Temperature is set per request so agent and writer
+# calls share one loaded model. Every caller must use this num_ctx; a
+# different value makes Ollama reload the model. See docs/model-evaluation.md.
+FROM gemma4:12b
+PARAMETER num_ctx 32768

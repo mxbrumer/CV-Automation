@@ -7,7 +7,7 @@ description: Execute an implementation plan from docs/plans/ (a given number lik
 
 Argument: optional plan number (e.g. `03`). Without it, pick the next plan.
 
-1. Read `docs/plans/README.md` and `docs/architecture.md`. Decisions D1–D8 and assumptions A1–A6 are fixed; if one proves wrong, stop and ask the user.
+1. Read `docs/plans/README.md` and `docs/architecture.md`. Decisions D1–D11 and assumptions A1–A6 are fixed; if one proves wrong, stop and ask the user.
 2. Choose the plan:
    - If a number was given, use it. If any of its dependencies is not `done`, tell the user and stop.
    - Otherwise take the lowest-numbered plan with status `todo` whose dependencies are all `done`.

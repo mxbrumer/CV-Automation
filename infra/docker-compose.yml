@@ -1,0 +1,113 @@
+# Local stack. Run through scripts/dev.ps1; variables come from infra/.env.
+# Every port binds to 127.0.0.1 only (A1). Ollama runs natively on the host (D2).
+# All runtime data lives under ${DATA_ROOT}, outside OneDrive (D6).
+name: ajs
+
+services:
+  postgres:
+    image: postgres:17
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:?set in infra/.env}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?set in infra/.env}
+      POSTGRES_DB: ${POSTGRES_DB:-jobsearch}
+      LANGFLOW_DB: ${LANGFLOW_DB:-langflow}
+    volumes:
+      - ${DATA_ROOT:?set in infra/.env}/postgres:/var/lib/postgresql/data
+      - ${DATA_ROOT}/backups:/backups
+      - ./postgres/init:/docker-entrypoint-initdb.d:ro
+      - ./postgres/scripts:/scripts:ro
+    ports:
+      - "127.0.0.1:5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U \"$$POSTGRES_USER\" -d \"$$POSTGRES_DB\""]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  phoenix:
+    image: arizephoenix/phoenix:version-20.16.0
+    restart: unless-stopped
+    environment:
+      PHOENIX_WORKING_DIR: /mnt/data
+      PHOENIX_TELEMETRY_ENABLED: "false"
+    volumes:
+      - ${DATA_ROOT}/phoenix:/mnt/data
+    ports:
+      - "127.0.0.1:6006:6006" # UI + OTLP HTTP
+      - "127.0.0.1:4317:4317" # OTLP gRPC
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:6006/healthz', timeout=5)"]
+      interval: 10s
+      timeout: 10s
+      retries: 12
+      start_period: 30s
+
+  langflow:
+    image: langflowai/langflow:1.12.3
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+      phoenix:
+        condition: service_started
+    environment:
+      LANGFLOW_DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${LANGFLOW_DB:-langflow}
+      LANGFLOW_CONFIG_DIR: /app/langflow
+      LANGFLOW_AUTO_LOGIN: "false"
+      LANGFLOW_SUPERUSER: ${LANGFLOW_SUPERUSER:?set in infra/.env}
+      LANGFLOW_SUPERUSER_PASSWORD: ${LANGFLOW_SUPERUSER_PASSWORD:?set in infra/.env}
+      LANGFLOW_COMPONENTS_PATH: /app/custom_components
+      LANGFLOW_DO_NOT_TRACK: "true"
+      PHOENIX_COLLECTOR_ENDPOINT: ${PHOENIX_COLLECTOR_ENDPOINT:-http://phoenix:6006}
+      # Components are mounted read-only from the repo; never write .pyc into OneDrive.
+      PYTHONDONTWRITEBYTECODE: "1"
+    volumes:
+      - ${DATA_ROOT}/langflow:/app/langflow
+      - ../langflow/components:/app/custom_components:ro
+    ports:
+      - "127.0.0.1:7860:7860"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:7860/health_check', timeout=5)"]
+      interval: 10s
+      timeout: 10s
+      retries: 30
+      start_period: 60s
+
+  # Enabled by plan 06 (remove the profiles gate then).
+  backend:
+    profiles: ["app"]
+    build: ../backend
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgresql+psycopg://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB:-jobsearch}
+      DATA_ROOT: /data
+      HOST_DATA_ROOT: ${DATA_ROOT}
+      BACKEND_API_KEY: ${BACKEND_API_KEY:-}
+      LANGFLOW_URL: http://langflow:7860
+      LANGFLOW_API_KEY: ${LANGFLOW_API_KEY:-}
+      OLLAMA_BASE_URL: ${OLLAMA_BASE_URL:-http://host.docker.internal:11434}
+      PHOENIX_COLLECTOR_ENDPOINT: ${PHOENIX_COLLECTOR_ENDPOINT:-http://phoenix:6006}
+      MATCH_THRESHOLD: ${MATCH_THRESHOLD:-55}
+    volumes:
+      - ${DATA_ROOT}/applications:/data/applications
+      - ${DATA_ROOT}/profile:/data/profile:ro
+    ports:
+      - "127.0.0.1:8000:8000"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+  # Enabled by plan 11. Dev mode runs Vite outside Docker.
+  frontend:
+    profiles: ["app"]
+    build: ../frontend
+    restart: unless-stopped
+    depends_on:
+      - backend
+    ports:
+      - "127.0.0.1:5173:80"
