@@ -1,5 +1,6 @@
 """UI endpoints (`/api/v1`) for the React app."""
 
+import json
 from datetime import UTC, datetime
 from typing import Annotated
 
@@ -227,7 +228,9 @@ def run_workflow(
     )
     session.add(run)
     session.commit()  # keep the record even if the flow call fails
-    input_value = body.input_value or (str(body.posting_id) if body.posting_id else "")
+    input_value = body.input_value or (
+        json.dumps({"posting_id": body.posting_id}) if body.posting_id else ""
+    )
     try:
         result = langflow.run_flow(flow_id, input_value)
         run.status = "succeeded"

@@ -59,7 +59,13 @@ services:
       LANGFLOW_SUPERUSER_PASSWORD: ${LANGFLOW_SUPERUSER_PASSWORD:?set in infra/.env}
       LANGFLOW_COMPONENTS_PATH: /app/custom_components
       LANGFLOW_DO_NOT_TRACK: "true"
+      # LangFlow refuses the OLLAMA_BASE_URL global variable (and its built-in Ollama
+      # component) for a hostname that resolves to a private IP unless it is listed here.
+      LANGFLOW_SSRF_ALLOWED_HOSTS: host.docker.internal
       PHOENIX_COLLECTOR_ENDPOINT: ${PHOENIX_COLLECTOR_ENDPOINT:-http://phoenix:6006}
+      # LangFlow only enables its Phoenix tracer when this key is set or the endpoint contains
+      # "localhost"/"127.0.0.1". Phoenix runs without auth here, so any placeholder works.
+      PHOENIX_API_KEY: local-phoenix-no-auth
       # Components are mounted read-only from the repo; never write .pyc into OneDrive.
       PYTHONDONTWRITEBYTECODE: "1"
     volumes:
@@ -92,7 +98,7 @@ services:
       OLLAMA_BASE_URL: ${OLLAMA_BASE_URL:-http://host.docker.internal:11434}
       PHOENIX_COLLECTOR_ENDPOINT: ${PHOENIX_COLLECTOR_ENDPOINT:-http://phoenix:6006}
       MATCH_THRESHOLD: ${MATCH_THRESHOLD:-55}
-      LANGFLOW_ANALYSIS_FLOW_ID: ${LANGFLOW_ANALYSIS_FLOW_ID:-}
+      LANGFLOW_ANALYSIS_FLOW_ID: ${LANGFLOW_ANALYSIS_FLOW_ID:-analyze_and_match}
       LANGFLOW_GENERATION_FLOW_ID: ${LANGFLOW_GENERATION_FLOW_ID:-}
     volumes:
       - ${DATA_ROOT}/applications:/data/applications

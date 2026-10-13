@@ -19,7 +19,8 @@ class Settings(BaseSettings):
 
     langflow_url: str = "http://127.0.0.1:7860"
     langflow_api_key: str = ""
-    langflow_analysis_flow_id: str = ""
+    # Flow id or endpoint name; imported flows keep the endpoint name (plan 08).
+    langflow_analysis_flow_id: str = "analyze_and_match"
     langflow_generation_flow_id: str = ""
     ollama_base_url: str = "http://host.docker.internal:11434"
 
