@@ -6,6 +6,8 @@ Measured on 2026-09-29/30 (Ollama 0.34.4) and **re-run on 2026-10-12 on Ollama 0
 
 | Setting | Value | Why |
 |---|---|---|
+| D8 threshold | **55** (unchanged) | The user would apply to all 6 eval postings. Hybrid scores (0.4 × bge-m3 cosine of CV vs posting + 0.6 × rubric) were 65–85 with thinking off and 71–85 with thinking on (cosine 54–62), so 55 admits all six with ≥ 10 points of margin. With no negative labels this only bounds the threshold from above (≤ 65); it cannot show where weak matches start. Recalibrate when real gate-1 declines exist. |
+| Mimir | Not re-run (user, 2026-10-12) | Output is English-only (A2), and Mimir failed every tool and JSON test (0/18). D1 stands. |
 | App LLM | `ajs-gemma` = `gemma4:12b` + `num_ctx 32768` ([infra/ollama/Gemma.Modelfile](../infra/ollama/Gemma.Modelfile)) | Passes every agent task (below). D1 stands, pending the blind letter rating. |
 | `num_ctx` | **32768** everywhere (`LLM_NUM_CTX`) | Largest value that keeps `ajs-gemma` + `bge-m3` reliably co-resident with margin. 64k with an f16 KV cache crashed `bge-m3` on load (CUDA out of memory). With q8_0, 64k loads but leaves only ~1.1 GB, which a browser or other GPU apps can take. |
 | `keep_alive` | **`30m`** for both models (`LLM_KEEP_ALIVE`), sent on every call | Gemma reloads in 2–4 s, so a short idle unload is cheap and frees VRAM for the desktop. Same value for both so they expire together. |
@@ -77,7 +79,7 @@ Always English (A2), filled from `cover_letter_template.md` / `recruiter_email_t
 | Cover letter (150–450 words, no `{{ }}` left) | 6/6 | 227 |
 | Recruiter email (≤ 150 words, no `{{ }}` left) | 6/6 | 142 |
 
-The blind 1–5 ratings (`DATA_ROOT/evals/2026-10-12-r2-ratings.csv`) are pending. The automated checks do not judge quality or invented facts.
+Blind 1–5 ratings by the user (run r2): **cover letters 4.00** (6 of 6 rated 4). **Emails 1.83**: the cause was invented company values, since the writer filled "applicable values" with generic diversity and inclusion text. The fix: `job_brief` has a `company_values` field (only values the posting states, at most 3, `[]` if none), and the email writer uses only that, else the company's stated mission. Runs r5–r7 show real posting values, but 3 of 6 emails then exceed the 150-word check (155–180 words; the template alone is ~135), and Danish values are sometimes left untranslated. **Email ratings are deferred** at the user's request (follow-up in plans README). The automated checks do not judge quality or invented facts.
 
 ### Co-residency *(0.40.3)*
 

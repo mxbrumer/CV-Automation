@@ -41,11 +41,11 @@ Ollama is now 0.40.3, and the rubric (D10), output language (A2) and templates (
 6. **Token budgeting helper** spec (implemented in plan 09): count tokens with the Gemma 4 tokenizer (`tokenizer.json` via the `tokenizers` lib). If the Hugging Face repo is gated, fall back to a conservative characters-per-token estimate. Check either method against Ollama's `prompt_eval_count`. It enforces the writer budgets in architecture §5, scaled to the chosen `num_ctx`.
 
 ## Acceptance criteria
-- [ ] `ollama list` shows `ajs-gemma` and `bge-m3`.
-- [ ] Benchmark runs end-to-end; summary committed in `docs/model-evaluation.md`.
-- [ ] Decision recorded: `num_ctx`, `keep_alive`, thinking on/off per task, flash attention/KV cache settings.
-- [ ] If Gemma fails the tool-call test, or Mimir clearly wins the blind Danish writing rating, **stop and ask the user** before changing D1.
-- [ ] Re-run (2026-10-12): suite run on Ollama 0.40.3 with the 3-criterion rubric, the template-based letter and the email tasks; ratings filled in; D8 threshold confirmed with the user; Follow-ups 04 → 08/09 re-verified.
+- [x] `ollama list` shows `ajs-gemma` and `bge-m3`.
+- [x] Benchmark runs end-to-end; summary committed in `docs/model-evaluation.md`.
+- [x] Decision recorded: `num_ctx`, `keep_alive`, thinking on/off per task, flash attention/KV cache settings.
+- [x] If Gemma fails the tool-call test, or Mimir clearly wins the blind Danish writing rating, **stop and ask the user** before changing D1. (Gemma 18/18 on tools; Mimir not re-run, waived by the user because output is English-only.)
+- [x] Re-run (2026-10-12) (letter ratings done, email ratings deferred by the user, D8 threshold 55 confirmed against would-apply labels): suite run on Ollama 0.40.3 with the 3-criterion rubric, the template-based letter and the email tasks; ratings filled in; D8 threshold confirmed with the user; Follow-ups 04 → 08/09 re-verified.
 
 ## Out of scope
 LangFlow flows (08/09).
