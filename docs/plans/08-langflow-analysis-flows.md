@@ -29,7 +29,7 @@ LangFlow docs: components, Agent component, custom components, API run endpoint,
 
 ## Acceptance criteria
 - [x] `import-flows.ps1` on a fresh LangFlow restores working flows. _Verified 2026-10-13 by deleting the flow and all global variables in the running LangFlow, then running the script and the golden tests; a full `reset-db` was not done (it would wipe the app DB)._
-- [ ] Feed fixture (plan 07) → pipeline analysis phase → rows in correct statuses with `job_brief`, scores and rationale. _Not verifiable yet: plan 07 (feed fixture, worker) is todo. Verified instead: `POST /api/v1/workflow/run` with phase `analysis` runs the flow and leaves a posting in `awaiting_match_review` with `job_brief`, scores and rationale. Re-check after plan 07._
+- [x] Feed fixture (plan 07) → pipeline analysis phase → rows in correct statuses with `job_brief`, scores and rationale. _Verified 2026-10-14: plan 07's real feed fixture (3 items) through `Pipeline.run_analysis()` with the real fetcher and `LangflowFlowRunner`, against the running stack and `MATCH_THRESHOLD=55`: one `needs_manual_text` (no text), one `low_match` (26.57), one `awaiting_match_review` (83.62); both analysed rows have `job_brief`, scores and rationale._
 - [x] `pytest -m llm` passes locally; traces visible in Phoenix. _13 passed (7 static + 6 golden) with `MATCH_THRESHOLD=55`; Phoenix project `analyze_and_match` shows one span per component._
 - [x] No non-Ollama model component in any flow JSON. _Checked by `langflow/tests/test_flows_static.py`._
 

@@ -13,7 +13,7 @@ Each plan is sized for **one agent session**. Read [../architecture.md](../archi
 | 05 | [Database schema & migrations](05-database-schema.md) | 03 | done |
 | 06 | [FastAPI core & tool endpoints](06-fastapi-core.md) | 05 | done |
 | 07 | [Feed intake & posting fetcher](07-feed-intake.md) | 06 | done |
-| 08 | [LangFlow flows: analysis → match](08-langflow-analysis-flows.md) | 04, 06 | in progress |
+| 08 | [LangFlow flows: analysis → match](08-langflow-analysis-flows.md) | 04, 06 | done |
 | 09 | [LangFlow flows: document generation](09-langflow-generation-flows.md) | 08 | todo |
 | 10 | [Observability & governance](10-observability-governance.md) | 08 | todo |
 | 11 | [Frontend scaffold & dashboard](11-frontend-dashboard.md) | 06 | todo |
