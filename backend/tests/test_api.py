@@ -253,3 +253,157 @@ def test_profile_endpoints(client: TestClient, settings: Any) -> None:
 def test_workflow_run_without_flow_id_is_503(client: TestClient, settings: Settings) -> None:
     settings.langflow_generation_flow_id = ""
     assert client.post(f"{U}/workflow/run", json={"phase": "generation"}).status_code == 503
+
+
+# ---- review: chat editing (plan 12) -----------------------------------------------------------
+
+
+class FakeLLM:
+    def __init__(self, reply: str = "", fail: bool = False) -> None:
+        self.reply, self.fail = reply, fail
+        self.seen: list[list[dict[str, str]]] = []
+
+    def stream(self, messages: list[dict[str, str]]) -> Any:
+        self.seen.append(messages)
+        if self.fail:
+            raise ConnectionError("ollama is down")
+        for i in range(0, len(self.reply), 12):
+            yield self.reply[i : i + 12]
+
+
+def use_llm(llm: FakeLLM) -> None:
+    from ajs.api.ui.chat import get_chat_llm
+
+    app.dependency_overrides[get_chat_llm] = lambda: llm
+
+
+def generated_posting(client: TestClient, settings: Settings) -> int:
+    pid = make_posting(client)
+    to_review(client, pid)
+    client.post(f"{U}/postings/{pid}/match-decision", json={"decision": "approve"})
+    for to in ("generating", "generated"):
+        client.post(f"{T}/postings/{pid}/status", json={"to": to})
+    client.post(f"{T}/postings/{pid}/artifacts", json={"kind": "cv", "markdown": "# CV v1"})
+    (settings.profile_root / "cv.md").write_text("# Max\nPython, SQL", encoding="utf-8")
+    return pid
+
+
+def sse_events(text: str) -> list[tuple[str, Any]]:
+    import json
+
+    out = []
+    for block in text.strip().split("\n\n"):
+        event, data = block.split("\n", 1)
+        out.append((event.removeprefix("event: "), json.loads(data.removeprefix("data: "))))
+    return out
+
+
+def test_chat_round_trip_creates_v2(client: TestClient, settings: Settings) -> None:
+    pid = generated_posting(client, settings)
+    llm = FakeLLM("EXPLANATION: Shortened the intro.\n<document>\n# CV v2 shorter\n</document>")
+    use_llm(llm)
+    r = client.post(f"{U}/postings/{pid}/artifacts/cv/chat", json={"message": "shorter"})
+    assert r.status_code == 200 and r.headers["content-type"].startswith("text/event-stream")
+    events = sse_events(r.text)
+    assert events[0][0] == "delta" and events[-1][0] == "done"
+    message = events[-1][1]["message"]
+    assert message["content"] == "Shortened the intro."
+    assert message["proposal"] == "# CV v2 shorter"
+    system = llm.seen[0][0]["content"]
+    assert "Python, SQL" in system and "# CV v1" in system  # CV evidence and current document
+    assert llm.seen[0][-1] == {"role": "user", "content": "shorter"}
+
+    history = client.get(f"{U}/postings/{pid}/artifacts/cv/chat").json()
+    assert [m["role"] for m in history] == ["user", "assistant"]
+
+    r = client.post(
+        f"{U}/postings/{pid}/artifacts/cv/chat/accept", json={"message_id": message["message_id"]}
+    )
+    assert r.status_code == 200 and r.json()["version"] == 2
+    assert r.json()["markdown"] == "# CV v2 shorter"
+    assert client.get(f"{U}/postings/{pid}/artifacts/cv").json()["version"] == 2
+    assert client.get(f"{U}/postings/{pid}/artifacts/cv?version=1").json()["markdown"] == "# CV v1"
+    assert client.get(f"{U}/postings/{pid}/artifacts/cv?version=9").status_code == 404
+
+
+def test_chat_question_has_no_proposal_and_cannot_be_accepted(
+    client: TestClient, settings: Settings
+) -> None:
+    pid = generated_posting(client, settings)
+    use_llm(FakeLLM("EXPLANATION: The CV does not mention Rust."))
+    r = client.post(f"{U}/postings/{pid}/artifacts/cv/chat", json={"message": "add Rust"})
+    message = sse_events(r.text)[-1][1]["message"]
+    assert message["proposal"] is None
+    r = client.post(
+        f"{U}/postings/{pid}/artifacts/cv/chat/accept", json={"message_id": message["message_id"]}
+    )
+    assert r.status_code == 409
+
+
+def test_chat_model_failure_is_an_error_event_and_keeps_user_turn(
+    client: TestClient, settings: Settings
+) -> None:
+    pid = generated_posting(client, settings)
+    use_llm(FakeLLM(fail=True))
+    r = client.post(f"{U}/postings/{pid}/artifacts/cv/chat", json={"message": "shorter"})
+    assert r.status_code == 200
+    assert sse_events(r.text) == [("error", {"detail": "model call failed: ollama is down"})]
+    assert [m["role"] for m in client.get(f"{U}/postings/{pid}/artifacts/cv/chat").json()] == [
+        "user"
+    ]
+
+
+def test_chat_accept_rejects_foreign_messages(client: TestClient, settings: Settings) -> None:
+    pid = generated_posting(client, settings)
+    use_llm(FakeLLM("EXPLANATION: ok\n<document>\n# x\n</document>"))
+    client.post(f"{U}/postings/{pid}/artifacts/cv/chat", json={"message": "x"})
+    history = client.get(f"{U}/postings/{pid}/artifacts/cv/chat").json()
+    user_id, assistant_id = history[0]["message_id"], history[1]["message_id"]
+    accept = f"{U}/postings/{pid}/artifacts/cv/chat/accept"
+    assert client.post(accept, json={"message_id": user_id}).status_code == 404
+    other = f"{U}/postings/{pid}/artifacts/cover_letter/chat/accept"
+    assert client.post(other, json={"message_id": assistant_id}).status_code == 404
+    assert (
+        client.post(f"{U}/postings/{pid}/artifacts/nope/chat", json={"message": "x"}).status_code
+        == 422
+    )
+
+
+def test_chat_without_artifact_is_404(client: TestClient, settings: Settings) -> None:
+    pid = make_posting(client)
+    use_llm(FakeLLM("EXPLANATION: x"))
+    r = client.post(f"{U}/postings/{pid}/artifacts/cv/chat", json={"message": "x"})
+    assert r.status_code == 404
+
+
+def test_reject_generated_posting(client: TestClient, settings: Settings) -> None:
+    pid = generated_posting(client, settings)
+    r = client.post(f"{U}/postings/{pid}/reject", json={"note": "not for me"})
+    assert r.json()["status"] == "declined"
+    assert client.post(f"{U}/postings/{pid}/reject", json={}).status_code == 409
+
+
+def test_pasted_text_requeues_analysis(
+    client: TestClient, settings: Settings, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    monkeypatch.setattr("ajs.api.ui.chat.run_pipeline", lambda *_: None)
+    pid = make_posting(client)
+    assert (
+        client.post(f"{T}/postings/{pid}/status", json={"to": "needs_manual_text"}).status_code
+        == 200
+    )
+    r = client.patch(f"{U}/postings/{pid}/posting-text", json={"text": "x" * 30})
+    assert r.status_code == 200 and r.json()["status"] == "new"
+    assert client.get(f"{U}/postings/{pid}").json()["posting_text"] == "x" * 30
+    assert (
+        client.patch(f"{U}/postings/{pid}/posting-text", json={"text": "x" * 30}).status_code == 409
+    )
+
+
+def test_parse_reply_variants() -> None:
+    from ajs.services.chat import parse_reply
+
+    assert parse_reply("EXPLANATION: a\n<document>\nB\n</document>").markdown == "B"
+    assert parse_reply("EXPLANATION: a\n<document>\nB").markdown == "B"  # cut off before the tag
+    assert parse_reply("no markers at all").explanation == "no markers at all"
+    assert parse_reply("EXPLANATION: just talk").markdown is None

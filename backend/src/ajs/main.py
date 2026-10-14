@@ -3,6 +3,7 @@ from fastapi.responses import JSONResponse
 
 from ajs.api.deps import require_api_key
 from ajs.api.tools import postings as tool_postings
+from ajs.api.ui import chat as ui_chat
 from ajs.api.ui import postings as ui_postings
 from ajs.db.session import get_engine
 from ajs.domain.status import InvalidTransition
@@ -16,6 +17,7 @@ setup_telemetry(get_settings(), "ajs-backend", app=app, engine=get_engine())
 
 _protected = [Depends(require_api_key)]
 app.include_router(ui_postings.router, prefix="/api/v1", dependencies=_protected)
+app.include_router(ui_chat.router, prefix="/api/v1", dependencies=_protected)
 app.include_router(tool_postings.router, prefix="/api/v1", dependencies=_protected)
 
 

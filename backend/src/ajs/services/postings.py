@@ -155,6 +155,18 @@ def latest_artifact(
     ).first()
 
 
+def artifact_version(
+    session: Session, posting_id: int, kind: ArtifactKind, version: int
+) -> ApplicationArtifact | None:
+    return session.scalars(
+        select(ApplicationArtifact).where(
+            ApplicationArtifact.posting_id == posting_id,
+            ApplicationArtifact.kind == kind,
+            ApplicationArtifact.version == version,
+        )
+    ).first()
+
+
 def save_artifact(
     session: Session, store: blob.BlobStore, posting: FactPosting, kind: ArtifactKind, markdown: str
 ) -> ApplicationArtifact:

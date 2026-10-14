@@ -6,7 +6,7 @@ from typing import Any
 
 from pydantic import BaseModel, ConfigDict, Field
 
-from ajs.db.models import ArtifactKind, PostingStatus
+from ajs.db.models import ArtifactKind, ChatRole, PostingStatus
 
 
 class ORMModel(BaseModel):
@@ -220,3 +220,30 @@ class WorkflowRunOut(ORMModel):
     langflow_run_id: str | None  # LangFlow session id; search it in Phoenix
     phoenix_trace_id: str | None  # trace of the backend span in project ajs-backend
     error: str | None
+
+
+# ---- review: chat editing, rejection, pasted text (plan 12) ---------------------------------
+
+
+class ChatRequest(BaseModel):
+    message: str = Field(min_length=1, max_length=4000)
+
+
+class ChatMessageOut(BaseModel):
+    message_id: int
+    role: ChatRole
+    content: str  # what the user typed, or the assistant's explanation
+    proposal: str | None = None  # full revised Markdown, assistant messages only
+    created_at: datetime
+
+
+class ChatAcceptRequest(BaseModel):
+    message_id: int
+
+
+class RejectRequest(BaseModel):
+    note: str | None = None
+
+
+class PostingTextRequest(BaseModel):
+    text: str = Field(min_length=20)

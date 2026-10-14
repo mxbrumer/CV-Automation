@@ -23,6 +23,10 @@ class Settings(BaseSettings):
     langflow_analysis_flow_id: str = "analyze_and_match"
     langflow_generation_flow_id: str = "generate_documents"
     ollama_base_url: str = "http://host.docker.internal:11434"
+    # Chat editing (plan 12, A3) talks to Ollama directly from the backend. No num_ctx is sent:
+    # the `ajs-gemma` Modelfile sets it, and a different value would reload the model (plan 04).
+    llm_agent_model: str = "ajs-gemma"
+    llm_keep_alive: str = "30m"
 
     # Tracing (plan 10). Empty endpoint or OTEL_ENABLED=false turns it off.
     phoenix_collector_endpoint: str = ""

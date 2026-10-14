@@ -18,7 +18,7 @@ Each plan is sized for **one agent session**. Read [../architecture.md](../archi
 | 10 | [Observability & governance](10-observability-governance.md) | 08 | done |
 | 11 | [Frontend scaffold & dashboard](11-frontend-dashboard.md) | 06 | done |
 | 11b | [Frontend matches tab (gate 1)](11b-frontend-matches.md) | 08, 11 | done |
-| 12 | [Frontend review tab & chat editing](12-frontend-review.md) | 09, 11 | todo |
+| 12 | [Frontend review tab & chat editing](12-frontend-review.md) | 09, 11 | in progress |
 | 13 | [Frontend queue tab](13-frontend-queue.md) | 11 | todo |
 | 14 | [End-to-end test & v0.1.0 release](14-e2e-and-first-release.md) | all | todo |
 

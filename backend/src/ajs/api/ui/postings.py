@@ -117,9 +117,17 @@ def get_posting(posting_id: int, session: SessionDep, store: BlobDep) -> schemas
 
 
 def _artifact_content(
-    session: Session, store: BlobStore, posting_id: int, kind: ArtifactKind
+    session: Session,
+    store: BlobStore,
+    posting_id: int,
+    kind: ArtifactKind,
+    version: int | None = None,
 ) -> schemas.ArtifactContent:
-    artifact = postings.latest_artifact(session, posting_id, kind)
+    artifact = (
+        postings.latest_artifact(session, posting_id, kind)
+        if version is None
+        else postings.artifact_version(session, posting_id, kind, version)
+    )
     if artifact is None:
         raise HTTPException(404, f"no {kind.value} saved for posting {posting_id}")
     return schemas.ArtifactContent(
@@ -130,10 +138,14 @@ def _artifact_content(
 
 @router.get("/postings/{posting_id}/artifacts/{kind}")
 def get_artifact(
-    posting_id: int, kind: ArtifactKind, session: SessionDep, store: BlobDep
+    posting_id: int,
+    kind: ArtifactKind,
+    session: SessionDep,
+    store: BlobDep,
+    version: Annotated[int | None, Query(ge=1)] = None,
 ) -> schemas.ArtifactContent:
     postings.get_posting(session, posting_id)
-    return _artifact_content(session, store, posting_id, kind)
+    return _artifact_content(session, store, posting_id, kind, version)
 
 
 @router.put("/postings/{posting_id}/artifacts/{kind}")
