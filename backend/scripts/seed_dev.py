@@ -7,6 +7,7 @@ No real data is used.
 
 import argparse
 from datetime import UTC, datetime, timedelta
+from pathlib import Path
 
 from sqlalchemy import create_engine, delete, select
 from sqlalchemy.orm import Session
@@ -21,6 +22,7 @@ from ajs.db.models import (
     FactPosting,
     PostingEvent,
     PostingStatus,
+    WorkflowRun,
 )
 from ajs.domain.normalize import normalize_company, normalize_title
 from ajs.settings import get_settings
@@ -53,7 +55,7 @@ FOLDER_STATUSES = {S.GENERATING, S.GENERATED, S.APPROVED, S.SUBMITTED, S.DECLINE
 ARTIFACT_STATUSES = {S.GENERATED, S.APPROVED, S.SUBMITTED, S.DECLINED}
 
 
-def seed(session: Session) -> int:
+def seed(session: Session, files_root: Path | None = None) -> int:
     now = datetime.now(UTC)
     queue = 0
     for i, (status, title, language, score) in enumerate(ROWS, start=1):
@@ -111,6 +113,14 @@ def seed(session: Session) -> int:
         )
         if status in ARTIFACT_STATUSES:
             for kind in ArtifactKind:
+                if files_root is not None:  # the review and queue pages read these files
+                    folder = files_root / str(posting.artifact_folder)
+                    folder.mkdir(parents=True, exist_ok=True)
+                    (folder / f"{kind.value}.md").write_text(
+                        f"# {kind.value.replace('_', ' ').title()} for {title}\n\n"
+                        "Fake draft text for the browser e2e.\n",
+                        encoding="utf-8",
+                    )
                 session.add(
                     ApplicationArtifact(
                         posting_id=posting.posting_id,
@@ -137,6 +147,7 @@ def seed(session: Session) -> int:
 def reset(session: Session) -> None:
     ids = select(DimCompany.company_id).where(DimCompany.name.like("Fake Company %"))
     posting_ids = select(FactPosting.posting_id).where(FactPosting.company_id.in_(ids))
+    session.execute(delete(WorkflowRun).where(WorkflowRun.posting_id.in_(posting_ids)))
     session.execute(delete(ChatMessage).where(ChatMessage.posting_id.in_(posting_ids)))
     session.execute(
         delete(ApplicationArtifact).where(ApplicationArtifact.posting_id.in_(posting_ids))
@@ -149,8 +160,14 @@ def reset(session: Session) -> None:
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--reset", action="store_true", help="remove seeded rows first")
+    parser.add_argument(
+        "--files",
+        action="store_true",
+        help="also write draft .md files under DATA_ROOT/applications (browser e2e only)",
+    )
     args = parser.parse_args()
-    engine = create_engine(get_settings().database_url)
+    settings = get_settings()
+    engine = create_engine(settings.database_url)
     with Session(engine) as session, session.begin():
         if args.reset:
             reset(session)
@@ -158,7 +175,7 @@ def main() -> None:
             select(DimCompany.company_id).where(DimCompany.name.like("Fake Company %")).limit(1)
         ):
             raise SystemExit("Seed data already present; rerun with --reset.")
-        count = seed(session)
+        count = seed(session, settings.applications_root if args.files else None)
     print(f"Seeded {count} fake postings.")
 
 

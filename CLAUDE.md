@@ -24,6 +24,7 @@ Local-only pipeline: Jobindex RSS feeds → LangFlow agents (Ollama) → FastAPI
 - Governance check: `python scripts/governance_check.py` (rules in [docs/governance.md](docs/governance.md)); `scripts/dev.ps1 prune-traces` deletes old Phoenix traces.
 - Backend tests: `cd backend; uv run pytest`
 - Frontend tests: `cd frontend; npm test`
+- Browser e2e (Playwright, seeded fake data, stubbed chat): `cd frontend; npm run test:e2e`; `E2E_REAL_LLM=1` uses the local Ollama for the chat step. Full pipeline e2e: `scripts/e2e.ps1` (throwaway `DATA_ROOT`, about 10 minutes)
 
 ## Model roles (all via Ollama)
 | Model | Role |

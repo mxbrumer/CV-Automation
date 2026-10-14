@@ -19,7 +19,7 @@ router = APIRouter(tags=["review"])
 
 
 def get_chat_llm(settings: SettingsDep) -> chat.ChatLLM:
-    return chat.OllamaChat(settings)
+    return chat.StubChat() if settings.env == "test" else chat.OllamaChat(settings)
 
 
 ChatDep = Annotated[chat.ChatLLM, Depends(get_chat_llm)]

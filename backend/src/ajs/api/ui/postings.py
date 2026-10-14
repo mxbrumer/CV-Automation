@@ -243,6 +243,8 @@ def get_file(posting_id: int, filename: str, session: SessionDep, store: BlobDep
 
 def run_pipeline(settings: Settings, generation_only: int | None = None) -> None:
     """Background job: the same locked run the worker does (a second run is skipped)."""
+    if settings.env == "test":  # browser e2e: no LangFlow, drafts are seeded
+        return
     from ajs.worker.__main__ import run_once
 
     run_once(settings, generation_only)

@@ -89,6 +89,19 @@ class OllamaChat:
                     return
 
 
+class StubChat:
+    """Stand-in for the model when ENV=test: appends the instruction to the document."""
+
+    _DOCUMENT = re.compile(r"Current document:\n<document>\n(.*?)\n</document>", re.DOTALL)
+
+    def stream(self, messages: list[dict[str, str]]) -> Iterator[str]:
+        found = self._DOCUMENT.search(messages[0]["content"])
+        document = found.group(1) if found else ""
+        instruction = messages[-1]["content"]
+        yield "EXPLANATION: Stub edit applied.\n"
+        yield f"<document>\n{document}\n\nStub edit: {instruction}\n</document>"
+
+
 def build_messages(
     *,
     kind: str,

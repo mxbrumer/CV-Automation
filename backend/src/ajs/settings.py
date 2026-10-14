@@ -7,6 +7,9 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(env_file=".env", extra="ignore")
 
+    # "test" (browser e2e, plan 14) stubs the chat model and never calls LangFlow or Ollama.
+    env: str = "dev"
+
     database_url: str = "postgresql+psycopg://jobsearch:jobsearch@localhost:5432/jobsearch"
 
     # Blob storage (D6). In the container DATA_ROOT is /data; host_data_root is the Windows
