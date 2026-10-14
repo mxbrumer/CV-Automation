@@ -147,15 +147,8 @@ Python | SQL | PostgreSQL | Apache Airflow | dbt | Docker | Git | Data modelling
     Start-Sleep -Seconds 2
 
     # 5. Stack up with no feed yet, so nothing is polled before the LangFlow key exists.
-    # On a brand-new Postgres data dir the first start can fail: the init-time server answers
-    # pg_isready before the real server runs, and the backend migration then loses the race.
-    # The second start on the initialised cluster is clean, so retry once.
     & $Dev up
-    if ($LASTEXITCODE -ne 0) {
-        Write-Host 'First start failed on the fresh database; retrying once.' -ForegroundColor Yellow
-        & $Dev up
-        if ($LASTEXITCODE -ne 0) { throw 'dev.ps1 up failed' }
-    }
+    if ($LASTEXITCODE -ne 0) { throw 'dev.ps1 up failed' }
 
     # 6. LangFlow API key for the backend (the reset-free equivalent of plan 08's manual step).
     $auth = Get-LangflowAuth
