@@ -189,6 +189,7 @@ class QueueAction(StrEnum):
 
 class QueueActionRequest(BaseModel):
     action: QueueAction
+    note: str | None = None
 
 
 class WorkflowPhase(StrEnum):

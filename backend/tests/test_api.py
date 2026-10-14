@@ -186,6 +186,14 @@ def test_queue_order_and_skip(client: TestClient) -> None:
     assert client.get(f"{U}/postings/{ids[2]}").json()["status"] == "declined"
 
 
+def test_queue_decline_keeps_reason(client: TestClient) -> None:
+    pid = make_posting(client, source_job_id="qn", source_url=None)
+    to_queue(client, pid)
+    client.post(f"{U}/queue/{pid}/action", json={"action": "declined", "note": "too far"})
+    events = client.get(f"{U}/postings/{pid}").json()["events"]
+    assert events[-1]["note"] == "queue: declined - too far"
+
+
 def test_queue_action_requires_queued_posting(client: TestClient) -> None:
     pid = make_posting(client)
     r = client.post(f"{U}/queue/{pid}/action", json={"action": "submitted"})

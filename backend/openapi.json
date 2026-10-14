@@ -1061,6 +1061,17 @@
         "properties": {
           "action": {
             "$ref": "#/components/schemas/QueueAction"
+          },
+          "note": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Note"
           }
         },
         "required": [

@@ -220,3 +220,42 @@ export const usePasteText = () => {
     onSettled: () => qc.invalidateQueries(),
   })
 }
+
+// ---- queue (plan 13) -------------------------------------------------------------------------
+
+/** Approved postings in queue order; the first one is what `GET /queue/next` returns. */
+export const useQueue = () =>
+  useQuery({
+    queryKey: ['postings', 'approved'],
+    queryFn: async () => {
+      const items = unwrap(
+        await api.GET('/api/v1/postings', {
+          params: { query: { status: 'approved', page_size: 100 } },
+        }),
+      ).items
+      return [...items].sort(
+        (a, b) =>
+          (a.queue_position ?? Infinity) - (b.queue_position ?? Infinity) ||
+          a.posting_id - b.posting_id,
+      )
+    },
+    refetchInterval: POLL_MS,
+  })
+
+export const useQueueAction = () => {
+  const qc = useQueryClient()
+  return useMutation({
+    mutationFn: async (v: {
+      id: number
+      action: 'submitted' | 'declined' | 'skip'
+      note?: string
+    }) =>
+      unwrap(
+        await api.POST('/api/v1/queue/{posting_id}/action', {
+          params: { path: { posting_id: v.id } },
+          body: { action: v.action, note: v.note || null },
+        }),
+      ),
+    onSettled: () => qc.invalidateQueries(),
+  })
+}

@@ -222,7 +222,8 @@ def queue_action(
             if body.action is schemas.QueueAction.SUBMITTED
             else PostingStatus.DECLINED
         )
-        transition(session, posting, target, Actor.USER, f"queue: {body.action.value}")
+        note = f"queue: {body.action.value}" + (f" - {body.note}" if body.note else "")
+        transition(session, posting, target, Actor.USER, note)
         posting.queue_position = None
         if target is PostingStatus.SUBMITTED:
             posting.submitted_at = datetime.now(UTC)

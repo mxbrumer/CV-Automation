@@ -813,6 +813,8 @@ export interface components {
         /** QueueActionRequest */
         QueueActionRequest: {
             action: components["schemas"]["QueueAction"];
+            /** Note */
+            note?: string | null;
         };
         /** RejectRequest */
         RejectRequest: {
