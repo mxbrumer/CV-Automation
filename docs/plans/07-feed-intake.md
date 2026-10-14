@@ -35,7 +35,7 @@ Poll Jobindex RSS feeds (D3) behind a `JobSource` interface, store items idempot
 ## Acceptance criteria
 - [x] Tests: RSS parsing (encoding, title/company split, id extraction), idempotent re-poll (same id ignored), fetch fallback chain, denylist, pipeline with stubbed flows covering dedup-stop, low-match-stop and stop at `awaiting_match_review`.
 - [x] `JobSource` has one implementation, and the pipeline imports only the interface.
-- [ ] Against the live feed (user present): one poll ingests items; a second poll adds no duplicates. _Checked 2026-10-14 with a generic public query against the scratch DB (5 in, 0 on repeat); repeat with the user's own feeds._
+- [x] Against the live feed (user present): one poll ingests items; a second poll adds no duplicates. _Checked 2026-10-14 with the user's feed against the scratch DB: 20 in, 0 on repeat._
 
 ## Out of scope
 LLM analysis (08). An email `JobSource` (later follow-up if wanted; it needs OAuth for Microsoft 365, see D3).
