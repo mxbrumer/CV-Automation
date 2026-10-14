@@ -12,7 +12,7 @@ COPY certs/ /usr/local/share/ca-certificates/extra/
 RUN update-ca-certificates
 COPY --from=ghcr.io/astral-sh/uv:0.11 /uv /usr/local/bin/uv
 
-ENV UV_COMPILE_BYTECODE=1 UV_LINK_MODE=copy UV_NATIVE_TLS=1 UV_PROJECT_ENVIRONMENT=/opt/venv PYTHONUNBUFFERED=1
+ENV SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt UV_COMPILE_BYTECODE=1 UV_LINK_MODE=copy UV_NATIVE_TLS=1 UV_PROJECT_ENVIRONMENT=/opt/venv PYTHONUNBUFFERED=1
 WORKDIR /app
 
 COPY pyproject.toml uv.lock README.md ./
