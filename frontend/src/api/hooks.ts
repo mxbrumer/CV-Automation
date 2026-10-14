@@ -1,4 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import type { ArtifactKind } from './chat'
 import { api, unwrap, type PostingStatus } from './client'
 
 const POLL_MS = 15_000
@@ -93,6 +94,127 @@ export const useMatchDecision = () => {
         await api.POST('/api/v1/postings/{posting_id}/match-decision', {
           params: { path: { posting_id: v.id } },
           body: { decision: v.decision, note: v.note || null },
+        }),
+      ),
+    onSettled: () => qc.invalidateQueries(),
+  })
+}
+
+// ---- review (plan 12) ------------------------------------------------------------------------
+
+const listByStatus = (status: PostingStatus) => ({
+  queryKey: ['postings', status],
+  queryFn: async () =>
+    unwrap(await api.GET('/api/v1/postings', { params: { query: { status, page_size: 100 } } }))
+      .items,
+  refetchInterval: POLL_MS,
+})
+
+export const useGenerated = () => useQuery(listByStatus('generated'))
+export const useNeedsText = () => useQuery(listByStatus('needs_manual_text'))
+
+export const useArtifact = (id: number, kind: ArtifactKind, version?: number) =>
+  useQuery({
+    queryKey: ['artifact', id, kind, version ?? 'latest'],
+    queryFn: async () =>
+      unwrap(
+        await api.GET('/api/v1/postings/{posting_id}/artifacts/{kind}', {
+          params: { path: { posting_id: id, kind }, query: { version } },
+        }),
+      ),
+  })
+
+/** Original template: the CV is its own template, so it is the joined cv.md sections. */
+export const useTemplate = (kind: ArtifactKind) =>
+  useQuery({
+    queryKey: ['template', kind],
+    retry: false,
+    queryFn: async () => {
+      if (kind === 'cv') {
+        const sections = unwrap(await api.GET('/api/v1/tools/profile/cv-sections'))
+        return sections.map((s) => s.markdown).join('\n\n')
+      }
+      return unwrap(
+        await api.GET('/api/v1/tools/profile/templates/{kind}', { params: { path: { kind } } }),
+      ).markdown
+    },
+  })
+
+export const useChatHistory = (id: number, kind: ArtifactKind) =>
+  useQuery({
+    queryKey: ['chat', id, kind],
+    queryFn: async () =>
+      unwrap(
+        await api.GET('/api/v1/postings/{posting_id}/artifacts/{kind}/chat', {
+          params: { path: { posting_id: id, kind } },
+        }),
+      ),
+  })
+
+export const useAcceptProposal = (id: number, kind: ArtifactKind) => {
+  const qc = useQueryClient()
+  return useMutation({
+    mutationFn: async (messageId: number) =>
+      unwrap(
+        await api.POST('/api/v1/postings/{posting_id}/artifacts/{kind}/chat/accept', {
+          params: { path: { posting_id: id, kind } },
+          body: { message_id: messageId },
+        }),
+      ),
+    onSettled: () => qc.invalidateQueries(),
+  })
+}
+
+export const useSaveArtifact = (id: number, kind: ArtifactKind) => {
+  const qc = useQueryClient()
+  return useMutation({
+    mutationFn: async (markdown: string) =>
+      unwrap(
+        await api.PUT('/api/v1/postings/{posting_id}/artifacts/{kind}', {
+          params: { path: { posting_id: id, kind } },
+          body: { markdown },
+        }),
+      ),
+    onSettled: () => qc.invalidateQueries(),
+  })
+}
+
+/** Gate 2: approve moves the posting into the queue; reject declines it. */
+export const useApprove = () => {
+  const qc = useQueryClient()
+  return useMutation({
+    mutationFn: async (id: number) =>
+      unwrap(
+        await api.POST('/api/v1/postings/{posting_id}/approve', {
+          params: { path: { posting_id: id } },
+        }),
+      ),
+    onSettled: () => qc.invalidateQueries(),
+  })
+}
+
+export const useReject = () => {
+  const qc = useQueryClient()
+  return useMutation({
+    mutationFn: async (v: { id: number; note?: string }) =>
+      unwrap(
+        await api.POST('/api/v1/postings/{posting_id}/reject', {
+          params: { path: { posting_id: v.id } },
+          body: { note: v.note || null },
+        }),
+      ),
+    onSettled: () => qc.invalidateQueries(),
+  })
+}
+
+export const usePasteText = () => {
+  const qc = useQueryClient()
+  return useMutation({
+    mutationFn: async (v: { id: number; text: string }) =>
+      unwrap(
+        await api.PATCH('/api/v1/postings/{posting_id}/posting-text', {
+          params: { path: { posting_id: v.id } },
+          body: { text: v.text },
         }),
       ),
     onSettled: () => qc.invalidateQueries(),

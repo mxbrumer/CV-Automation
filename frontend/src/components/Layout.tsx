@@ -1,5 +1,5 @@
 import clsx from 'clsx'
-import { NavLink, Outlet } from 'react-router'
+import { NavLink, Outlet, useMatch } from 'react-router'
 import { useHealth, useStats, useStatusCount } from '../api/hooks'
 
 function Tab({
@@ -42,6 +42,7 @@ export default function Layout() {
   const stats = useStats()
   const generated = useStatusCount('generated')
   const approved = useStatusCount('approved')
+  const wide = useMatch('/review/:id') !== null // three panes need the room
 
   return (
     <div className="min-h-screen">
@@ -59,7 +60,7 @@ export default function Layout() {
           the API key in <code>frontend/.env.local</code>.
         </div>
       )}
-      <main className="mx-auto max-w-5xl px-4 py-6">
+      <main className={clsx('mx-auto px-4 py-6', wide ? 'max-w-7xl' : 'max-w-5xl')}>
         <Outlet />
       </main>
     </div>

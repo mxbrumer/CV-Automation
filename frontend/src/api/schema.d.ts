@@ -93,6 +93,48 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/postings/{posting_id}/artifacts/{kind}/chat": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Chat History */
+        get: operations["chat_history_api_v1_postings__posting_id__artifacts__kind__chat_get"];
+        put?: never;
+        /**
+         * Chat Turn
+         * @description Server-sent events: `delta` {text} while the model writes, then `done` {message}, or
+         *     `error` {detail}. The user turn is saved first; the assistant turn when the reply is whole.
+         */
+        post: operations["chat_turn_api_v1_postings__posting_id__artifacts__kind__chat_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/postings/{posting_id}/artifacts/{kind}/chat/accept": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Chat Accept
+         * @description Save the proposal of one assistant message as the next version (re-renders the PDF).
+         */
+        post: operations["chat_accept_api_v1_postings__posting_id__artifacts__kind__chat_accept_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/postings/{posting_id}/match-decision": {
         parameters: {
             query?: never;
@@ -104,6 +146,43 @@ export interface paths {
         put?: never;
         /** Match Decision */
         post: operations["match_decision_api_v1_postings__posting_id__match_decision_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/postings/{posting_id}/posting-text": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        /**
+         * Paste Posting Text
+         * @description Text for a `needs_manual_text` posting: save it and send the posting back to analysis.
+         */
+        patch: operations["paste_posting_text_api_v1_postings__posting_id__posting_text_patch"];
+        trace?: never;
+    };
+    "/api/v1/postings/{posting_id}/reject": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Reject */
+        post: operations["reject_api_v1_postings__posting_id__reject_post"];
         delete?: never;
         options?: never;
         head?: never;
@@ -460,6 +539,36 @@ export interface components {
             /** Markdown */
             markdown: string;
         };
+        /** ChatAcceptRequest */
+        ChatAcceptRequest: {
+            /** Message Id */
+            message_id: number;
+        };
+        /** ChatMessageOut */
+        ChatMessageOut: {
+            /** Content */
+            content: string;
+            /**
+             * Created At
+             * Format: date-time
+             */
+            created_at: string;
+            /** Message Id */
+            message_id: number;
+            /** Proposal */
+            proposal?: string | null;
+            role: components["schemas"]["ChatRole"];
+        };
+        /** ChatRequest */
+        ChatRequest: {
+            /** Message */
+            message: string;
+        };
+        /**
+         * ChatRole
+         * @enum {string}
+         */
+        ChatRole: "user" | "assistant";
         /** CreatePostingRequest */
         CreatePostingRequest: {
             /** Company */
@@ -691,6 +800,11 @@ export interface components {
              */
             updated_at: string;
         };
+        /** PostingTextRequest */
+        PostingTextRequest: {
+            /** Text */
+            text: string;
+        };
         /**
          * QueueAction
          * @enum {string}
@@ -699,6 +813,11 @@ export interface components {
         /** QueueActionRequest */
         QueueActionRequest: {
             action: components["schemas"]["QueueAction"];
+        };
+        /** RejectRequest */
+        RejectRequest: {
+            /** Note */
+            note?: string | null;
         };
         /** Stats */
         Stats: {
@@ -928,7 +1047,9 @@ export interface operations {
     };
     get_artifact_api_v1_postings__posting_id__artifacts__kind__get: {
         parameters: {
-            query?: never;
+            query?: {
+                version?: number | null;
+            };
             header?: {
                 "x-api-key"?: string | null;
             };
@@ -998,6 +1119,116 @@ export interface operations {
             };
         };
     };
+    chat_history_api_v1_postings__posting_id__artifacts__kind__chat_get: {
+        parameters: {
+            query?: never;
+            header?: {
+                "x-api-key"?: string | null;
+            };
+            path: {
+                posting_id: number;
+                kind: components["schemas"]["ArtifactKind"];
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ChatMessageOut"][];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    chat_turn_api_v1_postings__posting_id__artifacts__kind__chat_post: {
+        parameters: {
+            query?: never;
+            header?: {
+                "x-api-key"?: string | null;
+            };
+            path: {
+                posting_id: number;
+                kind: components["schemas"]["ArtifactKind"];
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ChatRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": unknown;
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    chat_accept_api_v1_postings__posting_id__artifacts__kind__chat_accept_post: {
+        parameters: {
+            query?: never;
+            header?: {
+                "x-api-key"?: string | null;
+            };
+            path: {
+                posting_id: number;
+                kind: components["schemas"]["ArtifactKind"];
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ChatAcceptRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ArtifactContent"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
     match_decision_api_v1_postings__posting_id__match_decision_post: {
         parameters: {
             query?: never;
@@ -1012,6 +1243,80 @@ export interface operations {
         requestBody: {
             content: {
                 "application/json": components["schemas"]["MatchDecisionRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StatusResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    paste_posting_text_api_v1_postings__posting_id__posting_text_patch: {
+        parameters: {
+            query?: never;
+            header?: {
+                "x-api-key"?: string | null;
+            };
+            path: {
+                posting_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["PostingTextRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StatusResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    reject_api_v1_postings__posting_id__reject_post: {
+        parameters: {
+            query?: never;
+            header?: {
+                "x-api-key"?: string | null;
+            };
+            path: {
+                posting_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["RejectRequest"];
             };
         };
         responses: {
