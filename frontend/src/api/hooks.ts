@@ -62,3 +62,39 @@ export const useRunPipeline = () => {
     onSettled: () => qc.invalidateQueries(),
   })
 }
+
+export const useMatchQueue = () =>
+  useQuery({
+    queryKey: ['postings', 'awaiting_match_review'],
+    queryFn: async () =>
+      unwrap(
+        await api.GET('/api/v1/postings', {
+          params: { query: { status: 'awaiting_match_review', page_size: 100 } },
+        }),
+      ).items,
+    refetchInterval: POLL_MS,
+  })
+
+export const usePosting = (id: number) =>
+  useQuery({
+    queryKey: ['posting', id],
+    queryFn: async () =>
+      unwrap(
+        await api.GET('/api/v1/postings/{posting_id}', { params: { path: { posting_id: id } } }),
+      ),
+  })
+
+/** Gate 1: approve starts draft generation in the backend; decline keeps the optional reason. */
+export const useMatchDecision = () => {
+  const qc = useQueryClient()
+  return useMutation({
+    mutationFn: async (v: { id: number; decision: 'approve' | 'decline'; note?: string }) =>
+      unwrap(
+        await api.POST('/api/v1/postings/{posting_id}/match-decision', {
+          params: { path: { posting_id: v.id } },
+          body: { decision: v.decision, note: v.note || null },
+        }),
+      ),
+    onSettled: () => qc.invalidateQueries(),
+  })
+}
