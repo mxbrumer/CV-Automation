@@ -10,7 +10,20 @@ A local-only assistant that turns Jobindex job postings into reviewed, ready-to-
 - Python 3.12
 - [uv](https://docs.astral.sh/uv/)
 
-An `infra/.env.example` is added in plan 03; copy it to `infra/.env` and fill it in before starting the stack.
+## Quick start
+
+PowerShell 5.1 on Windows, from the repo root.
+
+1. Install the prerequisites above and start Ollama. Pull the models: `scripts/pull-models.ps1` (about 9 GB).
+2. Copy `infra/.env.example` to `infra/.env`. Replace every `change-me`, set `BACKEND_API_KEY`, and put your Jobindex RSS feed URL(s) in `JOBINDEX_FEEDS` (comma-separated, one per saved search). `DATA_ROOT` must stay outside OneDrive.
+3. Start the stack: `scripts/dev.ps1 up` (starts Docker Desktop if needed, builds the images, waits until healthy).
+4. Open LangFlow at http://127.0.0.1:7860, sign in with `LANGFLOW_SUPERUSER`, create an API key (Settings > API Keys) and put it in `infra/.env` as `LANGFLOW_API_KEY`.
+5. Import the flows and their variables: `scripts/import-flows.ps1`. Then apply the key: `scripts/dev.ps1 up`.
+6. Add your own profile files in `DATA_ROOT\profile\` (never in git): copy the three stubs in `docs/profile-examples/` to `cv.md`, `cover_letter_template.md` and `recruiter_email_template.md`, and edit them.
+7. Open http://127.0.0.1:5173 and press **Run pipeline now** (the worker also polls once a day).
+8. Work through the tabs: **Matches** (approve or decline), **Review** (read and edit the drafts, approve), **Queue** (copy the email, apply on the employer's site, mark submitted).
+
+Day-to-day operation, backups and upgrades: [docs/operations.md](docs/operations.md).
 
 ## Workflow
 
@@ -44,6 +57,7 @@ PNG copy (used in the recruiter email): `docs/assets/workflow.png`, rendered wit
 ## Docs
 
 - [Architecture & decisions](docs/architecture.md)
+- [Operations: start/stop, backup and restore, upgrades](docs/operations.md)
 - [Implementation plans](docs/plans/README.md)
 - [Original brief](prompts/project-setup.md)
 - [Contributor and agent rules](CLAUDE.md)

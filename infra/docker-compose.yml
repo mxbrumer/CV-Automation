@@ -3,10 +3,18 @@
 # All runtime data lives under ${DATA_ROOT}, outside OneDrive (D6).
 name: ajs
 
+# Container logs rotate: at most 3 files of 10 MB per service (they can hold posting and CV text).
+x-logging: &logging
+  driver: json-file
+  options:
+    max-size: "10m"
+    max-file: "3"
+
 services:
   postgres:
     image: postgres:17
     restart: unless-stopped
+    logging: *logging
     environment:
       POSTGRES_USER: ${POSTGRES_USER:?set in infra/.env}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?set in infra/.env}
@@ -30,6 +38,7 @@ services:
   phoenix:
     image: arizephoenix/phoenix:version-20.16.0
     restart: unless-stopped
+    logging: *logging
     environment:
       PHOENIX_WORKING_DIR: /mnt/data
       PHOENIX_TELEMETRY_ENABLED: "false"
@@ -50,6 +59,7 @@ services:
   langflow:
     image: langflowai/langflow:1.12.3
     restart: unless-stopped
+    logging: *logging
     depends_on:
       postgres:
         condition: service_healthy
@@ -89,6 +99,7 @@ services:
   backend:
     build: ../backend
     restart: unless-stopped
+    logging: *logging
     depends_on:
       postgres:
         condition: service_healthy
@@ -129,6 +140,7 @@ services:
   worker:
     build: ../backend
     restart: unless-stopped
+    logging: *logging
     command: ["python", "-m", "ajs.worker"]
     depends_on:
       backend:
@@ -155,6 +167,7 @@ services:
   frontend:
     build: ../frontend
     restart: unless-stopped
+    logging: *logging
     environment:
       BACKEND_API_KEY: ${BACKEND_API_KEY:-}
     depends_on:
