@@ -100,6 +100,10 @@ services:
       MATCH_THRESHOLD: ${MATCH_THRESHOLD:-55}
       LANGFLOW_ANALYSIS_FLOW_ID: ${LANGFLOW_ANALYSIS_FLOW_ID:-analyze_and_match}
       LANGFLOW_GENERATION_FLOW_ID: ${LANGFLOW_GENERATION_FLOW_ID:-}
+      JOBINDEX_FEEDS: ${JOBINDEX_FEEDS:-}
+      FEED_POLL_INTERVAL_MIN: ${FEED_POLL_INTERVAL_MIN:-1440}
+      FETCH_USER_AGENT: ${FETCH_USER_AGENT:-ai-job-search/0.1 (personal, local use)}
+      FETCH_DENYLIST: ${FETCH_DENYLIST:-linkedin.com}
     volumes:
       - ${DATA_ROOT}/applications:/data/applications
       - ${DATA_ROOT}/profile:/data/profile:ro
@@ -113,6 +117,30 @@ services:
       timeout: 5s
       retries: 12
       start_period: 20s
+
+  # Polls the Jobindex feeds and drives the per-job pipeline (plan 07). Same image as backend.
+  worker:
+    build: ../backend
+    restart: unless-stopped
+    command: ["python", "-m", "ajs.worker"]
+    depends_on:
+      backend:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgresql+psycopg://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB:-jobsearch}
+      DATA_ROOT: /data
+      LANGFLOW_URL: http://langflow:7860
+      LANGFLOW_API_KEY: ${LANGFLOW_API_KEY:-}
+      MATCH_THRESHOLD: ${MATCH_THRESHOLD:-55}
+      LANGFLOW_ANALYSIS_FLOW_ID: ${LANGFLOW_ANALYSIS_FLOW_ID:-analyze_and_match}
+      LANGFLOW_GENERATION_FLOW_ID: ${LANGFLOW_GENERATION_FLOW_ID:-}
+      JOBINDEX_FEEDS: ${JOBINDEX_FEEDS:-}
+      FEED_POLL_INTERVAL_MIN: ${FEED_POLL_INTERVAL_MIN:-1440}
+      FETCH_USER_AGENT: ${FETCH_USER_AGENT:-ai-job-search/0.1 (personal, local use)}
+      FETCH_DENYLIST: ${FETCH_DENYLIST:-linkedin.com}
+    volumes:
+      - ${DATA_ROOT}/applications:/data/applications
+      - ${DATA_ROOT}/profile:/data/profile:ro
 
   # Enabled by plan 11. Dev mode runs Vite outside Docker.
   frontend:

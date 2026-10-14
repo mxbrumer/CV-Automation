@@ -247,4 +247,4 @@ def test_profile_endpoints(client: TestClient, settings: Any) -> None:
 
 
 def test_workflow_run_without_flow_id_is_503(client: TestClient) -> None:
-    assert client.post(f"{U}/workflow/run", json={"phase": "analysis"}).status_code == 503
+    assert client.post(f"{U}/workflow/run", json={"phase": "generation"}).status_code == 503

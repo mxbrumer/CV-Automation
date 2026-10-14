@@ -2383,6 +2383,59 @@
         ]
       }
     },
+    "/api/v1/workflow/poll": {
+      "post": {
+        "operationId": "poll_now_api_v1_workflow_poll_post",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "x-api-key",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Api-Key"
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": {
+                    "type": "string"
+                  },
+                  "title": "Response Poll Now Api V1 Workflow Poll Post",
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Poll Now",
+        "tags": [
+          "ui"
+        ]
+      }
+    },
     "/api/v1/workflow/run": {
       "post": {
         "operationId": "run_workflow_api_v1_workflow_run_post",

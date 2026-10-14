@@ -4,7 +4,7 @@ import json
 from datetime import UTC, datetime
 from typing import Annotated
 
-from fastapi import APIRouter, HTTPException, Query
+from fastapi import APIRouter, BackgroundTasks, HTTPException, Query
 from fastapi.responses import FileResponse
 from sqlalchemy import func, or_, select, text
 from sqlalchemy.orm import Session
@@ -23,6 +23,7 @@ from ajs.domain.status import transition
 from ajs.services import postings
 from ajs.services.blob import BlobStore
 from ajs.services.langflow_client import LangflowError
+from ajs.settings import Settings
 
 router = APIRouter(tags=["ui"])
 
@@ -141,7 +142,11 @@ def edit_artifact(
 
 @router.post("/postings/{posting_id}/match-decision")  # gate 1 (D9)
 def match_decision(
-    posting_id: int, body: schemas.MatchDecisionRequest, session: SessionDep
+    posting_id: int,
+    body: schemas.MatchDecisionRequest,
+    session: SessionDep,
+    background: BackgroundTasks,
+    settings: SettingsDep,
 ) -> schemas.StatusResponse:
     posting = postings.get_posting(session, posting_id)
     target = (
@@ -151,6 +156,9 @@ def match_decision(
     )
     transition(session, posting, target, Actor.USER, body.note)
     posting.match_reviewed_at = datetime.now(UTC)
+    if target is PostingStatus.MATCHED:
+        session.commit()  # the generation run must see the new status
+        background.add_task(run_pipeline, settings, posting_id)  # no-op until plan 09's flow
     return schemas.StatusResponse(posting_id=posting_id, status=posting.status)
 
 
@@ -208,6 +216,19 @@ def get_file(posting_id: int, filename: str, session: SessionDep, store: BlobDep
     if not path.is_file():
         raise HTTPException(404, "file not found")
     return FileResponse(path)
+
+
+def run_pipeline(settings: Settings, generation_only: int | None = None) -> None:
+    """Background job: the same locked run the worker does (a second run is skipped)."""
+    from ajs.worker.__main__ import run_once
+
+    run_once(settings, generation_only)
+
+
+@router.post("/workflow/poll", status_code=202)  # manual trigger of the worker's job
+def poll_now(background: BackgroundTasks, settings: SettingsDep) -> dict[str, str]:
+    background.add_task(run_pipeline, settings)
+    return {"status": "queued"}
 
 
 @router.post("/workflow/run")
