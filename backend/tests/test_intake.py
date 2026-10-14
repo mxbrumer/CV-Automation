@@ -13,6 +13,7 @@ from sqlalchemy.orm import Session
 from ajs.db.models import Actor, FactPosting, FeedItem, PostingStatus
 from ajs.domain.status import transition
 from ajs.services.fetch_posting import FetchResult, PostingFetcher, employer_link, snippet_text
+from ajs.services.langflow_client import FlowRef
 from ajs.settings import Settings
 from ajs.worker.pipeline import FlowError, Pipeline
 from ajs.worker.sources.base import RawJob, split_title
@@ -237,7 +238,7 @@ class FakeFlows:
     def available(self, phase: str) -> bool:
         return self.configured
 
-    def run(self, phase: str, posting_id: int) -> None:
+    def run(self, phase: str, posting_id: int) -> FlowRef | None:
         self.runs.append((phase, posting_id))
         if self.error is not None:
             raise self.error
@@ -250,6 +251,7 @@ class FakeFlows:
             transition(self.session, posting, PostingStatus.GENERATING, Actor.AGENT)
             transition(self.session, posting, PostingStatus.GENERATED, Actor.AGENT)
         self.session.commit()
+        return None
 
 
 def raw(job_id: str, title: str = "Data Analyst", company: str = "Acme A/S") -> RawJob:

@@ -21,6 +21,7 @@ Local-only pipeline: Jobindex RSS feeds → LangFlow agents (Ollama) → FastAPI
 - First time: copy `infra/.env.example` to `infra/.env` and fill in the secrets.
 - Stack: `scripts/dev.ps1 up|down|ps|logs [svc]|reset-db|backup`. `up` starts Docker Desktop if needed, creates the `DATA_ROOT` folders and waits until services are healthy.
 - UIs: LangFlow http://127.0.0.1:7860 (superuser from `infra/.env`), Phoenix http://127.0.0.1:6006, Postgres `127.0.0.1:5432`.
+- Governance check: `python scripts/governance_check.py` (rules in [docs/governance.md](docs/governance.md)); `scripts/dev.ps1 prune-traces` deletes old Phoenix traces.
 - Backend tests: `cd backend; uv run pytest`
 - Frontend tests: `cd frontend; npm test`
 

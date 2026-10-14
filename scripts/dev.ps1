@@ -7,10 +7,11 @@
   scripts/dev.ps1 logs langflow   # follow logs of one service
   scripts/dev.ps1 reset-db        # drop and recreate both databases (asks first)
   scripts/dev.ps1 backup          # pg_dump both DBs to DATA_ROOT/backups/<date>.sql
+  scripts/dev.ps1 prune-traces    # delete Phoenix traces older than PHOENIX_RETENTION_DAYS (90)
 #>
 param(
     [Parameter(Position = 0)]
-    [ValidateSet('up', 'down', 'logs', 'ps', 'reset-db', 'backup')]
+    [ValidateSet('up', 'down', 'logs', 'ps', 'reset-db', 'backup', 'prune-traces')]
     [string]$Command = 'ps',
 
     [Parameter(Position = 1)]
@@ -98,6 +99,12 @@ try {
             Invoke-Compose exec -T postgres sh -c 'psql -v ON_ERROR_STOP=1 -U $POSTGRES_USER -d postgres -f /scripts/reset-databases.sql'
             Invoke-Compose up -d --wait
             Write-Host 'Databases recreated.'
+        }
+        'prune-traces' {
+            $days = Get-DotEnvValue 'PHOENIX_RETENTION_DAYS'
+            if (-not $days) { $days = '90' }
+            & python (Join-Path $PSScriptRoot 'prune_traces.py') --days $days
+            if ($LASTEXITCODE -ne 0) { throw 'prune_traces.py failed (is Phoenix up?)' }
         }
         'backup' {
             Initialize-Stack

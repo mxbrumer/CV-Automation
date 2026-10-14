@@ -7,6 +7,7 @@ from email.utils import parsedate_to_datetime
 
 import httpx
 
+from ajs.services.egress import egress_hook
 from ajs.worker.sources.base import RawJob, split_title
 
 SOURCE = "jobindex"
@@ -57,7 +58,10 @@ class JobindexRssSource:
     ) -> None:
         self._urls = feed_urls
         self._client = client or httpx.Client(
-            headers={"User-Agent": user_agent}, timeout=15.0, follow_redirects=True
+            headers={"User-Agent": user_agent},
+            timeout=15.0,
+            follow_redirects=True,
+            event_hooks={"request": [egress_hook("jobindex feed")]},
         )
 
     def fetch(self) -> list[RawJob]:

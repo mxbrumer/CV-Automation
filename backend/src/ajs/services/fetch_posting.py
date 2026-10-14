@@ -12,6 +12,7 @@ from urllib.robotparser import RobotFileParser
 import httpx
 import trafilatura
 
+from ajs.services.egress import egress_hook
 from ajs.settings import Settings
 
 _REQUIREMENT_HINTS = re.compile(
@@ -80,6 +81,7 @@ class PostingFetcher:
             headers={"User-Agent": settings.fetch_user_agent},
             timeout=15.0,
             follow_redirects=True,
+            event_hooks={"request": [egress_hook("posting fetcher")]},
         )
         self._sleep, self._clock = sleep, clock
         self._robots: dict[str, RobotFileParser | None] = {}

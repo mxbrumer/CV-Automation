@@ -121,9 +121,11 @@ jobs:
             python3 -m json.tool "$f" > /dev/null || { echo "::error file=$f::invalid JSON"; exit 1; }
           done
       - name: Governance check
-        # scripts/governance_check.py arrives in plan 10; no-op until then.
-        if: hashFiles('scripts/governance_check.py') != ''
         run: python3 scripts/governance_check.py
+      - name: Flow and governance tests (no LLM)
+        run: |
+          python3 -m pip install pytest jsonschema httpx
+          python3 -m pytest langflow/tests -c langflow/tests/pytest.ini --rootdir langflow/tests -m "not llm" -q
 
   infra:
     needs: changes

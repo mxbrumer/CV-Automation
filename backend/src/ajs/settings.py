@@ -24,6 +24,11 @@ class Settings(BaseSettings):
     langflow_generation_flow_id: str = "generate_documents"
     ollama_base_url: str = "http://host.docker.internal:11434"
 
+    # Tracing (plan 10). Empty endpoint or OTEL_ENABLED=false turns it off.
+    phoenix_collector_endpoint: str = ""
+    phoenix_project: str = "ajs-backend"
+    otel_enabled: bool = True
+
     # Hybrid match score (D8): weights and threshold.
     match_threshold: int = 55
     match_weight_embedding: float = 0.4

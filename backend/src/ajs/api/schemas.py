@@ -208,4 +208,6 @@ class WorkflowRunOut(ORMModel):
     phase: str
     status: str
     langflow_flow_id: str | None
+    langflow_run_id: str | None  # LangFlow session id; search it in Phoenix
+    phoenix_trace_id: str | None  # trace of the backend span in project ajs-backend
     error: str | None

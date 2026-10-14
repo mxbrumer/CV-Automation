@@ -13,11 +13,11 @@ from sqlalchemy import select
 from sqlalchemy.dialects.postgresql import insert
 from sqlalchemy.orm import Session
 
-from ajs.db.models import Actor, FactPosting, FeedItem, PostingStatus
+from ajs.db.models import Actor, FactPosting, FeedItem, PostingStatus, WorkflowRun
 from ajs.domain.status import transition
 from ajs.services import postings
 from ajs.services.fetch_posting import FetchResult
-from ajs.services.langflow_client import LangflowClient, LangflowError
+from ajs.services.langflow_client import FlowRef, LangflowClient, LangflowError
 from ajs.settings import Settings
 from ajs.worker.sources.base import JobSource, RawJob, split_title
 
@@ -41,7 +41,7 @@ class TextFetcher(Protocol):
 class FlowRunner(Protocol):
     def available(self, phase: str) -> bool: ...
 
-    def run(self, phase: str, posting_id: int) -> None: ...
+    def run(self, phase: str, posting_id: int) -> FlowRef | None: ...
 
 
 class LangflowFlowRunner:
@@ -57,9 +57,9 @@ class LangflowFlowRunner:
             return False
         return True
 
-    def run(self, phase: str, posting_id: int) -> None:
+    def run(self, phase: str, posting_id: int) -> FlowRef | None:
         try:
-            self._client.run_flow(
+            return self._client.run_flow(
                 self._client.flow_id(phase), json.dumps({"posting_id": posting_id})
             )
         except LangflowError as exc:
@@ -251,12 +251,45 @@ class Pipeline:
             self._s.commit()
 
     def _call_with_retry(self, phase: str, posting_id: int) -> None:
+        """Run the flow, retrying transient errors; each attempt is one `workflow_run` row."""
         for attempt in range(MAX_RETRIES + 1):
+            run_id = self._start_run(phase, posting_id)
             try:
-                self._flows.run(phase, posting_id)
+                ref = self._flows.run(phase, posting_id)
+                self._finish_run(run_id, ref=ref)
                 return
             except FlowError as exc:
+                self._finish_run(run_id, error=str(exc))
                 if not exc.transient or attempt == MAX_RETRIES:
                     raise
                 log.warning("transient %s error for %s, retrying: %s", phase, posting_id, exc)
                 self._sleep(5.0 * (attempt + 1))
+            except Exception as exc:
+                self._finish_run(run_id, error=str(exc))
+                raise
+
+    def _start_run(self, phase: str, posting_id: int) -> int:
+        run = WorkflowRun(
+            posting_id=posting_id,
+            phase=phase,
+            status="running",
+            langflow_flow_id=self._settings.langflow_analysis_flow_id
+            if phase == "analysis"
+            else self._settings.langflow_generation_flow_id,
+        )
+        self._s.add(run)
+        self._s.commit()  # keep the record even if the flow call fails
+        return run.run_id
+
+    def _finish_run(
+        self, run_id: int, ref: FlowRef | None = None, error: str | None = None
+    ) -> None:
+        run = self._s.get(WorkflowRun, run_id)
+        if run is None:
+            return
+        run.status = "failed" if error else "succeeded"
+        run.error = error[:2000] if error else None
+        run.finished_at = datetime.now(UTC)
+        if ref is not None:
+            run.langflow_run_id, run.phoenix_trace_id = ref.session_id, ref.trace_id
+        self._s.commit()

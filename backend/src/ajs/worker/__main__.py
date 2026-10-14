@@ -13,6 +13,7 @@ from ajs.db.session import get_engine
 from ajs.services.fetch_posting import PostingFetcher
 from ajs.services.langflow_client import LangflowClient
 from ajs.settings import Settings, get_settings
+from ajs.telemetry import setup_telemetry
 from ajs.worker.pipeline import LangflowFlowRunner, Pipeline, RunSummary
 from ajs.worker.sources.jobindex_rss import JobindexRssSource
 
@@ -66,6 +67,7 @@ def run_once(settings: Settings, generation_only: int | None = None) -> RunSumma
 def main() -> None:
     logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(name)s %(message)s")
     settings = get_settings()
+    setup_telemetry(settings, "ajs-worker", engine=get_engine())
     if not settings.feed_urls:
         log.warning("JOBINDEX_FEEDS is empty: nothing to poll")
     interval = max(settings.feed_poll_interval_min, 1440)  # never below the feed ttl

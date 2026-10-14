@@ -253,9 +253,9 @@ def run_workflow(
         json.dumps({"posting_id": body.posting_id}) if body.posting_id else ""
     )
     try:
-        result = langflow.run_flow(flow_id, input_value)
+        ref = langflow.run_flow(flow_id, input_value)
         run.status = "succeeded"
-        run.langflow_run_id = str(result.get("session_id") or "") or None
+        run.langflow_run_id, run.phoenix_trace_id = ref.session_id, ref.trace_id
     except LangflowError as exc:
         run.status, run.error = "failed", str(exc)
     run.finished_at = datetime.now(UTC)

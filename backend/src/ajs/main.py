@@ -4,11 +4,15 @@ from fastapi.responses import JSONResponse
 from ajs.api.deps import require_api_key
 from ajs.api.tools import postings as tool_postings
 from ajs.api.ui import postings as ui_postings
+from ajs.db.session import get_engine
 from ajs.domain.status import InvalidTransition
 from ajs.services.blob import UnsafePath
 from ajs.services.postings import Conflict, NotFound
+from ajs.settings import get_settings
+from ajs.telemetry import setup_telemetry
 
 app = FastAPI(title="AI Job Search API", version="0.1.0")
+setup_telemetry(get_settings(), "ajs-backend", app=app, engine=get_engine())
 
 _protected = [Depends(require_api_key)]
 app.include_router(ui_postings.router, prefix="/api/v1", dependencies=_protected)

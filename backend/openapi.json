@@ -1086,9 +1086,31 @@
             ],
             "title": "Langflow Flow Id"
           },
+          "langflow_run_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Langflow Run Id"
+          },
           "phase": {
             "title": "Phase",
             "type": "string"
+          },
+          "phoenix_trace_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Phoenix Trace Id"
           },
           "posting_id": {
             "anyOf": [
@@ -1116,6 +1138,8 @@
           "phase",
           "status",
           "langflow_flow_id",
+          "langflow_run_id",
+          "phoenix_trace_id",
           "error"
         ],
         "title": "WorkflowRunOut",
