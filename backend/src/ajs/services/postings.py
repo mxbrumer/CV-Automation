@@ -166,9 +166,9 @@ def save_artifact(
     pdf_rel: str | None = None
     if kind is not ArtifactKind.RECRUITER_EMAIL:  # the email is pasted as rich text, no PDF
         try:
-            pdf = render.markdown_to_pdf(markdown)
-        except NotImplementedError:
-            pass  # plan 09 adds the renderer; the .md is still saved
+            pdf = render.markdown_to_pdf(markdown, render.stylesheet_for(kind.value))
+        except OSError:
+            pass  # WeasyPrint's system libraries are missing (host runs); the .md is still saved
         else:
             pdf_rel = store.relative(
                 store.write_bytes(folder, blob.artifact_filename(kind.value, version, "pdf"), pdf)

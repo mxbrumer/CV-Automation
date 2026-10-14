@@ -21,7 +21,7 @@ class Settings(BaseSettings):
     langflow_api_key: str = ""
     # Flow id or endpoint name; imported flows keep the endpoint name (plan 08).
     langflow_analysis_flow_id: str = "analyze_and_match"
-    langflow_generation_flow_id: str = ""
+    langflow_generation_flow_id: str = "generate_documents"
     ollama_base_url: str = "http://host.docker.internal:11434"
 
     # Hybrid match score (D8): weights and threshold.

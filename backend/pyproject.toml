@@ -9,11 +9,13 @@ dependencies = [
     "apscheduler>=3.11.3",
     "fastapi>=0.115",
     "httpx>=0.28.1",
+    "markdown-it-py>=4.2.0",
     "psycopg[binary]>=3.2",
     "pydantic-settings>=2.6",
     "sqlalchemy>=2.0",
     "trafilatura>=2.3.1",
     "uvicorn[standard]>=0.32",
+    "weasyprint>=70.0",
 ]
 
 [dependency-groups]
@@ -51,4 +53,8 @@ asyncio_mode = "auto"
 
 [[tool.mypy.overrides]]
 module = ["apscheduler.*", "trafilatura.*"]
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = ["weasyprint", "weasyprint.*"]
 ignore_missing_imports = true

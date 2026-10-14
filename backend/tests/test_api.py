@@ -4,6 +4,7 @@ import pytest
 from fastapi.testclient import TestClient
 
 from ajs.main import app
+from ajs.settings import Settings
 
 T = "/api/v1/tools"
 U = "/api/v1"
@@ -246,5 +247,6 @@ def test_profile_endpoints(client: TestClient, settings: Any) -> None:
     assert client.get(f"{T}/profile/templates/other").status_code == 422
 
 
-def test_workflow_run_without_flow_id_is_503(client: TestClient) -> None:
+def test_workflow_run_without_flow_id_is_503(client: TestClient, settings: Settings) -> None:
+    settings.langflow_generation_flow_id = ""
     assert client.post(f"{U}/workflow/run", json={"phase": "generation"}).status_code == 503
