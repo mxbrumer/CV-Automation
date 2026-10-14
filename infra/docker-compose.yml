@@ -147,11 +147,12 @@ services:
       - ${DATA_ROOT}/applications:/data/applications
       - ${DATA_ROOT}/profile:/data/profile:ro
 
-  # Enabled by plan 11. Dev mode runs Vite outside Docker.
+  # Dev mode runs Vite outside Docker (npm run dev); this is the production-style build.
   frontend:
-    profiles: ["app"]
     build: ../frontend
     restart: unless-stopped
+    environment:
+      BACKEND_API_KEY: ${BACKEND_API_KEY:-}
     depends_on:
       - backend
     ports:

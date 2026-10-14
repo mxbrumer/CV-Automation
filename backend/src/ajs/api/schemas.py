@@ -202,6 +202,15 @@ class WorkflowRunRequest(BaseModel):
     input_value: str = ""
 
 
+class LastRun(ORMModel):
+    run_id: int
+    phase: str
+    status: str  # running | succeeded | failed
+    started_at: datetime
+    finished_at: datetime | None
+    error: str | None
+
+
 class WorkflowRunOut(ORMModel):
     run_id: int
     posting_id: int | None

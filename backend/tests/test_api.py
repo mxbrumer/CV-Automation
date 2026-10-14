@@ -210,7 +210,10 @@ def test_stats_and_listing(client: TestClient) -> None:
     assert [i["posting_id"] for i in page["items"]] == [pid] and page["total"] == 1
     page = client.get(f"{U}/postings", params={"q": "maersk"}).json()
     assert [i["posting_id"] for i in page["items"]] == [other]
+    page = client.get(f"{U}/postings", params={"sort": "recent"}).json()
+    assert [i["posting_id"] for i in page["items"]] == [other, pid]
     assert client.get(f"{U}/postings/9999").status_code == 404
+    assert client.get(f"{U}/workflow/last-run").json() is None
 
 
 def test_artifact_versions_and_files(client: TestClient, settings: Any) -> None:

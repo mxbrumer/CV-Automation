@@ -24,6 +24,7 @@ coverage/
 training-data/
 *.eml
 backend/certs/*.crt
+frontend/certs/*.crt
 
 # Claude Code local settings
 .claude/settings.local.json

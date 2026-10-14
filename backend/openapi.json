@@ -457,6 +457,60 @@
         "title": "HTTPValidationError",
         "type": "object"
       },
+      "LastRun": {
+        "properties": {
+          "error": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Error"
+          },
+          "finished_at": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Finished At"
+          },
+          "phase": {
+            "title": "Phase",
+            "type": "string"
+          },
+          "run_id": {
+            "title": "Run Id",
+            "type": "integer"
+          },
+          "started_at": {
+            "format": "date-time",
+            "title": "Started At",
+            "type": "string"
+          },
+          "status": {
+            "title": "Status",
+            "type": "string"
+          }
+        },
+        "required": [
+          "run_id",
+          "phase",
+          "status",
+          "started_at",
+          "finished_at",
+          "error"
+        ],
+        "title": "LastRun",
+        "type": "object"
+      },
       "MatchDecisionRequest": {
         "properties": {
           "decision": {
@@ -1303,6 +1357,20 @@
               "minimum": 1,
               "title": "Page Size",
               "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "sort",
+            "required": false,
+            "schema": {
+              "default": "score",
+              "enum": [
+                "score",
+                "recent"
+              ],
+              "title": "Sort",
+              "type": "string"
             }
           },
           {
@@ -2404,6 +2472,63 @@
         "summary": "Template",
         "tags": [
           "tools"
+        ]
+      }
+    },
+    "/api/v1/workflow/last-run": {
+      "get": {
+        "operationId": "last_workflow_run_api_v1_workflow_last_run_get",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "x-api-key",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Api-Key"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/LastRun"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "title": "Response Last Workflow Run Api V1 Workflow Last Run Get"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Last Workflow Run",
+        "tags": [
+          "ui"
         ]
       }
     },

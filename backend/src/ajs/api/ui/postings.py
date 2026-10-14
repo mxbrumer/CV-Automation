@@ -2,7 +2,7 @@
 
 import json
 from datetime import UTC, datetime
-from typing import Annotated
+from typing import Annotated, Literal
 
 from fastapi import APIRouter, BackgroundTasks, HTTPException, Query
 from fastapi.responses import FileResponse
@@ -83,6 +83,7 @@ def list_postings(
     q: str | None = None,
     page: Annotated[int, Query(ge=1)] = 1,
     page_size: Annotated[int, Query(ge=1, le=100)] = 25,
+    sort: Literal["score", "recent"] = "score",
 ) -> schemas.PostingPage:
     stmt = select(FactPosting).join(Company)
     if status:
@@ -91,14 +92,23 @@ def list_postings(
         like = f"%{q}%"
         stmt = stmt.where(or_(FactPosting.title.ilike(like), Company.name.ilike(like)))
     total = session.scalar(select(func.count()).select_from(stmt.subquery())) or 0
+    order = (
+        (FactPosting.created_at.desc(), FactPosting.posting_id.desc())
+        if sort == "recent"
+        else (FactPosting.match_score.desc().nulls_last(), FactPosting.posting_id.desc())
+    )
     rows = session.scalars(
-        stmt.order_by(FactPosting.match_score.desc().nulls_last(), FactPosting.posting_id.desc())
-        .offset((page - 1) * page_size)
-        .limit(page_size)
+        stmt.order_by(*order).offset((page - 1) * page_size).limit(page_size)
     ).all()
     return schemas.PostingPage(
         items=[_summary(p) for p in rows], total=total, page=page, page_size=page_size
     )
+
+
+@router.get("/workflow/last-run")
+def last_workflow_run(session: SessionDep) -> schemas.LastRun | None:
+    run = session.scalars(select(WorkflowRun).order_by(WorkflowRun.run_id.desc()).limit(1)).first()
+    return schemas.LastRun.model_validate(run) if run else None
 
 
 @router.get("/postings/{posting_id}")
