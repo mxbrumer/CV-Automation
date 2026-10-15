@@ -8,7 +8,7 @@ React app shell with routing, typed API client, and the Home dashboard.
 ## Steps
 1. `npm create vite@latest frontend -- --template react-ts`. Add: `react-router`, `@tanstack/react-query`, `openapi-typescript` + `openapi-fetch` (types from `backend/openapi.json`), a UI kit (recommend `shadcn/ui` + Tailwind; one choice, document it), `vitest` + `@testing-library/react`, `eslint`, `prettier`. Scripts: `dev`, `build`, `lint`, `typecheck`, `test`, `gen:api`. Version field carries the release-please marker (plan 02).
 2. **Dev proxy:** Vite proxies `/api` → `http://127.0.0.1:8000` and injects `X-API-Key` from `frontend/.env.local` (gitignored). Production (nginx container) does the same via config template.
-3. **Layout:** top nav with tabs **Home**, **Review** (badge = count `generated`), **Queue** (badge = count `approved`). Routes `/`, `/review`, `/review/:id`, `/queue`.
+3. **Layout:** top nav with tabs **Home**, **Matches** (badge = count `awaiting_match_review`, D9), **Review** (badge = count `generated`), **Queue** (badge = count `approved`). Routes `/`, `/matches`, `/review`, `/review/:id`, `/queue`. The Matches content is built in plan 11b.
 4. **Home dashboard** (brief): three stat tiles from `GET /api/v1/stats`:
    - Job postings reviewed (all non-duplicate rows)
    - Good matches (`match_score ≥ threshold`)

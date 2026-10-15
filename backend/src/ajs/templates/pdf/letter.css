@@ -1,0 +1,4 @@
+@page { size: A4; margin: 22mm 22mm 20mm 22mm; }
+body { font-family: "DejaVu Serif", serif; font-size: 10.5pt; line-height: 1.4; color: #1a1a1a; }
+p { margin: 0 0 4mm; }
+a { color: inherit; text-decoration: none; }

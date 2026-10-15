@@ -6,9 +6,9 @@
 Human-in-the-loop review: see generated documents next to templates, refine them via a local-LLM chat, approve into the queue.
 
 ## Backend additions (same session)
-- `POST /api/v1/applications/{id}/artifacts/{kind}/chat` `{message}` → streams (SSE) a revised full Markdown document plus a short explanation. Uses Ollama model `LLM_AGENT_MODEL` (**ajs-gemma**, A3) directly from the backend via `httpx` (not LangFlow; lower latency). Prompt includes: current document, brief, relevant CV evidence, user instruction, rule "don't invent facts not in cv_master". Persist turns in `chat_message`.
+- `POST /api/v1/postings/{id}/artifacts/{kind}/chat` `{message}` → streams (SSE) a revised full Markdown document plus a short explanation. Uses Ollama model `LLM_AGENT_MODEL` (**ajs-gemma**, A3) directly from the backend via `httpx` (not LangFlow; lower latency). Prompt includes: current document, brief, relevant CV evidence, user instruction, rule "don't invent facts not in cv.md". Persist turns in `chat_message`.
 - `POST .../chat/accept` → saves proposal as new artifact version (re-renders PDF).
-- `PATCH /applications/{id}/posting-text` for `needs_manual_text` items → re-queues analysis.
+- `PATCH /postings/{id}/posting-text` for `needs_manual_text` items → re-queues analysis.
 - Serve templates read-only: already in plan 06 (`/profile/templates/{kind}`).
 
 ## UI
@@ -21,10 +21,10 @@ Human-in-the-loop review: see generated documents next to templates, refine them
 4. Keyboard: `j/k` next/prev application.
 
 ## Acceptance criteria
-- [ ] Chat edit round-trip on a seeded application creates `v2` of the document and a new PDF.
-- [ ] Approve moves the item to Queue tab with badge count updated.
-- [ ] Component tests for diff accept/discard and approve flow (API mocked); backend tests for chat endpoint with Ollama mocked.
-- [ ] No request leaves localhost (check network tab: only `/api`).
+- [x] Chat edit round-trip on a seeded application creates `v2` of the document and a new PDF.
+- [x] Approve moves the item to Queue tab with badge count updated. (mocked UI test + backend queue tests; not clicked live)
+- [x] Component tests for diff accept/discard and approve flow (API mocked); backend tests for chat endpoint with Ollama mocked.
+- [x] No request leaves localhost (checked in code and bundle, not in a browser network tab).
 
 ## Out of scope
 Queue tab (13).

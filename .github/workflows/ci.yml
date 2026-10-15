@@ -109,6 +109,57 @@ jobs:
       - run: npm test -- --run
       - run: npm run build
 
+  # Browser e2e (plan 14): the real UI against a real backend with ENV=test (stubbed chat, no
+  # LangFlow), on fake seeded data. Runs when either package changed.
+  e2e:
+    needs: changes
+    if: needs.changes.outputs.frontend == 'true' || needs.changes.outputs.backend == 'true'
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:17
+        env:
+          POSTGRES_USER: jobsearch
+          POSTGRES_PASSWORD: jobsearch
+          POSTGRES_DB: jobsearch_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U jobsearch"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+    env:
+      E2E_DATABASE_URL: postgresql+psycopg://jobsearch:jobsearch@localhost:5432/jobsearch_test
+    steps:
+      - uses: actions/checkout@v7
+      - uses: astral-sh/setup-uv@v10.2.0
+        with:
+          working-directory: backend
+          enable-cache: true
+          cache-dependency-glob: backend/uv.lock
+      - run: uv sync --frozen
+        working-directory: backend
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+      - run: npm ci
+        working-directory: frontend
+      - run: npx playwright install --with-deps chromium
+        working-directory: frontend
+      - run: npm run test:e2e
+        working-directory: frontend
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: playwright-report
+          path: |
+            frontend/playwright-report
+            frontend/test-results
+          retention-days: 7
+
   langflow:
     needs: changes
     if: needs.changes.outputs.langflow == 'true'
@@ -121,9 +172,11 @@ jobs:
             python3 -m json.tool "$f" > /dev/null || { echo "::error file=$f::invalid JSON"; exit 1; }
           done
       - name: Governance check
-        # scripts/governance_check.py arrives in plan 10; no-op until then.
-        if: hashFiles('scripts/governance_check.py') != ''
         run: python3 scripts/governance_check.py
+      - name: Flow and governance tests (no LLM)
+        run: |
+          python3 -m pip install pytest jsonschema httpx
+          python3 -m pytest langflow/tests -c langflow/tests/pytest.ini --rootdir langflow/tests -m "not llm" -q
 
   infra:
     needs: changes
@@ -139,7 +192,7 @@ jobs:
   # Single required status check: fails if any job failed, passes if all passed or skipped.
   ci-passed:
     if: always()
-    needs: [changes, backend, frontend, langflow, infra]
+    needs: [changes, backend, frontend, e2e, langflow, infra]
     runs-on: ubuntu-latest
     steps:
       - if: contains(needs.*.result, 'failure') || contains(needs.*.result, 'cancelled')
