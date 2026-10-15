@@ -78,7 +78,7 @@ jobs:
       DATABASE_URL: postgresql+psycopg://jobsearch:jobsearch@localhost:5432/jobsearch_test
     steps:
       - uses: actions/checkout@v7
-      - uses: astral-sh/setup-uv@v10.2.0
+      - uses: astral-sh/setup-uv@v10.3.0
         with:
           working-directory: backend
           enable-cache: true
@@ -133,7 +133,7 @@ jobs:
       E2E_DATABASE_URL: postgresql+psycopg://jobsearch:jobsearch@localhost:5432/jobsearch_test
     steps:
       - uses: actions/checkout@v7
-      - uses: astral-sh/setup-uv@v10.2.0
+      - uses: astral-sh/setup-uv@v10.3.0
         with:
           working-directory: backend
           enable-cache: true
