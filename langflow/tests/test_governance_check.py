@@ -76,6 +76,11 @@ def test_changed_prompt_fails(tree: Path) -> None:
 
 
 def test_tracked_personal_files_fail() -> None:
-    bad = ["backend/x.py", "profile/cv.md", "mail/offer.eml", "infra/.env", "docs/profile-examples/cv.example.md", "infra/.env.example"]
+    bad = ["backend/x.py", "profile/cv.md", "mail/offer.eml", "infra/.env", "docs/profile-examples/cv.example.md", "infra/.env.example", "frontend/.env.local.example", "frontend/.env.local"]
     problems = gov.check_tracked(bad)
-    assert [p.split(":")[0] for p in problems] == ["profile/cv.md", "mail/offer.eml", "infra/.env"]
+    assert [p.split(":")[0] for p in problems] == [
+        "profile/cv.md",
+        "mail/offer.eml",
+        "infra/.env",
+        "frontend/.env.local",
+    ]

@@ -229,7 +229,9 @@ def test_artifact_versions_and_files(client: TestClient, settings: Any) -> None:
     folder = client.post(f"{T}/postings/{pid}/folder").json()["path"]
     assert folder.endswith(f"_novo-nordisk-a-s_data-engineer_{pid}")
     r = client.post(f"{T}/postings/{pid}/artifacts", json={"kind": "cv", "markdown": "# CV v1"})
-    assert r.status_code == 201 and r.json()["version"] == 1 and r.json()["pdf_path"] is None
+    assert r.status_code == 201 and r.json()["version"] == 1
+    # A PDF exists wherever WeasyPrint's system libraries do (CI, Docker), not on the Windows host.
+    assert r.json()["pdf_path"] in (None, f"{folder.rsplit('/', 1)[-1]}/cv_v1.pdf")
     r = client.put(f"{U}/postings/{pid}/artifacts/cv", json={"markdown": "# CV v2"})
     assert r.json()["version"] == 2 and r.json()["markdown"] == "# CV v2"
     assert client.get(f"{U}/postings/{pid}/artifacts/cv").json()["markdown"] == "# CV v2"

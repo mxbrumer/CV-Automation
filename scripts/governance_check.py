@@ -160,7 +160,7 @@ def check_tracked(files: list[str]) -> list[str]:
         base = parts[-1]
         if base.lower().endswith(".eml"):
             problems.append(f"{name}: e-mail file is tracked")
-        elif base == ".env" or (base.startswith(".env.") and base != ".env.example"):
+        elif base == ".env" or (base.startswith(".env.") and not base.endswith(".example")):
             problems.append(f"{name}: env file is tracked")
         elif "profile" in parts[:-1] and not base.endswith(".example.md"):
             problems.append(f"{name}: profile data is tracked")
