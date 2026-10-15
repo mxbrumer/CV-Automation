@@ -3,10 +3,18 @@
 # All runtime data lives under ${DATA_ROOT}, outside OneDrive (D6).
 name: ajs
 
+# Container logs rotate: at most 3 files of 10 MB per service (they can hold posting and CV text).
+x-logging: &logging
+  driver: json-file
+  options:
+    max-size: "10m"
+    max-file: "3"
+
 services:
   postgres:
     image: postgres:17
     restart: unless-stopped
+    logging: *logging
     environment:
       POSTGRES_USER: ${POSTGRES_USER:?set in infra/.env}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?set in infra/.env}
@@ -20,7 +28,9 @@ services:
     ports:
       - "127.0.0.1:5432:5432"
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U \"$$POSTGRES_USER\" -d \"$$POSTGRES_DB\""]
+      # -h 127.0.0.1 (TCP): on an empty data dir the image first runs a temporary server that listens
+      # only on the unix socket, so a socket check passes before the real server exists.
+      test: ["CMD-SHELL", "pg_isready -h 127.0.0.1 -U \"$$POSTGRES_USER\" -d \"$$POSTGRES_DB\""]
       interval: 5s
       timeout: 5s
       retries: 20
@@ -28,9 +38,12 @@ services:
   phoenix:
     image: arizephoenix/phoenix:version-20.16.0
     restart: unless-stopped
+    logging: *logging
     environment:
       PHOENIX_WORKING_DIR: /mnt/data
       PHOENIX_TELEMETRY_ENABLED: "false"
+      # Traces hold CV and posting text: Phoenix drops them after this many days (plan 10).
+      PHOENIX_DEFAULT_RETENTION_POLICY_DAYS: ${PHOENIX_RETENTION_DAYS:-90}
     volumes:
       - ${DATA_ROOT}/phoenix:/mnt/data
     ports:
@@ -46,6 +59,7 @@ services:
   langflow:
     image: langflowai/langflow:1.12.3
     restart: unless-stopped
+    logging: *logging
     depends_on:
       postgres:
         condition: service_healthy
@@ -59,7 +73,13 @@ services:
       LANGFLOW_SUPERUSER_PASSWORD: ${LANGFLOW_SUPERUSER_PASSWORD:?set in infra/.env}
       LANGFLOW_COMPONENTS_PATH: /app/custom_components
       LANGFLOW_DO_NOT_TRACK: "true"
+      # LangFlow refuses the OLLAMA_BASE_URL global variable (and its built-in Ollama
+      # component) for a hostname that resolves to a private IP unless it is listed here.
+      LANGFLOW_SSRF_ALLOWED_HOSTS: host.docker.internal
       PHOENIX_COLLECTOR_ENDPOINT: ${PHOENIX_COLLECTOR_ENDPOINT:-http://phoenix:6006}
+      # LangFlow only enables its Phoenix tracer when this key is set or the endpoint contains
+      # "localhost"/"127.0.0.1". Phoenix runs without auth here, so any placeholder works.
+      PHOENIX_API_KEY: local-phoenix-no-auth
       # Components are mounted read-only from the repo; never write .pyc into OneDrive.
       PYTHONDONTWRITEBYTECODE: "1"
     volumes:
@@ -76,11 +96,10 @@ services:
       retries: 30
       start_period: 60s
 
-  # Enabled by plan 06 (remove the profiles gate then).
   backend:
-    profiles: ["app"]
     build: ../backend
     restart: unless-stopped
+    logging: *logging
     depends_on:
       postgres:
         condition: service_healthy
@@ -92,8 +111,17 @@ services:
       LANGFLOW_URL: http://langflow:7860
       LANGFLOW_API_KEY: ${LANGFLOW_API_KEY:-}
       OLLAMA_BASE_URL: ${OLLAMA_BASE_URL:-http://host.docker.internal:11434}
+      LLM_AGENT_MODEL: ${LLM_AGENT_MODEL:-ajs-gemma}
+      LLM_KEEP_ALIVE: ${LLM_KEEP_ALIVE:-30m}
       PHOENIX_COLLECTOR_ENDPOINT: ${PHOENIX_COLLECTOR_ENDPOINT:-http://phoenix:6006}
+      OTEL_ENABLED: ${OTEL_ENABLED:-true}
       MATCH_THRESHOLD: ${MATCH_THRESHOLD:-55}
+      LANGFLOW_ANALYSIS_FLOW_ID: ${LANGFLOW_ANALYSIS_FLOW_ID:-analyze_and_match}
+      LANGFLOW_GENERATION_FLOW_ID: ${LANGFLOW_GENERATION_FLOW_ID:-generate_documents}
+      JOBINDEX_FEEDS: ${JOBINDEX_FEEDS:-}
+      FEED_POLL_INTERVAL_MIN: ${FEED_POLL_INTERVAL_MIN:-1440}
+      FETCH_USER_AGENT: ${FETCH_USER_AGENT:-ai-job-search/0.1 (personal, local use)}
+      FETCH_DENYLIST: ${FETCH_DENYLIST:-linkedin.com}
     volumes:
       - ${DATA_ROOT}/applications:/data/applications
       - ${DATA_ROOT}/profile:/data/profile:ro
@@ -101,12 +129,47 @@ services:
       - "127.0.0.1:8000:8000"
     extra_hosts:
       - "host.docker.internal:host-gateway"
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://localhost:8000/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 20s
 
-  # Enabled by plan 11. Dev mode runs Vite outside Docker.
+  # Polls the Jobindex feeds and drives the per-job pipeline (plan 07). Same image as backend.
+  worker:
+    build: ../backend
+    restart: unless-stopped
+    logging: *logging
+    command: ["python", "-m", "ajs.worker"]
+    depends_on:
+      backend:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgresql+psycopg://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB:-jobsearch}
+      DATA_ROOT: /data
+      LANGFLOW_URL: http://langflow:7860
+      LANGFLOW_API_KEY: ${LANGFLOW_API_KEY:-}
+      PHOENIX_COLLECTOR_ENDPOINT: ${PHOENIX_COLLECTOR_ENDPOINT:-http://phoenix:6006}
+      OTEL_ENABLED: ${OTEL_ENABLED:-true}
+      MATCH_THRESHOLD: ${MATCH_THRESHOLD:-55}
+      LANGFLOW_ANALYSIS_FLOW_ID: ${LANGFLOW_ANALYSIS_FLOW_ID:-analyze_and_match}
+      LANGFLOW_GENERATION_FLOW_ID: ${LANGFLOW_GENERATION_FLOW_ID:-generate_documents}
+      JOBINDEX_FEEDS: ${JOBINDEX_FEEDS:-}
+      FEED_POLL_INTERVAL_MIN: ${FEED_POLL_INTERVAL_MIN:-1440}
+      FETCH_USER_AGENT: ${FETCH_USER_AGENT:-ai-job-search/0.1 (personal, local use)}
+      FETCH_DENYLIST: ${FETCH_DENYLIST:-linkedin.com}
+    volumes:
+      - ${DATA_ROOT}/applications:/data/applications
+      - ${DATA_ROOT}/profile:/data/profile:ro
+
+  # Dev mode runs Vite outside Docker (npm run dev); this is the production-style build.
   frontend:
-    profiles: ["app"]
     build: ../frontend
     restart: unless-stopped
+    logging: *logging
+    environment:
+      BACKEND_API_KEY: ${BACKEND_API_KEY:-}
     depends_on:
       - backend
     ports:

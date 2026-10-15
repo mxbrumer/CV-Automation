@@ -110,3 +110,13 @@ Blind 1–5 ratings by the user (run r2): **cover letters 4.00** (6 of 6 rated 4
 - **Fallback** if the file cannot be loaded: 3.0 characters per token. Measured 3.57–3.69 for Danish and 4.77–5.50 for English, so 3.0 overestimates by ≥ 16%.
 - **Writer budgets** at `num_ctx` 32768: architecture §5's 16k budgets doubled. System and instructions ≤ 2000, job brief ≤ 2000, CV evidence ≤ 8000, template or section ≤ 3000, output ≤ 4000 (19,000 total, ~13.7k headroom). Writers run with thinking off, so there is no thinking budget. The rubric's thinking cap (3072) is its output budget.
 - The helper raises before a call that would exceed `num_ctx − output budget`, instead of letting Ollama truncate the prompt silently.
+
+## Recording prompt and model experiments in Phoenix (plan 10)
+
+The four golden postings (`langflow/tests/fixtures`) are the Phoenix dataset `ajs-golden-postings` (http://127.0.0.1:6006 > Datasets). Recreate it with `python scripts/upload_golden_dataset.py` (after `reset` of `DATA_ROOT/phoenix`). Its outputs are the expectations of `langflow/tests/test_analyze_and_match.py`.
+
+When a prompt (`langflow/prompts/*.md`) or a model changes, record one experiment by hand:
+
+1. Run the golden tests: `cd backend; uv run --with jsonschema pytest ../langflow/tests -m llm -c ../langflow/tests/pytest.ini`.
+2. In Phoenix, open the dataset and **Experiments**, and add a run named `<prompt file> v<version> / <model>` with the scores and statuses the tests printed. Keep the previous run for comparison.
+3. Bump the `version:` header of the prompt file and rebuild the flow (`langflow/tools/build_*.py`), so `scripts/governance_check.py` passes.

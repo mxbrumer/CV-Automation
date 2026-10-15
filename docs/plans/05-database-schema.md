@@ -21,10 +21,10 @@ Create the `backend/` uv project skeleton plus the app schema in `jobsearch` DB 
 6. Seed script `backend/scripts/seed_dev.py` with fake companies/applications in every status (no real data) for frontend dev.
 
 ## Acceptance criteria
-- [ ] `uv run alembic upgrade head` on a clean DB succeeds; `downgrade base` succeeds.
-- [ ] `uv run pytest` passes (normalize tests + a migration smoke test).
-- [ ] `uv run ruff check` and `mypy` clean.
-- [ ] Seed produces rows visible via `psql`.
+- [x] `uv run alembic upgrade head` on a clean DB succeeds; `downgrade base` succeeds.
+- [x] `uv run pytest` passes (normalize tests + a migration smoke test).
+- [x] `uv run ruff check` and `mypy` clean.
+- [x] Seed produces rows visible via `psql`.
 
 ## Out of scope
 API endpoints (06).

@@ -7,16 +7,18 @@
   scripts/dev.ps1 logs langflow   # follow logs of one service
   scripts/dev.ps1 reset-db        # drop and recreate both databases (asks first)
   scripts/dev.ps1 backup          # pg_dump both DBs to DATA_ROOT/backups/<date>.sql
+  scripts/dev.ps1 restore <file>  # replace both DBs from a backup in DATA_ROOT/backups (asks first)
+  scripts/dev.ps1 prune-traces    # delete Phoenix traces older than PHOENIX_RETENTION_DAYS (90)
 #>
 param(
     [Parameter(Position = 0)]
-    [ValidateSet('up', 'down', 'logs', 'ps', 'reset-db', 'backup')]
+    [ValidateSet('up', 'down', 'logs', 'ps', 'reset-db', 'backup', 'restore', 'prune-traces')]
     [string]$Command = 'ps',
 
     [Parameter(Position = 1)]
     [string]$Service,
 
-    # Skip the reset-db confirmation prompt (for scripts such as e2e.ps1).
+    # Skip the reset-db / restore confirmation prompt (for scripts such as e2e.ps1).
     [switch]$Force
 )
 
@@ -93,11 +95,35 @@ try {
             }
             Invoke-Compose up -d --wait postgres
             # Stop every client of the DBs; `stop` ignores services that are not running.
-            Invoke-Compose --profile app stop langflow backend frontend
+            Invoke-Compose --profile app stop worker langflow backend frontend
             # Single-quoted: $POSTGRES_USER expands inside the container.
             Invoke-Compose exec -T postgres sh -c 'psql -v ON_ERROR_STOP=1 -U $POSTGRES_USER -d postgres -f /scripts/reset-databases.sql'
             Invoke-Compose up -d --wait
             Write-Host 'Databases recreated.'
+        }
+        'restore' {
+            if (-not $Service) { throw 'Usage: dev.ps1 restore <backup file name in DATA_ROOT\backups>' }
+            $name = Split-Path -Leaf $Service  # only files in the mounted backups folder can be restored
+            Initialize-Stack
+            Invoke-Compose up -d --wait postgres
+            & docker compose -f $ComposeFile exec -T postgres test -f "/backups/$name"
+            if ($LASTEXITCODE -ne 0) { throw "No backup '$name' in DATA_ROOT\backups." }
+            if (-not $Force) {
+                Write-Host "This DROPS the app database and the LangFlow database and loads '$name'." -ForegroundColor Yellow
+                Write-Host 'App files (applications/, profile/) are not part of the dump and stay as they are.'
+                $answer = Read-Host "Type 'restore' to continue"
+                if ($answer -ne 'restore') { Write-Host 'Aborted.'; exit 1 }
+            }
+            Invoke-Compose --profile app stop worker langflow backend frontend
+            Invoke-Compose exec -T postgres sh /scripts/restore.sh "/backups/$name"
+            Invoke-Compose up -d --wait
+            Write-Host "Restored from $name."
+        }
+        'prune-traces' {
+            $days = Get-DotEnvValue 'PHOENIX_RETENTION_DAYS'
+            if (-not $days) { $days = '90' }
+            & python (Join-Path $PSScriptRoot 'prune_traces.py') --days $days
+            if ($LASTEXITCODE -ne 0) { throw 'prune_traces.py failed (is Phoenix up?)' }
         }
         'backup' {
             Initialize-Stack

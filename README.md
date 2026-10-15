@@ -10,11 +10,54 @@ A local-only assistant that turns Jobindex job postings into reviewed, ready-to-
 - Python 3.12
 - [uv](https://docs.astral.sh/uv/)
 
-An `infra/.env.example` is added in plan 03; copy it to `infra/.env` and fill it in before starting the stack.
+## Quick start
+
+PowerShell 5.1 on Windows, from the repo root.
+
+1. Install the prerequisites above and start Ollama. Pull the models: `scripts/pull-models.ps1` (about 9 GB).
+2. Copy `infra/.env.example` to `infra/.env`. Replace every `change-me`, set `BACKEND_API_KEY`, and put your Jobindex RSS feed URL(s) in `JOBINDEX_FEEDS` (comma-separated, one per saved search). `DATA_ROOT` must stay outside OneDrive.
+3. Start the stack: `scripts/dev.ps1 up` (starts Docker Desktop if needed, builds the images, waits until healthy).
+4. Open LangFlow at http://127.0.0.1:7860, sign in with `LANGFLOW_SUPERUSER`, create an API key (Settings > API Keys) and put it in `infra/.env` as `LANGFLOW_API_KEY`.
+5. Import the flows and their variables: `scripts/import-flows.ps1`. Then apply the key: `scripts/dev.ps1 up`.
+6. Add your own profile files in `DATA_ROOT\profile\` (never in git): copy the three stubs in `docs/profile-examples/` to `cv.md`, `cover_letter_template.md` and `recruiter_email_template.md`, and edit them.
+7. Open http://127.0.0.1:5173 and press **Run pipeline now** (the worker also polls once a day).
+8. Work through the tabs: **Matches** (approve or decline), **Review** (read and edit the drafts, approve), **Queue** (copy the email, apply on the employer's site, mark submitted).
+
+Day-to-day operation, backups and upgrades: [docs/operations.md](docs/operations.md).
+
+## Workflow
+
+Two human gates: **Matches** (approve a match) and **Review** (approve the drafts). Green steps run locally on Ollama; nothing is submitted automatically.
+
+```mermaid
+flowchart TD
+  feed["Jobindex RSS feeds"] --> dedup{"Duplicate?"}
+  dedup -- yes --> dup(["duplicate"])
+  dedup -- no --> analyse["Analysis + match<br/>(Ollama, local)"]
+  analyse --> thr{"Score at or above threshold?"}
+  thr -- no --> low(["low_match"])
+  thr -- yes --> g1{{"Gate 1: Matches<br/>(you decide)"}}
+  g1 -- decline --> md(["match_declined"])
+  g1 -- approve --> draft["Drafts: CV, cover letter, recruiter email<br/>(Ollama, local)"]
+  draft --> g2{{"Gate 2: Review<br/>(you decide)"}}
+  g2 -- reject --> dec(["declined"])
+  g2 -- approve --> queue["Queue"]
+  queue -- reject --> dec
+  queue --> submit["Manual submit<br/>(you apply yourself)"]
+  classDef local fill:#e8f4ea,stroke:#2e7d32
+  classDef gate fill:#fff4d6,stroke:#b26a00
+  classDef stop fill:#f1f1f1,stroke:#888
+  class analyse,draft local
+  class g1,g2 gate
+  class dup,low,md,dec stop
+```
+
+PNG copy (used in the recruiter email): `docs/assets/workflow.png`, rendered with `npx -p @mermaid-js/mermaid-cli mmdc -i docs/assets/workflow.mmd -o docs/assets/workflow.png -s 1.6 -b white`.
 
 ## Docs
 
 - [Architecture & decisions](docs/architecture.md)
+- [Operations: start/stop, backup and restore, upgrades](docs/operations.md)
 - [Implementation plans](docs/plans/README.md)
 - [Original brief](prompts/project-setup.md)
 - [Contributor and agent rules](CLAUDE.md)

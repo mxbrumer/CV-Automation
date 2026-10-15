@@ -1,0 +1,3359 @@
+{
+  "data": {
+    "edges": [
+      {
+        "className": "",
+        "data": {
+          "sourceHandle": {
+            "dataType": "AjsDetectLanguage",
+            "id": "AjsDetectLanguage-language",
+            "name": "supported",
+            "output_types": [
+              "JSON"
+            ]
+          },
+          "targetHandle": {
+            "fieldName": "posting",
+            "id": "AjsExtractContacts-contacts",
+            "inputTypes": [
+              "Data"
+            ],
+            "type": "other"
+          }
+        },
+        "id": "reactflow__edge-AjsDetectLanguage-language{œdataTypeœ:œAjsDetectLanguageœ,œidœ:œAjsDetectLanguage-languageœ,œnameœ:œsupportedœ,œoutput_typesœ:[œJSONœ]}-AjsExtractContacts-contacts{œfieldNameœ:œpostingœ,œidœ:œAjsExtractContacts-contactsœ,œinputTypesœ:[œDataœ],œtypeœ:œotherœ}",
+        "source": "AjsDetectLanguage-language",
+        "sourceHandle": "{œdataTypeœ: œAjsDetectLanguageœ, œidœ: œAjsDetectLanguage-languageœ, œnameœ: œsupportedœ, œoutput_typesœ: [œJSONœ]}",
+        "target": "AjsExtractContacts-contacts",
+        "targetHandle": "{œfieldNameœ: œpostingœ, œidœ: œAjsExtractContacts-contactsœ, œinputTypesœ: [œDataœ], œtypeœ: œotherœ}"
+      },
+      {
+        "className": "",
+        "data": {
+          "sourceHandle": {
+            "dataType": "AjsDetectLanguage",
+            "id": "AjsDetectLanguage-language",
+            "name": "unsupported",
+            "output_types": [
+              "JSON"
+            ]
+          },
+          "targetHandle": {
+            "fieldName": "posting",
+            "id": "AjsSetStatus-unsupported",
+            "inputTypes": [
+              "Data"
+            ],
+            "type": "other"
+          }
+        },
+        "id": "reactflow__edge-AjsDetectLanguage-language{œdataTypeœ:œAjsDetectLanguageœ,œidœ:œAjsDetectLanguage-languageœ,œnameœ:œunsupportedœ,œoutput_typesœ:[œJSONœ]}-AjsSetStatus-unsupported{œfieldNameœ:œpostingœ,œidœ:œAjsSetStatus-unsupportedœ,œinputTypesœ:[œDataœ],œtypeœ:œotherœ}",
+        "source": "AjsDetectLanguage-language",
+        "sourceHandle": "{œdataTypeœ: œAjsDetectLanguageœ, œidœ: œAjsDetectLanguage-languageœ, œnameœ: œunsupportedœ, œoutput_typesœ: [œJSONœ]}",
+        "target": "AjsSetStatus-unsupported",
+        "targetHandle": "{œfieldNameœ: œpostingœ, œidœ: œAjsSetStatus-unsupportedœ, œinputTypesœ: [œDataœ], œtypeœ: œotherœ}"
+      },
+      {
+        "className": "",
+        "data": {
+          "sourceHandle": {
+            "dataType": "AjsEmbeddingScore",
+            "id": "AjsEmbeddingScore-embedding",
+            "name": "posting_out",
+            "output_types": [
+              "JSON"
+            ]
+          },
+          "targetHandle": {
+            "fieldName": "posting",
+            "id": "AjsRubricScore-rubric",
+            "inputTypes": [
+              "Data"
+            ],
+            "type": "other"
+          }
+        },
+        "id": "reactflow__edge-AjsEmbeddingScore-embedding{œdataTypeœ:œAjsEmbeddingScoreœ,œidœ:œAjsEmbeddingScore-embeddingœ,œnameœ:œposting_outœ,œoutput_typesœ:[œJSONœ]}-AjsRubricScore-rubric{œfieldNameœ:œpostingœ,œidœ:œAjsRubricScore-rubricœ,œinputTypesœ:[œDataœ],œtypeœ:œotherœ}",
+        "source": "AjsEmbeddingScore-embedding",
+        "sourceHandle": "{œdataTypeœ: œAjsEmbeddingScoreœ, œidœ: œAjsEmbeddingScore-embeddingœ, œnameœ: œposting_outœ, œoutput_typesœ: [œJSONœ]}",
+        "target": "AjsRubricScore-rubric",
+        "targetHandle": "{œfieldNameœ: œpostingœ, œidœ: œAjsRubricScore-rubricœ, œinputTypesœ: [œDataœ], œtypeœ: œotherœ}"
+      },
+      {
+        "className": "",
+        "data": {
+          "sourceHandle": {
+            "dataType": "AjsExtractContacts",
+            "id": "AjsExtractContacts-contacts",
+            "name": "posting_out",
+            "output_types": [
+              "JSON"
+            ]
+          },
+          "targetHandle": {
+            "fieldName": "posting",
+            "id": "AjsJobBrief-brief",
+            "inputTypes": [
+              "Data"
+            ],
+            "type": "other"
+          }
+        },
+        "id": "reactflow__edge-AjsExtractContacts-contacts{œdataTypeœ:œAjsExtractContactsœ,œidœ:œAjsExtractContacts-contactsœ,œnameœ:œposting_outœ,œoutput_typesœ:[œJSONœ]}-AjsJobBrief-brief{œfieldNameœ:œpostingœ,œidœ:œAjsJobBrief-briefœ,œinputTypesœ:[œDataœ],œtypeœ:œotherœ}",
+        "source": "AjsExtractContacts-contacts",
+        "sourceHandle": "{œdataTypeœ: œAjsExtractContactsœ, œidœ: œAjsExtractContacts-contactsœ, œnameœ: œposting_outœ, œoutput_typesœ: [œJSONœ]}",
+        "target": "AjsJobBrief-brief",
+        "targetHandle": "{œfieldNameœ: œpostingœ, œidœ: œAjsJobBrief-briefœ, œinputTypesœ: [œDataœ], œtypeœ: œotherœ}"
+      },
+      {
+        "className": "",
+        "data": {
+          "sourceHandle": {
+            "dataType": "AjsJobBrief",
+            "id": "AjsJobBrief-brief",
+            "name": "posting_out",
+            "output_types": [
+              "JSON"
+            ]
+          },
+          "targetHandle": {
+            "fieldName": "posting",
+            "id": "AjsSaveAnalysis-save_analysis",
+            "inputTypes": [
+              "Data"
+            ],
+            "type": "other"
+          }
+        },
+        "id": "reactflow__edge-AjsJobBrief-brief{œdataTypeœ:œAjsJobBriefœ,œidœ:œAjsJobBrief-briefœ,œnameœ:œposting_outœ,œoutput_typesœ:[œJSONœ]}-AjsSaveAnalysis-save_analysis{œfieldNameœ:œpostingœ,œidœ:œAjsSaveAnalysis-save_analysisœ,œinputTypesœ:[œDataœ],œtypeœ:œotherœ}",
+        "source": "AjsJobBrief-brief",
+        "sourceHandle": "{œdataTypeœ: œAjsJobBriefœ, œidœ: œAjsJobBrief-briefœ, œnameœ: œposting_outœ, œoutput_typesœ: [œJSONœ]}",
+        "target": "AjsSaveAnalysis-save_analysis",
+        "targetHandle": "{œfieldNameœ: œpostingœ, œidœ: œAjsSaveAnalysis-save_analysisœ, œinputTypesœ: [œDataœ], œtypeœ: œotherœ}"
+      },
+      {
+        "className": "",
+        "data": {
+          "sourceHandle": {
+            "dataType": "AjsLoadPosting",
+            "id": "AjsLoadPosting-load",
+            "name": "posting",
+            "output_types": [
+              "JSON"
+            ]
+          },
+          "targetHandle": {
+            "fieldName": "posting",
+            "id": "AjsDetectLanguage-language",
+            "inputTypes": [
+              "Data"
+            ],
+            "type": "other"
+          }
+        },
+        "id": "reactflow__edge-AjsLoadPosting-load{œdataTypeœ:œAjsLoadPostingœ,œidœ:œAjsLoadPosting-loadœ,œnameœ:œpostingœ,œoutput_typesœ:[œJSONœ]}-AjsDetectLanguage-language{œfieldNameœ:œpostingœ,œidœ:œAjsDetectLanguage-languageœ,œinputTypesœ:[œDataœ],œtypeœ:œotherœ}",
+        "source": "AjsLoadPosting-load",
+        "sourceHandle": "{œdataTypeœ: œAjsLoadPostingœ, œidœ: œAjsLoadPosting-loadœ, œnameœ: œpostingœ, œoutput_typesœ: [œJSONœ]}",
+        "target": "AjsDetectLanguage-language",
+        "targetHandle": "{œfieldNameœ: œpostingœ, œidœ: œAjsDetectLanguage-languageœ, œinputTypesœ: [œDataœ], œtypeœ: œotherœ}"
+      },
+      {
+        "className": "",
+        "data": {
+          "sourceHandle": {
+            "dataType": "AjsLoadPosting",
+            "id": "AjsLoadPosting-load",
+            "name": "skipped",
+            "output_types": [
+              "Message"
+            ]
+          },
+          "targetHandle": {
+            "fieldName": "input_value",
+            "id": "ChatOutput-skipped_out",
+            "inputTypes": [
+              "Data",
+              "JSON",
+              "DataFrame",
+              "Table",
+              "Message"
+            ],
+            "type": "other"
+          }
+        },
+        "id": "reactflow__edge-AjsLoadPosting-load{œdataTypeœ:œAjsLoadPostingœ,œidœ:œAjsLoadPosting-loadœ,œnameœ:œskippedœ,œoutput_typesœ:[œMessageœ]}-ChatOutput-skipped_out{œfieldNameœ:œinput_valueœ,œidœ:œChatOutput-skipped_outœ,œinputTypesœ:[œDataœ,œJSONœ,œDataFrameœ,œTableœ,œMessageœ],œtypeœ:œotherœ}",
+        "source": "AjsLoadPosting-load",
+        "sourceHandle": "{œdataTypeœ: œAjsLoadPostingœ, œidœ: œAjsLoadPosting-loadœ, œnameœ: œskippedœ, œoutput_typesœ: [œMessageœ]}",
+        "target": "ChatOutput-skipped_out",
+        "targetHandle": "{œfieldNameœ: œinput_valueœ, œidœ: œChatOutput-skipped_outœ, œinputTypesœ: [œDataœ, œJSONœ, œDataFrameœ, œTableœ, œMessageœ], œtypeœ: œotherœ}"
+      },
+      {
+        "className": "",
+        "data": {
+          "sourceHandle": {
+            "dataType": "AjsRubricScore",
+            "id": "AjsRubricScore-rubric",
+            "name": "posting_out",
+            "output_types": [
+              "JSON"
+            ]
+          },
+          "targetHandle": {
+            "fieldName": "posting",
+            "id": "AjsSaveMatch-save_match",
+            "inputTypes": [
+              "Data"
+            ],
+            "type": "other"
+          }
+        },
+        "id": "reactflow__edge-AjsRubricScore-rubric{œdataTypeœ:œAjsRubricScoreœ,œidœ:œAjsRubricScore-rubricœ,œnameœ:œposting_outœ,œoutput_typesœ:[œJSONœ]}-AjsSaveMatch-save_match{œfieldNameœ:œpostingœ,œidœ:œAjsSaveMatch-save_matchœ,œinputTypesœ:[œDataœ],œtypeœ:œotherœ}",
+        "source": "AjsRubricScore-rubric",
+        "sourceHandle": "{œdataTypeœ: œAjsRubricScoreœ, œidœ: œAjsRubricScore-rubricœ, œnameœ: œposting_outœ, œoutput_typesœ: [œJSONœ]}",
+        "target": "AjsSaveMatch-save_match",
+        "targetHandle": "{œfieldNameœ: œpostingœ, œidœ: œAjsSaveMatch-save_matchœ, œinputTypesœ: [œDataœ], œtypeœ: œotherœ}"
+      },
+      {
+        "className": "",
+        "data": {
+          "sourceHandle": {
+            "dataType": "AjsSaveAnalysis",
+            "id": "AjsSaveAnalysis-save_analysis",
+            "name": "posting_out",
+            "output_types": [
+              "JSON"
+            ]
+          },
+          "targetHandle": {
+            "fieldName": "posting",
+            "id": "AjsEmbeddingScore-embedding",
+            "inputTypes": [
+              "Data"
+            ],
+            "type": "other"
+          }
+        },
+        "id": "reactflow__edge-AjsSaveAnalysis-save_analysis{œdataTypeœ:œAjsSaveAnalysisœ,œidœ:œAjsSaveAnalysis-save_analysisœ,œnameœ:œposting_outœ,œoutput_typesœ:[œJSONœ]}-AjsEmbeddingScore-embedding{œfieldNameœ:œpostingœ,œidœ:œAjsEmbeddingScore-embeddingœ,œinputTypesœ:[œDataœ],œtypeœ:œotherœ}",
+        "source": "AjsSaveAnalysis-save_analysis",
+        "sourceHandle": "{œdataTypeœ: œAjsSaveAnalysisœ, œidœ: œAjsSaveAnalysis-save_analysisœ, œnameœ: œposting_outœ, œoutput_typesœ: [œJSONœ]}",
+        "target": "AjsEmbeddingScore-embedding",
+        "targetHandle": "{œfieldNameœ: œpostingœ, œidœ: œAjsEmbeddingScore-embeddingœ, œinputTypesœ: [œDataœ], œtypeœ: œotherœ}"
+      },
+      {
+        "className": "",
+        "data": {
+          "sourceHandle": {
+            "dataType": "AjsSaveMatch",
+            "id": "AjsSaveMatch-save_match",
+            "name": "result",
+            "output_types": [
+              "Message"
+            ]
+          },
+          "targetHandle": {
+            "fieldName": "input_value",
+            "id": "ChatOutput-result_out",
+            "inputTypes": [
+              "Data",
+              "JSON",
+              "DataFrame",
+              "Table",
+              "Message"
+            ],
+            "type": "other"
+          }
+        },
+        "id": "reactflow__edge-AjsSaveMatch-save_match{œdataTypeœ:œAjsSaveMatchœ,œidœ:œAjsSaveMatch-save_matchœ,œnameœ:œresultœ,œoutput_typesœ:[œMessageœ]}-ChatOutput-result_out{œfieldNameœ:œinput_valueœ,œidœ:œChatOutput-result_outœ,œinputTypesœ:[œDataœ,œJSONœ,œDataFrameœ,œTableœ,œMessageœ],œtypeœ:œotherœ}",
+        "source": "AjsSaveMatch-save_match",
+        "sourceHandle": "{œdataTypeœ: œAjsSaveMatchœ, œidœ: œAjsSaveMatch-save_matchœ, œnameœ: œresultœ, œoutput_typesœ: [œMessageœ]}",
+        "target": "ChatOutput-result_out",
+        "targetHandle": "{œfieldNameœ: œinput_valueœ, œidœ: œChatOutput-result_outœ, œinputTypesœ: [œDataœ, œJSONœ, œDataFrameœ, œTableœ, œMessageœ], œtypeœ: œotherœ}"
+      },
+      {
+        "className": "",
+        "data": {
+          "sourceHandle": {
+            "dataType": "AjsSetStatus",
+            "id": "AjsSetStatus-unsupported",
+            "name": "result",
+            "output_types": [
+              "Message"
+            ]
+          },
+          "targetHandle": {
+            "fieldName": "input_value",
+            "id": "ChatOutput-unsupported_out",
+            "inputTypes": [
+              "Data",
+              "JSON",
+              "DataFrame",
+              "Table",
+              "Message"
+            ],
+            "type": "other"
+          }
+        },
+        "id": "reactflow__edge-AjsSetStatus-unsupported{œdataTypeœ:œAjsSetStatusœ,œidœ:œAjsSetStatus-unsupportedœ,œnameœ:œresultœ,œoutput_typesœ:[œMessageœ]}-ChatOutput-unsupported_out{œfieldNameœ:œinput_valueœ,œidœ:œChatOutput-unsupported_outœ,œinputTypesœ:[œDataœ,œJSONœ,œDataFrameœ,œTableœ,œMessageœ],œtypeœ:œotherœ}",
+        "source": "AjsSetStatus-unsupported",
+        "sourceHandle": "{œdataTypeœ: œAjsSetStatusœ, œidœ: œAjsSetStatus-unsupportedœ, œnameœ: œresultœ, œoutput_typesœ: [œMessageœ]}",
+        "target": "ChatOutput-unsupported_out",
+        "targetHandle": "{œfieldNameœ: œinput_valueœ, œidœ: œChatOutput-unsupported_outœ, œinputTypesœ: [œDataœ, œJSONœ, œDataFrameœ, œTableœ, œMessageœ], œtypeœ: œotherœ}"
+      },
+      {
+        "className": "",
+        "data": {
+          "sourceHandle": {
+            "dataType": "ChatInput",
+            "id": "ChatInput-chat_in",
+            "name": "message",
+            "output_types": [
+              "Message"
+            ]
+          },
+          "targetHandle": {
+            "fieldName": "input_value",
+            "id": "AjsLoadPosting-load",
+            "inputTypes": [
+              "Message"
+            ],
+            "type": "str"
+          }
+        },
+        "id": "reactflow__edge-ChatInput-chat_in{œdataTypeœ:œChatInputœ,œidœ:œChatInput-chat_inœ,œnameœ:œmessageœ,œoutput_typesœ:[œMessageœ]}-AjsLoadPosting-load{œfieldNameœ:œinput_valueœ,œidœ:œAjsLoadPosting-loadœ,œinputTypesœ:[œMessageœ],œtypeœ:œstrœ}",
+        "source": "ChatInput-chat_in",
+        "sourceHandle": "{œdataTypeœ: œChatInputœ, œidœ: œChatInput-chat_inœ, œnameœ: œmessageœ, œoutput_typesœ: [œMessageœ]}",
+        "target": "AjsLoadPosting-load",
+        "targetHandle": "{œfieldNameœ: œinput_valueœ, œidœ: œAjsLoadPosting-loadœ, œinputTypesœ: [œMessageœ], œtypeœ: œstrœ}"
+      }
+    ],
+    "nodes": [
+      {
+        "data": {
+          "description": "Detect posting language (da/en/other) with lingua or a stop-word fallback.",
+          "display_name": "AJS Detect Language",
+          "id": "AjsDetectLanguage-language",
+          "node": {
+            "base_classes": [
+              "JSON"
+            ],
+            "beta": false,
+            "bundle": "ajs",
+            "conditional_paths": [],
+            "custom_fields": {},
+            "description": "Detect posting language (da/en/other) with lingua or a stop-word fallback.",
+            "display_name": "AJS Detect Language",
+            "documentation": "",
+            "edited": false,
+            "extension": "ajs",
+            "extension_version": "0.0.0",
+            "field_order": [
+              "posting"
+            ],
+            "frozen": false,
+            "icon": "languages",
+            "legacy": false,
+            "legacy_module": "ajs_detect_language",
+            "metadata": {
+              "code_hash": "ace998a1bfc0",
+              "dependencies": {
+                "dependencies": [
+                  {
+                    "name": "lfx",
+                    "version": "1.12.3"
+                  },
+                  {
+                    "name": "lingua",
+                    "version": null
+                  }
+                ],
+                "total_dependencies": 2
+              },
+              "module": "_lfx_ext.extra.ajs.ajs_detect_language"
+            },
+            "minimized": false,
+            "name": "AjsDetectLanguage",
+            "namespaced_id": "ext:ajs:AjsDetectLanguage@extra",
+            "output_types": [],
+            "outputs": [
+              {
+                "allows_loop": false,
+                "cache": true,
+                "display_name": "Supported",
+                "group_outputs": false,
+                "method": "supported",
+                "name": "supported",
+                "selected": "JSON",
+                "tool_mode": true,
+                "types": [
+                  "JSON"
+                ],
+                "value": "__UNDEFINED__"
+              },
+              {
+                "allows_loop": false,
+                "cache": true,
+                "display_name": "Unsupported",
+                "group_outputs": false,
+                "method": "unsupported",
+                "name": "unsupported",
+                "selected": "JSON",
+                "tool_mode": true,
+                "types": [
+                  "JSON"
+                ],
+                "value": "__UNDEFINED__"
+              }
+            ],
+            "pinned": false,
+            "template": {
+              "_type": "Component",
+              "code": {
+                "advanced": true,
+                "api_editable": false,
+                "dynamic": true,
+                "fileTypes": [],
+                "file_path": "",
+                "info": "",
+                "list": false,
+                "load_from_db": false,
+                "multiline": true,
+                "name": "code",
+                "password": false,
+                "placeholder": "",
+                "required": true,
+                "show": true,
+                "title_case": false,
+                "type": "code",
+                "value": "\"\"\"AJS Detect Language: cheap language pre-check (da / en / other) before any LLM call.\n\nUses `lingua` when it is installed in the LangFlow image, otherwise a stop-word count that is\nreliable for da vs en and for text in other languages (A2: only da and en are supported).\nNorwegian is close to Danish and may be reported as `da`; that is accepted.\n\"\"\"\n\nimport re\n\nfrom lfx.custom.custom_component.component import Component\nfrom lfx.io import DataInput, Output\nfrom lfx.schema.data import Data\n\nDA_WORDS = frozenset(\n    \"og i at er det en til på for med som af de den har vi du kan et ikke om vil skal man sig \"\n    \"fra eller også vores dig os være hos ved dit dine jeres jer søger arbejde stillingen \"\n    \"opgaver kompetencer erfaring virksomhed ansøgning ansøg mere hvor bliver blive både have \"\n    \"får giver samt din der denne disse hvis\".split()\n)\nEN_WORDS = frozenset(\n    \"the and of to in a is for with you we our are will on as be this that or your an have by \"\n    \"from at can us who about team work role experience skills job join looking apply their what \"\n    \"more which not all it has been into also\".split()\n)\nSUPPORTED = (\"da\", \"en\")\n\n\ndef heuristic(text: str) -> tuple[str, float]:\n    lowered = text.lower()\n    words = re.findall(r\"[a-zæøåäöüéèß]+\", lowered)\n    if len(words) < 20:\n        return \"other\", 0.0\n    da = sum(w in DA_WORDS for w in words)\n    en = sum(w in EN_WORDS for w in words)\n    # Danish letters are a strong hint; English text almost never has them.\n    da += len(re.findall(r\"[æøå]\", lowered))\n    if max(da, en) / len(words) < 0.12 or da == en:\n        return \"other\", 0.0\n    top, rest = max(da, en), min(da, en)\n    return (\"da\" if da > en else \"en\"), round(top / (top + rest), 3)\n\n\ndef with_lingua(text: str) -> tuple[str, float] | None:\n    try:\n        from lingua import LanguageDetectorBuilder\n    except ImportError:\n        return None\n    detector = LanguageDetectorBuilder.from_all_languages().build()\n    lang = detector.detect_language_of(text)\n    if lang is None:\n        return \"other\", 0.0\n    confidence = detector.compute_language_confidence(text, lang)\n    code = lang.iso_code_639_1.name.lower()\n    return (code if code in SUPPORTED else \"other\"), round(float(confidence), 3)\n\n\nclass AjsDetectLanguage(Component):\n    display_name = \"AJS Detect Language\"\n    description = \"Detect posting language (da/en/other) with lingua or a stop-word fallback.\"\n    name = \"AjsDetectLanguage\"\n    icon = \"languages\"\n\n    inputs = [DataInput(name=\"posting\", display_name=\"Posting\", input_types=[\"Data\"])]\n\n    outputs = [\n        Output(display_name=\"Supported\", name=\"supported\", method=\"supported\"),\n        Output(display_name=\"Unsupported\", name=\"unsupported\", method=\"unsupported\"),\n    ]\n\n    def _detect(self) -> dict:\n        cached = getattr(self, \"_ajs_result\", None)\n        if cached is not None:\n            return cached\n        data = dict(self.posting.data)\n        if data.get(\"language\") in SUPPORTED:\n            lang, confidence, method = data[\"language\"], 1.0, \"stored\"\n        else:\n            found = with_lingua(data[\"posting_text\"])\n            method = \"lingua\" if found else \"stopwords\"\n            lang, confidence = found or heuristic(data[\"posting_text\"])\n        data.update(language=lang, language_confidence=confidence, language_method=method)\n        self._ajs_result = data\n        return data\n\n    def supported(self) -> Data:\n        data = self._detect()\n        if data[\"language\"] not in SUPPORTED:\n            self.stop(\"supported\")\n            return Data(data=data)\n        self.stop(\"unsupported\")\n        self.status = f\"{data['language']} ({data['language_method']}, {data['language_confidence']})\"\n        return Data(data=data)\n\n    def unsupported(self) -> Data:\n        data = self._detect()\n        if data[\"language\"] in SUPPORTED:\n            self.stop(\"unsupported\")\n            return Data(data=data)\n        self.stop(\"supported\")\n        return Data(data=data)\n"
+              },
+              "posting": {
+                "_input_type": "JSONInput",
+                "advanced": false,
+                "api_editable": false,
+                "display_name": "Posting",
+                "dynamic": false,
+                "info": "",
+                "input_types": [
+                  "Data"
+                ],
+                "list": false,
+                "list_add_label": "Add More",
+                "name": "posting",
+                "override_skip": false,
+                "placeholder": "",
+                "required": false,
+                "show": true,
+                "title_case": false,
+                "tool_mode": false,
+                "trace_as_input": true,
+                "trace_as_metadata": true,
+                "track_in_telemetry": false,
+                "type": "other",
+                "value": ""
+              }
+            },
+            "tool_mode": false
+          },
+          "showNode": true,
+          "type": "AjsDetectLanguage"
+        },
+        "id": "AjsDetectLanguage-language",
+        "position": {
+          "x": 800,
+          "y": 300
+        },
+        "type": "genericNode"
+      },
+      {
+        "data": {
+          "description": "bge-m3 similarity between the job brief and the CV sections (mean of top 3, 0-100).",
+          "display_name": "AJS Embedding Score",
+          "id": "AjsEmbeddingScore-embedding",
+          "node": {
+            "base_classes": [
+              "JSON"
+            ],
+            "beta": false,
+            "bundle": "ajs",
+            "conditional_paths": [],
+            "custom_fields": {},
+            "description": "bge-m3 similarity between the job brief and the CV sections (mean of top 3, 0-100).",
+            "display_name": "AJS Embedding Score",
+            "documentation": "",
+            "edited": false,
+            "extension": "ajs",
+            "extension_version": "0.0.0",
+            "field_order": [
+              "posting",
+              "top_k",
+              "ollama_base_url",
+              "embed_model",
+              "warm_model",
+              "keep_alive",
+              "backend_url",
+              "backend_api_key"
+            ],
+            "frozen": false,
+            "icon": "ruler",
+            "legacy": false,
+            "legacy_module": "ajs_embedding_score",
+            "metadata": {
+              "code_hash": "d8f529c00904",
+              "dependencies": {
+                "dependencies": [
+                  {
+                    "name": "httpx",
+                    "version": "0.28.1"
+                  },
+                  {
+                    "name": "lfx",
+                    "version": "1.12.3"
+                  }
+                ],
+                "total_dependencies": 2
+              },
+              "module": "_lfx_ext.extra.ajs.ajs_embedding_score"
+            },
+            "minimized": false,
+            "name": "AjsEmbeddingScore",
+            "namespaced_id": "ext:ajs:AjsEmbeddingScore@extra",
+            "output_types": [],
+            "outputs": [
+              {
+                "allows_loop": false,
+                "cache": true,
+                "display_name": "Posting",
+                "group_outputs": false,
+                "method": "score",
+                "name": "posting_out",
+                "selected": "JSON",
+                "tool_mode": true,
+                "types": [
+                  "JSON"
+                ],
+                "value": "__UNDEFINED__"
+              }
+            ],
+            "pinned": false,
+            "template": {
+              "_type": "Component",
+              "backend_api_key": {
+                "_input_type": "SecretStrInput",
+                "advanced": false,
+                "api_editable": false,
+                "display_name": "Backend API key",
+                "dynamic": false,
+                "info": "Global variable BACKEND_API_KEY.",
+                "input_types": [],
+                "load_from_db": true,
+                "name": "backend_api_key",
+                "override_skip": false,
+                "password": true,
+                "placeholder": "",
+                "required": false,
+                "show": true,
+                "title_case": false,
+                "track_in_telemetry": false,
+                "type": "str",
+                "value": "BACKEND_API_KEY"
+              },
+              "backend_url": {
+                "_input_type": "StrInput",
+                "advanced": false,
+                "api_editable": false,
+                "display_name": "Backend URL",
+                "dynamic": false,
+                "info": "Global variable BACKEND_URL (FastAPI base including /api/v1).",
+                "list": false,
+                "list_add_label": "Add More",
+                "load_from_db": false,
+                "name": "backend_url",
+                "override_skip": false,
+                "placeholder": "",
+                "required": false,
+                "show": true,
+                "title_case": false,
+                "tool_mode": false,
+                "trace_as_metadata": true,
+                "track_in_telemetry": false,
+                "type": "str",
+                "value": "http://backend:8000/api/v1"
+              },
+              "code": {
+                "advanced": true,
+                "api_editable": false,
+                "dynamic": true,
+                "fileTypes": [],
+                "file_path": "",
+                "info": "",
+                "list": false,
+                "load_from_db": false,
+                "multiline": true,
+                "name": "code",
+                "password": false,
+                "placeholder": "",
+                "required": true,
+                "show": true,
+                "title_case": false,
+                "type": "code",
+                "value": "\"\"\"AJS Embedding Score: bge-m3 cosine similarity of the job brief against each CV section.\n\nscore = mean of the top-3 cosine similarities x 100 (clipped to 0-100). CV section embeddings\nare cached by content hash for the lifetime of the LangFlow process. The agent model is warmed\nup first, because Ollama evicts a resident bge-m3 when Gemma loads second (plan 04).\n\"\"\"\n\nimport asyncio\nimport hashlib\nimport math\nimport sys\nimport types\n\nimport httpx\nfrom lfx.custom.custom_component.component import Component\nfrom lfx.io import DataInput, IntInput, Output, SecretStrInput, StrInput\nfrom lfx.schema.data import Data\n\n# Components are exec'd from source on every build, so a module-level dict would not survive.\n_cache_module = sys.modules.setdefault(\"ajs_embedding_cache\", types.ModuleType(\"ajs_embedding_cache\"))\nCACHE: dict[str, list[float]] = _cache_module.__dict__.setdefault(\"cache\", {})\n\n\ndef cosine(a: list[float], b: list[float]) -> float:\n    dot = sum(x * y for x, y in zip(a, b, strict=True))\n    norm = math.sqrt(sum(x * x for x in a)) * math.sqrt(sum(y * y for y in b))\n    return dot / norm if norm else 0.0\n\n\ndef brief_text(brief: dict) -> str:\n    parts = [brief.get(\"title\") or \"\", \"Requirements: \" + \"; \".join(brief.get(\"must_have\") or [])]\n    if brief.get(\"nice_to_have\"):\n        parts.append(\"Nice to have: \" + \"; \".join(brief[\"nice_to_have\"]))\n    if brief.get(\"keywords\"):\n        parts.append(\"Keywords: \" + \", \".join(brief[\"keywords\"]))\n    return \"\\n\".join(p for p in parts if p)\n\n\nclass AjsEmbeddingScore(Component):\n    display_name = \"AJS Embedding Score\"\n    description = \"bge-m3 similarity between the job brief and the CV sections (mean of top 3, 0-100).\"\n    name = \"AjsEmbeddingScore\"\n    icon = \"ruler\"\n\n    inputs = [\n        DataInput(name=\"posting\", display_name=\"Posting\", input_types=[\"Data\"]),\n        IntInput(name=\"top_k\", display_name=\"Top-k sections\", value=3, advanced=True),\n        StrInput(\n            name=\"ollama_base_url\",\n            display_name=\"Ollama base URL\",\n            info=\"Global variable OLLAMA_BASE_URL.\",\n            value=\"OLLAMA_BASE_URL\",\n            load_from_db=True,\n        ),\n        StrInput(\n            name=\"embed_model\",\n            display_name=\"Embedding model\",\n            info=\"Global variable EMBED_MODEL.\",\n            value=\"EMBED_MODEL\",\n            load_from_db=True,\n        ),\n        StrInput(\n            name=\"warm_model\",\n            display_name=\"Model to warm up first\",\n            info=\"Global variable LLM_AGENT_MODEL.\",\n            value=\"LLM_AGENT_MODEL\",\n            load_from_db=True,\n            advanced=True,\n        ),\n        StrInput(\n            name=\"keep_alive\",\n            display_name=\"Keep alive\",\n            info=\"Global variable LLM_KEEP_ALIVE.\",\n            value=\"LLM_KEEP_ALIVE\",\n            load_from_db=True,\n            advanced=True,\n        ),\n        StrInput(\n            name=\"backend_url\",\n            display_name=\"Backend URL\",\n            info=\"Global variable BACKEND_URL (FastAPI base including /api/v1).\",\n            value=\"http://backend:8000/api/v1\",\n        ),\n        SecretStrInput(\n            name=\"backend_api_key\",\n            display_name=\"Backend API key\",\n            info=\"Global variable BACKEND_API_KEY.\",\n            value=\"BACKEND_API_KEY\",\n            load_from_db=True,\n        ),\n    ]\n\n    outputs = [Output(display_name=\"Posting\", name=\"posting_out\", method=\"score\")]\n\n    async def _embed(self, client: httpx.AsyncClient, texts: list[str]) -> list[list[float]]:\n        url = f\"{self.ollama_base_url.rstrip('/')}/api/embed\"\n        body = {\"model\": self.embed_model, \"input\": texts, \"keep_alive\": self.keep_alive}\n        for attempt in range(3):  # a fresh runner can fail CUDA init when VRAM is tight\n            response = await client.post(url, json=body)\n            if response.status_code == 200:\n                return response.json()[\"embeddings\"]\n            if attempt == 2:\n                response.raise_for_status()\n            await asyncio.sleep(2)\n        return []\n\n    async def score(self) -> Data:\n        data = dict(self.posting.data)\n        base = self.ollama_base_url.rstrip(\"/\")\n        async with httpx.AsyncClient(timeout=httpx.Timeout(300.0, connect=10.0)) as client:\n            # Load the agent model first so bge-m3 is not evicted by a later Gemma load.\n            warm = await client.post(\n                f\"{base}/api/generate\",\n                json={\"model\": self.warm_model, \"prompt\": \"\", \"stream\": False, \"keep_alive\": self.keep_alive},\n            )\n            warm.raise_for_status()\n\n            async with httpx.AsyncClient(headers={\"X-API-Key\": self.backend_api_key}, timeout=30) as backend:\n                response = await backend.get(f\"{self.backend_url.rstrip('/')}/tools/profile/cv-sections\")\n                response.raise_for_status()\n            sections = response.json()\n            if not sections:\n                msg = \"cv.md has no sections\"\n                raise ValueError(msg)\n\n            keys = {\n                s[\"id\"]: hashlib.sha256(f\"{self.embed_model}\\n{s['markdown']}\".encode()).hexdigest() for s in sections\n            }\n            missing = [s for s in sections if keys[s[\"id\"]] not in CACHE]\n            if missing:\n                vectors = await self._embed(client, [s[\"markdown\"] for s in missing])\n                for section, vector in zip(missing, vectors, strict=True):\n                    CACHE[keys[section[\"id\"]]] = vector\n            brief_vector = (await self._embed(client, [brief_text(data[\"job_brief\"])]))[0]\n\n        sims = {s[\"id\"]: cosine(brief_vector, CACHE[keys[s[\"id\"]]]) for s in sections}\n        top = sorted(sims.values(), reverse=True)[: max(1, int(self.top_k))]\n        value = round(max(0.0, min(100.0, 100 * sum(top) / len(top))), 2)\n        data[\"embedding_score\"] = value\n        data[\"section_similarities\"] = {k: round(v, 4) for k, v in sims.items()}\n        self.status = (\n            f\"embedding score {value} ({len(missing)} sections embedded, {len(sections) - len(missing)} cached)\"\n        )\n        return Data(data=data)\n"
+              },
+              "embed_model": {
+                "_input_type": "StrInput",
+                "advanced": false,
+                "api_editable": false,
+                "display_name": "Embedding model",
+                "dynamic": false,
+                "info": "Global variable EMBED_MODEL.",
+                "list": false,
+                "list_add_label": "Add More",
+                "load_from_db": true,
+                "name": "embed_model",
+                "override_skip": false,
+                "placeholder": "",
+                "required": false,
+                "show": true,
+                "title_case": false,
+                "tool_mode": false,
+                "trace_as_metadata": true,
+                "track_in_telemetry": false,
+                "type": "str",
+                "value": "EMBED_MODEL"
+              },
+              "keep_alive": {
+                "_input_type": "StrInput",
+                "advanced": true,
+                "api_editable": false,
+                "display_name": "Keep alive",
+                "dynamic": false,
+                "info": "Global variable LLM_KEEP_ALIVE.",
+                "list": false,
+                "list_add_label": "Add More",
+                "load_from_db": true,
+                "name": "keep_alive",
+                "override_skip": false,
+                "placeholder": "",
+                "required": false,
+                "show": true,
+                "title_case": false,
+                "tool_mode": false,
+                "trace_as_metadata": true,
+                "track_in_telemetry": false,
+                "type": "str",
+                "value": "LLM_KEEP_ALIVE"
+              },
+              "ollama_base_url": {
+                "_input_type": "StrInput",
+                "advanced": false,
+                "api_editable": false,
+                "display_name": "Ollama base URL",
+                "dynamic": false,
+                "info": "Global variable OLLAMA_BASE_URL.",
+                "list": false,
+                "list_add_label": "Add More",
+                "load_from_db": true,
+                "name": "ollama_base_url",
+                "override_skip": false,
+                "placeholder": "",
+                "required": false,
+                "show": true,
+                "title_case": false,
+                "tool_mode": false,
+                "trace_as_metadata": true,
+                "track_in_telemetry": false,
+                "type": "str",
+                "value": "OLLAMA_BASE_URL"
+              },
+              "posting": {
+                "_input_type": "JSONInput",
+                "advanced": false,
+                "api_editable": false,
+                "display_name": "Posting",
+                "dynamic": false,
+                "info": "",
+                "input_types": [
+                  "Data"
+                ],
+                "list": false,
+                "list_add_label": "Add More",
+                "name": "posting",
+                "override_skip": false,
+                "placeholder": "",
+                "required": false,
+                "show": true,
+                "title_case": false,
+                "tool_mode": false,
+                "trace_as_input": true,
+                "trace_as_metadata": true,
+                "track_in_telemetry": false,
+                "type": "other",
+                "value": ""
+              },
+              "top_k": {
+                "_input_type": "IntInput",
+                "advanced": true,
+                "api_editable": false,
+                "display_name": "Top-k sections",
+                "dynamic": false,
+                "info": "",
+                "list": false,
+                "list_add_label": "Add More",
+                "name": "top_k",
+                "override_skip": false,
+                "placeholder": "",
+                "required": false,
+                "show": true,
+                "title_case": false,
+                "tool_mode": false,
+                "trace_as_metadata": true,
+                "track_in_telemetry": true,
+                "type": "int",
+                "value": 3
+              },
+              "warm_model": {
+                "_input_type": "StrInput",
+                "advanced": true,
+                "api_editable": false,
+                "display_name": "Model to warm up first",
+                "dynamic": false,
+                "info": "Global variable LLM_AGENT_MODEL.",
+                "list": false,
+                "list_add_label": "Add More",
+                "load_from_db": true,
+                "name": "warm_model",
+                "override_skip": false,
+                "placeholder": "",
+                "required": false,
+                "show": true,
+                "title_case": false,
+                "tool_mode": false,
+                "trace_as_metadata": true,
+                "track_in_telemetry": false,
+                "type": "str",
+                "value": "LLM_AGENT_MODEL"
+              }
+            },
+            "tool_mode": false
+          },
+          "showNode": true,
+          "type": "AjsEmbeddingScore"
+        },
+        "id": "AjsEmbeddingScore-embedding",
+        "position": {
+          "x": 2400,
+          "y": 300
+        },
+        "type": "genericNode"
+      },
+      {
+        "data": {
+          "description": "Regex pre-extract of recruiter emails and phone numbers with surrounding text.",
+          "display_name": "AJS Extract Contacts",
+          "id": "AjsExtractContacts-contacts",
+          "node": {
+            "base_classes": [
+              "JSON"
+            ],
+            "beta": false,
+            "bundle": "ajs",
+            "conditional_paths": [],
+            "custom_fields": {},
+            "description": "Regex pre-extract of recruiter emails and phone numbers with surrounding text.",
+            "display_name": "AJS Extract Contacts",
+            "documentation": "",
+            "edited": false,
+            "extension": "ajs",
+            "extension_version": "0.0.0",
+            "field_order": [
+              "posting"
+            ],
+            "frozen": false,
+            "icon": "contact",
+            "legacy": false,
+            "legacy_module": "ajs_extract_contacts",
+            "metadata": {
+              "code_hash": "cc79f50cf0b1",
+              "dependencies": {
+                "dependencies": [
+                  {
+                    "name": "lfx",
+                    "version": "1.12.3"
+                  }
+                ],
+                "total_dependencies": 1
+              },
+              "module": "_lfx_ext.extra.ajs.ajs_extract_contacts"
+            },
+            "minimized": false,
+            "name": "AjsExtractContacts",
+            "namespaced_id": "ext:ajs:AjsExtractContacts@extra",
+            "output_types": [],
+            "outputs": [
+              {
+                "allows_loop": false,
+                "cache": true,
+                "display_name": "Posting",
+                "group_outputs": false,
+                "method": "extract",
+                "name": "posting_out",
+                "selected": "JSON",
+                "tool_mode": true,
+                "types": [
+                  "JSON"
+                ],
+                "value": "__UNDEFINED__"
+              }
+            ],
+            "pinned": false,
+            "template": {
+              "_type": "Component",
+              "code": {
+                "advanced": true,
+                "api_editable": false,
+                "dynamic": true,
+                "fileTypes": [],
+                "file_path": "",
+                "info": "",
+                "list": false,
+                "load_from_db": false,
+                "multiline": true,
+                "name": "code",
+                "password": false,
+                "placeholder": "",
+                "required": true,
+                "show": true,
+                "title_case": false,
+                "type": "code",
+                "value": "\"\"\"AJS Extract Contacts: regex pre-extract of emails, phones and the text around them.\n\nThe hints go into the job-brief prompt, where Gemma confirms the contact's name and role.\n\"\"\"\n\nimport re\n\nfrom lfx.custom.custom_component.component import Component\nfrom lfx.io import DataInput, Output\nfrom lfx.schema.data import Data\n\nEMAIL = re.compile(r\"[\\w.+-]+@[\\w-]+(?:\\.[\\w-]+)+\")\nPHONE = re.compile(r\"(?<![\\w/])(?:\\+|00)?\\d{2}(?:[\\s.-]?\\d{2}){3,4}(?!\\w)\")\nGENERIC = (\"noreply\", \"no-reply\", \"donotreply\", \"privacy\", \"persondata\", \"gdpr\")\nWINDOW = 140\nMAX_SNIPPETS = 4\n\n\ndef snippets(text: str, matches: list) -> list[str]:\n    out: list[str] = []\n    for m in matches:\n        start, end = max(0, m.start() - WINDOW), min(len(text), m.end() + WINDOW)\n        snippet = \" \".join(text[start:end].split())\n        if not any(snippet[:40] in s for s in out):\n            out.append(snippet)\n        if len(out) >= MAX_SNIPPETS:\n            break\n    return out\n\n\nclass AjsExtractContacts(Component):\n    display_name = \"AJS Extract Contacts\"\n    description = \"Regex pre-extract of recruiter emails and phone numbers with surrounding text.\"\n    name = \"AjsExtractContacts\"\n    icon = \"contact\"\n\n    inputs = [DataInput(name=\"posting\", display_name=\"Posting\", input_types=[\"Data\"])]\n    outputs = [Output(display_name=\"Posting\", name=\"posting_out\", method=\"extract\")]\n\n    def extract(self) -> Data:\n        data = dict(self.posting.data)\n        text = data[\"posting_text\"]\n        emails = [m for m in EMAIL.finditer(text) if not any(g in m.group().lower() for g in GENERIC)]\n        phones = [m for m in PHONE.finditer(text) if 8 <= len(re.sub(r\"\\D\", \"\", m.group())) <= 13]\n        data[\"contact_hints\"] = {\n            \"emails\": sorted({m.group() for m in emails}),\n            \"phones\": sorted({\" \".join(m.group().split()) for m in phones})[:4],\n            \"snippets\": snippets(text, sorted(emails + phones, key=lambda m: m.start())),\n        }\n        hints = data[\"contact_hints\"]\n        self.status = f\"{len(hints['emails'])} email(s), {len(hints['phones'])} phone(s)\"\n        return Data(data=data)\n"
+              },
+              "posting": {
+                "_input_type": "JSONInput",
+                "advanced": false,
+                "api_editable": false,
+                "display_name": "Posting",
+                "dynamic": false,
+                "info": "",
+                "input_types": [
+                  "Data"
+                ],
+                "list": false,
+                "list_add_label": "Add More",
+                "name": "posting",
+                "override_skip": false,
+                "placeholder": "",
+                "required": false,
+                "show": true,
+                "title_case": false,
+                "tool_mode": false,
+                "trace_as_input": true,
+                "trace_as_metadata": true,
+                "track_in_telemetry": false,
+                "type": "other",
+                "value": ""
+              }
+            },
+            "tool_mode": false
+          },
+          "showNode": true,
+          "type": "AjsExtractContacts"
+        },
+        "id": "AjsExtractContacts-contacts",
+        "position": {
+          "x": 1200,
+          "y": 300
+        },
+        "type": "genericNode"
+      },
+      {
+        "data": {
+          "description": "Extract the job_brief JSON (requirements, flags, contact) with Gemma via Ollama.",
+          "display_name": "AJS Job Brief",
+          "id": "AjsJobBrief-brief",
+          "node": {
+            "base_classes": [
+              "JSON"
+            ],
+            "beta": false,
+            "bundle": "ajs",
+            "conditional_paths": [],
+            "custom_fields": {},
+            "description": "Extract the job_brief JSON (requirements, flags, contact) with Gemma via Ollama.",
+            "display_name": "AJS Job Brief",
+            "documentation": "",
+            "edited": false,
+            "extension": "ajs",
+            "extension_version": "0.0.0",
+            "field_order": [
+              "posting",
+              "system_prompt",
+              "schema_json",
+              "ollama_base_url",
+              "model",
+              "keep_alive"
+            ],
+            "frozen": false,
+            "icon": "brain",
+            "legacy": false,
+            "legacy_module": "ajs_job_brief",
+            "metadata": {
+              "code_hash": "22162920c577",
+              "dependencies": {
+                "dependencies": [
+                  {
+                    "name": "httpx",
+                    "version": "0.28.1"
+                  },
+                  {
+                    "name": "jsonschema",
+                    "version": "4.26.0"
+                  },
+                  {
+                    "name": "lfx",
+                    "version": "1.12.3"
+                  }
+                ],
+                "total_dependencies": 3
+              },
+              "module": "_lfx_ext.extra.ajs.ajs_job_brief"
+            },
+            "minimized": false,
+            "name": "AjsJobBrief",
+            "namespaced_id": "ext:ajs:AjsJobBrief@extra",
+            "output_types": [],
+            "outputs": [
+              {
+                "allows_loop": false,
+                "cache": true,
+                "display_name": "Posting",
+                "group_outputs": false,
+                "method": "extract",
+                "name": "posting_out",
+                "selected": "JSON",
+                "tool_mode": true,
+                "types": [
+                  "JSON"
+                ],
+                "value": "__UNDEFINED__"
+              }
+            ],
+            "pinned": false,
+            "template": {
+              "_type": "Component",
+              "code": {
+                "advanced": true,
+                "api_editable": false,
+                "dynamic": true,
+                "fileTypes": [],
+                "file_path": "",
+                "info": "",
+                "list": false,
+                "load_from_db": false,
+                "multiline": true,
+                "name": "code",
+                "password": false,
+                "placeholder": "",
+                "required": true,
+                "show": true,
+                "title_case": false,
+                "type": "code",
+                "value": "\"\"\"AJS Job Brief: Gemma extracts the job_brief JSON through Ollama structured outputs.\n\nPlan 04 findings baked in: `format` is the JSON schema (never \"json\"), `think` is always sent\nexplicitly, temperature 0.2 with retries at 0.5 and 0.8 when the JSON is invalid (5 attempts), and no\n`num_ctx` is sent (a different value would reload the model; ajs-gemma sets 32768 itself).\n\"\"\"\n\nimport json\nimport re\n\nimport httpx\nfrom jsonschema import Draft202012Validator\nfrom lfx.custom.custom_component.component import Component\nfrom lfx.io import DataInput, MultilineInput, Output, StrInput\nfrom lfx.schema.data import Data\n\n# Gemma 4 on Ollama sometimes ends the JSON early (a dropped token inside an array string, or\n# 'token repeat limit'); about 1 in 6 calls on some postings. Each failed attempt is cheap, so retry.\nTEMPERATURES = (0.2, 0.5, 0.8, 0.5, 0.8)\nMAX_TOKENS = 2048\nMAX_POSTING_CHARS = 24000  # about 6-7k tokens; the posting is the only large input\n\n\nJUNK = re.compile(r\"[`{}\\[\\]]\")\n\n\ndef semantic_problems(brief: dict) -> list[str]:\n    \"\"\"Structured output can still emit degenerate strings (seen: a must_have of \"```json{ \").\"\"\"\n    problems = []\n    for key in (\"must_have\", \"nice_to_have\", \"keywords\", \"company_values\"):\n        bad = [x for x in brief.get(key, []) if JUNK.search(x) or len(x.strip()) < 2]\n        if bad:\n            problems.append(f\"{key} has junk items {bad[:2]}\")\n    if not brief.get(\"must_have\"):\n        problems.append(\"must_have is empty\")\n    return problems\n\n\ndef parse_json(text: str):\n    text = text.strip()\n    text = re.sub(r\"^```(?:json)?\\s*|\\s*```$\", \"\", text)\n    return json.loads(text)\n\n\nclass AjsJobBrief(Component):\n    display_name = \"AJS Job Brief\"\n    description = \"Extract the job_brief JSON (requirements, flags, contact) with Gemma via Ollama.\"\n    name = \"AjsJobBrief\"\n    icon = \"brain\"\n\n    inputs = [\n        DataInput(name=\"posting\", display_name=\"Posting\", input_types=[\"Data\"]),\n        MultilineInput(\n            name=\"system_prompt\",\n            display_name=\"System prompt\",\n            info=\"Mirrored in langflow/prompts/analyst_job_brief.md.\",\n            value=\"\",\n        ),\n        MultilineInput(\n            name=\"schema_json\",\n            display_name=\"Output JSON schema\",\n            info=\"Mirrored in langflow/prompts/schemas/job_brief.schema.json.\",\n            value=\"{}\",\n            advanced=True,\n        ),\n        StrInput(\n            name=\"ollama_base_url\",\n            display_name=\"Ollama base URL\",\n            info=\"Global variable OLLAMA_BASE_URL.\",\n            value=\"OLLAMA_BASE_URL\",\n            load_from_db=True,\n        ),\n        StrInput(\n            name=\"model\",\n            display_name=\"Model\",\n            info=\"Global variable LLM_AGENT_MODEL (never hard-coded).\",\n            value=\"LLM_AGENT_MODEL\",\n            load_from_db=True,\n        ),\n        StrInput(\n            name=\"keep_alive\",\n            display_name=\"Keep alive\",\n            info=\"Global variable LLM_KEEP_ALIVE; the same value on every call.\",\n            value=\"LLM_KEEP_ALIVE\",\n            load_from_db=True,\n            advanced=True,\n        ),\n    ]\n\n    outputs = [Output(display_name=\"Posting\", name=\"posting_out\", method=\"extract\")]\n\n    async def extract(self) -> Data:\n        data = dict(self.posting.data)\n        if data.get(\"already_analyzed\") and data.get(\"job_brief\"):\n            self.status = \"reused saved job_brief\"\n            return Data(data=data)\n\n        schema = json.loads(self.schema_json)\n        validator = Draft202012Validator(schema)\n        hints = data.get(\"contact_hints\") or {}\n        user = f\"POSTING\\n{data['posting_text'][:MAX_POSTING_CHARS]}\"\n        if hints.get(\"emails\") or hints.get(\"phones\"):\n            user += \"\\n\\nCONTACT HINTS (regex): \" + json.dumps(\n                {k: hints.get(k) for k in (\"emails\", \"phones\", \"snippets\")}, ensure_ascii=False\n            )\n        messages = [\n            {\n                \"role\": \"system\",\n                \"content\": f\"{self.system_prompt}\\n\\nJSON schema:\\n{json.dumps(schema)}\",\n            },\n            {\"role\": \"user\", \"content\": user},\n        ]\n        errors: list[str] = []\n        brief = None\n        async with httpx.AsyncClient(timeout=httpx.Timeout(300.0, connect=10.0)) as client:\n            for temperature in TEMPERATURES:\n                body = {\n                    \"model\": self.model,\n                    \"messages\": messages,\n                    \"stream\": False,\n                    \"think\": False,\n                    \"format\": schema,\n                    \"keep_alive\": self.keep_alive,\n                    \"options\": {\"temperature\": temperature, \"num_predict\": MAX_TOKENS},\n                }\n                response = await client.post(f\"{self.ollama_base_url.rstrip('/')}/api/chat\", json=body)\n                if response.status_code != 200:\n                    errors.append(f\"t={temperature}: HTTP {response.status_code} {response.text[:200]}\")\n                    continue\n                try:\n                    candidate = parse_json(response.json()[\"message\"][\"content\"])\n                except (json.JSONDecodeError, KeyError, TypeError) as exc:\n                    errors.append(f\"t={temperature}: invalid JSON ({exc})\")\n                    continue\n                problems = [e.message for e in validator.iter_errors(candidate)]\n                if not problems:\n                    problems = semantic_problems(candidate)\n                if problems:\n                    errors.append(f\"t={temperature}: {problems[:3]}\")\n                    continue\n                brief = candidate\n                break\n        if brief is None:\n            msg = f\"job_brief extraction failed at every temperature: {errors}\"\n            raise ValueError(msg)\n\n        # The pre-check language is authoritative for the stored language.\n        brief[\"language\"] = data[\"language\"]\n        contact = brief.get(\"contact\") or {}\n        data[\"job_brief\"] = brief\n        data[\"recruiter_name\"] = contact.get(\"name\")\n        data[\"recruiter_email\"] = contact.get(\"email\")\n        data[\"recruiter_phone\"] = contact.get(\"phone\")\n        self.status = f\"must_have {len(brief['must_have'])}, nice_to_have {len(brief['nice_to_have'])}\"\n        return Data(data=data)\n"
+              },
+              "keep_alive": {
+                "_input_type": "StrInput",
+                "advanced": true,
+                "api_editable": false,
+                "display_name": "Keep alive",
+                "dynamic": false,
+                "info": "Global variable LLM_KEEP_ALIVE; the same value on every call.",
+                "list": false,
+                "list_add_label": "Add More",
+                "load_from_db": true,
+                "name": "keep_alive",
+                "override_skip": false,
+                "placeholder": "",
+                "required": false,
+                "show": true,
+                "title_case": false,
+                "tool_mode": false,
+                "trace_as_metadata": true,
+                "track_in_telemetry": false,
+                "type": "str",
+                "value": "LLM_KEEP_ALIVE"
+              },
+              "model": {
+                "_input_type": "StrInput",
+                "advanced": false,
+                "api_editable": false,
+                "display_name": "Model",
+                "dynamic": false,
+                "info": "Global variable LLM_AGENT_MODEL (never hard-coded).",
+                "list": false,
+                "list_add_label": "Add More",
+                "load_from_db": true,
+                "name": "model",
+                "override_skip": false,
+                "placeholder": "",
+                "required": false,
+                "show": true,
+                "title_case": false,
+                "tool_mode": false,
+                "trace_as_metadata": true,
+                "track_in_telemetry": false,
+                "type": "str",
+                "value": "LLM_AGENT_MODEL"
+              },
+              "ollama_base_url": {
+                "_input_type": "StrInput",
+                "advanced": false,
+                "api_editable": false,
+                "display_name": "Ollama base URL",
+                "dynamic": false,
+                "info": "Global variable OLLAMA_BASE_URL.",
+                "list": false,
+                "list_add_label": "Add More",
+                "load_from_db": true,
+                "name": "ollama_base_url",
+                "override_skip": false,
+                "placeholder": "",
+                "required": false,
+                "show": true,
+                "title_case": false,
+                "tool_mode": false,
+                "trace_as_metadata": true,
+                "track_in_telemetry": false,
+                "type": "str",
+                "value": "OLLAMA_BASE_URL"
+              },
+              "posting": {
+                "_input_type": "JSONInput",
+                "advanced": false,
+                "api_editable": false,
+                "display_name": "Posting",
+                "dynamic": false,
+                "info": "",
+                "input_types": [
+                  "Data"
+                ],
+                "list": false,
+                "list_add_label": "Add More",
+                "name": "posting",
+                "override_skip": false,
+                "placeholder": "",
+                "required": false,
+                "show": true,
+                "title_case": false,
+                "tool_mode": false,
+                "trace_as_input": true,
+                "trace_as_metadata": true,
+                "track_in_telemetry": false,
+                "type": "other",
+                "value": ""
+              },
+              "schema_json": {
+                "_input_type": "MultilineInput",
+                "advanced": true,
+                "ai_enabled": false,
+                "api_editable": false,
+                "copy_field": false,
+                "display_name": "Output JSON schema",
+                "dynamic": false,
+                "info": "Mirrored in langflow/prompts/schemas/job_brief.schema.json.",
+                "input_types": [
+                  "Message"
+                ],
+                "list": false,
+                "list_add_label": "Add More",
+                "load_from_db": false,
+                "multiline": true,
+                "name": "schema_json",
+                "override_skip": false,
+                "password": false,
+                "placeholder": "",
+                "required": false,
+                "show": true,
+                "title_case": false,
+                "tool_mode": false,
+                "trace_as_input": true,
+                "trace_as_metadata": true,
+                "track_in_telemetry": false,
+                "type": "str",
+                "value": "{\n  \"type\": \"object\",\n  \"additionalProperties\": false,\n  \"required\": [\n    \"title\",\n    \"company\",\n    \"language\",\n    \"must_have\",\n    \"nice_to_have\",\n    \"keywords\",\n    \"location\",\n    \"relocation_ok\",\n    \"required_languages\",\n    \"danish_required\",\n    \"company_values\",\n    \"contact\"\n  ],\n  \"properties\": {\n    \"title\": {\n      \"type\": \"string\",\n      \"minLength\": 1\n    },\n    \"company\": {\n      \"type\": \"string\",\n      \"minLength\": 1\n    },\n    \"language\": {\n      \"enum\": [\n        \"da\",\n        \"en\"\n      ]\n    },\n    \"must_have\": {\n      \"type\": \"array\",\n      \"items\": {\n        \"type\": \"string\"\n      }\n    },\n    \"nice_to_have\": {\n      \"type\": \"array\",\n      \"items\": {\n        \"type\": \"string\"\n      }\n    },\n    \"keywords\": {\n      \"type\": \"array\",\n      \"items\": {\n        \"type\": \"string\"\n      },\n      \"maxItems\": 25\n    },\n    \"seniority\": {\n      \"type\": [\n        \"string\",\n        \"null\"\n      ]\n    },\n    \"remote\": {\n      \"type\": [\n        \"string\",\n        \"null\"\n      ]\n    },\n    \"deadline\": {\n      \"type\": [\n        \"string\",\n        \"null\"\n      ]\n    },\n    \"location\": {\n      \"type\": [\n        \"string\",\n        \"null\"\n      ]\n    },\n    \"relocation_ok\": {\n      \"type\": [\n        \"boolean\",\n        \"null\"\n      ]\n    },\n    \"required_languages\": {\n      \"type\": \"array\",\n      \"items\": {\n        \"type\": \"string\"\n      },\n      \"maxItems\": 6\n    },\n    \"danish_required\": {\n      \"type\": \"boolean\"\n    },\n    \"company_values\": {\n      \"type\": \"array\",\n      \"items\": {\n        \"type\": \"string\"\n      },\n      \"maxItems\": 3\n    },\n    \"contact\": {\n      \"type\": [\n        \"object\",\n        \"null\"\n      ],\n      \"additionalProperties\": false,\n      \"properties\": {\n        \"name\": {\n          \"type\": [\n            \"string\",\n            \"null\"\n          ]\n        },\n        \"role\": {\n          \"type\": [\n            \"string\",\n            \"null\"\n          ]\n        },\n        \"email\": {\n          \"type\": [\n            \"string\",\n            \"null\"\n          ]\n        },\n        \"phone\": {\n          \"type\": [\n            \"string\",\n            \"null\"\n          ]\n        }\n      }\n    }\n  }\n}"
+              },
+              "system_prompt": {
+                "_input_type": "MultilineInput",
+                "advanced": false,
+                "ai_enabled": false,
+                "api_editable": false,
+                "copy_field": false,
+                "display_name": "System prompt",
+                "dynamic": false,
+                "info": "Mirrored in langflow/prompts/analyst_job_brief.md.",
+                "input_types": [
+                  "Message"
+                ],
+                "list": false,
+                "list_add_label": "Add More",
+                "load_from_db": false,
+                "multiline": true,
+                "name": "system_prompt",
+                "override_skip": false,
+                "password": false,
+                "placeholder": "",
+                "required": false,
+                "show": true,
+                "title_case": false,
+                "tool_mode": false,
+                "trace_as_input": true,
+                "trace_as_metadata": true,
+                "track_in_telemetry": false,
+                "type": "str",
+                "value": "Extract a job brief from the posting. Reply with one JSON object and nothing else, matching the JSON schema given below.\nRules:\n- language is the posting language as an ISO 639-1 code (da or en).\n- contact is the named recruiter or contact person with name, role, email and phone (null for unknown fields), or null if nobody is named. The user message may list CONTACT HINTS found by a regex pass: confirm or reject each one against the posting text, and take the name and role from the text next to it. Never invent a name, email or phone.\n- must_have lists the required skills, experience and domain knowledge; nice_to_have lists the preferred ones. Do not put language requirements, location or work permit in must_have or nice_to_have; they belong in required_languages, danish_required, location and relocation_ok.\n- seniority is the level as written (for example \"senior\", \"lead\", \"junior\") or null. remote describes remote or hybrid work as written, or null. deadline is the application deadline as written, or null.\n- location is the work location as written (city or region), or null.\n- relocation_ok is true if the posting offers relocation support or accepts candidates who still have to move, false if it requires living locally already, null if not stated.\n- required_languages lists the ISO 639-1 codes of languages the posting requires (not \"nice to have\"). danish_required is true only if Danish is required.\n- company_values lists values, principles or ways of working the posting itself states about the company (at most 3 short phrases of up to 4 words, in English); use [] if it states none. Never invent values.\n- List items are short (at most 12 words) and in the posting's language. At most 25 keywords."
+              }
+            },
+            "tool_mode": false
+          },
+          "showNode": true,
+          "type": "AjsJobBrief"
+        },
+        "id": "AjsJobBrief-brief",
+        "position": {
+          "x": 1600,
+          "y": 300
+        },
+        "type": "genericNode"
+      },
+      {
+        "data": {
+          "description": "Parse the flow input, fetch the posting from the backend and check its status.",
+          "display_name": "AJS Load Posting",
+          "id": "AjsLoadPosting-load",
+          "node": {
+            "base_classes": [
+              "JSON",
+              "Message"
+            ],
+            "beta": false,
+            "bundle": "ajs",
+            "conditional_paths": [],
+            "custom_fields": {},
+            "description": "Parse the flow input, fetch the posting from the backend and check its status.",
+            "display_name": "AJS Load Posting",
+            "documentation": "",
+            "edited": false,
+            "extension": "ajs",
+            "extension_version": "0.0.0",
+            "field_order": [
+              "input_value",
+              "backend_url",
+              "backend_api_key"
+            ],
+            "frozen": false,
+            "icon": "download",
+            "legacy": false,
+            "legacy_module": "ajs_load_posting",
+            "metadata": {
+              "code_hash": "cb44789fdfda",
+              "dependencies": {
+                "dependencies": [
+                  {
+                    "name": "httpx",
+                    "version": "0.28.1"
+                  },
+                  {
+                    "name": "lfx",
+                    "version": "1.12.3"
+                  }
+                ],
+                "total_dependencies": 2
+              },
+              "module": "_lfx_ext.extra.ajs.ajs_load_posting"
+            },
+            "minimized": false,
+            "name": "AjsLoadPosting",
+            "namespaced_id": "ext:ajs:AjsLoadPosting@extra",
+            "output_types": [],
+            "outputs": [
+              {
+                "allows_loop": false,
+                "cache": true,
+                "display_name": "Posting",
+                "group_outputs": false,
+                "method": "load_posting",
+                "name": "posting",
+                "selected": "JSON",
+                "tool_mode": true,
+                "types": [
+                  "JSON"
+                ],
+                "value": "__UNDEFINED__"
+              },
+              {
+                "allows_loop": false,
+                "cache": true,
+                "display_name": "Skipped",
+                "group_outputs": false,
+                "method": "skipped",
+                "name": "skipped",
+                "selected": "Message",
+                "tool_mode": true,
+                "types": [
+                  "Message"
+                ],
+                "value": "__UNDEFINED__"
+              }
+            ],
+            "pinned": false,
+            "template": {
+              "_type": "Component",
+              "backend_api_key": {
+                "_input_type": "SecretStrInput",
+                "advanced": false,
+                "api_editable": false,
+                "display_name": "Backend API key",
+                "dynamic": false,
+                "info": "Global variable BACKEND_API_KEY.",
+                "input_types": [],
+                "load_from_db": true,
+                "name": "backend_api_key",
+                "override_skip": false,
+                "password": true,
+                "placeholder": "",
+                "required": false,
+                "show": true,
+                "title_case": false,
+                "track_in_telemetry": false,
+                "type": "str",
+                "value": "BACKEND_API_KEY"
+              },
+              "backend_url": {
+                "_input_type": "StrInput",
+                "advanced": false,
+                "api_editable": false,
+                "display_name": "Backend URL",
+                "dynamic": false,
+                "info": "Global variable BACKEND_URL (FastAPI base including /api/v1).",
+                "list": false,
+                "list_add_label": "Add More",
+                "load_from_db": false,
+                "name": "backend_url",
+                "override_skip": false,
+                "placeholder": "",
+                "required": false,
+                "show": true,
+                "title_case": false,
+                "tool_mode": false,
+                "trace_as_metadata": true,
+                "track_in_telemetry": false,
+                "type": "str",
+                "value": "http://backend:8000/api/v1"
+              },
+              "code": {
+                "advanced": true,
+                "api_editable": false,
+                "dynamic": true,
+                "fileTypes": [],
+                "file_path": "",
+                "info": "",
+                "list": false,
+                "load_from_db": false,
+                "multiline": true,
+                "name": "code",
+                "password": false,
+                "placeholder": "",
+                "required": true,
+                "show": true,
+                "title_case": false,
+                "type": "code",
+                "value": "\"\"\"AJS Load Posting: reads the flow input and decides whether this run has anything to do.\n\nInput is the JSON string {\"posting_id\": 12, \"posting_text\": \"...\"} (posting_text is optional;\nthe backend copy is used when it is missing). The posting must be `new` or `analyzed` (a retry),\nor `error` (reset to `new` first), so a run is idempotent and retryable (one run per job).\n\"\"\"\n\nimport json\n\nimport httpx\nfrom lfx.custom.custom_component.component import Component\nfrom lfx.io import MessageTextInput, Output, SecretStrInput, StrInput\nfrom lfx.schema.data import Data\nfrom lfx.schema.message import Message\n\nRUNNABLE = {\"new\", \"analyzed\", \"error\"}\n\n\nclass AjsLoadPosting(Component):\n    display_name = \"AJS Load Posting\"\n    description = \"Parse the flow input, fetch the posting from the backend and check its status.\"\n    name = \"AjsLoadPosting\"\n    icon = \"download\"\n\n    inputs = [\n        MessageTextInput(\n            name=\"input_value\",\n            display_name=\"Input\",\n            info='JSON: {\"posting_id\": int, \"posting_text\": str (optional)}',\n            input_types=[\"Message\"],\n        ),\n        StrInput(\n            name=\"backend_url\",\n            display_name=\"Backend URL\",\n            info=\"Global variable BACKEND_URL (FastAPI base including /api/v1).\",\n            value=\"http://backend:8000/api/v1\",\n        ),\n        SecretStrInput(\n            name=\"backend_api_key\",\n            display_name=\"Backend API key\",\n            info=\"Global variable BACKEND_API_KEY.\",\n            value=\"BACKEND_API_KEY\",\n            load_from_db=True,\n        ),\n    ]\n\n    outputs = [\n        Output(display_name=\"Posting\", name=\"posting\", method=\"load_posting\"),\n        Output(display_name=\"Skipped\", name=\"skipped\", method=\"skipped\"),\n    ]\n\n    async def _load(self) -> tuple[dict | None, str | None]:\n        cached = getattr(self, \"_ajs_result\", None)\n        if cached is not None:\n            return cached\n        raw = self.input_value\n        raw = raw.text if hasattr(raw, \"text\") else str(raw or \"\")\n        try:\n            # The backend sends {\"posting_id\": 12}; a bare id such as \"12\" is accepted too.\n            payload = {\"posting_id\": int(raw)} if raw.strip().isdigit() else json.loads(raw)\n            posting_id = int(payload[\"posting_id\"])\n        except (ValueError, KeyError, TypeError) as exc:\n            msg = 'input must be JSON like {\"posting_id\": 12, \"posting_text\": \"...\"}'\n            raise ValueError(msg) from exc\n        headers = {\"X-API-Key\": self.backend_api_key}\n        base = self.backend_url.rstrip(\"/\")\n        async with httpx.AsyncClient(headers=headers, timeout=30) as client:\n            response = await client.get(f\"{base}/postings/{posting_id}\")\n            response.raise_for_status()\n            detail = response.json()\n            status = detail[\"status\"]\n            if status not in RUNNABLE:\n                result = (None, f\"posting {posting_id} has status '{status}', nothing to analyze\")\n                self._ajs_result = result\n                return result\n            if status == \"error\":\n                reset = await client.post(\n                    f\"{base}/tools/postings/{posting_id}/status\",\n                    json={\"to\": \"new\", \"note\": \"retry analysis\"},\n                )\n                reset.raise_for_status()\n                status = \"new\"\n        text = (payload.get(\"posting_text\") or detail.get(\"posting_text\") or \"\").strip()\n        if not text:\n            msg = f\"posting {posting_id} has no text; set needs_manual_text in the caller\"\n            raise ValueError(msg)\n        data = {\n            \"posting_id\": posting_id,\n            \"posting_text\": text,\n            \"company\": detail[\"company\"],\n            \"title\": detail[\"title\"],\n            \"status\": status,\n            \"already_analyzed\": status == \"analyzed\" and bool(detail.get(\"job_brief\")),\n        }\n        if data[\"already_analyzed\"]:\n            data[\"job_brief\"] = detail[\"job_brief\"]\n            data[\"language\"] = detail.get(\"posting_language\") or detail[\"job_brief\"].get(\"language\")\n        self._ajs_result = (data, None)\n        return self._ajs_result\n\n    async def load_posting(self) -> Data:\n        data, reason = await self._load()\n        if data is None:\n            self.stop(\"posting\")\n            return Data(data={\"skipped\": reason})\n        self.stop(\"skipped\")\n        self.status = f\"posting {data['posting_id']} ({data['status']})\"\n        return Data(data=data)\n\n    async def skipped(self) -> Message:\n        data, reason = await self._load()\n        if data is not None:\n            self.stop(\"skipped\")\n            return Message(text=\"\")\n        self.stop(\"posting\")\n        return Message(text=json.dumps({\"skipped\": True, \"reason\": reason}))\n"
+              },
+              "input_value": {
+                "_input_type": "MessageTextInput",
+                "advanced": false,
+                "api_editable": false,
+                "display_name": "Input",
+                "dynamic": false,
+                "info": "JSON: {\"posting_id\": int, \"posting_text\": str (optional)}",
+                "input_types": [
+                  "Message"
+                ],
+                "list": false,
+                "list_add_label": "Add More",
+                "load_from_db": false,
+                "name": "input_value",
+                "override_skip": false,
+                "placeholder": "",
+                "required": false,
+                "show": true,
+                "title_case": false,
+                "tool_mode": false,
+                "trace_as_input": true,
+                "trace_as_metadata": true,
+                "track_in_telemetry": false,
+                "type": "str",
+                "value": ""
+              }
+            },
+            "tool_mode": false
+          },
+          "showNode": true,
+          "type": "AjsLoadPosting"
+        },
+        "id": "AjsLoadPosting-load",
+        "position": {
+          "x": 400,
+          "y": 300
+        },
+        "type": "genericNode"
+      },
+      {
+        "data": {
+          "description": "Rate must_have / nice_to_have against CV evidence with Gemma (weighted %, 0-100).",
+          "display_name": "AJS Rubric Score",
+          "id": "AjsRubricScore-rubric",
+          "node": {
+            "base_classes": [
+              "JSON"
+            ],
+            "beta": false,
+            "bundle": "ajs",
+            "conditional_paths": [],
+            "custom_fields": {},
+            "description": "Rate must_have / nice_to_have against CV evidence with Gemma (weighted %, 0-100).",
+            "display_name": "AJS Rubric Score",
+            "documentation": "",
+            "edited": false,
+            "extension": "ajs",
+            "extension_version": "0.0.0",
+            "field_order": [
+              "posting",
+              "system_prompt",
+              "ollama_base_url",
+              "model",
+              "keep_alive",
+              "backend_url",
+              "backend_api_key"
+            ],
+            "frozen": false,
+            "icon": "list-checks",
+            "legacy": false,
+            "legacy_module": "ajs_rubric_score",
+            "metadata": {
+              "code_hash": "a38c31e15999",
+              "dependencies": {
+                "dependencies": [
+                  {
+                    "name": "httpx",
+                    "version": "0.28.1"
+                  },
+                  {
+                    "name": "lfx",
+                    "version": "1.12.3"
+                  }
+                ],
+                "total_dependencies": 2
+              },
+              "module": "_lfx_ext.extra.ajs.ajs_rubric_score"
+            },
+            "minimized": false,
+            "name": "AjsRubricScore",
+            "namespaced_id": "ext:ajs:AjsRubricScore@extra",
+            "output_types": [],
+            "outputs": [
+              {
+                "allows_loop": false,
+                "cache": true,
+                "display_name": "Posting",
+                "group_outputs": false,
+                "method": "score",
+                "name": "posting_out",
+                "selected": "JSON",
+                "tool_mode": true,
+                "types": [
+                  "JSON"
+                ],
+                "value": "__UNDEFINED__"
+              }
+            ],
+            "pinned": false,
+            "template": {
+              "_type": "Component",
+              "backend_api_key": {
+                "_input_type": "SecretStrInput",
+                "advanced": false,
+                "api_editable": false,
+                "display_name": "Backend API key",
+                "dynamic": false,
+                "info": "Global variable BACKEND_API_KEY.",
+                "input_types": [],
+                "load_from_db": true,
+                "name": "backend_api_key",
+                "override_skip": false,
+                "password": true,
+                "placeholder": "",
+                "required": false,
+                "show": true,
+                "title_case": false,
+                "track_in_telemetry": false,
+                "type": "str",
+                "value": "BACKEND_API_KEY"
+              },
+              "backend_url": {
+                "_input_type": "StrInput",
+                "advanced": false,
+                "api_editable": false,
+                "display_name": "Backend URL",
+                "dynamic": false,
+                "info": "Global variable BACKEND_URL (FastAPI base including /api/v1).",
+                "list": false,
+                "list_add_label": "Add More",
+                "load_from_db": false,
+                "name": "backend_url",
+                "override_skip": false,
+                "placeholder": "",
+                "required": false,
+                "show": true,
+                "title_case": false,
+                "tool_mode": false,
+                "trace_as_metadata": true,
+                "track_in_telemetry": false,
+                "type": "str",
+                "value": "http://backend:8000/api/v1"
+              },
+              "code": {
+                "advanced": true,
+                "api_editable": false,
+                "dynamic": true,
+                "fileTypes": [],
+                "file_path": "",
+                "info": "",
+                "list": false,
+                "load_from_db": false,
+                "multiline": true,
+                "name": "code",
+                "password": false,
+                "placeholder": "",
+                "required": true,
+                "show": true,
+                "title_case": false,
+                "type": "code",
+                "value": "\"\"\"AJS Rubric Score: Gemma rates each requirement against the CV as met / partial / missing.\n\nD10: only skills, experience and domain count. Language, location and work-permit items are\ndropped before scoring (they are flags in job_brief). must_have counts twice as much as\nnice_to_have. Plan 04 settings: thinking on at temperature 0.3, output capped at 3072 tokens,\none retry with thinking off when the cap is hit; `format` is a schema built for this call.\n\"\"\"\n\nimport json\nimport re\n\nimport httpx\nfrom lfx.custom.custom_component.component import Component\nfrom lfx.io import DataInput, MultilineInput, Output, SecretStrInput, StrInput\nfrom lfx.schema.data import Data\n\nTHINK_TEMPERATURE = 0.3\nTHINK_MAX_TOKENS = 3072\nPLAIN_MAX_TOKENS = 2048\nWEIGHT = {\"must_have\": 2.0, \"nice_to_have\": 1.0}\nCREDIT = {\"met\": 1.0, \"partial\": 0.5, \"missing\": 0.0}\n# Requirements about spoken languages, location or permits are flags, never scored (D10).\nNOT_SCORED = re.compile(\n    r\"\\b(danish|dansk|english|engelsk|german|tysk|swedish|svensk|norwegian|norsk|fluent|\"\n    r\"language skills|spoken|sprog|sprogkundskaber|work permit|arbejdstilladelse|located|based in|\"\n    r\"relocat\\w*|on-?site|commut\\w*|bopæl)\\b\",\n    re.IGNORECASE,\n)\nMAX_RATIONALE_WORDS = 80\n\n\ndef clip_words(text: str, limit: int) -> str:\n    words = text.split()\n    return text.strip() if len(words) <= limit else \" \".join(words[:limit]).rstrip(\".,;\") + \"...\"\n\n\nclass AjsRubricScore(Component):\n    display_name = \"AJS Rubric Score\"\n    description = \"Rate must_have / nice_to_have against CV evidence with Gemma (weighted %, 0-100).\"\n    name = \"AjsRubricScore\"\n    icon = \"list-checks\"\n\n    inputs = [\n        DataInput(name=\"posting\", display_name=\"Posting\", input_types=[\"Data\"]),\n        MultilineInput(\n            name=\"system_prompt\",\n            display_name=\"System prompt\",\n            info=\"Mirrored in langflow/prompts/matcher_rubric.md.\",\n            value=\"\",\n        ),\n        StrInput(\n            name=\"ollama_base_url\",\n            display_name=\"Ollama base URL\",\n            info=\"Global variable OLLAMA_BASE_URL.\",\n            value=\"OLLAMA_BASE_URL\",\n            load_from_db=True,\n        ),\n        StrInput(\n            name=\"model\",\n            display_name=\"Model\",\n            info=\"Global variable LLM_AGENT_MODEL (never hard-coded).\",\n            value=\"LLM_AGENT_MODEL\",\n            load_from_db=True,\n        ),\n        StrInput(\n            name=\"keep_alive\",\n            display_name=\"Keep alive\",\n            info=\"Global variable LLM_KEEP_ALIVE.\",\n            value=\"LLM_KEEP_ALIVE\",\n            load_from_db=True,\n            advanced=True,\n        ),\n        StrInput(\n            name=\"backend_url\",\n            display_name=\"Backend URL\",\n            info=\"Global variable BACKEND_URL (FastAPI base including /api/v1).\",\n            value=\"http://backend:8000/api/v1\",\n        ),\n        SecretStrInput(\n            name=\"backend_api_key\",\n            display_name=\"Backend API key\",\n            info=\"Global variable BACKEND_API_KEY.\",\n            value=\"BACKEND_API_KEY\",\n            load_from_db=True,\n        ),\n    ]\n\n    outputs = [Output(display_name=\"Posting\", name=\"posting_out\", method=\"score\")]\n\n    async def _ask(self, client, messages, schema, *, think: bool) -> dict | None:\n        body = {\n            \"model\": self.model,\n            \"messages\": messages,\n            \"stream\": False,\n            \"think\": think,\n            \"format\": schema,\n            \"keep_alive\": self.keep_alive,\n            \"options\": {\n                \"temperature\": THINK_TEMPERATURE,\n                \"num_predict\": THINK_MAX_TOKENS if think else PLAIN_MAX_TOKENS,\n            },\n        }\n        response = await client.post(f\"{self.ollama_base_url.rstrip('/')}/api/chat\", json=body)\n        response.raise_for_status()\n        payload = response.json()\n        if payload.get(\"done_reason\") == \"length\":\n            return None\n        try:\n            return json.loads(payload[\"message\"][\"content\"])\n        except (json.JSONDecodeError, KeyError, TypeError):\n            return None\n\n    async def score(self) -> Data:\n        data = dict(self.posting.data)\n        brief = data[\"job_brief\"]\n        requirements: list[dict] = []\n        dropped: list[str] = []\n        for kind in (\"must_have\", \"nice_to_have\"):\n            for index, text in enumerate(brief.get(kind) or [], start=1):\n                if NOT_SCORED.search(text):\n                    dropped.append(text)\n                else:\n                    requirements.append(\n                        {\"id\": f\"{'m' if kind == 'must_have' else 'n'}{index}\", \"kind\": kind, \"text\": text}\n                    )\n\n        if not requirements:\n            data.update(rubric_score=50.0, rationale=\"No scorable requirements were found in the posting.\")\n            data[\"rubric_detail\"] = {\"items\": [], \"dropped_flags\": dropped, \"note\": \"neutral 50, no requirements\"}\n            self.status = \"no scorable requirements, neutral 50\"\n            return Data(data=data)\n\n        async with httpx.AsyncClient(headers={\"X-API-Key\": self.backend_api_key}, timeout=30) as backend:\n            response = await backend.get(f\"{self.backend_url.rstrip('/')}/tools/profile/cv-sections\")\n            response.raise_for_status()\n        sections = response.json()\n        section_ids = {s[\"id\"] for s in sections}\n\n        ids = [r[\"id\"] for r in requirements]\n        schema = {\n            \"type\": \"object\",\n            \"required\": [\"items\", \"rationale\"],\n            \"properties\": {\n                \"items\": {\n                    \"type\": \"array\",\n                    \"minItems\": len(ids),\n                    \"maxItems\": len(ids),\n                    \"items\": {\n                        \"type\": \"object\",\n                        \"required\": [\"id\", \"status\", \"evidence\"],\n                        \"properties\": {\n                            \"id\": {\"enum\": ids},\n                            \"status\": {\"enum\": [\"met\", \"partial\", \"missing\"]},\n                            \"evidence\": {\"type\": \"array\", \"items\": {\"enum\": sorted(section_ids)}},\n                        },\n                    },\n                },\n                \"rationale\": {\"type\": \"string\"},\n            },\n        }\n        cv_text = \"\\n\\n\".join(f\"[{s['id']}]\\n{s['markdown']}\" for s in sections)\n        req_text = \"\\n\".join(f\"{r['id']} ({r['kind']}): {r['text']}\" for r in requirements)\n        messages = [\n            {\"role\": \"system\", \"content\": self.system_prompt},\n            {\n                \"role\": \"user\",\n                \"content\": f\"JOB TITLE: {brief.get('title')}\\n\\nREQUIREMENTS\\n{req_text}\\n\\nCV SECTIONS\\n{cv_text}\",\n            },\n        ]\n        async with httpx.AsyncClient(timeout=httpx.Timeout(400.0, connect=10.0)) as client:\n            result = await self._ask(client, messages, schema, think=True)\n            used_think = True\n            if result is None:  # capped, or unparseable: one retry with thinking off\n                result = await self._ask(client, messages, schema, think=False)\n                used_think = False\n        if result is None:\n            msg = \"rubric scoring failed with thinking on and off\"\n            raise ValueError(msg)\n\n        by_id = {i[\"id\"]: i for i in result.get(\"items\", []) if i.get(\"id\") in ids}\n        earned = total = 0.0\n        detail = []\n        for req in requirements:\n            item = by_id.get(req[\"id\"], {})\n            status = item.get(\"status\", \"missing\")\n            evidence = [e for e in item.get(\"evidence\", []) if e in section_ids]\n            # Claims without a real CV citation do not get full credit.\n            if status == \"met\" and not evidence:\n                status = \"partial\"\n            elif status == \"partial\" and not evidence:\n                status = \"missing\"\n            weight = WEIGHT[req[\"kind\"]]\n            earned += weight * CREDIT[status]\n            total += weight\n            detail.append({**req, \"status\": status, \"evidence\": evidence})\n        rubric = round(100 * earned / total, 2)\n        data[\"rubric_score\"] = rubric\n        data[\"rationale\"] = clip_words(result.get(\"rationale\", \"\"), MAX_RATIONALE_WORDS)\n        data[\"rubric_detail\"] = {\"items\": detail, \"dropped_flags\": dropped, \"think\": used_think}\n        self.status = f\"rubric {rubric} (think={used_think}, {len(dropped)} flag item(s) not scored)\"\n        return Data(data=data)\n"
+              },
+              "keep_alive": {
+                "_input_type": "StrInput",
+                "advanced": true,
+                "api_editable": false,
+                "display_name": "Keep alive",
+                "dynamic": false,
+                "info": "Global variable LLM_KEEP_ALIVE.",
+                "list": false,
+                "list_add_label": "Add More",
+                "load_from_db": true,
+                "name": "keep_alive",
+                "override_skip": false,
+                "placeholder": "",
+                "required": false,
+                "show": true,
+                "title_case": false,
+                "tool_mode": false,
+                "trace_as_metadata": true,
+                "track_in_telemetry": false,
+                "type": "str",
+                "value": "LLM_KEEP_ALIVE"
+              },
+              "model": {
+                "_input_type": "StrInput",
+                "advanced": false,
+                "api_editable": false,
+                "display_name": "Model",
+                "dynamic": false,
+                "info": "Global variable LLM_AGENT_MODEL (never hard-coded).",
+                "list": false,
+                "list_add_label": "Add More",
+                "load_from_db": true,
+                "name": "model",
+                "override_skip": false,
+                "placeholder": "",
+                "required": false,
+                "show": true,
+                "title_case": false,
+                "tool_mode": false,
+                "trace_as_metadata": true,
+                "track_in_telemetry": false,
+                "type": "str",
+                "value": "LLM_AGENT_MODEL"
+              },
+              "ollama_base_url": {
+                "_input_type": "StrInput",
+                "advanced": false,
+                "api_editable": false,
+                "display_name": "Ollama base URL",
+                "dynamic": false,
+                "info": "Global variable OLLAMA_BASE_URL.",
+                "list": false,
+                "list_add_label": "Add More",
+                "load_from_db": true,
+                "name": "ollama_base_url",
+                "override_skip": false,
+                "placeholder": "",
+                "required": false,
+                "show": true,
+                "title_case": false,
+                "tool_mode": false,
+                "trace_as_metadata": true,
+                "track_in_telemetry": false,
+                "type": "str",
+                "value": "OLLAMA_BASE_URL"
+              },
+              "posting": {
+                "_input_type": "JSONInput",
+                "advanced": false,
+                "api_editable": false,
+                "display_name": "Posting",
+                "dynamic": false,
+                "info": "",
+                "input_types": [
+                  "Data"
+                ],
+                "list": false,
+                "list_add_label": "Add More",
+                "name": "posting",
+                "override_skip": false,
+                "placeholder": "",
+                "required": false,
+                "show": true,
+                "title_case": false,
+                "tool_mode": false,
+                "trace_as_input": true,
+                "trace_as_metadata": true,
+                "track_in_telemetry": false,
+                "type": "other",
+                "value": ""
+              },
+              "system_prompt": {
+                "_input_type": "MultilineInput",
+                "advanced": false,
+                "ai_enabled": false,
+                "api_editable": false,
+                "copy_field": false,
+                "display_name": "System prompt",
+                "dynamic": false,
+                "info": "Mirrored in langflow/prompts/matcher_rubric.md.",
+                "input_types": [
+                  "Message"
+                ],
+                "list": false,
+                "list_add_label": "Add More",
+                "load_from_db": false,
+                "multiline": true,
+                "name": "system_prompt",
+                "override_skip": false,
+                "password": false,
+                "placeholder": "",
+                "required": false,
+                "show": true,
+                "title_case": false,
+                "tool_mode": false,
+                "trace_as_input": true,
+                "trace_as_metadata": true,
+                "track_in_telemetry": false,
+                "type": "str",
+                "value": "You rate how well a candidate's CV covers each requirement of a job. For every requirement id in the REQUIREMENTS list give a status:\n- met: the CV clearly shows this skill, experience or domain knowledge.\n- partial: the CV shows something related or at a lower level.\n- missing: the CV shows no evidence.\nCite the CV section ids (from the CV SECTIONS list) that support the status in evidence; use [] for missing. Cite only ids that exist, and only sections that really contain the evidence. Be strict: judge only what the CV states.\nOnly skills, experience and domain count. Never rate location, work permit or spoken languages; they are handled separately.\nReply with one JSON object and nothing else: {\"items\": [{\"id\": \"<requirement id>\", \"status\": \"met|partial|missing\", \"evidence\": [\"<section id>\"]}], \"rationale\": \"<at most 60 words: the strongest matches and the biggest gaps, described in plain words, without requirement ids or section ids>\"}. Give one item for every requirement id, in the same order."
+              }
+            },
+            "tool_mode": false
+          },
+          "showNode": true,
+          "type": "AjsRubricScore"
+        },
+        "id": "AjsRubricScore-rubric",
+        "position": {
+          "x": 2800,
+          "y": 300
+        },
+        "type": "genericNode"
+      },
+      {
+        "data": {
+          "description": "Save language, recruiter contact and job_brief through the backend.",
+          "display_name": "AJS Save Analysis",
+          "id": "AjsSaveAnalysis-save_analysis",
+          "node": {
+            "base_classes": [
+              "JSON"
+            ],
+            "beta": false,
+            "bundle": "ajs",
+            "conditional_paths": [],
+            "custom_fields": {},
+            "description": "Save language, recruiter contact and job_brief through the backend.",
+            "display_name": "AJS Save Analysis",
+            "documentation": "",
+            "edited": false,
+            "extension": "ajs",
+            "extension_version": "0.0.0",
+            "field_order": [
+              "posting",
+              "backend_url",
+              "backend_api_key"
+            ],
+            "frozen": false,
+            "icon": "save",
+            "legacy": false,
+            "legacy_module": "ajs_save_analysis",
+            "metadata": {
+              "code_hash": "e94cac35188b",
+              "dependencies": {
+                "dependencies": [
+                  {
+                    "name": "httpx",
+                    "version": "0.28.1"
+                  },
+                  {
+                    "name": "lfx",
+                    "version": "1.12.3"
+                  }
+                ],
+                "total_dependencies": 2
+              },
+              "module": "_lfx_ext.extra.ajs.ajs_save_analysis"
+            },
+            "minimized": false,
+            "name": "AjsSaveAnalysis",
+            "namespaced_id": "ext:ajs:AjsSaveAnalysis@extra",
+            "output_types": [],
+            "outputs": [
+              {
+                "allows_loop": false,
+                "cache": true,
+                "display_name": "Posting",
+                "group_outputs": false,
+                "method": "save",
+                "name": "posting_out",
+                "selected": "JSON",
+                "tool_mode": true,
+                "types": [
+                  "JSON"
+                ],
+                "value": "__UNDEFINED__"
+              }
+            ],
+            "pinned": false,
+            "template": {
+              "_type": "Component",
+              "backend_api_key": {
+                "_input_type": "SecretStrInput",
+                "advanced": false,
+                "api_editable": false,
+                "display_name": "Backend API key",
+                "dynamic": false,
+                "info": "Global variable BACKEND_API_KEY.",
+                "input_types": [],
+                "load_from_db": true,
+                "name": "backend_api_key",
+                "override_skip": false,
+                "password": true,
+                "placeholder": "",
+                "required": false,
+                "show": true,
+                "title_case": false,
+                "track_in_telemetry": false,
+                "type": "str",
+                "value": "BACKEND_API_KEY"
+              },
+              "backend_url": {
+                "_input_type": "StrInput",
+                "advanced": false,
+                "api_editable": false,
+                "display_name": "Backend URL",
+                "dynamic": false,
+                "info": "Global variable BACKEND_URL (FastAPI base including /api/v1).",
+                "list": false,
+                "list_add_label": "Add More",
+                "load_from_db": false,
+                "name": "backend_url",
+                "override_skip": false,
+                "placeholder": "",
+                "required": false,
+                "show": true,
+                "title_case": false,
+                "tool_mode": false,
+                "trace_as_metadata": true,
+                "track_in_telemetry": false,
+                "type": "str",
+                "value": "http://backend:8000/api/v1"
+              },
+              "code": {
+                "advanced": true,
+                "api_editable": false,
+                "dynamic": true,
+                "fileTypes": [],
+                "file_path": "",
+                "info": "",
+                "list": false,
+                "load_from_db": false,
+                "multiline": true,
+                "name": "code",
+                "password": false,
+                "placeholder": "",
+                "required": true,
+                "show": true,
+                "title_case": false,
+                "type": "code",
+                "value": "\"\"\"AJS Save Analysis: PATCH /tools/postings/{id}/analysis (steps 6-8; moves new -> analyzed).\"\"\"\n\nimport httpx\nfrom lfx.custom.custom_component.component import Component\nfrom lfx.io import DataInput, Output, SecretStrInput, StrInput\nfrom lfx.schema.data import Data\n\n\nclass AjsSaveAnalysis(Component):\n    display_name = \"AJS Save Analysis\"\n    description = \"Save language, recruiter contact and job_brief through the backend.\"\n    name = \"AjsSaveAnalysis\"\n    icon = \"save\"\n\n    inputs = [\n        DataInput(name=\"posting\", display_name=\"Posting\", input_types=[\"Data\"]),\n        StrInput(\n            name=\"backend_url\",\n            display_name=\"Backend URL\",\n            info=\"Global variable BACKEND_URL (FastAPI base including /api/v1).\",\n            value=\"http://backend:8000/api/v1\",\n        ),\n        SecretStrInput(\n            name=\"backend_api_key\",\n            display_name=\"Backend API key\",\n            info=\"Global variable BACKEND_API_KEY.\",\n            value=\"BACKEND_API_KEY\",\n            load_from_db=True,\n        ),\n    ]\n\n    outputs = [Output(display_name=\"Posting\", name=\"posting_out\", method=\"save\")]\n\n    async def save(self) -> Data:\n        data = dict(self.posting.data)\n        if data.get(\"already_analyzed\"):\n            self.status = \"already analyzed, skipped\"\n            return Data(data=data)\n        body = {\n            \"language\": data[\"language\"],\n            \"recruiter_name\": data.get(\"recruiter_name\"),\n            \"recruiter_email\": data.get(\"recruiter_email\"),\n            \"recruiter_phone\": data.get(\"recruiter_phone\"),\n            \"job_brief\": data[\"job_brief\"],\n        }\n        async with httpx.AsyncClient(headers={\"X-API-Key\": self.backend_api_key}, timeout=30) as client:\n            response = await client.patch(\n                f\"{self.backend_url.rstrip('/')}/tools/postings/{data['posting_id']}/analysis\",\n                json=body,\n            )\n            response.raise_for_status()\n        data[\"status\"] = response.json()[\"status\"]\n        self.status = data[\"status\"]\n        return Data(data=data)\n"
+              },
+              "posting": {
+                "_input_type": "JSONInput",
+                "advanced": false,
+                "api_editable": false,
+                "display_name": "Posting",
+                "dynamic": false,
+                "info": "",
+                "input_types": [
+                  "Data"
+                ],
+                "list": false,
+                "list_add_label": "Add More",
+                "name": "posting",
+                "override_skip": false,
+                "placeholder": "",
+                "required": false,
+                "show": true,
+                "title_case": false,
+                "tool_mode": false,
+                "trace_as_input": true,
+                "trace_as_metadata": true,
+                "track_in_telemetry": false,
+                "type": "other",
+                "value": ""
+              }
+            },
+            "tool_mode": false
+          },
+          "showNode": true,
+          "type": "AjsSaveAnalysis"
+        },
+        "id": "AjsSaveAnalysis-save_analysis",
+        "position": {
+          "x": 2000,
+          "y": 300
+        },
+        "type": "genericNode"
+      },
+      {
+        "data": {
+          "description": "Save both scores and the rationale; the backend sets awaiting_match_review or low_match.",
+          "display_name": "AJS Save Match",
+          "id": "AjsSaveMatch-save_match",
+          "node": {
+            "base_classes": [
+              "Message"
+            ],
+            "beta": false,
+            "bundle": "ajs",
+            "conditional_paths": [],
+            "custom_fields": {},
+            "description": "Save both scores and the rationale; the backend sets awaiting_match_review or low_match.",
+            "display_name": "AJS Save Match",
+            "documentation": "",
+            "edited": false,
+            "extension": "ajs",
+            "extension_version": "0.0.0",
+            "field_order": [
+              "posting",
+              "backend_url",
+              "backend_api_key"
+            ],
+            "frozen": false,
+            "icon": "save",
+            "legacy": false,
+            "legacy_module": "ajs_save_match",
+            "metadata": {
+              "code_hash": "5673e8693274",
+              "dependencies": {
+                "dependencies": [
+                  {
+                    "name": "httpx",
+                    "version": "0.28.1"
+                  },
+                  {
+                    "name": "lfx",
+                    "version": "1.12.3"
+                  }
+                ],
+                "total_dependencies": 2
+              },
+              "module": "_lfx_ext.extra.ajs.ajs_save_match"
+            },
+            "minimized": false,
+            "name": "AjsSaveMatch",
+            "namespaced_id": "ext:ajs:AjsSaveMatch@extra",
+            "output_types": [],
+            "outputs": [
+              {
+                "allows_loop": false,
+                "cache": true,
+                "display_name": "Result",
+                "group_outputs": false,
+                "method": "save",
+                "name": "result",
+                "selected": "Message",
+                "tool_mode": true,
+                "types": [
+                  "Message"
+                ],
+                "value": "__UNDEFINED__"
+              }
+            ],
+            "pinned": false,
+            "template": {
+              "_type": "Component",
+              "backend_api_key": {
+                "_input_type": "SecretStrInput",
+                "advanced": false,
+                "api_editable": false,
+                "display_name": "Backend API key",
+                "dynamic": false,
+                "info": "Global variable BACKEND_API_KEY.",
+                "input_types": [],
+                "load_from_db": true,
+                "name": "backend_api_key",
+                "override_skip": false,
+                "password": true,
+                "placeholder": "",
+                "required": false,
+                "show": true,
+                "title_case": false,
+                "track_in_telemetry": false,
+                "type": "str",
+                "value": "BACKEND_API_KEY"
+              },
+              "backend_url": {
+                "_input_type": "StrInput",
+                "advanced": false,
+                "api_editable": false,
+                "display_name": "Backend URL",
+                "dynamic": false,
+                "info": "Global variable BACKEND_URL (FastAPI base including /api/v1).",
+                "list": false,
+                "list_add_label": "Add More",
+                "load_from_db": false,
+                "name": "backend_url",
+                "override_skip": false,
+                "placeholder": "",
+                "required": false,
+                "show": true,
+                "title_case": false,
+                "tool_mode": false,
+                "trace_as_metadata": true,
+                "track_in_telemetry": false,
+                "type": "str",
+                "value": "http://backend:8000/api/v1"
+              },
+              "code": {
+                "advanced": true,
+                "api_editable": false,
+                "dynamic": true,
+                "fileTypes": [],
+                "file_path": "",
+                "info": "",
+                "list": false,
+                "load_from_db": false,
+                "multiline": true,
+                "name": "code",
+                "password": false,
+                "placeholder": "",
+                "required": true,
+                "show": true,
+                "title_case": false,
+                "type": "code",
+                "value": "\"\"\"AJS Save Match: PATCH /tools/postings/{id}/match (steps 9-10). The backend decides the status.\"\"\"\n\nimport json\n\nimport httpx\nfrom lfx.custom.custom_component.component import Component\nfrom lfx.io import DataInput, Output, SecretStrInput, StrInput\nfrom lfx.schema.message import Message\n\n\nclass AjsSaveMatch(Component):\n    display_name = \"AJS Save Match\"\n    description = \"Save both scores and the rationale; the backend sets awaiting_match_review or low_match.\"\n    name = \"AjsSaveMatch\"\n    icon = \"save\"\n\n    inputs = [\n        DataInput(name=\"posting\", display_name=\"Posting\", input_types=[\"Data\"]),\n        StrInput(\n            name=\"backend_url\",\n            display_name=\"Backend URL\",\n            info=\"Global variable BACKEND_URL (FastAPI base including /api/v1).\",\n            value=\"http://backend:8000/api/v1\",\n        ),\n        SecretStrInput(\n            name=\"backend_api_key\",\n            display_name=\"Backend API key\",\n            info=\"Global variable BACKEND_API_KEY.\",\n            value=\"BACKEND_API_KEY\",\n            load_from_db=True,\n        ),\n    ]\n\n    outputs = [Output(display_name=\"Result\", name=\"result\", method=\"save\")]\n\n    async def save(self) -> Message:\n        data = self.posting.data\n        body = {\n            \"embedding_score\": data[\"embedding_score\"],\n            \"rubric_score\": data[\"rubric_score\"],\n            \"rationale\": data[\"rationale\"] or \"No rationale given.\",\n        }\n        async with httpx.AsyncClient(headers={\"X-API-Key\": self.backend_api_key}, timeout=30) as client:\n            response = await client.patch(\n                f\"{self.backend_url.rstrip('/')}/tools/postings/{data['posting_id']}/match\",\n                json=body,\n            )\n            response.raise_for_status()\n        result = response.json()\n        result.update(\n            embedding_score=body[\"embedding_score\"],\n            rubric_score=body[\"rubric_score\"],\n            language=data.get(\"language\"),\n        )\n        self.status = f\"{result['status']} ({result['match_score']})\"\n        return Message(text=json.dumps(result))\n"
+              },
+              "posting": {
+                "_input_type": "JSONInput",
+                "advanced": false,
+                "api_editable": false,
+                "display_name": "Posting",
+                "dynamic": false,
+                "info": "",
+                "input_types": [
+                  "Data"
+                ],
+                "list": false,
+                "list_add_label": "Add More",
+                "name": "posting",
+                "override_skip": false,
+                "placeholder": "",
+                "required": false,
+                "show": true,
+                "title_case": false,
+                "tool_mode": false,
+                "trace_as_input": true,
+                "trace_as_metadata": true,
+                "track_in_telemetry": false,
+                "type": "other",
+                "value": ""
+              }
+            },
+            "tool_mode": false
+          },
+          "showNode": true,
+          "type": "AjsSaveMatch"
+        },
+        "id": "AjsSaveMatch-save_match",
+        "position": {
+          "x": 3200,
+          "y": 300
+        },
+        "type": "genericNode"
+      },
+      {
+        "data": {
+          "description": "Set a posting status through the backend tool endpoint and report the result.",
+          "display_name": "AJS Set Status",
+          "id": "AjsSetStatus-unsupported",
+          "node": {
+            "base_classes": [
+              "Message"
+            ],
+            "beta": false,
+            "bundle": "ajs",
+            "conditional_paths": [],
+            "custom_fields": {},
+            "description": "Set a posting status through the backend tool endpoint and report the result.",
+            "display_name": "AJS Set Status",
+            "documentation": "",
+            "edited": false,
+            "extension": "ajs",
+            "extension_version": "0.0.0",
+            "field_order": [
+              "posting",
+              "to",
+              "note",
+              "backend_url",
+              "backend_api_key"
+            ],
+            "frozen": false,
+            "icon": "flag",
+            "legacy": false,
+            "legacy_module": "ajs_set_status",
+            "metadata": {
+              "code_hash": "d2ab22961f52",
+              "dependencies": {
+                "dependencies": [
+                  {
+                    "name": "httpx",
+                    "version": "0.28.1"
+                  },
+                  {
+                    "name": "lfx",
+                    "version": "1.12.3"
+                  }
+                ],
+                "total_dependencies": 2
+              },
+              "module": "_lfx_ext.extra.ajs.ajs_set_status"
+            },
+            "minimized": false,
+            "name": "AjsSetStatus",
+            "namespaced_id": "ext:ajs:AjsSetStatus@extra",
+            "output_types": [],
+            "outputs": [
+              {
+                "allows_loop": false,
+                "cache": true,
+                "display_name": "Result",
+                "group_outputs": false,
+                "method": "set_status",
+                "name": "result",
+                "selected": "Message",
+                "tool_mode": true,
+                "types": [
+                  "Message"
+                ],
+                "value": "__UNDEFINED__"
+              }
+            ],
+            "pinned": false,
+            "template": {
+              "_type": "Component",
+              "backend_api_key": {
+                "_input_type": "SecretStrInput",
+                "advanced": false,
+                "api_editable": false,
+                "display_name": "Backend API key",
+                "dynamic": false,
+                "info": "Global variable BACKEND_API_KEY.",
+                "input_types": [],
+                "load_from_db": true,
+                "name": "backend_api_key",
+                "override_skip": false,
+                "password": true,
+                "placeholder": "",
+                "required": false,
+                "show": true,
+                "title_case": false,
+                "track_in_telemetry": false,
+                "type": "str",
+                "value": "BACKEND_API_KEY"
+              },
+              "backend_url": {
+                "_input_type": "StrInput",
+                "advanced": false,
+                "api_editable": false,
+                "display_name": "Backend URL",
+                "dynamic": false,
+                "info": "Global variable BACKEND_URL (FastAPI base including /api/v1).",
+                "list": false,
+                "list_add_label": "Add More",
+                "load_from_db": false,
+                "name": "backend_url",
+                "override_skip": false,
+                "placeholder": "",
+                "required": false,
+                "show": true,
+                "title_case": false,
+                "tool_mode": false,
+                "trace_as_metadata": true,
+                "track_in_telemetry": false,
+                "type": "str",
+                "value": "http://backend:8000/api/v1"
+              },
+              "code": {
+                "advanced": true,
+                "api_editable": false,
+                "dynamic": true,
+                "fileTypes": [],
+                "file_path": "",
+                "info": "",
+                "list": false,
+                "load_from_db": false,
+                "multiline": true,
+                "name": "code",
+                "password": false,
+                "placeholder": "",
+                "required": true,
+                "show": true,
+                "title_case": false,
+                "type": "code",
+                "value": "\"\"\"AJS Set Status: POST /tools/postings/{id}/status (side statuses such as unsupported_language).\"\"\"\n\nimport json\n\nimport httpx\nfrom lfx.custom.custom_component.component import Component\nfrom lfx.io import DataInput, DropdownInput, MessageTextInput, Output, SecretStrInput, StrInput\nfrom lfx.schema.message import Message\n\n\nclass AjsSetStatus(Component):\n    display_name = \"AJS Set Status\"\n    description = \"Set a posting status through the backend tool endpoint and report the result.\"\n    name = \"AjsSetStatus\"\n    icon = \"flag\"\n\n    inputs = [\n        DataInput(name=\"posting\", display_name=\"Posting\", input_types=[\"Data\"]),\n        DropdownInput(\n            name=\"to\",\n            display_name=\"Status\",\n            options=[\"unsupported_language\", \"needs_manual_text\", \"error\", \"new\"],\n            value=\"unsupported_language\",\n        ),\n        MessageTextInput(name=\"note\", display_name=\"Note\", value=\"\", advanced=True),\n        StrInput(\n            name=\"backend_url\",\n            display_name=\"Backend URL\",\n            info=\"Global variable BACKEND_URL (FastAPI base including /api/v1).\",\n            value=\"http://backend:8000/api/v1\",\n        ),\n        SecretStrInput(\n            name=\"backend_api_key\",\n            display_name=\"Backend API key\",\n            info=\"Global variable BACKEND_API_KEY.\",\n            value=\"BACKEND_API_KEY\",\n            load_from_db=True,\n        ),\n    ]\n\n    outputs = [Output(display_name=\"Result\", name=\"result\", method=\"set_status\")]\n\n    async def set_status(self) -> Message:\n        data = self.posting.data\n        posting_id = int(data[\"posting_id\"])\n        note = self.note or f\"language={data.get('language')} ({data.get('language_method')})\"\n        async with httpx.AsyncClient(headers={\"X-API-Key\": self.backend_api_key}, timeout=30) as client:\n            response = await client.post(\n                f\"{self.backend_url.rstrip('/')}/tools/postings/{posting_id}/status\",\n                json={\"to\": self.to, \"note\": note},\n            )\n            response.raise_for_status()\n        result = response.json()\n        result[\"language\"] = data.get(\"language\")\n        return Message(text=json.dumps(result))\n"
+              },
+              "note": {
+                "_input_type": "MessageTextInput",
+                "advanced": true,
+                "api_editable": false,
+                "display_name": "Note",
+                "dynamic": false,
+                "info": "",
+                "input_types": [
+                  "Message"
+                ],
+                "list": false,
+                "list_add_label": "Add More",
+                "load_from_db": false,
+                "name": "note",
+                "override_skip": false,
+                "placeholder": "",
+                "required": false,
+                "show": true,
+                "title_case": false,
+                "tool_mode": false,
+                "trace_as_input": true,
+                "trace_as_metadata": true,
+                "track_in_telemetry": false,
+                "type": "str",
+                "value": ""
+              },
+              "posting": {
+                "_input_type": "JSONInput",
+                "advanced": false,
+                "api_editable": false,
+                "display_name": "Posting",
+                "dynamic": false,
+                "info": "",
+                "input_types": [
+                  "Data"
+                ],
+                "list": false,
+                "list_add_label": "Add More",
+                "name": "posting",
+                "override_skip": false,
+                "placeholder": "",
+                "required": false,
+                "show": true,
+                "title_case": false,
+                "tool_mode": false,
+                "trace_as_input": true,
+                "trace_as_metadata": true,
+                "track_in_telemetry": false,
+                "type": "other",
+                "value": ""
+              },
+              "to": {
+                "_input_type": "DropdownInput",
+                "advanced": false,
+                "api_editable": false,
+                "combobox": false,
+                "dialog_inputs": {},
+                "display_name": "Status",
+                "dynamic": false,
+                "external_options": {},
+                "info": "",
+                "name": "to",
+                "options": [
+                  "unsupported_language",
+                  "needs_manual_text",
+                  "error",
+                  "new"
+                ],
+                "options_metadata": [],
+                "override_skip": false,
+                "placeholder": "",
+                "required": false,
+                "show": true,
+                "title_case": false,
+                "toggle": false,
+                "tool_mode": false,
+                "trace_as_metadata": true,
+                "track_in_telemetry": true,
+                "type": "str",
+                "value": "unsupported_language"
+              }
+            },
+            "tool_mode": false
+          },
+          "showNode": true,
+          "type": "AjsSetStatus"
+        },
+        "id": "AjsSetStatus-unsupported",
+        "position": {
+          "x": 1200,
+          "y": 0
+        },
+        "type": "genericNode"
+      },
+      {
+        "data": {
+          "description": "Get chat inputs from the Playground.",
+          "display_name": "Chat Input",
+          "id": "ChatInput-chat_in",
+          "node": {
+            "base_classes": [
+              "Message"
+            ],
+            "beta": false,
+            "conditional_paths": [],
+            "custom_fields": {},
+            "description": "Get chat inputs from the Playground.",
+            "display_name": "Chat Input",
+            "documentation": "https://docs.langflow.org/chat-input-and-output",
+            "edited": false,
+            "field_order": [
+              "input_value",
+              "should_store_message",
+              "sender",
+              "sender_name",
+              "session_id",
+              "context_id",
+              "files"
+            ],
+            "frozen": false,
+            "icon": "MessagesSquare",
+            "legacy": false,
+            "metadata": {
+              "code_hash": "45974e6b1909",
+              "dependencies": {
+                "dependencies": [
+                  {
+                    "name": "lfx",
+                    "version": null
+                  }
+                ],
+                "total_dependencies": 1
+              },
+              "module": "lfx.components.input_output.chat.ChatInput"
+            },
+            "minimized": true,
+            "output_types": [],
+            "outputs": [
+              {
+                "allows_loop": false,
+                "cache": true,
+                "display_name": "Chat Message",
+                "group_outputs": false,
+                "method": "message_response",
+                "name": "message",
+                "selected": "Message",
+                "tool_mode": true,
+                "types": [
+                  "Message"
+                ],
+                "value": "__UNDEFINED__"
+              }
+            ],
+            "pinned": false,
+            "template": {
+              "_type": "Component",
+              "code": {
+                "advanced": true,
+                "api_editable": false,
+                "dynamic": true,
+                "fileTypes": [],
+                "file_path": "",
+                "info": "",
+                "list": false,
+                "load_from_db": false,
+                "multiline": true,
+                "name": "code",
+                "password": false,
+                "placeholder": "",
+                "required": true,
+                "show": true,
+                "title_case": false,
+                "type": "code",
+                "value": "from lfx.base.data.utils import IMG_FILE_TYPES, TEXT_FILE_TYPES\nfrom lfx.base.io.chat import ChatComponent\nfrom lfx.inputs.inputs import BoolInput\nfrom lfx.io import (\n    DropdownInput,\n    FileInput,\n    MessageTextInput,\n    MultilineInput,\n    Output,\n)\nfrom lfx.schema.image import get_file_paths\nfrom lfx.schema.message import Message\nfrom lfx.services.deps import get_settings_service\nfrom lfx.utils.constants import (\n    MESSAGE_SENDER_AI,\n    MESSAGE_SENDER_NAME_USER,\n    MESSAGE_SENDER_USER,\n)\nfrom lfx.utils.file_path_security import (\n    component_file_access_scopes,\n    enforce_local_file_access,\n    is_local_file_access_restricted,\n)\n\n\nclass ChatInput(ChatComponent):\n    display_name = \"Chat Input\"\n    description = \"Get chat inputs from the Playground.\"\n    documentation: str = \"https://docs.langflow.org/chat-input-and-output\"\n    icon = \"MessagesSquare\"\n    name = \"ChatInput\"\n    minimized = True\n\n    inputs = [\n        MultilineInput(\n            name=\"input_value\",\n            display_name=\"Input Text\",\n            value=\"\",\n            info=\"Message to be passed as input.\",\n            input_types=[],\n        ),\n        BoolInput(\n            name=\"should_store_message\",\n            display_name=\"Store Messages\",\n            info=\"Store the message in the history.\",\n            value=True,\n            advanced=True,\n        ),\n        DropdownInput(\n            name=\"sender\",\n            display_name=\"Sender Type\",\n            options=[MESSAGE_SENDER_AI, MESSAGE_SENDER_USER],\n            value=MESSAGE_SENDER_USER,\n            info=\"Type of sender.\",\n            advanced=True,\n        ),\n        MessageTextInput(\n            name=\"sender_name\",\n            display_name=\"Sender Name\",\n            info=\"Name of the sender.\",\n            value=MESSAGE_SENDER_NAME_USER,\n            advanced=True,\n        ),\n        MessageTextInput(\n            name=\"session_id\",\n            display_name=\"Session ID\",\n            info=\"The session ID of the chat. If empty, the current session ID parameter will be used.\",\n            advanced=True,\n        ),\n        MessageTextInput(\n            name=\"context_id\",\n            display_name=\"Context ID\",\n            info=\"The context ID of the chat. Adds an extra layer to the local memory.\",\n            value=\"\",\n            advanced=True,\n        ),\n        FileInput(\n            name=\"files\",\n            display_name=\"Files\",\n            file_types=TEXT_FILE_TYPES + IMG_FILE_TYPES,\n            info=\"Files to be sent with the message.\",\n            advanced=True,\n            is_list=True,\n            temp_file=True,\n        ),\n    ]\n    outputs = [\n        Output(display_name=\"Chat Message\", name=\"message\", method=\"message_response\"),\n    ]\n\n    async def message_response(self) -> Message:\n        # Ensure files is a list and filter out empty/None values\n        files = self.files if self.files else []\n        if files and not isinstance(files, list):\n            files = [files]\n        # Filter out None/empty values\n        files = [f for f in files if f is not None and f != \"\"]\n\n        # Build endpoints inject caller-controlled file references directly into\n        # ChatInput. Resolve and validate local references before the Message can\n        # later read them while constructing model attachment content.\n        if files:\n            settings_service = get_settings_service()\n            storage_type = getattr(getattr(settings_service, \"settings\", None), \"storage_type\", \"local\")\n            # The storage factory falls back to local storage for unsupported\n            # values, so only the explicitly configured S3 backend may bypass\n            # filesystem containment.\n            if str(storage_type).lower() != \"s3\" and is_local_file_access_restricted():\n                scope_ids = list(component_file_access_scopes(self))\n                # Public executions replace graph.flow_id with a per-visitor\n                # virtual ID. Only the server-populated source provenance may\n                # restore the already-validated public attachment namespace.\n                source_flow_id = getattr(self.graph, \"source_flow_id\", None)\n                if source_flow_id:\n                    scope_ids.append(source_flow_id)\n                for file_path in get_file_paths(files):\n                    enforce_local_file_access(file_path, scope_ids=scope_ids)\n\n        session_id = self.session_id or self.graph.session_id or \"\"\n        message = await Message.create(\n            text=self.input_value,\n            sender=self.sender,\n            sender_name=self.sender_name,\n            session_id=session_id,\n            context_id=self.context_id,\n            files=files,\n        )\n        if session_id and isinstance(message, Message) and self.should_store_message:\n            stored_message = await self.send_message(\n                message,\n            )\n            self.message.value = stored_message\n            message = stored_message\n\n        self.status = message\n        return message\n"
+              },
+              "context_id": {
+                "_input_type": "MessageTextInput",
+                "advanced": true,
+                "api_editable": false,
+                "display_name": "Context ID",
+                "dynamic": false,
+                "info": "The context ID of the chat. Adds an extra layer to the local memory.",
+                "input_types": [
+                  "Message"
+                ],
+                "list": false,
+                "list_add_label": "Add More",
+                "load_from_db": false,
+                "name": "context_id",
+                "override_skip": false,
+                "placeholder": "",
+                "required": false,
+                "show": true,
+                "title_case": false,
+                "tool_mode": false,
+                "trace_as_input": true,
+                "trace_as_metadata": true,
+                "track_in_telemetry": false,
+                "type": "str",
+                "value": ""
+              },
+              "files": {
+                "_input_type": "FileInput",
+                "advanced": true,
+                "api_editable": false,
+                "display_name": "Files",
+                "dynamic": false,
+                "fileTypes": [
+                  "csv",
+                  "json",
+                  "pdf",
+                  "txt",
+                  "md",
+                  "mdx",
+                  "yaml",
+                  "yml",
+                  "xml",
+                  "html",
+                  "htm",
+                  "docx",
+                  "py",
+                  "sh",
+                  "sql",
+                  "js",
+                  "ts",
+                  "tsx",
+                  "jpg",
+                  "jpeg",
+                  "png",
+                  "bmp",
+                  "image"
+                ],
+                "file_path": "",
+                "info": "Files to be sent with the message.",
+                "list": true,
+                "list_add_label": "Add More",
+                "name": "files",
+                "override_skip": false,
+                "placeholder": "",
+                "required": false,
+                "show": true,
+                "temp_file": true,
+                "title_case": false,
+                "tool_mode": false,
+                "trace_as_metadata": true,
+                "track_in_telemetry": false,
+                "type": "file",
+                "value": ""
+              },
+              "input_value": {
+                "_input_type": "MultilineInput",
+                "advanced": false,
+                "ai_enabled": false,
+                "api_editable": false,
+                "copy_field": false,
+                "display_name": "Input Text",
+                "dynamic": false,
+                "info": "Message to be passed as input.",
+                "input_types": [],
+                "list": false,
+                "list_add_label": "Add More",
+                "load_from_db": false,
+                "multiline": true,
+                "name": "input_value",
+                "override_skip": false,
+                "password": false,
+                "placeholder": "",
+                "required": false,
+                "show": true,
+                "title_case": false,
+                "tool_mode": false,
+                "trace_as_input": true,
+                "trace_as_metadata": true,
+                "track_in_telemetry": false,
+                "type": "str",
+                "value": ""
+              },
+              "sender": {
+                "_input_type": "DropdownInput",
+                "advanced": true,
+                "api_editable": false,
+                "combobox": false,
+                "dialog_inputs": {},
+                "display_name": "Sender Type",
+                "dynamic": false,
+                "external_options": {},
+                "info": "Type of sender.",
+                "name": "sender",
+                "options": [
+                  "Machine",
+                  "User"
+                ],
+                "options_metadata": [],
+                "override_skip": false,
+                "placeholder": "",
+                "required": false,
+                "show": true,
+                "title_case": false,
+                "toggle": false,
+                "tool_mode": false,
+                "trace_as_metadata": true,
+                "track_in_telemetry": true,
+                "type": "str",
+                "value": "User"
+              },
+              "sender_name": {
+                "_input_type": "MessageTextInput",
+                "advanced": true,
+                "api_editable": false,
+                "display_name": "Sender Name",
+                "dynamic": false,
+                "info": "Name of the sender.",
+                "input_types": [
+                  "Message"
+                ],
+                "list": false,
+                "list_add_label": "Add More",
+                "load_from_db": false,
+                "name": "sender_name",
+                "override_skip": false,
+                "placeholder": "",
+                "required": false,
+                "show": true,
+                "title_case": false,
+                "tool_mode": false,
+                "trace_as_input": true,
+                "trace_as_metadata": true,
+                "track_in_telemetry": false,
+                "type": "str",
+                "value": "User"
+              },
+              "session_id": {
+                "_input_type": "MessageTextInput",
+                "advanced": true,
+                "api_editable": false,
+                "display_name": "Session ID",
+                "dynamic": false,
+                "info": "The session ID of the chat. If empty, the current session ID parameter will be used.",
+                "input_types": [
+                  "Message"
+                ],
+                "list": false,
+                "list_add_label": "Add More",
+                "load_from_db": false,
+                "name": "session_id",
+                "override_skip": false,
+                "placeholder": "",
+                "required": false,
+                "show": true,
+                "title_case": false,
+                "tool_mode": false,
+                "trace_as_input": true,
+                "trace_as_metadata": true,
+                "track_in_telemetry": false,
+                "type": "str",
+                "value": ""
+              },
+              "should_store_message": {
+                "_input_type": "BoolInput",
+                "advanced": true,
+                "api_editable": false,
+                "display_name": "Store Messages",
+                "dynamic": false,
+                "info": "Store the message in the history.",
+                "list": false,
+                "list_add_label": "Add More",
+                "name": "should_store_message",
+                "override_skip": false,
+                "placeholder": "",
+                "required": false,
+                "show": true,
+                "title_case": false,
+                "tool_mode": false,
+                "trace_as_metadata": true,
+                "track_in_telemetry": true,
+                "type": "bool",
+                "value": false
+              }
+            },
+            "tool_mode": false
+          },
+          "showNode": true,
+          "type": "ChatInput"
+        },
+        "id": "ChatInput-chat_in",
+        "position": {
+          "x": 0,
+          "y": 300
+        },
+        "type": "genericNode"
+      },
+      {
+        "data": {
+          "description": "Display a chat message in the Playground.",
+          "display_name": "Chat Output",
+          "id": "ChatOutput-result_out",
+          "node": {
+            "base_classes": [
+              "Message"
+            ],
+            "beta": false,
+            "conditional_paths": [],
+            "custom_fields": {},
+            "description": "Display a chat message in the Playground.",
+            "display_name": "Chat Output",
+            "documentation": "https://docs.langflow.org/chat-input-and-output",
+            "edited": false,
+            "field_order": [
+              "input_value",
+              "should_store_message",
+              "sender",
+              "sender_name",
+              "session_id",
+              "context_id",
+              "data_template",
+              "clean_data"
+            ],
+            "frozen": false,
+            "icon": "MessagesSquare",
+            "legacy": false,
+            "metadata": {
+              "code_hash": "84009527d08c",
+              "dependencies": {
+                "dependencies": [
+                  {
+                    "name": "orjson",
+                    "version": "3.11.9"
+                  },
+                  {
+                    "name": "fastapi",
+                    "version": "0.139.2"
+                  },
+                  {
+                    "name": "lfx",
+                    "version": null
+                  }
+                ],
+                "total_dependencies": 3
+              },
+              "module": "lfx.components.input_output.chat_output.ChatOutput"
+            },
+            "minimized": true,
+            "output_types": [],
+            "outputs": [
+              {
+                "allows_loop": false,
+                "cache": true,
+                "display_name": "Output Message",
+                "group_outputs": false,
+                "method": "message_response",
+                "name": "message",
+                "selected": "Message",
+                "tool_mode": true,
+                "types": [
+                  "Message"
+                ],
+                "value": "__UNDEFINED__"
+              }
+            ],
+            "pinned": false,
+            "template": {
+              "_type": "Component",
+              "clean_data": {
+                "_input_type": "BoolInput",
+                "advanced": true,
+                "api_editable": false,
+                "display_name": "Basic Clean Data",
+                "dynamic": false,
+                "info": "Whether to clean data before converting to string.",
+                "list": false,
+                "list_add_label": "Add More",
+                "name": "clean_data",
+                "override_skip": false,
+                "placeholder": "",
+                "required": false,
+                "show": true,
+                "title_case": false,
+                "tool_mode": false,
+                "trace_as_metadata": true,
+                "track_in_telemetry": true,
+                "type": "bool",
+                "value": true
+              },
+              "code": {
+                "advanced": true,
+                "api_editable": false,
+                "dynamic": true,
+                "fileTypes": [],
+                "file_path": "",
+                "info": "",
+                "list": false,
+                "load_from_db": false,
+                "multiline": true,
+                "name": "code",
+                "password": false,
+                "placeholder": "",
+                "required": true,
+                "show": true,
+                "title_case": false,
+                "type": "code",
+                "value": "from collections.abc import Generator\nfrom typing import Any\n\nimport orjson\nfrom fastapi.encoders import jsonable_encoder\n\nfrom lfx.base.io.chat import ChatComponent\nfrom lfx.helpers.data import safe_convert\nfrom lfx.inputs.inputs import BoolInput, DropdownInput, HandleInput, MessageTextInput\nfrom lfx.schema.data import Data\nfrom lfx.schema.dataframe import DataFrame\nfrom lfx.schema.message import Message\nfrom lfx.schema.properties import Source\nfrom lfx.template.field.base import Output\nfrom lfx.utils.constants import (\n    MESSAGE_SENDER_AI,\n    MESSAGE_SENDER_NAME_AI,\n    MESSAGE_SENDER_USER,\n)\n\n\nclass ChatOutput(ChatComponent):\n    display_name = \"Chat Output\"\n    description = \"Display a chat message in the Playground.\"\n    documentation: str = \"https://docs.langflow.org/chat-input-and-output\"\n    icon = \"MessagesSquare\"\n    name = \"ChatOutput\"\n    minimized = True\n\n    inputs = [\n        HandleInput(\n            name=\"input_value\",\n            display_name=\"Inputs\",\n            info=\"Message to be passed as output.\",\n            input_types=[\"Data\", \"JSON\", \"DataFrame\", \"Table\", \"Message\"],\n            required=True,\n        ),\n        BoolInput(\n            name=\"should_store_message\",\n            display_name=\"Store Messages\",\n            info=\"Store the message in the history.\",\n            value=True,\n            advanced=True,\n        ),\n        DropdownInput(\n            name=\"sender\",\n            display_name=\"Sender Type\",\n            options=[MESSAGE_SENDER_AI, MESSAGE_SENDER_USER],\n            value=MESSAGE_SENDER_AI,\n            advanced=True,\n            info=\"Type of sender.\",\n        ),\n        MessageTextInput(\n            name=\"sender_name\",\n            display_name=\"Sender Name\",\n            info=\"Name of the sender.\",\n            value=MESSAGE_SENDER_NAME_AI,\n            advanced=True,\n        ),\n        MessageTextInput(\n            name=\"session_id\",\n            display_name=\"Session ID\",\n            info=\"The session ID of the chat. If empty, the current session ID parameter will be used.\",\n            advanced=True,\n        ),\n        MessageTextInput(\n            name=\"context_id\",\n            display_name=\"Context ID\",\n            info=\"The context ID of the chat. Adds an extra layer to the local memory.\",\n            value=\"\",\n            advanced=True,\n        ),\n        MessageTextInput(\n            name=\"data_template\",\n            display_name=\"Data Template\",\n            value=\"{text}\",\n            advanced=True,\n            info=\"Template to convert Data to Text. If left empty, it will be dynamically set to the Data's text key.\",\n        ),\n        BoolInput(\n            name=\"clean_data\",\n            display_name=\"Basic Clean Data\",\n            value=True,\n            advanced=True,\n            info=\"Whether to clean data before converting to string.\",\n        ),\n    ]\n    outputs = [\n        Output(\n            display_name=\"Output Message\",\n            name=\"message\",\n            method=\"message_response\",\n        ),\n    ]\n\n    def _build_source(self, id_: str | None, display_name: str | None, source: str | None) -> Source:\n        source_dict = {}\n        if id_:\n            source_dict[\"id\"] = id_\n        if display_name:\n            source_dict[\"display_name\"] = display_name\n        if source:\n            # Handle case where source is a ChatOpenAI object\n            if hasattr(source, \"model_name\"):\n                source_dict[\"source\"] = source.model_name\n            elif hasattr(source, \"model\"):\n                source_dict[\"source\"] = str(source.model)\n            else:\n                source_dict[\"source\"] = str(source)\n        return Source(**source_dict)\n\n    async def message_response(self) -> Message:\n        # First convert the input to string if needed\n        text = self.convert_to_string()\n\n        # Get source properties\n        source, _, display_name, source_id = self.get_properties_from_source_component()\n\n        # Create or use existing Message object\n        if isinstance(self.input_value, Message) and not self.is_connected_to_chat_input():\n            message = self.input_value\n            # Update message properties\n            message.text = text\n            # Preserve existing session_id from the incoming message if it exists\n            existing_session_id = message.session_id\n        else:\n            message = Message(text=text)\n            existing_session_id = None\n\n        # Set message properties\n        message.sender = self.sender\n        message.sender_name = self.sender_name\n        # Preserve session_id from incoming message, or use component/graph session_id\n        message.session_id = (\n            self.session_id or existing_session_id or (self.graph.session_id if hasattr(self, \"graph\") else None) or \"\"\n        )\n        message.context_id = self.context_id\n        message.flow_id = self.graph.flow_id if hasattr(self, \"graph\") else None\n        message.properties.source = self._build_source(source_id, display_name, source)\n\n        # Store message if needed\n        if message.session_id and self.should_store_message:\n            stored_message = await self.send_message(message)\n            self.message.value = stored_message\n            message = stored_message\n\n        # Set accumulated token usage from all upstream LLM vertices.\n        # This must happen AFTER send_message() because streaming captures\n        # usage from chunks and would overwrite accumulated totals.\n        if hasattr(self, \"_vertex\") and self._vertex is not None:\n            accumulated_usage = self._vertex._accumulate_upstream_token_usage()  # noqa: SLF001\n            if accumulated_usage:\n                message.properties.usage = accumulated_usage\n                if self.should_store_message and message.get_id():\n                    message = await self._update_stored_message(message)\n                    await self._send_message_event(message, id_=message.get_id())\n\n        self.status = message\n        return message\n\n    def _serialize_data(self, data: Data) -> str:\n        \"\"\"Serialize Data object to JSON string.\"\"\"\n        # Convert data.data to JSON-serializable format\n        serializable_data = jsonable_encoder(data.data)\n        # Serialize with orjson, enabling pretty printing with indentation\n        json_bytes = orjson.dumps(serializable_data, option=orjson.OPT_INDENT_2)\n        # Convert bytes to string and wrap in Markdown code blocks\n        return \"```json\\n\" + json_bytes.decode(\"utf-8\") + \"\\n```\"\n\n    def _validate_input(self) -> None:\n        \"\"\"Validate the input data and raise ValueError if invalid.\"\"\"\n        if self.input_value is None:\n            msg = \"Input data cannot be None\"\n            raise ValueError(msg)\n        if isinstance(self.input_value, list) and not all(\n            isinstance(item, Message | Data | DataFrame | str) for item in self.input_value\n        ):\n            invalid_types = [\n                type(item).__name__\n                for item in self.input_value\n                if not isinstance(item, Message | Data | DataFrame | str)\n            ]\n            msg = f\"Expected Data or DataFrame or Message or str, got {invalid_types}\"\n            raise TypeError(msg)\n        if not isinstance(\n            self.input_value,\n            Message | Data | DataFrame | str | list | Generator | type(None),\n        ):\n            type_name = type(self.input_value).__name__\n            msg = f\"Expected Data or DataFrame or Message or str, Generator or None, got {type_name}\"\n            raise TypeError(msg)\n\n    def convert_to_string(self) -> str | Generator[Any, None, None]:\n        \"\"\"Convert input data to string with proper error handling.\"\"\"\n        self._validate_input()\n        if isinstance(self.input_value, list):\n            clean_data: bool = getattr(self, \"clean_data\", False)\n            return \"\\n\".join([safe_convert(item, clean_data=clean_data) for item in self.input_value])\n        if isinstance(self.input_value, Generator):\n            return self.input_value\n        return safe_convert(self.input_value)\n"
+              },
+              "context_id": {
+                "_input_type": "MessageTextInput",
+                "advanced": true,
+                "api_editable": false,
+                "display_name": "Context ID",
+                "dynamic": false,
+                "info": "The context ID of the chat. Adds an extra layer to the local memory.",
+                "input_types": [
+                  "Message"
+                ],
+                "list": false,
+                "list_add_label": "Add More",
+                "load_from_db": false,
+                "name": "context_id",
+                "override_skip": false,
+                "placeholder": "",
+                "required": false,
+                "show": true,
+                "title_case": false,
+                "tool_mode": false,
+                "trace_as_input": true,
+                "trace_as_metadata": true,
+                "track_in_telemetry": false,
+                "type": "str",
+                "value": ""
+              },
+              "data_template": {
+                "_input_type": "MessageTextInput",
+                "advanced": true,
+                "api_editable": false,
+                "display_name": "Data Template",
+                "dynamic": false,
+                "info": "Template to convert Data to Text. If left empty, it will be dynamically set to the Data's text key.",
+                "input_types": [
+                  "Message"
+                ],
+                "list": false,
+                "list_add_label": "Add More",
+                "load_from_db": false,
+                "name": "data_template",
+                "override_skip": false,
+                "placeholder": "",
+                "required": false,
+                "show": true,
+                "title_case": false,
+                "tool_mode": false,
+                "trace_as_input": true,
+                "trace_as_metadata": true,
+                "track_in_telemetry": false,
+                "type": "str",
+                "value": "{text}"
+              },
+              "input_value": {
+                "_input_type": "HandleInput",
+                "advanced": false,
+                "api_editable": false,
+                "display_name": "Inputs",
+                "dynamic": false,
+                "info": "Message to be passed as output.",
+                "input_types": [
+                  "Data",
+                  "JSON",
+                  "DataFrame",
+                  "Table",
+                  "Message"
+                ],
+                "list": false,
+                "list_add_label": "Add More",
+                "name": "input_value",
+                "override_skip": false,
+                "placeholder": "",
+                "required": true,
+                "show": true,
+                "title_case": false,
+                "trace_as_metadata": true,
+                "track_in_telemetry": false,
+                "type": "other",
+                "value": ""
+              },
+              "sender": {
+                "_input_type": "DropdownInput",
+                "advanced": true,
+                "api_editable": false,
+                "combobox": false,
+                "dialog_inputs": {},
+                "display_name": "Sender Type",
+                "dynamic": false,
+                "external_options": {},
+                "info": "Type of sender.",
+                "name": "sender",
+                "options": [
+                  "Machine",
+                  "User"
+                ],
+                "options_metadata": [],
+                "override_skip": false,
+                "placeholder": "",
+                "required": false,
+                "show": true,
+                "title_case": false,
+                "toggle": false,
+                "tool_mode": false,
+                "trace_as_metadata": true,
+                "track_in_telemetry": true,
+                "type": "str",
+                "value": "Machine"
+              },
+              "sender_name": {
+                "_input_type": "MessageTextInput",
+                "advanced": true,
+                "api_editable": false,
+                "display_name": "Sender Name",
+                "dynamic": false,
+                "info": "Name of the sender.",
+                "input_types": [
+                  "Message"
+                ],
+                "list": false,
+                "list_add_label": "Add More",
+                "load_from_db": false,
+                "name": "sender_name",
+                "override_skip": false,
+                "placeholder": "",
+                "required": false,
+                "show": true,
+                "title_case": false,
+                "tool_mode": false,
+                "trace_as_input": true,
+                "trace_as_metadata": true,
+                "track_in_telemetry": false,
+                "type": "str",
+                "value": "AI"
+              },
+              "session_id": {
+                "_input_type": "MessageTextInput",
+                "advanced": true,
+                "api_editable": false,
+                "display_name": "Session ID",
+                "dynamic": false,
+                "info": "The session ID of the chat. If empty, the current session ID parameter will be used.",
+                "input_types": [
+                  "Message"
+                ],
+                "list": false,
+                "list_add_label": "Add More",
+                "load_from_db": false,
+                "name": "session_id",
+                "override_skip": false,
+                "placeholder": "",
+                "required": false,
+                "show": true,
+                "title_case": false,
+                "tool_mode": false,
+                "trace_as_input": true,
+                "trace_as_metadata": true,
+                "track_in_telemetry": false,
+                "type": "str",
+                "value": ""
+              },
+              "should_store_message": {
+                "_input_type": "BoolInput",
+                "advanced": true,
+                "api_editable": false,
+                "display_name": "Store Messages",
+                "dynamic": false,
+                "info": "Store the message in the history.",
+                "list": false,
+                "list_add_label": "Add More",
+                "name": "should_store_message",
+                "override_skip": false,
+                "placeholder": "",
+                "required": false,
+                "show": true,
+                "title_case": false,
+                "tool_mode": false,
+                "trace_as_metadata": true,
+                "track_in_telemetry": true,
+                "type": "bool",
+                "value": false
+              }
+            },
+            "tool_mode": false
+          },
+          "showNode": true,
+          "type": "ChatOutput"
+        },
+        "id": "ChatOutput-result_out",
+        "position": {
+          "x": 3600,
+          "y": 300
+        },
+        "type": "genericNode"
+      },
+      {
+        "data": {
+          "description": "Display a chat message in the Playground.",
+          "display_name": "Chat Output",
+          "id": "ChatOutput-skipped_out",
+          "node": {
+            "base_classes": [
+              "Message"
+            ],
+            "beta": false,
+            "conditional_paths": [],
+            "custom_fields": {},
+            "description": "Display a chat message in the Playground.",
+            "display_name": "Chat Output",
+            "documentation": "https://docs.langflow.org/chat-input-and-output",
+            "edited": false,
+            "field_order": [
+              "input_value",
+              "should_store_message",
+              "sender",
+              "sender_name",
+              "session_id",
+              "context_id",
+              "data_template",
+              "clean_data"
+            ],
+            "frozen": false,
+            "icon": "MessagesSquare",
+            "legacy": false,
+            "metadata": {
+              "code_hash": "84009527d08c",
+              "dependencies": {
+                "dependencies": [
+                  {
+                    "name": "orjson",
+                    "version": "3.11.9"
+                  },
+                  {
+                    "name": "fastapi",
+                    "version": "0.139.2"
+                  },
+                  {
+                    "name": "lfx",
+                    "version": null
+                  }
+                ],
+                "total_dependencies": 3
+              },
+              "module": "lfx.components.input_output.chat_output.ChatOutput"
+            },
+            "minimized": true,
+            "output_types": [],
+            "outputs": [
+              {
+                "allows_loop": false,
+                "cache": true,
+                "display_name": "Output Message",
+                "group_outputs": false,
+                "method": "message_response",
+                "name": "message",
+                "selected": "Message",
+                "tool_mode": true,
+                "types": [
+                  "Message"
+                ],
+                "value": "__UNDEFINED__"
+              }
+            ],
+            "pinned": false,
+            "template": {
+              "_type": "Component",
+              "clean_data": {
+                "_input_type": "BoolInput",
+                "advanced": true,
+                "api_editable": false,
+                "display_name": "Basic Clean Data",
+                "dynamic": false,
+                "info": "Whether to clean data before converting to string.",
+                "list": false,
+                "list_add_label": "Add More",
+                "name": "clean_data",
+                "override_skip": false,
+                "placeholder": "",
+                "required": false,
+                "show": true,
+                "title_case": false,
+                "tool_mode": false,
+                "trace_as_metadata": true,
+                "track_in_telemetry": true,
+                "type": "bool",
+                "value": true
+              },
+              "code": {
+                "advanced": true,
+                "api_editable": false,
+                "dynamic": true,
+                "fileTypes": [],
+                "file_path": "",
+                "info": "",
+                "list": false,
+                "load_from_db": false,
+                "multiline": true,
+                "name": "code",
+                "password": false,
+                "placeholder": "",
+                "required": true,
+                "show": true,
+                "title_case": false,
+                "type": "code",
+                "value": "from collections.abc import Generator\nfrom typing import Any\n\nimport orjson\nfrom fastapi.encoders import jsonable_encoder\n\nfrom lfx.base.io.chat import ChatComponent\nfrom lfx.helpers.data import safe_convert\nfrom lfx.inputs.inputs import BoolInput, DropdownInput, HandleInput, MessageTextInput\nfrom lfx.schema.data import Data\nfrom lfx.schema.dataframe import DataFrame\nfrom lfx.schema.message import Message\nfrom lfx.schema.properties import Source\nfrom lfx.template.field.base import Output\nfrom lfx.utils.constants import (\n    MESSAGE_SENDER_AI,\n    MESSAGE_SENDER_NAME_AI,\n    MESSAGE_SENDER_USER,\n)\n\n\nclass ChatOutput(ChatComponent):\n    display_name = \"Chat Output\"\n    description = \"Display a chat message in the Playground.\"\n    documentation: str = \"https://docs.langflow.org/chat-input-and-output\"\n    icon = \"MessagesSquare\"\n    name = \"ChatOutput\"\n    minimized = True\n\n    inputs = [\n        HandleInput(\n            name=\"input_value\",\n            display_name=\"Inputs\",\n            info=\"Message to be passed as output.\",\n            input_types=[\"Data\", \"JSON\", \"DataFrame\", \"Table\", \"Message\"],\n            required=True,\n        ),\n        BoolInput(\n            name=\"should_store_message\",\n            display_name=\"Store Messages\",\n            info=\"Store the message in the history.\",\n            value=True,\n            advanced=True,\n        ),\n        DropdownInput(\n            name=\"sender\",\n            display_name=\"Sender Type\",\n            options=[MESSAGE_SENDER_AI, MESSAGE_SENDER_USER],\n            value=MESSAGE_SENDER_AI,\n            advanced=True,\n            info=\"Type of sender.\",\n        ),\n        MessageTextInput(\n            name=\"sender_name\",\n            display_name=\"Sender Name\",\n            info=\"Name of the sender.\",\n            value=MESSAGE_SENDER_NAME_AI,\n            advanced=True,\n        ),\n        MessageTextInput(\n            name=\"session_id\",\n            display_name=\"Session ID\",\n            info=\"The session ID of the chat. If empty, the current session ID parameter will be used.\",\n            advanced=True,\n        ),\n        MessageTextInput(\n            name=\"context_id\",\n            display_name=\"Context ID\",\n            info=\"The context ID of the chat. Adds an extra layer to the local memory.\",\n            value=\"\",\n            advanced=True,\n        ),\n        MessageTextInput(\n            name=\"data_template\",\n            display_name=\"Data Template\",\n            value=\"{text}\",\n            advanced=True,\n            info=\"Template to convert Data to Text. If left empty, it will be dynamically set to the Data's text key.\",\n        ),\n        BoolInput(\n            name=\"clean_data\",\n            display_name=\"Basic Clean Data\",\n            value=True,\n            advanced=True,\n            info=\"Whether to clean data before converting to string.\",\n        ),\n    ]\n    outputs = [\n        Output(\n            display_name=\"Output Message\",\n            name=\"message\",\n            method=\"message_response\",\n        ),\n    ]\n\n    def _build_source(self, id_: str | None, display_name: str | None, source: str | None) -> Source:\n        source_dict = {}\n        if id_:\n            source_dict[\"id\"] = id_\n        if display_name:\n            source_dict[\"display_name\"] = display_name\n        if source:\n            # Handle case where source is a ChatOpenAI object\n            if hasattr(source, \"model_name\"):\n                source_dict[\"source\"] = source.model_name\n            elif hasattr(source, \"model\"):\n                source_dict[\"source\"] = str(source.model)\n            else:\n                source_dict[\"source\"] = str(source)\n        return Source(**source_dict)\n\n    async def message_response(self) -> Message:\n        # First convert the input to string if needed\n        text = self.convert_to_string()\n\n        # Get source properties\n        source, _, display_name, source_id = self.get_properties_from_source_component()\n\n        # Create or use existing Message object\n        if isinstance(self.input_value, Message) and not self.is_connected_to_chat_input():\n            message = self.input_value\n            # Update message properties\n            message.text = text\n            # Preserve existing session_id from the incoming message if it exists\n            existing_session_id = message.session_id\n        else:\n            message = Message(text=text)\n            existing_session_id = None\n\n        # Set message properties\n        message.sender = self.sender\n        message.sender_name = self.sender_name\n        # Preserve session_id from incoming message, or use component/graph session_id\n        message.session_id = (\n            self.session_id or existing_session_id or (self.graph.session_id if hasattr(self, \"graph\") else None) or \"\"\n        )\n        message.context_id = self.context_id\n        message.flow_id = self.graph.flow_id if hasattr(self, \"graph\") else None\n        message.properties.source = self._build_source(source_id, display_name, source)\n\n        # Store message if needed\n        if message.session_id and self.should_store_message:\n            stored_message = await self.send_message(message)\n            self.message.value = stored_message\n            message = stored_message\n\n        # Set accumulated token usage from all upstream LLM vertices.\n        # This must happen AFTER send_message() because streaming captures\n        # usage from chunks and would overwrite accumulated totals.\n        if hasattr(self, \"_vertex\") and self._vertex is not None:\n            accumulated_usage = self._vertex._accumulate_upstream_token_usage()  # noqa: SLF001\n            if accumulated_usage:\n                message.properties.usage = accumulated_usage\n                if self.should_store_message and message.get_id():\n                    message = await self._update_stored_message(message)\n                    await self._send_message_event(message, id_=message.get_id())\n\n        self.status = message\n        return message\n\n    def _serialize_data(self, data: Data) -> str:\n        \"\"\"Serialize Data object to JSON string.\"\"\"\n        # Convert data.data to JSON-serializable format\n        serializable_data = jsonable_encoder(data.data)\n        # Serialize with orjson, enabling pretty printing with indentation\n        json_bytes = orjson.dumps(serializable_data, option=orjson.OPT_INDENT_2)\n        # Convert bytes to string and wrap in Markdown code blocks\n        return \"```json\\n\" + json_bytes.decode(\"utf-8\") + \"\\n```\"\n\n    def _validate_input(self) -> None:\n        \"\"\"Validate the input data and raise ValueError if invalid.\"\"\"\n        if self.input_value is None:\n            msg = \"Input data cannot be None\"\n            raise ValueError(msg)\n        if isinstance(self.input_value, list) and not all(\n            isinstance(item, Message | Data | DataFrame | str) for item in self.input_value\n        ):\n            invalid_types = [\n                type(item).__name__\n                for item in self.input_value\n                if not isinstance(item, Message | Data | DataFrame | str)\n            ]\n            msg = f\"Expected Data or DataFrame or Message or str, got {invalid_types}\"\n            raise TypeError(msg)\n        if not isinstance(\n            self.input_value,\n            Message | Data | DataFrame | str | list | Generator | type(None),\n        ):\n            type_name = type(self.input_value).__name__\n            msg = f\"Expected Data or DataFrame or Message or str, Generator or None, got {type_name}\"\n            raise TypeError(msg)\n\n    def convert_to_string(self) -> str | Generator[Any, None, None]:\n        \"\"\"Convert input data to string with proper error handling.\"\"\"\n        self._validate_input()\n        if isinstance(self.input_value, list):\n            clean_data: bool = getattr(self, \"clean_data\", False)\n            return \"\\n\".join([safe_convert(item, clean_data=clean_data) for item in self.input_value])\n        if isinstance(self.input_value, Generator):\n            return self.input_value\n        return safe_convert(self.input_value)\n"
+              },
+              "context_id": {
+                "_input_type": "MessageTextInput",
+                "advanced": true,
+                "api_editable": false,
+                "display_name": "Context ID",
+                "dynamic": false,
+                "info": "The context ID of the chat. Adds an extra layer to the local memory.",
+                "input_types": [
+                  "Message"
+                ],
+                "list": false,
+                "list_add_label": "Add More",
+                "load_from_db": false,
+                "name": "context_id",
+                "override_skip": false,
+                "placeholder": "",
+                "required": false,
+                "show": true,
+                "title_case": false,
+                "tool_mode": false,
+                "trace_as_input": true,
+                "trace_as_metadata": true,
+                "track_in_telemetry": false,
+                "type": "str",
+                "value": ""
+              },
+              "data_template": {
+                "_input_type": "MessageTextInput",
+                "advanced": true,
+                "api_editable": false,
+                "display_name": "Data Template",
+                "dynamic": false,
+                "info": "Template to convert Data to Text. If left empty, it will be dynamically set to the Data's text key.",
+                "input_types": [
+                  "Message"
+                ],
+                "list": false,
+                "list_add_label": "Add More",
+                "load_from_db": false,
+                "name": "data_template",
+                "override_skip": false,
+                "placeholder": "",
+                "required": false,
+                "show": true,
+                "title_case": false,
+                "tool_mode": false,
+                "trace_as_input": true,
+                "trace_as_metadata": true,
+                "track_in_telemetry": false,
+                "type": "str",
+                "value": "{text}"
+              },
+              "input_value": {
+                "_input_type": "HandleInput",
+                "advanced": false,
+                "api_editable": false,
+                "display_name": "Inputs",
+                "dynamic": false,
+                "info": "Message to be passed as output.",
+                "input_types": [
+                  "Data",
+                  "JSON",
+                  "DataFrame",
+                  "Table",
+                  "Message"
+                ],
+                "list": false,
+                "list_add_label": "Add More",
+                "name": "input_value",
+                "override_skip": false,
+                "placeholder": "",
+                "required": true,
+                "show": true,
+                "title_case": false,
+                "trace_as_metadata": true,
+                "track_in_telemetry": false,
+                "type": "other",
+                "value": ""
+              },
+              "sender": {
+                "_input_type": "DropdownInput",
+                "advanced": true,
+                "api_editable": false,
+                "combobox": false,
+                "dialog_inputs": {},
+                "display_name": "Sender Type",
+                "dynamic": false,
+                "external_options": {},
+                "info": "Type of sender.",
+                "name": "sender",
+                "options": [
+                  "Machine",
+                  "User"
+                ],
+                "options_metadata": [],
+                "override_skip": false,
+                "placeholder": "",
+                "required": false,
+                "show": true,
+                "title_case": false,
+                "toggle": false,
+                "tool_mode": false,
+                "trace_as_metadata": true,
+                "track_in_telemetry": true,
+                "type": "str",
+                "value": "Machine"
+              },
+              "sender_name": {
+                "_input_type": "MessageTextInput",
+                "advanced": true,
+                "api_editable": false,
+                "display_name": "Sender Name",
+                "dynamic": false,
+                "info": "Name of the sender.",
+                "input_types": [
+                  "Message"
+                ],
+                "list": false,
+                "list_add_label": "Add More",
+                "load_from_db": false,
+                "name": "sender_name",
+                "override_skip": false,
+                "placeholder": "",
+                "required": false,
+                "show": true,
+                "title_case": false,
+                "tool_mode": false,
+                "trace_as_input": true,
+                "trace_as_metadata": true,
+                "track_in_telemetry": false,
+                "type": "str",
+                "value": "AI"
+              },
+              "session_id": {
+                "_input_type": "MessageTextInput",
+                "advanced": true,
+                "api_editable": false,
+                "display_name": "Session ID",
+                "dynamic": false,
+                "info": "The session ID of the chat. If empty, the current session ID parameter will be used.",
+                "input_types": [
+                  "Message"
+                ],
+                "list": false,
+                "list_add_label": "Add More",
+                "load_from_db": false,
+                "name": "session_id",
+                "override_skip": false,
+                "placeholder": "",
+                "required": false,
+                "show": true,
+                "title_case": false,
+                "tool_mode": false,
+                "trace_as_input": true,
+                "trace_as_metadata": true,
+                "track_in_telemetry": false,
+                "type": "str",
+                "value": ""
+              },
+              "should_store_message": {
+                "_input_type": "BoolInput",
+                "advanced": true,
+                "api_editable": false,
+                "display_name": "Store Messages",
+                "dynamic": false,
+                "info": "Store the message in the history.",
+                "list": false,
+                "list_add_label": "Add More",
+                "name": "should_store_message",
+                "override_skip": false,
+                "placeholder": "",
+                "required": false,
+                "show": true,
+                "title_case": false,
+                "tool_mode": false,
+                "trace_as_metadata": true,
+                "track_in_telemetry": true,
+                "type": "bool",
+                "value": false
+              }
+            },
+            "tool_mode": false
+          },
+          "showNode": true,
+          "type": "ChatOutput"
+        },
+        "id": "ChatOutput-skipped_out",
+        "position": {
+          "x": 800,
+          "y": 650
+        },
+        "type": "genericNode"
+      },
+      {
+        "data": {
+          "description": "Display a chat message in the Playground.",
+          "display_name": "Chat Output",
+          "id": "ChatOutput-unsupported_out",
+          "node": {
+            "base_classes": [
+              "Message"
+            ],
+            "beta": false,
+            "conditional_paths": [],
+            "custom_fields": {},
+            "description": "Display a chat message in the Playground.",
+            "display_name": "Chat Output",
+            "documentation": "https://docs.langflow.org/chat-input-and-output",
+            "edited": false,
+            "field_order": [
+              "input_value",
+              "should_store_message",
+              "sender",
+              "sender_name",
+              "session_id",
+              "context_id",
+              "data_template",
+              "clean_data"
+            ],
+            "frozen": false,
+            "icon": "MessagesSquare",
+            "legacy": false,
+            "metadata": {
+              "code_hash": "84009527d08c",
+              "dependencies": {
+                "dependencies": [
+                  {
+                    "name": "orjson",
+                    "version": "3.11.9"
+                  },
+                  {
+                    "name": "fastapi",
+                    "version": "0.139.2"
+                  },
+                  {
+                    "name": "lfx",
+                    "version": null
+                  }
+                ],
+                "total_dependencies": 3
+              },
+              "module": "lfx.components.input_output.chat_output.ChatOutput"
+            },
+            "minimized": true,
+            "output_types": [],
+            "outputs": [
+              {
+                "allows_loop": false,
+                "cache": true,
+                "display_name": "Output Message",
+                "group_outputs": false,
+                "method": "message_response",
+                "name": "message",
+                "selected": "Message",
+                "tool_mode": true,
+                "types": [
+                  "Message"
+                ],
+                "value": "__UNDEFINED__"
+              }
+            ],
+            "pinned": false,
+            "template": {
+              "_type": "Component",
+              "clean_data": {
+                "_input_type": "BoolInput",
+                "advanced": true,
+                "api_editable": false,
+                "display_name": "Basic Clean Data",
+                "dynamic": false,
+                "info": "Whether to clean data before converting to string.",
+                "list": false,
+                "list_add_label": "Add More",
+                "name": "clean_data",
+                "override_skip": false,
+                "placeholder": "",
+                "required": false,
+                "show": true,
+                "title_case": false,
+                "tool_mode": false,
+                "trace_as_metadata": true,
+                "track_in_telemetry": true,
+                "type": "bool",
+                "value": true
+              },
+              "code": {
+                "advanced": true,
+                "api_editable": false,
+                "dynamic": true,
+                "fileTypes": [],
+                "file_path": "",
+                "info": "",
+                "list": false,
+                "load_from_db": false,
+                "multiline": true,
+                "name": "code",
+                "password": false,
+                "placeholder": "",
+                "required": true,
+                "show": true,
+                "title_case": false,
+                "type": "code",
+                "value": "from collections.abc import Generator\nfrom typing import Any\n\nimport orjson\nfrom fastapi.encoders import jsonable_encoder\n\nfrom lfx.base.io.chat import ChatComponent\nfrom lfx.helpers.data import safe_convert\nfrom lfx.inputs.inputs import BoolInput, DropdownInput, HandleInput, MessageTextInput\nfrom lfx.schema.data import Data\nfrom lfx.schema.dataframe import DataFrame\nfrom lfx.schema.message import Message\nfrom lfx.schema.properties import Source\nfrom lfx.template.field.base import Output\nfrom lfx.utils.constants import (\n    MESSAGE_SENDER_AI,\n    MESSAGE_SENDER_NAME_AI,\n    MESSAGE_SENDER_USER,\n)\n\n\nclass ChatOutput(ChatComponent):\n    display_name = \"Chat Output\"\n    description = \"Display a chat message in the Playground.\"\n    documentation: str = \"https://docs.langflow.org/chat-input-and-output\"\n    icon = \"MessagesSquare\"\n    name = \"ChatOutput\"\n    minimized = True\n\n    inputs = [\n        HandleInput(\n            name=\"input_value\",\n            display_name=\"Inputs\",\n            info=\"Message to be passed as output.\",\n            input_types=[\"Data\", \"JSON\", \"DataFrame\", \"Table\", \"Message\"],\n            required=True,\n        ),\n        BoolInput(\n            name=\"should_store_message\",\n            display_name=\"Store Messages\",\n            info=\"Store the message in the history.\",\n            value=True,\n            advanced=True,\n        ),\n        DropdownInput(\n            name=\"sender\",\n            display_name=\"Sender Type\",\n            options=[MESSAGE_SENDER_AI, MESSAGE_SENDER_USER],\n            value=MESSAGE_SENDER_AI,\n            advanced=True,\n            info=\"Type of sender.\",\n        ),\n        MessageTextInput(\n            name=\"sender_name\",\n            display_name=\"Sender Name\",\n            info=\"Name of the sender.\",\n            value=MESSAGE_SENDER_NAME_AI,\n            advanced=True,\n        ),\n        MessageTextInput(\n            name=\"session_id\",\n            display_name=\"Session ID\",\n            info=\"The session ID of the chat. If empty, the current session ID parameter will be used.\",\n            advanced=True,\n        ),\n        MessageTextInput(\n            name=\"context_id\",\n            display_name=\"Context ID\",\n            info=\"The context ID of the chat. Adds an extra layer to the local memory.\",\n            value=\"\",\n            advanced=True,\n        ),\n        MessageTextInput(\n            name=\"data_template\",\n            display_name=\"Data Template\",\n            value=\"{text}\",\n            advanced=True,\n            info=\"Template to convert Data to Text. If left empty, it will be dynamically set to the Data's text key.\",\n        ),\n        BoolInput(\n            name=\"clean_data\",\n            display_name=\"Basic Clean Data\",\n            value=True,\n            advanced=True,\n            info=\"Whether to clean data before converting to string.\",\n        ),\n    ]\n    outputs = [\n        Output(\n            display_name=\"Output Message\",\n            name=\"message\",\n            method=\"message_response\",\n        ),\n    ]\n\n    def _build_source(self, id_: str | None, display_name: str | None, source: str | None) -> Source:\n        source_dict = {}\n        if id_:\n            source_dict[\"id\"] = id_\n        if display_name:\n            source_dict[\"display_name\"] = display_name\n        if source:\n            # Handle case where source is a ChatOpenAI object\n            if hasattr(source, \"model_name\"):\n                source_dict[\"source\"] = source.model_name\n            elif hasattr(source, \"model\"):\n                source_dict[\"source\"] = str(source.model)\n            else:\n                source_dict[\"source\"] = str(source)\n        return Source(**source_dict)\n\n    async def message_response(self) -> Message:\n        # First convert the input to string if needed\n        text = self.convert_to_string()\n\n        # Get source properties\n        source, _, display_name, source_id = self.get_properties_from_source_component()\n\n        # Create or use existing Message object\n        if isinstance(self.input_value, Message) and not self.is_connected_to_chat_input():\n            message = self.input_value\n            # Update message properties\n            message.text = text\n            # Preserve existing session_id from the incoming message if it exists\n            existing_session_id = message.session_id\n        else:\n            message = Message(text=text)\n            existing_session_id = None\n\n        # Set message properties\n        message.sender = self.sender\n        message.sender_name = self.sender_name\n        # Preserve session_id from incoming message, or use component/graph session_id\n        message.session_id = (\n            self.session_id or existing_session_id or (self.graph.session_id if hasattr(self, \"graph\") else None) or \"\"\n        )\n        message.context_id = self.context_id\n        message.flow_id = self.graph.flow_id if hasattr(self, \"graph\") else None\n        message.properties.source = self._build_source(source_id, display_name, source)\n\n        # Store message if needed\n        if message.session_id and self.should_store_message:\n            stored_message = await self.send_message(message)\n            self.message.value = stored_message\n            message = stored_message\n\n        # Set accumulated token usage from all upstream LLM vertices.\n        # This must happen AFTER send_message() because streaming captures\n        # usage from chunks and would overwrite accumulated totals.\n        if hasattr(self, \"_vertex\") and self._vertex is not None:\n            accumulated_usage = self._vertex._accumulate_upstream_token_usage()  # noqa: SLF001\n            if accumulated_usage:\n                message.properties.usage = accumulated_usage\n                if self.should_store_message and message.get_id():\n                    message = await self._update_stored_message(message)\n                    await self._send_message_event(message, id_=message.get_id())\n\n        self.status = message\n        return message\n\n    def _serialize_data(self, data: Data) -> str:\n        \"\"\"Serialize Data object to JSON string.\"\"\"\n        # Convert data.data to JSON-serializable format\n        serializable_data = jsonable_encoder(data.data)\n        # Serialize with orjson, enabling pretty printing with indentation\n        json_bytes = orjson.dumps(serializable_data, option=orjson.OPT_INDENT_2)\n        # Convert bytes to string and wrap in Markdown code blocks\n        return \"```json\\n\" + json_bytes.decode(\"utf-8\") + \"\\n```\"\n\n    def _validate_input(self) -> None:\n        \"\"\"Validate the input data and raise ValueError if invalid.\"\"\"\n        if self.input_value is None:\n            msg = \"Input data cannot be None\"\n            raise ValueError(msg)\n        if isinstance(self.input_value, list) and not all(\n            isinstance(item, Message | Data | DataFrame | str) for item in self.input_value\n        ):\n            invalid_types = [\n                type(item).__name__\n                for item in self.input_value\n                if not isinstance(item, Message | Data | DataFrame | str)\n            ]\n            msg = f\"Expected Data or DataFrame or Message or str, got {invalid_types}\"\n            raise TypeError(msg)\n        if not isinstance(\n            self.input_value,\n            Message | Data | DataFrame | str | list | Generator | type(None),\n        ):\n            type_name = type(self.input_value).__name__\n            msg = f\"Expected Data or DataFrame or Message or str, Generator or None, got {type_name}\"\n            raise TypeError(msg)\n\n    def convert_to_string(self) -> str | Generator[Any, None, None]:\n        \"\"\"Convert input data to string with proper error handling.\"\"\"\n        self._validate_input()\n        if isinstance(self.input_value, list):\n            clean_data: bool = getattr(self, \"clean_data\", False)\n            return \"\\n\".join([safe_convert(item, clean_data=clean_data) for item in self.input_value])\n        if isinstance(self.input_value, Generator):\n            return self.input_value\n        return safe_convert(self.input_value)\n"
+              },
+              "context_id": {
+                "_input_type": "MessageTextInput",
+                "advanced": true,
+                "api_editable": false,
+                "display_name": "Context ID",
+                "dynamic": false,
+                "info": "The context ID of the chat. Adds an extra layer to the local memory.",
+                "input_types": [
+                  "Message"
+                ],
+                "list": false,
+                "list_add_label": "Add More",
+                "load_from_db": false,
+                "name": "context_id",
+                "override_skip": false,
+                "placeholder": "",
+                "required": false,
+                "show": true,
+                "title_case": false,
+                "tool_mode": false,
+                "trace_as_input": true,
+                "trace_as_metadata": true,
+                "track_in_telemetry": false,
+                "type": "str",
+                "value": ""
+              },
+              "data_template": {
+                "_input_type": "MessageTextInput",
+                "advanced": true,
+                "api_editable": false,
+                "display_name": "Data Template",
+                "dynamic": false,
+                "info": "Template to convert Data to Text. If left empty, it will be dynamically set to the Data's text key.",
+                "input_types": [
+                  "Message"
+                ],
+                "list": false,
+                "list_add_label": "Add More",
+                "load_from_db": false,
+                "name": "data_template",
+                "override_skip": false,
+                "placeholder": "",
+                "required": false,
+                "show": true,
+                "title_case": false,
+                "tool_mode": false,
+                "trace_as_input": true,
+                "trace_as_metadata": true,
+                "track_in_telemetry": false,
+                "type": "str",
+                "value": "{text}"
+              },
+              "input_value": {
+                "_input_type": "HandleInput",
+                "advanced": false,
+                "api_editable": false,
+                "display_name": "Inputs",
+                "dynamic": false,
+                "info": "Message to be passed as output.",
+                "input_types": [
+                  "Data",
+                  "JSON",
+                  "DataFrame",
+                  "Table",
+                  "Message"
+                ],
+                "list": false,
+                "list_add_label": "Add More",
+                "name": "input_value",
+                "override_skip": false,
+                "placeholder": "",
+                "required": true,
+                "show": true,
+                "title_case": false,
+                "trace_as_metadata": true,
+                "track_in_telemetry": false,
+                "type": "other",
+                "value": ""
+              },
+              "sender": {
+                "_input_type": "DropdownInput",
+                "advanced": true,
+                "api_editable": false,
+                "combobox": false,
+                "dialog_inputs": {},
+                "display_name": "Sender Type",
+                "dynamic": false,
+                "external_options": {},
+                "info": "Type of sender.",
+                "name": "sender",
+                "options": [
+                  "Machine",
+                  "User"
+                ],
+                "options_metadata": [],
+                "override_skip": false,
+                "placeholder": "",
+                "required": false,
+                "show": true,
+                "title_case": false,
+                "toggle": false,
+                "tool_mode": false,
+                "trace_as_metadata": true,
+                "track_in_telemetry": true,
+                "type": "str",
+                "value": "Machine"
+              },
+              "sender_name": {
+                "_input_type": "MessageTextInput",
+                "advanced": true,
+                "api_editable": false,
+                "display_name": "Sender Name",
+                "dynamic": false,
+                "info": "Name of the sender.",
+                "input_types": [
+                  "Message"
+                ],
+                "list": false,
+                "list_add_label": "Add More",
+                "load_from_db": false,
+                "name": "sender_name",
+                "override_skip": false,
+                "placeholder": "",
+                "required": false,
+                "show": true,
+                "title_case": false,
+                "tool_mode": false,
+                "trace_as_input": true,
+                "trace_as_metadata": true,
+                "track_in_telemetry": false,
+                "type": "str",
+                "value": "AI"
+              },
+              "session_id": {
+                "_input_type": "MessageTextInput",
+                "advanced": true,
+                "api_editable": false,
+                "display_name": "Session ID",
+                "dynamic": false,
+                "info": "The session ID of the chat. If empty, the current session ID parameter will be used.",
+                "input_types": [
+                  "Message"
+                ],
+                "list": false,
+                "list_add_label": "Add More",
+                "load_from_db": false,
+                "name": "session_id",
+                "override_skip": false,
+                "placeholder": "",
+                "required": false,
+                "show": true,
+                "title_case": false,
+                "tool_mode": false,
+                "trace_as_input": true,
+                "trace_as_metadata": true,
+                "track_in_telemetry": false,
+                "type": "str",
+                "value": ""
+              },
+              "should_store_message": {
+                "_input_type": "BoolInput",
+                "advanced": true,
+                "api_editable": false,
+                "display_name": "Store Messages",
+                "dynamic": false,
+                "info": "Store the message in the history.",
+                "list": false,
+                "list_add_label": "Add More",
+                "name": "should_store_message",
+                "override_skip": false,
+                "placeholder": "",
+                "required": false,
+                "show": true,
+                "title_case": false,
+                "tool_mode": false,
+                "trace_as_metadata": true,
+                "track_in_telemetry": true,
+                "type": "bool",
+                "value": false
+              }
+            },
+            "tool_mode": false
+          },
+          "showNode": true,
+          "type": "ChatOutput"
+        },
+        "id": "ChatOutput-unsupported_out",
+        "position": {
+          "x": 1600,
+          "y": 0
+        },
+        "type": "genericNode"
+      }
+    ]
+  },
+  "description": "Brief steps 2-10. Input: JSON {posting_id, posting_text}. Detects language, extracts the job_brief and recruiter contact (Gemma), scores the CV match (bge-m3 + rubric) and saves everything through the backend tool endpoints. One run per posting; safe to retry.",
+  "endpoint_name": "analyze_and_match",
+  "gradient": null,
+  "icon": "Workflow",
+  "icon_bg_color": null,
+  "id": "f9d7eba3-067f-5b61-bcef-c967724dfa8f",
+  "is_component": false,
+  "locked": false,
+  "mcp_enabled": false,
+  "name": "analyze_and_match",
+  "tags": [
+    "ajs"
+  ],
+  "webhook": false
+}

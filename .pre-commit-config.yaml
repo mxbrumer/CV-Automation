@@ -1,0 +1,10 @@
+# Optional: `pip install pre-commit; pre-commit install`. The same check runs in CI.
+repos:
+  - repo: local
+    hooks:
+      - id: governance-check
+        name: governance check
+        entry: python scripts/governance_check.py
+        language: system
+        pass_filenames: false
+        always_run: true

@@ -21,10 +21,10 @@ Human-in-the-loop review: see generated documents next to templates, refine them
 4. Keyboard: `j/k` next/prev application.
 
 ## Acceptance criteria
-- [ ] Chat edit round-trip on a seeded application creates `v2` of the document and a new PDF.
-- [ ] Approve moves the item to Queue tab with badge count updated.
-- [ ] Component tests for diff accept/discard and approve flow (API mocked); backend tests for chat endpoint with Ollama mocked.
-- [ ] No request leaves localhost (check network tab: only `/api`).
+- [x] Chat edit round-trip on a seeded application creates `v2` of the document and a new PDF.
+- [x] Approve moves the item to Queue tab with badge count updated. (mocked UI test + backend queue tests; not clicked live)
+- [x] Component tests for diff accept/discard and approve flow (API mocked); backend tests for chat endpoint with Ollama mocked.
+- [x] No request leaves localhost (checked in code and bundle, not in a browser network tab).
 
 ## Out of scope
 Queue tab (13).

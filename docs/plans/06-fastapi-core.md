@@ -32,9 +32,9 @@ Backend API that owns DB + blob storage, serves the frontend, exposes "tool" end
 10. Export OpenAPI to `backend/openapi.json` via a script; the frontend generates types from it (plan 11). CI checks it is up to date.
 
 ## Acceptance criteria
-- [ ] `uv run pytest` covers: dedup find (exact URL, fuzzy match, no match), status transition validation (incl. gate 1: only `awaiting_match_review` accepts a match decision), match score math + threshold, blob path traversal rejection, queue ordering incl. skip.
-- [ ] `docker compose up backend` → `GET /health` 200; `/docs` lists all endpoints.
-- [ ] Requests without API key → 401.
+- [x] `uv run pytest` covers: dedup find (exact URL, fuzzy match, no match), status transition validation (incl. gate 1: only `awaiting_match_review` accepts a match decision), match score math + threshold, blob path traversal rejection, queue ordering incl. skip.
+- [x] `docker compose up backend` → `GET /health` 200; `/docs` lists all endpoints.
+- [x] Requests without API key → 401.
 
 ## Out of scope
 IMAP/worker (07), PDF rendering (09), LangFlow flows (08).

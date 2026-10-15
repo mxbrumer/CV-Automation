@@ -1,0 +1,3015 @@
+{
+  "data": {
+    "edges": [
+      {
+        "className": "",
+        "data": {
+          "sourceHandle": {
+            "dataType": "AjsBudgetGuard",
+            "id": "AjsBudgetGuard-guard",
+            "name": "posting_out",
+            "output_types": [
+              "JSON"
+            ]
+          },
+          "targetHandle": {
+            "fieldName": "posting",
+            "id": "AjsDocWriter-cv",
+            "inputTypes": [
+              "Data"
+            ],
+            "type": "other"
+          }
+        },
+        "id": "reactflow__edge-AjsBudgetGuard-guard{œdataTypeœ:œAjsBudgetGuardœ,œidœ:œAjsBudgetGuard-guardœ,œnameœ:œposting_outœ,œoutput_typesœ:[œJSONœ]}-AjsDocWriter-cv{œfieldNameœ:œpostingœ,œidœ:œAjsDocWriter-cvœ,œinputTypesœ:[œDataœ],œtypeœ:œotherœ}",
+        "source": "AjsBudgetGuard-guard",
+        "sourceHandle": "{œdataTypeœ: œAjsBudgetGuardœ, œidœ: œAjsBudgetGuard-guardœ, œnameœ: œposting_outœ, œoutput_typesœ: [œJSONœ]}",
+        "target": "AjsDocWriter-cv",
+        "targetHandle": "{œfieldNameœ: œpostingœ, œidœ: œAjsDocWriter-cvœ, œinputTypesœ: [œDataœ], œtypeœ: œotherœ}"
+      },
+      {
+        "className": "",
+        "data": {
+          "sourceHandle": {
+            "dataType": "AjsDocWriter",
+            "id": "AjsDocWriter-cv",
+            "name": "posting_out",
+            "output_types": [
+              "JSON"
+            ]
+          },
+          "targetHandle": {
+            "fieldName": "posting",
+            "id": "AjsDocWriter-letter",
+            "inputTypes": [
+              "Data"
+            ],
+            "type": "other"
+          }
+        },
+        "id": "reactflow__edge-AjsDocWriter-cv{œdataTypeœ:œAjsDocWriterœ,œidœ:œAjsDocWriter-cvœ,œnameœ:œposting_outœ,œoutput_typesœ:[œJSONœ]}-AjsDocWriter-letter{œfieldNameœ:œpostingœ,œidœ:œAjsDocWriter-letterœ,œinputTypesœ:[œDataœ],œtypeœ:œotherœ}",
+        "source": "AjsDocWriter-cv",
+        "sourceHandle": "{œdataTypeœ: œAjsDocWriterœ, œidœ: œAjsDocWriter-cvœ, œnameœ: œposting_outœ, œoutput_typesœ: [œJSONœ]}",
+        "target": "AjsDocWriter-letter",
+        "targetHandle": "{œfieldNameœ: œpostingœ, œidœ: œAjsDocWriter-letterœ, œinputTypesœ: [œDataœ], œtypeœ: œotherœ}"
+      },
+      {
+        "className": "",
+        "data": {
+          "sourceHandle": {
+            "dataType": "AjsDocWriter",
+            "id": "AjsDocWriter-email",
+            "name": "posting_out",
+            "output_types": [
+              "JSON"
+            ]
+          },
+          "targetHandle": {
+            "fieldName": "posting",
+            "id": "AjsFactCheck-fact",
+            "inputTypes": [
+              "Data"
+            ],
+            "type": "other"
+          }
+        },
+        "id": "reactflow__edge-AjsDocWriter-email{œdataTypeœ:œAjsDocWriterœ,œidœ:œAjsDocWriter-emailœ,œnameœ:œposting_outœ,œoutput_typesœ:[œJSONœ]}-AjsFactCheck-fact{œfieldNameœ:œpostingœ,œidœ:œAjsFactCheck-factœ,œinputTypesœ:[œDataœ],œtypeœ:œotherœ}",
+        "source": "AjsDocWriter-email",
+        "sourceHandle": "{œdataTypeœ: œAjsDocWriterœ, œidœ: œAjsDocWriter-emailœ, œnameœ: œposting_outœ, œoutput_typesœ: [œJSONœ]}",
+        "target": "AjsFactCheck-fact",
+        "targetHandle": "{œfieldNameœ: œpostingœ, œidœ: œAjsFactCheck-factœ, œinputTypesœ: [œDataœ], œtypeœ: œotherœ}"
+      },
+      {
+        "className": "",
+        "data": {
+          "sourceHandle": {
+            "dataType": "AjsDocWriter",
+            "id": "AjsDocWriter-letter",
+            "name": "posting_out",
+            "output_types": [
+              "JSON"
+            ]
+          },
+          "targetHandle": {
+            "fieldName": "posting",
+            "id": "AjsDocWriter-email",
+            "inputTypes": [
+              "Data"
+            ],
+            "type": "other"
+          }
+        },
+        "id": "reactflow__edge-AjsDocWriter-letter{œdataTypeœ:œAjsDocWriterœ,œidœ:œAjsDocWriter-letterœ,œnameœ:œposting_outœ,œoutput_typesœ:[œJSONœ]}-AjsDocWriter-email{œfieldNameœ:œpostingœ,œidœ:œAjsDocWriter-emailœ,œinputTypesœ:[œDataœ],œtypeœ:œotherœ}",
+        "source": "AjsDocWriter-letter",
+        "sourceHandle": "{œdataTypeœ: œAjsDocWriterœ, œidœ: œAjsDocWriter-letterœ, œnameœ: œposting_outœ, œoutput_typesœ: [œJSONœ]}",
+        "target": "AjsDocWriter-email",
+        "targetHandle": "{œfieldNameœ: œpostingœ, œidœ: œAjsDocWriter-emailœ, œinputTypesœ: [œDataœ], œtypeœ: œotherœ}"
+      },
+      {
+        "className": "",
+        "data": {
+          "sourceHandle": {
+            "dataType": "AjsEvidenceSelector",
+            "id": "AjsEvidenceSelector-evidence",
+            "name": "posting_out",
+            "output_types": [
+              "JSON"
+            ]
+          },
+          "targetHandle": {
+            "fieldName": "posting",
+            "id": "AjsBudgetGuard-guard",
+            "inputTypes": [
+              "Data"
+            ],
+            "type": "other"
+          }
+        },
+        "id": "reactflow__edge-AjsEvidenceSelector-evidence{œdataTypeœ:œAjsEvidenceSelectorœ,œidœ:œAjsEvidenceSelector-evidenceœ,œnameœ:œposting_outœ,œoutput_typesœ:[œJSONœ]}-AjsBudgetGuard-guard{œfieldNameœ:œpostingœ,œidœ:œAjsBudgetGuard-guardœ,œinputTypesœ:[œDataœ],œtypeœ:œotherœ}",
+        "source": "AjsEvidenceSelector-evidence",
+        "sourceHandle": "{œdataTypeœ: œAjsEvidenceSelectorœ, œidœ: œAjsEvidenceSelector-evidenceœ, œnameœ: œposting_outœ, œoutput_typesœ: [œJSONœ]}",
+        "target": "AjsBudgetGuard-guard",
+        "targetHandle": "{œfieldNameœ: œpostingœ, œidœ: œAjsBudgetGuard-guardœ, œinputTypesœ: [œDataœ], œtypeœ: œotherœ}"
+      },
+      {
+        "className": "",
+        "data": {
+          "sourceHandle": {
+            "dataType": "AjsFactCheck",
+            "id": "AjsFactCheck-fact",
+            "name": "posting_out",
+            "output_types": [
+              "JSON"
+            ]
+          },
+          "targetHandle": {
+            "fieldName": "posting",
+            "id": "AjsSaveGeneration-save",
+            "inputTypes": [
+              "Data"
+            ],
+            "type": "other"
+          }
+        },
+        "id": "reactflow__edge-AjsFactCheck-fact{œdataTypeœ:œAjsFactCheckœ,œidœ:œAjsFactCheck-factœ,œnameœ:œposting_outœ,œoutput_typesœ:[œJSONœ]}-AjsSaveGeneration-save{œfieldNameœ:œpostingœ,œidœ:œAjsSaveGeneration-saveœ,œinputTypesœ:[œDataœ],œtypeœ:œotherœ}",
+        "source": "AjsFactCheck-fact",
+        "sourceHandle": "{œdataTypeœ: œAjsFactCheckœ, œidœ: œAjsFactCheck-factœ, œnameœ: œposting_outœ, œoutput_typesœ: [œJSONœ]}",
+        "target": "AjsSaveGeneration-save",
+        "targetHandle": "{œfieldNameœ: œpostingœ, œidœ: œAjsSaveGeneration-saveœ, œinputTypesœ: [œDataœ], œtypeœ: œotherœ}"
+      },
+      {
+        "className": "",
+        "data": {
+          "sourceHandle": {
+            "dataType": "AjsLoadGeneration",
+            "id": "AjsLoadGeneration-load",
+            "name": "posting",
+            "output_types": [
+              "JSON"
+            ]
+          },
+          "targetHandle": {
+            "fieldName": "posting",
+            "id": "AjsEvidenceSelector-evidence",
+            "inputTypes": [
+              "Data"
+            ],
+            "type": "other"
+          }
+        },
+        "id": "reactflow__edge-AjsLoadGeneration-load{œdataTypeœ:œAjsLoadGenerationœ,œidœ:œAjsLoadGeneration-loadœ,œnameœ:œpostingœ,œoutput_typesœ:[œJSONœ]}-AjsEvidenceSelector-evidence{œfieldNameœ:œpostingœ,œidœ:œAjsEvidenceSelector-evidenceœ,œinputTypesœ:[œDataœ],œtypeœ:œotherœ}",
+        "source": "AjsLoadGeneration-load",
+        "sourceHandle": "{œdataTypeœ: œAjsLoadGenerationœ, œidœ: œAjsLoadGeneration-loadœ, œnameœ: œpostingœ, œoutput_typesœ: [œJSONœ]}",
+        "target": "AjsEvidenceSelector-evidence",
+        "targetHandle": "{œfieldNameœ: œpostingœ, œidœ: œAjsEvidenceSelector-evidenceœ, œinputTypesœ: [œDataœ], œtypeœ: œotherœ}"
+      },
+      {
+        "className": "",
+        "data": {
+          "sourceHandle": {
+            "dataType": "AjsLoadGeneration",
+            "id": "AjsLoadGeneration-load",
+            "name": "skipped",
+            "output_types": [
+              "Message"
+            ]
+          },
+          "targetHandle": {
+            "fieldName": "input_value",
+            "id": "ChatOutput-skipped_out",
+            "inputTypes": [
+              "Data",
+              "JSON",
+              "DataFrame",
+              "Table",
+              "Message"
+            ],
+            "type": "other"
+          }
+        },
+        "id": "reactflow__edge-AjsLoadGeneration-load{œdataTypeœ:œAjsLoadGenerationœ,œidœ:œAjsLoadGeneration-loadœ,œnameœ:œskippedœ,œoutput_typesœ:[œMessageœ]}-ChatOutput-skipped_out{œfieldNameœ:œinput_valueœ,œidœ:œChatOutput-skipped_outœ,œinputTypesœ:[œDataœ,œJSONœ,œDataFrameœ,œTableœ,œMessageœ],œtypeœ:œotherœ}",
+        "source": "AjsLoadGeneration-load",
+        "sourceHandle": "{œdataTypeœ: œAjsLoadGenerationœ, œidœ: œAjsLoadGeneration-loadœ, œnameœ: œskippedœ, œoutput_typesœ: [œMessageœ]}",
+        "target": "ChatOutput-skipped_out",
+        "targetHandle": "{œfieldNameœ: œinput_valueœ, œidœ: œChatOutput-skipped_outœ, œinputTypesœ: [œDataœ, œJSONœ, œDataFrameœ, œTableœ, œMessageœ], œtypeœ: œotherœ}"
+      },
+      {
+        "className": "",
+        "data": {
+          "sourceHandle": {
+            "dataType": "AjsSaveGeneration",
+            "id": "AjsSaveGeneration-save",
+            "name": "result",
+            "output_types": [
+              "Message"
+            ]
+          },
+          "targetHandle": {
+            "fieldName": "input_value",
+            "id": "ChatOutput-result_out",
+            "inputTypes": [
+              "Data",
+              "JSON",
+              "DataFrame",
+              "Table",
+              "Message"
+            ],
+            "type": "other"
+          }
+        },
+        "id": "reactflow__edge-AjsSaveGeneration-save{œdataTypeœ:œAjsSaveGenerationœ,œidœ:œAjsSaveGeneration-saveœ,œnameœ:œresultœ,œoutput_typesœ:[œMessageœ]}-ChatOutput-result_out{œfieldNameœ:œinput_valueœ,œidœ:œChatOutput-result_outœ,œinputTypesœ:[œDataœ,œJSONœ,œDataFrameœ,œTableœ,œMessageœ],œtypeœ:œotherœ}",
+        "source": "AjsSaveGeneration-save",
+        "sourceHandle": "{œdataTypeœ: œAjsSaveGenerationœ, œidœ: œAjsSaveGeneration-saveœ, œnameœ: œresultœ, œoutput_typesœ: [œMessageœ]}",
+        "target": "ChatOutput-result_out",
+        "targetHandle": "{œfieldNameœ: œinput_valueœ, œidœ: œChatOutput-result_outœ, œinputTypesœ: [œDataœ, œJSONœ, œDataFrameœ, œTableœ, œMessageœ], œtypeœ: œotherœ}"
+      },
+      {
+        "className": "",
+        "data": {
+          "sourceHandle": {
+            "dataType": "ChatInput",
+            "id": "ChatInput-chat_in",
+            "name": "message",
+            "output_types": [
+              "Message"
+            ]
+          },
+          "targetHandle": {
+            "fieldName": "input_value",
+            "id": "AjsLoadGeneration-load",
+            "inputTypes": [
+              "Message"
+            ],
+            "type": "str"
+          }
+        },
+        "id": "reactflow__edge-ChatInput-chat_in{œdataTypeœ:œChatInputœ,œidœ:œChatInput-chat_inœ,œnameœ:œmessageœ,œoutput_typesœ:[œMessageœ]}-AjsLoadGeneration-load{œfieldNameœ:œinput_valueœ,œidœ:œAjsLoadGeneration-loadœ,œinputTypesœ:[œMessageœ],œtypeœ:œstrœ}",
+        "source": "ChatInput-chat_in",
+        "sourceHandle": "{œdataTypeœ: œChatInputœ, œidœ: œChatInput-chat_inœ, œnameœ: œmessageœ, œoutput_typesœ: [œMessageœ]}",
+        "target": "AjsLoadGeneration-load",
+        "targetHandle": "{œfieldNameœ: œinput_valueœ, œidœ: œAjsLoadGeneration-loadœ, œinputTypesœ: [œMessageœ], œtypeœ: œstrœ}"
+      }
+    ],
+    "nodes": [
+      {
+        "data": {
+          "description": "Trim evidence, template text and brief so every writer call fits num_ctx.",
+          "display_name": "AJS Budget Guard",
+          "id": "AjsBudgetGuard-guard",
+          "node": {
+            "base_classes": [
+              "JSON"
+            ],
+            "beta": false,
+            "bundle": "ajs",
+            "conditional_paths": [],
+            "custom_fields": {},
+            "description": "Trim evidence, template text and brief so every writer call fits num_ctx.",
+            "display_name": "AJS Budget Guard",
+            "documentation": "",
+            "edited": false,
+            "extension": "ajs",
+            "extension_version": "0.0.0",
+            "field_order": [
+              "posting",
+              "context_tokens",
+              "evidence_tokens",
+              "template_tokens",
+              "brief_tokens",
+              "instruction_tokens",
+              "output_tokens"
+            ],
+            "frozen": false,
+            "icon": "scissors",
+            "legacy": false,
+            "legacy_module": "ajs_budget_guard",
+            "metadata": {
+              "code_hash": "66536637f671",
+              "dependencies": {
+                "dependencies": [
+                  {
+                    "name": "lfx",
+                    "version": "1.12.3"
+                  }
+                ],
+                "total_dependencies": 1
+              },
+              "module": "_lfx_ext.extra.ajs.ajs_budget_guard"
+            },
+            "minimized": false,
+            "name": "AjsBudgetGuard",
+            "namespaced_id": "ext:ajs:AjsBudgetGuard@extra",
+            "output_types": [],
+            "outputs": [
+              {
+                "allows_loop": false,
+                "cache": true,
+                "display_name": "Posting",
+                "group_outputs": false,
+                "method": "guard",
+                "name": "posting_out",
+                "selected": "JSON",
+                "tool_mode": true,
+                "types": [
+                  "JSON"
+                ],
+                "value": "__UNDEFINED__"
+              }
+            ],
+            "pinned": false,
+            "template": {
+              "_type": "Component",
+              "brief_tokens": {
+                "_input_type": "IntInput",
+                "advanced": true,
+                "api_editable": false,
+                "display_name": "Brief budget",
+                "dynamic": false,
+                "info": "",
+                "list": false,
+                "list_add_label": "Add More",
+                "name": "brief_tokens",
+                "override_skip": false,
+                "placeholder": "",
+                "required": false,
+                "show": true,
+                "title_case": false,
+                "tool_mode": false,
+                "trace_as_metadata": true,
+                "track_in_telemetry": true,
+                "type": "int",
+                "value": 2000
+              },
+              "code": {
+                "advanced": true,
+                "api_editable": false,
+                "dynamic": true,
+                "fileTypes": [],
+                "file_path": "",
+                "info": "",
+                "list": false,
+                "load_from_db": false,
+                "multiline": true,
+                "name": "code",
+                "password": false,
+                "placeholder": "",
+                "required": true,
+                "show": true,
+                "title_case": false,
+                "type": "code",
+                "value": "\"\"\"AJS Budget Guard: keeps every writer call inside `num_ctx` (architecture 5, plan 04 step 6).\n\nToken counts are estimated at 1 token per 3 characters (a safe over-estimate for English and\nDanish text with Gemma's tokenizer). Budgets at num_ctx 32768: instructions 2000, job brief 2000,\nCV evidence 8000, template 3000, output 4000. Trim order: evidence bullets from the lowest\nsimilarity up, then HTML comments (the examples and rules) in the templates, then the brief's\nkeywords and nice_to_have. If the worst-case call still does not fit, the guard raises instead\nof letting Ollama truncate the prompt silently.\n\"\"\"\n\nimport json\nimport re\n\nfrom lfx.custom.custom_component.component import Component\nfrom lfx.io import DataInput, IntInput, Output\nfrom lfx.schema.data import Data\n\nCHARS_PER_TOKEN = 3.0\nHTML_COMMENT = re.compile(r\"<!--.*?-->\\s*\", re.DOTALL)\n\n\ndef estimate_tokens(text: str) -> int:\n    return int(len(text) / CHARS_PER_TOKEN) + 1\n\n\ndef evidence_text(evidence: list[dict]) -> str:\n    return \"\\n\".join(f\"- [{e['role']} | {e['dates']}] {e['text']}\" for e in evidence)\n\n\ndef trim(data: dict, limits: dict[str, int]) -> tuple[dict, list[str]]:\n    \"\"\"Return a trimmed copy of the posting data and a log of what was cut.\"\"\"\n    data = json.loads(json.dumps(data))\n    log: list[str] = []\n    evidence = data.get(\"evidence\", [])\n    while evidence and estimate_tokens(evidence_text(evidence)) > limits[\"evidence\"]:\n        evidence.pop()  # sorted best-first, so the weakest goes first\n        log.append(\"evidence bullet dropped\")\n    data[\"evidence\"] = evidence\n    templates = data[\"templates\"]\n    for key, text in templates.items():\n        if estimate_tokens(text) > limits[\"template\"]:\n            templates[key] = HTML_COMMENT.sub(\"\", text)\n            log.append(f\"{key} template comments removed\")\n    brief = data[\"job_brief\"]\n    for field in (\"keywords\", \"nice_to_have\"):\n        if estimate_tokens(json.dumps(brief)) > limits[\"brief\"] and brief.get(field):\n            brief[field] = []\n            log.append(f\"brief {field} dropped\")\n    # CV, brief, evidence and the larger template all go into one call; check the worst call.\n    worst = (\n        limits[\"instructions\"]\n        + estimate_tokens(data[\"cv_markdown\"])\n        + estimate_tokens(json.dumps(brief))\n        + estimate_tokens(evidence_text(evidence))\n        + max(estimate_tokens(t) for t in templates.values())\n    )\n    if worst + limits[\"output\"] > limits[\"num_ctx\"]:\n        msg = f\"prompt of ~{worst} tokens plus {limits['output']} output does not fit num_ctx {limits['num_ctx']}\"\n        raise ValueError(msg)\n    data[\"budget\"] = {\"prompt_tokens_worst_case\": worst, \"trimmed\": log}\n    return data, log\n\n\nclass AjsBudgetGuard(Component):\n    display_name = \"AJS Budget Guard\"\n    description = \"Trim evidence, template text and brief so every writer call fits num_ctx.\"\n    name = \"AjsBudgetGuard\"\n    icon = \"scissors\"\n\n    inputs = [\n        DataInput(name=\"posting\", display_name=\"Posting\", input_types=[\"Data\"]),\n        IntInput(name=\"context_tokens\", display_name=\"Context tokens (num_ctx)\", info=\"Must equal the Modelfile's num_ctx.\", value=32768),\n        IntInput(name=\"evidence_tokens\", display_name=\"Evidence budget\", value=8000, advanced=True),\n        IntInput(name=\"template_tokens\", display_name=\"Template budget\", value=3000, advanced=True),\n        IntInput(name=\"brief_tokens\", display_name=\"Brief budget\", value=2000, advanced=True),\n        IntInput(name=\"instruction_tokens\", display_name=\"Instruction budget\", value=2000, advanced=True),\n        IntInput(name=\"output_tokens\", display_name=\"Output budget\", value=4000, advanced=True),\n    ]\n\n    outputs = [Output(display_name=\"Posting\", name=\"posting_out\", method=\"guard\")]\n\n    def guard(self) -> Data:\n        limits = {\n            \"num_ctx\": int(self.context_tokens),\n            \"evidence\": int(self.evidence_tokens),\n            \"template\": int(self.template_tokens),\n            \"brief\": int(self.brief_tokens),\n            \"instructions\": int(self.instruction_tokens),\n            \"output\": int(self.output_tokens),\n        }\n        data, log = trim(dict(self.posting.data), limits)\n        self.status = f\"~{data['budget']['prompt_tokens_worst_case']} tokens worst case, {len(log)} trims\"\n        return Data(data=data)\n"
+              },
+              "context_tokens": {
+                "_input_type": "IntInput",
+                "advanced": false,
+                "api_editable": false,
+                "display_name": "Context tokens (num_ctx)",
+                "dynamic": false,
+                "info": "Must equal the Modelfile's num_ctx.",
+                "list": false,
+                "list_add_label": "Add More",
+                "name": "context_tokens",
+                "override_skip": false,
+                "placeholder": "",
+                "required": false,
+                "show": true,
+                "title_case": false,
+                "tool_mode": false,
+                "trace_as_metadata": true,
+                "track_in_telemetry": true,
+                "type": "int",
+                "value": 32768
+              },
+              "evidence_tokens": {
+                "_input_type": "IntInput",
+                "advanced": true,
+                "api_editable": false,
+                "display_name": "Evidence budget",
+                "dynamic": false,
+                "info": "",
+                "list": false,
+                "list_add_label": "Add More",
+                "name": "evidence_tokens",
+                "override_skip": false,
+                "placeholder": "",
+                "required": false,
+                "show": true,
+                "title_case": false,
+                "tool_mode": false,
+                "trace_as_metadata": true,
+                "track_in_telemetry": true,
+                "type": "int",
+                "value": 8000
+              },
+              "instruction_tokens": {
+                "_input_type": "IntInput",
+                "advanced": true,
+                "api_editable": false,
+                "display_name": "Instruction budget",
+                "dynamic": false,
+                "info": "",
+                "list": false,
+                "list_add_label": "Add More",
+                "name": "instruction_tokens",
+                "override_skip": false,
+                "placeholder": "",
+                "required": false,
+                "show": true,
+                "title_case": false,
+                "tool_mode": false,
+                "trace_as_metadata": true,
+                "track_in_telemetry": true,
+                "type": "int",
+                "value": 2000
+              },
+              "output_tokens": {
+                "_input_type": "IntInput",
+                "advanced": true,
+                "api_editable": false,
+                "display_name": "Output budget",
+                "dynamic": false,
+                "info": "",
+                "list": false,
+                "list_add_label": "Add More",
+                "name": "output_tokens",
+                "override_skip": false,
+                "placeholder": "",
+                "required": false,
+                "show": true,
+                "title_case": false,
+                "tool_mode": false,
+                "trace_as_metadata": true,
+                "track_in_telemetry": true,
+                "type": "int",
+                "value": 4000
+              },
+              "posting": {
+                "_input_type": "JSONInput",
+                "advanced": false,
+                "api_editable": false,
+                "display_name": "Posting",
+                "dynamic": false,
+                "info": "",
+                "input_types": [
+                  "Data"
+                ],
+                "list": false,
+                "list_add_label": "Add More",
+                "name": "posting",
+                "override_skip": false,
+                "placeholder": "",
+                "required": false,
+                "show": true,
+                "title_case": false,
+                "tool_mode": false,
+                "trace_as_input": true,
+                "trace_as_metadata": true,
+                "track_in_telemetry": false,
+                "type": "other",
+                "value": ""
+              },
+              "template_tokens": {
+                "_input_type": "IntInput",
+                "advanced": true,
+                "api_editable": false,
+                "display_name": "Template budget",
+                "dynamic": false,
+                "info": "",
+                "list": false,
+                "list_add_label": "Add More",
+                "name": "template_tokens",
+                "override_skip": false,
+                "placeholder": "",
+                "required": false,
+                "show": true,
+                "title_case": false,
+                "tool_mode": false,
+                "trace_as_metadata": true,
+                "track_in_telemetry": true,
+                "type": "int",
+                "value": 3000
+              }
+            },
+            "tool_mode": false
+          },
+          "showNode": true,
+          "type": "AjsBudgetGuard"
+        },
+        "id": "AjsBudgetGuard-guard",
+        "position": {
+          "x": 1200,
+          "y": 300
+        },
+        "type": "genericNode"
+      },
+      {
+        "data": {
+          "description": "Write the tailored CV, cover letter or recruiter email with the writer model (English only).",
+          "display_name": "AJS Doc Writer",
+          "id": "AjsDocWriter-cv",
+          "node": {
+            "base_classes": [
+              "JSON"
+            ],
+            "beta": false,
+            "bundle": "ajs",
+            "conditional_paths": [],
+            "custom_fields": {},
+            "description": "Write the tailored CV, cover letter or recruiter email with the writer model (English only).",
+            "display_name": "AJS Doc Writer",
+            "documentation": "",
+            "edited": false,
+            "extension": "ajs",
+            "extension_version": "0.0.0",
+            "field_order": [
+              "posting",
+              "kind",
+              "system_prompt",
+              "ollama_base_url",
+              "model",
+              "keep_alive"
+            ],
+            "frozen": false,
+            "icon": "pen-line",
+            "legacy": false,
+            "legacy_module": "ajs_doc_writer",
+            "metadata": {
+              "code_hash": "94e2baf921a0",
+              "dependencies": {
+                "dependencies": [
+                  {
+                    "name": "httpx",
+                    "version": "0.28.1"
+                  },
+                  {
+                    "name": "lfx",
+                    "version": "1.12.3"
+                  }
+                ],
+                "total_dependencies": 2
+              },
+              "module": "_lfx_ext.extra.ajs.ajs_doc_writer"
+            },
+            "minimized": false,
+            "name": "AjsDocWriter",
+            "namespaced_id": "ext:ajs:AjsDocWriter@extra",
+            "output_types": [],
+            "outputs": [
+              {
+                "allows_loop": false,
+                "cache": true,
+                "display_name": "Posting",
+                "group_outputs": false,
+                "method": "write",
+                "name": "posting_out",
+                "selected": "JSON",
+                "tool_mode": true,
+                "types": [
+                  "JSON"
+                ],
+                "value": "__UNDEFINED__"
+              }
+            ],
+            "pinned": false,
+            "template": {
+              "_type": "Component",
+              "code": {
+                "advanced": true,
+                "api_editable": false,
+                "dynamic": true,
+                "fileTypes": [],
+                "file_path": "",
+                "info": "",
+                "list": false,
+                "load_from_db": false,
+                "multiline": true,
+                "name": "code",
+                "password": false,
+                "placeholder": "",
+                "required": true,
+                "show": true,
+                "title_case": false,
+                "type": "code",
+                "value": "\"\"\"AJS Doc Writer: one writer step (brief steps 12-14) for the CV, the cover letter or the email.\n\nCalls the writer model (LLM_WRITER_MODEL) directly on Ollama `/api/chat` with thinking off and\nfree text output. Every document is English (A2). Deterministic checks run on each answer and a\nfailed check triggers a retry that names the problem (temperature 0.7, 0.5, 0.3):\n  - no `{{ }}` or HTML comment may be left;\n  - the CV must keep every role heading of cv.md (no invented or dropped employers);\n  - the letter is 200-450 words; the email body is at most 170 words (the template alone is ~135).\nThe email subject line is built here, not by the model.\n\"\"\"\n\nimport re\nfrom datetime import datetime\n\nimport httpx\nfrom lfx.custom.custom_component.component import Component\nfrom lfx.io import DataInput, DropdownInput, MultilineInput, Output, StrInput\nfrom lfx.schema.data import Data\n\nTEMPERATURES = (0.7, 0.5, 0.3)\nMAX_OUTPUT_TOKENS = 4000\nEMAIL_MAX_WORDS = 170\nLETTER_WORDS = (200, 450)\nCOMMENT = re.compile(r\"<!--.*?-->\\s*\", re.DOTALL)\nFENCE = re.compile(r\"^```[a-z]*\\n(.*)\\n```$\", re.DOTALL)\n\n\ndef clean(text: str) -> str:\n    text = text.strip()\n    fenced = FENCE.match(text)\n    if fenced:\n        text = fenced.group(1).strip()\n    return COMMENT.sub(\"\", text).strip()\n\n\ndef word_count(text: str) -> int:\n    return len(re.findall(r\"\\S+\", text))\n\n\ndef role_headings(cv_markdown: str) -> list[str]:\n    return [line[4:].strip() for line in cv_markdown.splitlines() if line.startswith(\"### \")]\n\n\ndef problems(kind: str, text: str, cv_markdown: str) -> list[str]:\n    found = []\n    if \"{{\" in text or \"}}\" in text:\n        found.append(\"placeholders in {{ }} are still in the text; replace every one with real content\")\n    if \"<!--\" in text:\n        found.append(\"remove all HTML comments\")\n    if not text:\n        found.append(\"the answer is empty\")\n    if kind == \"cv\":\n        missing = [h for h in role_headings(cv_markdown) if h not in text]\n        if missing:\n            found.append(\"keep every role heading of the CV exactly as written; missing: \" + \"; \".join(missing))\n    elif kind == \"cover_letter\":\n        count = word_count(text)\n        if not LETTER_WORDS[0] <= count <= LETTER_WORDS[1]:\n            found.append(f\"the letter has {count} words; it must have {LETTER_WORDS[0]} to {LETTER_WORDS[1]}\")\n    elif kind == \"recruiter_email\" and word_count(text) > EMAIL_MAX_WORDS:\n        found.append(f\"the email has {word_count(text)} words; shorten it to at most {EMAIL_MAX_WORDS}\")\n    return found\n\n\ndef evidence_text(evidence: list[dict]) -> str:\n    return \"\\n\".join(f\"- [{e['role']} | {e['dates']}] {e['text']}\" for e in evidence)\n\n\ndef brief_text(brief: dict) -> str:\n    keys = (\"title\", \"company\", \"must_have\", \"nice_to_have\", \"keywords\", \"company_values\", \"location\")\n    return \"\\n\".join(f\"{k}: {brief.get(k)}\" for k in keys if brief.get(k))\n\n\ndef user_message(kind: str, data: dict, today: str) -> str:\n    brief = brief_text(data[\"job_brief\"])\n    evidence = evidence_text(data.get(\"evidence\", []))\n    recruiter = data.get(\"recruiter_name\") or \"none (use the generic greeting)\"\n    if kind == \"cv\":\n        return f\"JOB BRIEF\\n{brief}\\n\\nPRIORITY EVIDENCE (bullets that match the requirements best)\\n{evidence}\\n\\nCV\\n{data['cv_markdown']}\"\n    template = COMMENT.sub(\"\", data[\"templates\"][kind]).strip()\n    return (\n        f\"TODAY: {today}\\nROLE: {data['title']}\\nCOMPANY: {data['company']}\\nRECRUITER NAME: {recruiter}\\n\\n\"\n        f\"JOB BRIEF\\n{brief}\\n\\nEVIDENCE FROM THE CV\\n{evidence}\\n\\nTEMPLATE\\n{template}\"\n    )\n\n\nclass AjsDocWriter(Component):\n    display_name = \"AJS Doc Writer\"\n    description = \"Write the tailored CV, cover letter or recruiter email with the writer model (English only).\"\n    name = \"AjsDocWriter\"\n    icon = \"pen-line\"\n\n    inputs = [\n        DataInput(name=\"posting\", display_name=\"Posting\", input_types=[\"Data\"]),\n        DropdownInput(name=\"kind\", display_name=\"Document\", options=[\"cv\", \"cover_letter\", \"recruiter_email\"], value=\"cv\"),\n        MultilineInput(\n            name=\"system_prompt\",\n            display_name=\"System prompt\",\n            info=\"Mirrored in langflow/prompts/writer_*.md.\",\n            value=\"\",\n        ),\n        StrInput(\n            name=\"ollama_base_url\",\n            display_name=\"Ollama base URL\",\n            info=\"Global variable OLLAMA_BASE_URL.\",\n            value=\"OLLAMA_BASE_URL\",\n            load_from_db=True,\n        ),\n        StrInput(\n            name=\"model\",\n            display_name=\"Model\",\n            info=\"Global variable LLM_WRITER_MODEL (never hard-coded).\",\n            value=\"LLM_WRITER_MODEL\",\n            load_from_db=True,\n        ),\n        StrInput(\n            name=\"keep_alive\",\n            display_name=\"Keep alive\",\n            info=\"Global variable LLM_KEEP_ALIVE.\",\n            value=\"LLM_KEEP_ALIVE\",\n            load_from_db=True,\n            advanced=True,\n        ),\n    ]\n\n    outputs = [Output(display_name=\"Posting\", name=\"posting_out\", method=\"write\")]\n\n    async def _ask(self, client: httpx.AsyncClient, messages: list[dict], temperature: float) -> str:\n        body = {\n            \"model\": self.model,\n            \"messages\": messages,\n            \"stream\": False,\n            \"think\": False,\n            \"keep_alive\": self.keep_alive,\n            \"options\": {\"temperature\": temperature, \"num_predict\": MAX_OUTPUT_TOKENS},\n        }\n        response = await client.post(f\"{self.ollama_base_url.rstrip('/')}/api/chat\", json=body)\n        response.raise_for_status()\n        return clean(response.json()[\"message\"][\"content\"])\n\n    async def write(self) -> Data:\n        data = dict(self.posting.data)\n        kind = self.kind\n        now = datetime.now()  # noqa: DTZ005 - the letter shows the local date\n        today = f\"{now.day} {now:%B %Y}\"\n        messages = [\n            {\"role\": \"system\", \"content\": self.system_prompt},\n            {\"role\": \"user\", \"content\": user_message(kind, data, today)},\n        ]\n        text, issues = \"\", [\"not run\"]\n        async with httpx.AsyncClient(timeout=httpx.Timeout(600.0, connect=10.0)) as client:\n            for temperature in TEMPERATURES:\n                text = await self._ask(client, messages, temperature)\n                issues = problems(kind, text, data[\"cv_markdown\"])\n                if not issues:\n                    break\n                messages = messages[:2] + [\n                    {\"role\": \"assistant\", \"content\": text},\n                    {\"role\": \"user\", \"content\": \"Rewrite the full document and fix: \" + \"; \".join(issues) + \".\"},\n                ]\n        if issues:\n            msg = f\"{kind} failed its checks after {len(TEMPERATURES)} attempts: {'; '.join(issues)}\"\n            raise ValueError(msg)\n        if kind == \"recruiter_email\":\n            text = f\"Subject: Application for {data['title']} at {data['company']}\\n\\n{text}\"\n        documents = dict(data.get(\"documents\", {}))\n        documents[kind] = text\n        data[\"documents\"] = documents\n        self.status = f\"{kind}: {word_count(text)} words\"\n        return Data(data=data)\n"
+              },
+              "keep_alive": {
+                "_input_type": "StrInput",
+                "advanced": true,
+                "api_editable": false,
+                "display_name": "Keep alive",
+                "dynamic": false,
+                "info": "Global variable LLM_KEEP_ALIVE.",
+                "list": false,
+                "list_add_label": "Add More",
+                "load_from_db": true,
+                "name": "keep_alive",
+                "override_skip": false,
+                "placeholder": "",
+                "required": false,
+                "show": true,
+                "title_case": false,
+                "tool_mode": false,
+                "trace_as_metadata": true,
+                "track_in_telemetry": false,
+                "type": "str",
+                "value": "LLM_KEEP_ALIVE"
+              },
+              "kind": {
+                "_input_type": "DropdownInput",
+                "advanced": false,
+                "api_editable": false,
+                "combobox": false,
+                "dialog_inputs": {},
+                "display_name": "Document",
+                "dynamic": false,
+                "external_options": {},
+                "info": "",
+                "name": "kind",
+                "options": [
+                  "cv",
+                  "cover_letter",
+                  "recruiter_email"
+                ],
+                "options_metadata": [],
+                "override_skip": false,
+                "placeholder": "",
+                "required": false,
+                "show": true,
+                "title_case": false,
+                "toggle": false,
+                "tool_mode": false,
+                "trace_as_metadata": true,
+                "track_in_telemetry": true,
+                "type": "str",
+                "value": "cv"
+              },
+              "model": {
+                "_input_type": "StrInput",
+                "advanced": false,
+                "api_editable": false,
+                "display_name": "Model",
+                "dynamic": false,
+                "info": "Global variable LLM_WRITER_MODEL (never hard-coded).",
+                "list": false,
+                "list_add_label": "Add More",
+                "load_from_db": true,
+                "name": "model",
+                "override_skip": false,
+                "placeholder": "",
+                "required": false,
+                "show": true,
+                "title_case": false,
+                "tool_mode": false,
+                "trace_as_metadata": true,
+                "track_in_telemetry": false,
+                "type": "str",
+                "value": "LLM_WRITER_MODEL"
+              },
+              "ollama_base_url": {
+                "_input_type": "StrInput",
+                "advanced": false,
+                "api_editable": false,
+                "display_name": "Ollama base URL",
+                "dynamic": false,
+                "info": "Global variable OLLAMA_BASE_URL.",
+                "list": false,
+                "list_add_label": "Add More",
+                "load_from_db": true,
+                "name": "ollama_base_url",
+                "override_skip": false,
+                "placeholder": "",
+                "required": false,
+                "show": true,
+                "title_case": false,
+                "tool_mode": false,
+                "trace_as_metadata": true,
+                "track_in_telemetry": false,
+                "type": "str",
+                "value": "OLLAMA_BASE_URL"
+              },
+              "posting": {
+                "_input_type": "JSONInput",
+                "advanced": false,
+                "api_editable": false,
+                "display_name": "Posting",
+                "dynamic": false,
+                "info": "",
+                "input_types": [
+                  "Data"
+                ],
+                "list": false,
+                "list_add_label": "Add More",
+                "name": "posting",
+                "override_skip": false,
+                "placeholder": "",
+                "required": false,
+                "show": true,
+                "title_case": false,
+                "tool_mode": false,
+                "trace_as_input": true,
+                "trace_as_metadata": true,
+                "track_in_telemetry": false,
+                "type": "other",
+                "value": ""
+              },
+              "system_prompt": {
+                "_input_type": "MultilineInput",
+                "advanced": false,
+                "ai_enabled": false,
+                "api_editable": false,
+                "copy_field": false,
+                "display_name": "System prompt",
+                "dynamic": false,
+                "info": "Mirrored in langflow/prompts/writer_*.md.",
+                "input_types": [
+                  "Message"
+                ],
+                "list": false,
+                "list_add_label": "Add More",
+                "load_from_db": false,
+                "multiline": true,
+                "name": "system_prompt",
+                "override_skip": false,
+                "password": false,
+                "placeholder": "",
+                "required": false,
+                "show": true,
+                "title_case": false,
+                "tool_mode": false,
+                "trace_as_input": true,
+                "trace_as_metadata": true,
+                "track_in_telemetry": false,
+                "type": "str",
+                "value": "You rewrite a candidate's CV for one job. Reply with the complete CV in Markdown and nothing else.\nRules:\n- Write in English, even if the job brief is in Danish.\n- Use only facts that are in the CV below. Never invent or change an employer, job title, date, degree, certification, number, tool or skill.\n- Keep the name and contact line, and every \"###\" role heading and its date line exactly as written in the CV.\n- Keep the section order of the CV (headings with \"##\"). Within each role, put the bullets that best match the job brief first, shorten or drop the least relevant ones, and you may rephrase a bullet to use the job's wording when the CV already supports it.\n- PRIORITY EVIDENCE lists the bullets that matter most for this job: keep those and keep them prominent.\n- In the Skills section, list the job's keywords first, but only skills that are already in the CV.\n- Aim for at most two pages. No commentary, no notes, no code fences."
+              }
+            },
+            "tool_mode": false
+          },
+          "showNode": true,
+          "type": "AjsDocWriter"
+        },
+        "id": "AjsDocWriter-cv",
+        "position": {
+          "x": 1600,
+          "y": 300
+        },
+        "type": "genericNode"
+      },
+      {
+        "data": {
+          "description": "Write the tailored CV, cover letter or recruiter email with the writer model (English only).",
+          "display_name": "AJS Doc Writer",
+          "id": "AjsDocWriter-email",
+          "node": {
+            "base_classes": [
+              "JSON"
+            ],
+            "beta": false,
+            "bundle": "ajs",
+            "conditional_paths": [],
+            "custom_fields": {},
+            "description": "Write the tailored CV, cover letter or recruiter email with the writer model (English only).",
+            "display_name": "AJS Doc Writer",
+            "documentation": "",
+            "edited": false,
+            "extension": "ajs",
+            "extension_version": "0.0.0",
+            "field_order": [
+              "posting",
+              "kind",
+              "system_prompt",
+              "ollama_base_url",
+              "model",
+              "keep_alive"
+            ],
+            "frozen": false,
+            "icon": "pen-line",
+            "legacy": false,
+            "legacy_module": "ajs_doc_writer",
+            "metadata": {
+              "code_hash": "94e2baf921a0",
+              "dependencies": {
+                "dependencies": [
+                  {
+                    "name": "httpx",
+                    "version": "0.28.1"
+                  },
+                  {
+                    "name": "lfx",
+                    "version": "1.12.3"
+                  }
+                ],
+                "total_dependencies": 2
+              },
+              "module": "_lfx_ext.extra.ajs.ajs_doc_writer"
+            },
+            "minimized": false,
+            "name": "AjsDocWriter",
+            "namespaced_id": "ext:ajs:AjsDocWriter@extra",
+            "output_types": [],
+            "outputs": [
+              {
+                "allows_loop": false,
+                "cache": true,
+                "display_name": "Posting",
+                "group_outputs": false,
+                "method": "write",
+                "name": "posting_out",
+                "selected": "JSON",
+                "tool_mode": true,
+                "types": [
+                  "JSON"
+                ],
+                "value": "__UNDEFINED__"
+              }
+            ],
+            "pinned": false,
+            "template": {
+              "_type": "Component",
+              "code": {
+                "advanced": true,
+                "api_editable": false,
+                "dynamic": true,
+                "fileTypes": [],
+                "file_path": "",
+                "info": "",
+                "list": false,
+                "load_from_db": false,
+                "multiline": true,
+                "name": "code",
+                "password": false,
+                "placeholder": "",
+                "required": true,
+                "show": true,
+                "title_case": false,
+                "type": "code",
+                "value": "\"\"\"AJS Doc Writer: one writer step (brief steps 12-14) for the CV, the cover letter or the email.\n\nCalls the writer model (LLM_WRITER_MODEL) directly on Ollama `/api/chat` with thinking off and\nfree text output. Every document is English (A2). Deterministic checks run on each answer and a\nfailed check triggers a retry that names the problem (temperature 0.7, 0.5, 0.3):\n  - no `{{ }}` or HTML comment may be left;\n  - the CV must keep every role heading of cv.md (no invented or dropped employers);\n  - the letter is 200-450 words; the email body is at most 170 words (the template alone is ~135).\nThe email subject line is built here, not by the model.\n\"\"\"\n\nimport re\nfrom datetime import datetime\n\nimport httpx\nfrom lfx.custom.custom_component.component import Component\nfrom lfx.io import DataInput, DropdownInput, MultilineInput, Output, StrInput\nfrom lfx.schema.data import Data\n\nTEMPERATURES = (0.7, 0.5, 0.3)\nMAX_OUTPUT_TOKENS = 4000\nEMAIL_MAX_WORDS = 170\nLETTER_WORDS = (200, 450)\nCOMMENT = re.compile(r\"<!--.*?-->\\s*\", re.DOTALL)\nFENCE = re.compile(r\"^```[a-z]*\\n(.*)\\n```$\", re.DOTALL)\n\n\ndef clean(text: str) -> str:\n    text = text.strip()\n    fenced = FENCE.match(text)\n    if fenced:\n        text = fenced.group(1).strip()\n    return COMMENT.sub(\"\", text).strip()\n\n\ndef word_count(text: str) -> int:\n    return len(re.findall(r\"\\S+\", text))\n\n\ndef role_headings(cv_markdown: str) -> list[str]:\n    return [line[4:].strip() for line in cv_markdown.splitlines() if line.startswith(\"### \")]\n\n\ndef problems(kind: str, text: str, cv_markdown: str) -> list[str]:\n    found = []\n    if \"{{\" in text or \"}}\" in text:\n        found.append(\"placeholders in {{ }} are still in the text; replace every one with real content\")\n    if \"<!--\" in text:\n        found.append(\"remove all HTML comments\")\n    if not text:\n        found.append(\"the answer is empty\")\n    if kind == \"cv\":\n        missing = [h for h in role_headings(cv_markdown) if h not in text]\n        if missing:\n            found.append(\"keep every role heading of the CV exactly as written; missing: \" + \"; \".join(missing))\n    elif kind == \"cover_letter\":\n        count = word_count(text)\n        if not LETTER_WORDS[0] <= count <= LETTER_WORDS[1]:\n            found.append(f\"the letter has {count} words; it must have {LETTER_WORDS[0]} to {LETTER_WORDS[1]}\")\n    elif kind == \"recruiter_email\" and word_count(text) > EMAIL_MAX_WORDS:\n        found.append(f\"the email has {word_count(text)} words; shorten it to at most {EMAIL_MAX_WORDS}\")\n    return found\n\n\ndef evidence_text(evidence: list[dict]) -> str:\n    return \"\\n\".join(f\"- [{e['role']} | {e['dates']}] {e['text']}\" for e in evidence)\n\n\ndef brief_text(brief: dict) -> str:\n    keys = (\"title\", \"company\", \"must_have\", \"nice_to_have\", \"keywords\", \"company_values\", \"location\")\n    return \"\\n\".join(f\"{k}: {brief.get(k)}\" for k in keys if brief.get(k))\n\n\ndef user_message(kind: str, data: dict, today: str) -> str:\n    brief = brief_text(data[\"job_brief\"])\n    evidence = evidence_text(data.get(\"evidence\", []))\n    recruiter = data.get(\"recruiter_name\") or \"none (use the generic greeting)\"\n    if kind == \"cv\":\n        return f\"JOB BRIEF\\n{brief}\\n\\nPRIORITY EVIDENCE (bullets that match the requirements best)\\n{evidence}\\n\\nCV\\n{data['cv_markdown']}\"\n    template = COMMENT.sub(\"\", data[\"templates\"][kind]).strip()\n    return (\n        f\"TODAY: {today}\\nROLE: {data['title']}\\nCOMPANY: {data['company']}\\nRECRUITER NAME: {recruiter}\\n\\n\"\n        f\"JOB BRIEF\\n{brief}\\n\\nEVIDENCE FROM THE CV\\n{evidence}\\n\\nTEMPLATE\\n{template}\"\n    )\n\n\nclass AjsDocWriter(Component):\n    display_name = \"AJS Doc Writer\"\n    description = \"Write the tailored CV, cover letter or recruiter email with the writer model (English only).\"\n    name = \"AjsDocWriter\"\n    icon = \"pen-line\"\n\n    inputs = [\n        DataInput(name=\"posting\", display_name=\"Posting\", input_types=[\"Data\"]),\n        DropdownInput(name=\"kind\", display_name=\"Document\", options=[\"cv\", \"cover_letter\", \"recruiter_email\"], value=\"cv\"),\n        MultilineInput(\n            name=\"system_prompt\",\n            display_name=\"System prompt\",\n            info=\"Mirrored in langflow/prompts/writer_*.md.\",\n            value=\"\",\n        ),\n        StrInput(\n            name=\"ollama_base_url\",\n            display_name=\"Ollama base URL\",\n            info=\"Global variable OLLAMA_BASE_URL.\",\n            value=\"OLLAMA_BASE_URL\",\n            load_from_db=True,\n        ),\n        StrInput(\n            name=\"model\",\n            display_name=\"Model\",\n            info=\"Global variable LLM_WRITER_MODEL (never hard-coded).\",\n            value=\"LLM_WRITER_MODEL\",\n            load_from_db=True,\n        ),\n        StrInput(\n            name=\"keep_alive\",\n            display_name=\"Keep alive\",\n            info=\"Global variable LLM_KEEP_ALIVE.\",\n            value=\"LLM_KEEP_ALIVE\",\n            load_from_db=True,\n            advanced=True,\n        ),\n    ]\n\n    outputs = [Output(display_name=\"Posting\", name=\"posting_out\", method=\"write\")]\n\n    async def _ask(self, client: httpx.AsyncClient, messages: list[dict], temperature: float) -> str:\n        body = {\n            \"model\": self.model,\n            \"messages\": messages,\n            \"stream\": False,\n            \"think\": False,\n            \"keep_alive\": self.keep_alive,\n            \"options\": {\"temperature\": temperature, \"num_predict\": MAX_OUTPUT_TOKENS},\n        }\n        response = await client.post(f\"{self.ollama_base_url.rstrip('/')}/api/chat\", json=body)\n        response.raise_for_status()\n        return clean(response.json()[\"message\"][\"content\"])\n\n    async def write(self) -> Data:\n        data = dict(self.posting.data)\n        kind = self.kind\n        now = datetime.now()  # noqa: DTZ005 - the letter shows the local date\n        today = f\"{now.day} {now:%B %Y}\"\n        messages = [\n            {\"role\": \"system\", \"content\": self.system_prompt},\n            {\"role\": \"user\", \"content\": user_message(kind, data, today)},\n        ]\n        text, issues = \"\", [\"not run\"]\n        async with httpx.AsyncClient(timeout=httpx.Timeout(600.0, connect=10.0)) as client:\n            for temperature in TEMPERATURES:\n                text = await self._ask(client, messages, temperature)\n                issues = problems(kind, text, data[\"cv_markdown\"])\n                if not issues:\n                    break\n                messages = messages[:2] + [\n                    {\"role\": \"assistant\", \"content\": text},\n                    {\"role\": \"user\", \"content\": \"Rewrite the full document and fix: \" + \"; \".join(issues) + \".\"},\n                ]\n        if issues:\n            msg = f\"{kind} failed its checks after {len(TEMPERATURES)} attempts: {'; '.join(issues)}\"\n            raise ValueError(msg)\n        if kind == \"recruiter_email\":\n            text = f\"Subject: Application for {data['title']} at {data['company']}\\n\\n{text}\"\n        documents = dict(data.get(\"documents\", {}))\n        documents[kind] = text\n        data[\"documents\"] = documents\n        self.status = f\"{kind}: {word_count(text)} words\"\n        return Data(data=data)\n"
+              },
+              "keep_alive": {
+                "_input_type": "StrInput",
+                "advanced": true,
+                "api_editable": false,
+                "display_name": "Keep alive",
+                "dynamic": false,
+                "info": "Global variable LLM_KEEP_ALIVE.",
+                "list": false,
+                "list_add_label": "Add More",
+                "load_from_db": true,
+                "name": "keep_alive",
+                "override_skip": false,
+                "placeholder": "",
+                "required": false,
+                "show": true,
+                "title_case": false,
+                "tool_mode": false,
+                "trace_as_metadata": true,
+                "track_in_telemetry": false,
+                "type": "str",
+                "value": "LLM_KEEP_ALIVE"
+              },
+              "kind": {
+                "_input_type": "DropdownInput",
+                "advanced": false,
+                "api_editable": false,
+                "combobox": false,
+                "dialog_inputs": {},
+                "display_name": "Document",
+                "dynamic": false,
+                "external_options": {},
+                "info": "",
+                "name": "kind",
+                "options": [
+                  "cv",
+                  "cover_letter",
+                  "recruiter_email"
+                ],
+                "options_metadata": [],
+                "override_skip": false,
+                "placeholder": "",
+                "required": false,
+                "show": true,
+                "title_case": false,
+                "toggle": false,
+                "tool_mode": false,
+                "trace_as_metadata": true,
+                "track_in_telemetry": true,
+                "type": "str",
+                "value": "recruiter_email"
+              },
+              "model": {
+                "_input_type": "StrInput",
+                "advanced": false,
+                "api_editable": false,
+                "display_name": "Model",
+                "dynamic": false,
+                "info": "Global variable LLM_WRITER_MODEL (never hard-coded).",
+                "list": false,
+                "list_add_label": "Add More",
+                "load_from_db": true,
+                "name": "model",
+                "override_skip": false,
+                "placeholder": "",
+                "required": false,
+                "show": true,
+                "title_case": false,
+                "tool_mode": false,
+                "trace_as_metadata": true,
+                "track_in_telemetry": false,
+                "type": "str",
+                "value": "LLM_WRITER_MODEL"
+              },
+              "ollama_base_url": {
+                "_input_type": "StrInput",
+                "advanced": false,
+                "api_editable": false,
+                "display_name": "Ollama base URL",
+                "dynamic": false,
+                "info": "Global variable OLLAMA_BASE_URL.",
+                "list": false,
+                "list_add_label": "Add More",
+                "load_from_db": true,
+                "name": "ollama_base_url",
+                "override_skip": false,
+                "placeholder": "",
+                "required": false,
+                "show": true,
+                "title_case": false,
+                "tool_mode": false,
+                "trace_as_metadata": true,
+                "track_in_telemetry": false,
+                "type": "str",
+                "value": "OLLAMA_BASE_URL"
+              },
+              "posting": {
+                "_input_type": "JSONInput",
+                "advanced": false,
+                "api_editable": false,
+                "display_name": "Posting",
+                "dynamic": false,
+                "info": "",
+                "input_types": [
+                  "Data"
+                ],
+                "list": false,
+                "list_add_label": "Add More",
+                "name": "posting",
+                "override_skip": false,
+                "placeholder": "",
+                "required": false,
+                "show": true,
+                "title_case": false,
+                "tool_mode": false,
+                "trace_as_input": true,
+                "trace_as_metadata": true,
+                "track_in_telemetry": false,
+                "type": "other",
+                "value": ""
+              },
+              "system_prompt": {
+                "_input_type": "MultilineInput",
+                "advanced": false,
+                "ai_enabled": false,
+                "api_editable": false,
+                "copy_field": false,
+                "display_name": "System prompt",
+                "dynamic": false,
+                "info": "Mirrored in langflow/prompts/writer_*.md.",
+                "input_types": [
+                  "Message"
+                ],
+                "list": false,
+                "list_add_label": "Add More",
+                "load_from_db": false,
+                "multiline": true,
+                "name": "system_prompt",
+                "override_skip": false,
+                "password": false,
+                "placeholder": "",
+                "required": false,
+                "show": true,
+                "title_case": false,
+                "tool_mode": false,
+                "trace_as_input": true,
+                "trace_as_metadata": true,
+                "track_in_telemetry": false,
+                "type": "str",
+                "value": "You write a short recruiter email by filling in the user's TEMPLATE for one job. Reply with the finished email body in Markdown and nothing else (no subject line).\nRules:\n- Write in English, even if the job brief is in Danish.\n- Text outside {{ }} in the TEMPLATE stays as written. Every {{ ... }} is an instruction: replace it with short text that follows it. No {{ or }} may remain.\n- {{ recruiter }}: use RECRUITER NAME; if there is none, write \"Hiring Team\".\n- {{ role }} and {{ company }}: the exact ROLE and COMPANY.\n- {{ applicable values }}: only values listed as company_values in the JOB BRIEF, one or two words each, translated to English. If company_values is empty, use the company's stated mission from the brief in a few words. Never invent values.\n- {{ 2-3 top requirements ... }}: only requirements that appear in the JOB BRIEF's must_have or keywords and relate to AI or LLMs; if none do, name the closest data or automation requirements.\n- Do not mention or add an image, diagram placeholder or attachment note.\n- At most 170 words in total. No commentary, no code fences."
+              }
+            },
+            "tool_mode": false
+          },
+          "showNode": true,
+          "type": "AjsDocWriter"
+        },
+        "id": "AjsDocWriter-email",
+        "position": {
+          "x": 2400,
+          "y": 300
+        },
+        "type": "genericNode"
+      },
+      {
+        "data": {
+          "description": "Write the tailored CV, cover letter or recruiter email with the writer model (English only).",
+          "display_name": "AJS Doc Writer",
+          "id": "AjsDocWriter-letter",
+          "node": {
+            "base_classes": [
+              "JSON"
+            ],
+            "beta": false,
+            "bundle": "ajs",
+            "conditional_paths": [],
+            "custom_fields": {},
+            "description": "Write the tailored CV, cover letter or recruiter email with the writer model (English only).",
+            "display_name": "AJS Doc Writer",
+            "documentation": "",
+            "edited": false,
+            "extension": "ajs",
+            "extension_version": "0.0.0",
+            "field_order": [
+              "posting",
+              "kind",
+              "system_prompt",
+              "ollama_base_url",
+              "model",
+              "keep_alive"
+            ],
+            "frozen": false,
+            "icon": "pen-line",
+            "legacy": false,
+            "legacy_module": "ajs_doc_writer",
+            "metadata": {
+              "code_hash": "94e2baf921a0",
+              "dependencies": {
+                "dependencies": [
+                  {
+                    "name": "httpx",
+                    "version": "0.28.1"
+                  },
+                  {
+                    "name": "lfx",
+                    "version": "1.12.3"
+                  }
+                ],
+                "total_dependencies": 2
+              },
+              "module": "_lfx_ext.extra.ajs.ajs_doc_writer"
+            },
+            "minimized": false,
+            "name": "AjsDocWriter",
+            "namespaced_id": "ext:ajs:AjsDocWriter@extra",
+            "output_types": [],
+            "outputs": [
+              {
+                "allows_loop": false,
+                "cache": true,
+                "display_name": "Posting",
+                "group_outputs": false,
+                "method": "write",
+                "name": "posting_out",
+                "selected": "JSON",
+                "tool_mode": true,
+                "types": [
+                  "JSON"
+                ],
+                "value": "__UNDEFINED__"
+              }
+            ],
+            "pinned": false,
+            "template": {
+              "_type": "Component",
+              "code": {
+                "advanced": true,
+                "api_editable": false,
+                "dynamic": true,
+                "fileTypes": [],
+                "file_path": "",
+                "info": "",
+                "list": false,
+                "load_from_db": false,
+                "multiline": true,
+                "name": "code",
+                "password": false,
+                "placeholder": "",
+                "required": true,
+                "show": true,
+                "title_case": false,
+                "type": "code",
+                "value": "\"\"\"AJS Doc Writer: one writer step (brief steps 12-14) for the CV, the cover letter or the email.\n\nCalls the writer model (LLM_WRITER_MODEL) directly on Ollama `/api/chat` with thinking off and\nfree text output. Every document is English (A2). Deterministic checks run on each answer and a\nfailed check triggers a retry that names the problem (temperature 0.7, 0.5, 0.3):\n  - no `{{ }}` or HTML comment may be left;\n  - the CV must keep every role heading of cv.md (no invented or dropped employers);\n  - the letter is 200-450 words; the email body is at most 170 words (the template alone is ~135).\nThe email subject line is built here, not by the model.\n\"\"\"\n\nimport re\nfrom datetime import datetime\n\nimport httpx\nfrom lfx.custom.custom_component.component import Component\nfrom lfx.io import DataInput, DropdownInput, MultilineInput, Output, StrInput\nfrom lfx.schema.data import Data\n\nTEMPERATURES = (0.7, 0.5, 0.3)\nMAX_OUTPUT_TOKENS = 4000\nEMAIL_MAX_WORDS = 170\nLETTER_WORDS = (200, 450)\nCOMMENT = re.compile(r\"<!--.*?-->\\s*\", re.DOTALL)\nFENCE = re.compile(r\"^```[a-z]*\\n(.*)\\n```$\", re.DOTALL)\n\n\ndef clean(text: str) -> str:\n    text = text.strip()\n    fenced = FENCE.match(text)\n    if fenced:\n        text = fenced.group(1).strip()\n    return COMMENT.sub(\"\", text).strip()\n\n\ndef word_count(text: str) -> int:\n    return len(re.findall(r\"\\S+\", text))\n\n\ndef role_headings(cv_markdown: str) -> list[str]:\n    return [line[4:].strip() for line in cv_markdown.splitlines() if line.startswith(\"### \")]\n\n\ndef problems(kind: str, text: str, cv_markdown: str) -> list[str]:\n    found = []\n    if \"{{\" in text or \"}}\" in text:\n        found.append(\"placeholders in {{ }} are still in the text; replace every one with real content\")\n    if \"<!--\" in text:\n        found.append(\"remove all HTML comments\")\n    if not text:\n        found.append(\"the answer is empty\")\n    if kind == \"cv\":\n        missing = [h for h in role_headings(cv_markdown) if h not in text]\n        if missing:\n            found.append(\"keep every role heading of the CV exactly as written; missing: \" + \"; \".join(missing))\n    elif kind == \"cover_letter\":\n        count = word_count(text)\n        if not LETTER_WORDS[0] <= count <= LETTER_WORDS[1]:\n            found.append(f\"the letter has {count} words; it must have {LETTER_WORDS[0]} to {LETTER_WORDS[1]}\")\n    elif kind == \"recruiter_email\" and word_count(text) > EMAIL_MAX_WORDS:\n        found.append(f\"the email has {word_count(text)} words; shorten it to at most {EMAIL_MAX_WORDS}\")\n    return found\n\n\ndef evidence_text(evidence: list[dict]) -> str:\n    return \"\\n\".join(f\"- [{e['role']} | {e['dates']}] {e['text']}\" for e in evidence)\n\n\ndef brief_text(brief: dict) -> str:\n    keys = (\"title\", \"company\", \"must_have\", \"nice_to_have\", \"keywords\", \"company_values\", \"location\")\n    return \"\\n\".join(f\"{k}: {brief.get(k)}\" for k in keys if brief.get(k))\n\n\ndef user_message(kind: str, data: dict, today: str) -> str:\n    brief = brief_text(data[\"job_brief\"])\n    evidence = evidence_text(data.get(\"evidence\", []))\n    recruiter = data.get(\"recruiter_name\") or \"none (use the generic greeting)\"\n    if kind == \"cv\":\n        return f\"JOB BRIEF\\n{brief}\\n\\nPRIORITY EVIDENCE (bullets that match the requirements best)\\n{evidence}\\n\\nCV\\n{data['cv_markdown']}\"\n    template = COMMENT.sub(\"\", data[\"templates\"][kind]).strip()\n    return (\n        f\"TODAY: {today}\\nROLE: {data['title']}\\nCOMPANY: {data['company']}\\nRECRUITER NAME: {recruiter}\\n\\n\"\n        f\"JOB BRIEF\\n{brief}\\n\\nEVIDENCE FROM THE CV\\n{evidence}\\n\\nTEMPLATE\\n{template}\"\n    )\n\n\nclass AjsDocWriter(Component):\n    display_name = \"AJS Doc Writer\"\n    description = \"Write the tailored CV, cover letter or recruiter email with the writer model (English only).\"\n    name = \"AjsDocWriter\"\n    icon = \"pen-line\"\n\n    inputs = [\n        DataInput(name=\"posting\", display_name=\"Posting\", input_types=[\"Data\"]),\n        DropdownInput(name=\"kind\", display_name=\"Document\", options=[\"cv\", \"cover_letter\", \"recruiter_email\"], value=\"cv\"),\n        MultilineInput(\n            name=\"system_prompt\",\n            display_name=\"System prompt\",\n            info=\"Mirrored in langflow/prompts/writer_*.md.\",\n            value=\"\",\n        ),\n        StrInput(\n            name=\"ollama_base_url\",\n            display_name=\"Ollama base URL\",\n            info=\"Global variable OLLAMA_BASE_URL.\",\n            value=\"OLLAMA_BASE_URL\",\n            load_from_db=True,\n        ),\n        StrInput(\n            name=\"model\",\n            display_name=\"Model\",\n            info=\"Global variable LLM_WRITER_MODEL (never hard-coded).\",\n            value=\"LLM_WRITER_MODEL\",\n            load_from_db=True,\n        ),\n        StrInput(\n            name=\"keep_alive\",\n            display_name=\"Keep alive\",\n            info=\"Global variable LLM_KEEP_ALIVE.\",\n            value=\"LLM_KEEP_ALIVE\",\n            load_from_db=True,\n            advanced=True,\n        ),\n    ]\n\n    outputs = [Output(display_name=\"Posting\", name=\"posting_out\", method=\"write\")]\n\n    async def _ask(self, client: httpx.AsyncClient, messages: list[dict], temperature: float) -> str:\n        body = {\n            \"model\": self.model,\n            \"messages\": messages,\n            \"stream\": False,\n            \"think\": False,\n            \"keep_alive\": self.keep_alive,\n            \"options\": {\"temperature\": temperature, \"num_predict\": MAX_OUTPUT_TOKENS},\n        }\n        response = await client.post(f\"{self.ollama_base_url.rstrip('/')}/api/chat\", json=body)\n        response.raise_for_status()\n        return clean(response.json()[\"message\"][\"content\"])\n\n    async def write(self) -> Data:\n        data = dict(self.posting.data)\n        kind = self.kind\n        now = datetime.now()  # noqa: DTZ005 - the letter shows the local date\n        today = f\"{now.day} {now:%B %Y}\"\n        messages = [\n            {\"role\": \"system\", \"content\": self.system_prompt},\n            {\"role\": \"user\", \"content\": user_message(kind, data, today)},\n        ]\n        text, issues = \"\", [\"not run\"]\n        async with httpx.AsyncClient(timeout=httpx.Timeout(600.0, connect=10.0)) as client:\n            for temperature in TEMPERATURES:\n                text = await self._ask(client, messages, temperature)\n                issues = problems(kind, text, data[\"cv_markdown\"])\n                if not issues:\n                    break\n                messages = messages[:2] + [\n                    {\"role\": \"assistant\", \"content\": text},\n                    {\"role\": \"user\", \"content\": \"Rewrite the full document and fix: \" + \"; \".join(issues) + \".\"},\n                ]\n        if issues:\n            msg = f\"{kind} failed its checks after {len(TEMPERATURES)} attempts: {'; '.join(issues)}\"\n            raise ValueError(msg)\n        if kind == \"recruiter_email\":\n            text = f\"Subject: Application for {data['title']} at {data['company']}\\n\\n{text}\"\n        documents = dict(data.get(\"documents\", {}))\n        documents[kind] = text\n        data[\"documents\"] = documents\n        self.status = f\"{kind}: {word_count(text)} words\"\n        return Data(data=data)\n"
+              },
+              "keep_alive": {
+                "_input_type": "StrInput",
+                "advanced": true,
+                "api_editable": false,
+                "display_name": "Keep alive",
+                "dynamic": false,
+                "info": "Global variable LLM_KEEP_ALIVE.",
+                "list": false,
+                "list_add_label": "Add More",
+                "load_from_db": true,
+                "name": "keep_alive",
+                "override_skip": false,
+                "placeholder": "",
+                "required": false,
+                "show": true,
+                "title_case": false,
+                "tool_mode": false,
+                "trace_as_metadata": true,
+                "track_in_telemetry": false,
+                "type": "str",
+                "value": "LLM_KEEP_ALIVE"
+              },
+              "kind": {
+                "_input_type": "DropdownInput",
+                "advanced": false,
+                "api_editable": false,
+                "combobox": false,
+                "dialog_inputs": {},
+                "display_name": "Document",
+                "dynamic": false,
+                "external_options": {},
+                "info": "",
+                "name": "kind",
+                "options": [
+                  "cv",
+                  "cover_letter",
+                  "recruiter_email"
+                ],
+                "options_metadata": [],
+                "override_skip": false,
+                "placeholder": "",
+                "required": false,
+                "show": true,
+                "title_case": false,
+                "toggle": false,
+                "tool_mode": false,
+                "trace_as_metadata": true,
+                "track_in_telemetry": true,
+                "type": "str",
+                "value": "cover_letter"
+              },
+              "model": {
+                "_input_type": "StrInput",
+                "advanced": false,
+                "api_editable": false,
+                "display_name": "Model",
+                "dynamic": false,
+                "info": "Global variable LLM_WRITER_MODEL (never hard-coded).",
+                "list": false,
+                "list_add_label": "Add More",
+                "load_from_db": true,
+                "name": "model",
+                "override_skip": false,
+                "placeholder": "",
+                "required": false,
+                "show": true,
+                "title_case": false,
+                "tool_mode": false,
+                "trace_as_metadata": true,
+                "track_in_telemetry": false,
+                "type": "str",
+                "value": "LLM_WRITER_MODEL"
+              },
+              "ollama_base_url": {
+                "_input_type": "StrInput",
+                "advanced": false,
+                "api_editable": false,
+                "display_name": "Ollama base URL",
+                "dynamic": false,
+                "info": "Global variable OLLAMA_BASE_URL.",
+                "list": false,
+                "list_add_label": "Add More",
+                "load_from_db": true,
+                "name": "ollama_base_url",
+                "override_skip": false,
+                "placeholder": "",
+                "required": false,
+                "show": true,
+                "title_case": false,
+                "tool_mode": false,
+                "trace_as_metadata": true,
+                "track_in_telemetry": false,
+                "type": "str",
+                "value": "OLLAMA_BASE_URL"
+              },
+              "posting": {
+                "_input_type": "JSONInput",
+                "advanced": false,
+                "api_editable": false,
+                "display_name": "Posting",
+                "dynamic": false,
+                "info": "",
+                "input_types": [
+                  "Data"
+                ],
+                "list": false,
+                "list_add_label": "Add More",
+                "name": "posting",
+                "override_skip": false,
+                "placeholder": "",
+                "required": false,
+                "show": true,
+                "title_case": false,
+                "tool_mode": false,
+                "trace_as_input": true,
+                "trace_as_metadata": true,
+                "track_in_telemetry": false,
+                "type": "other",
+                "value": ""
+              },
+              "system_prompt": {
+                "_input_type": "MultilineInput",
+                "advanced": false,
+                "ai_enabled": false,
+                "api_editable": false,
+                "copy_field": false,
+                "display_name": "System prompt",
+                "dynamic": false,
+                "info": "Mirrored in langflow/prompts/writer_*.md.",
+                "input_types": [
+                  "Message"
+                ],
+                "list": false,
+                "list_add_label": "Add More",
+                "load_from_db": false,
+                "multiline": true,
+                "name": "system_prompt",
+                "override_skip": false,
+                "password": false,
+                "placeholder": "",
+                "required": false,
+                "show": true,
+                "title_case": false,
+                "tool_mode": false,
+                "trace_as_input": true,
+                "trace_as_metadata": true,
+                "track_in_telemetry": false,
+                "type": "str",
+                "value": "You write a cover letter by filling in the user's TEMPLATE for one job. Reply with the finished letter in Markdown and nothing else.\nRules:\n- Write in English, even if the job brief is in Danish.\n- Text outside {{ }} in the TEMPLATE stays as written (light grammar fixes only). Every {{ ... }} is an instruction: replace it with text that follows the instruction. No {{ or }} may remain.\n- Use RECRUITER NAME in the greeting when one is given, otherwise follow the template's fallback.\n- Use TODAY for the date.\n- Facts about the candidate come only from EVIDENCE FROM THE CV. Never invent an employer, date, degree, number, tool or skill. Facts about the job and the company come only from the JOB BRIEF.\n- 300 to 400 words in total. No generic flattery, no filler.\n- No commentary, no notes, no code fences."
+              }
+            },
+            "tool_mode": false
+          },
+          "showNode": true,
+          "type": "AjsDocWriter"
+        },
+        "id": "AjsDocWriter-letter",
+        "position": {
+          "x": 2000,
+          "y": 300
+        },
+        "type": "genericNode"
+      },
+      {
+        "data": {
+          "description": "Choose the CV bullets that best match each must_have (bge-m3 cosine, no LLM).",
+          "display_name": "AJS Evidence Selector",
+          "id": "AjsEvidenceSelector-evidence",
+          "node": {
+            "base_classes": [
+              "JSON"
+            ],
+            "beta": false,
+            "bundle": "ajs",
+            "conditional_paths": [],
+            "custom_fields": {},
+            "description": "Choose the CV bullets that best match each must_have (bge-m3 cosine, no LLM).",
+            "display_name": "AJS Evidence Selector",
+            "documentation": "",
+            "edited": false,
+            "extension": "ajs",
+            "extension_version": "0.0.0",
+            "field_order": [
+              "posting",
+              "per_requirement",
+              "ollama_base_url",
+              "embed_model",
+              "warm_model",
+              "keep_alive"
+            ],
+            "frozen": false,
+            "icon": "search-check",
+            "legacy": false,
+            "legacy_module": "ajs_evidence_selector",
+            "metadata": {
+              "code_hash": "3f74a9876d0a",
+              "dependencies": {
+                "dependencies": [
+                  {
+                    "name": "httpx",
+                    "version": "0.28.1"
+                  },
+                  {
+                    "name": "lfx",
+                    "version": "1.12.3"
+                  }
+                ],
+                "total_dependencies": 2
+              },
+              "module": "_lfx_ext.extra.ajs.ajs_evidence_selector"
+            },
+            "minimized": false,
+            "name": "AjsEvidenceSelector",
+            "namespaced_id": "ext:ajs:AjsEvidenceSelector@extra",
+            "output_types": [],
+            "outputs": [
+              {
+                "allows_loop": false,
+                "cache": true,
+                "display_name": "Posting",
+                "group_outputs": false,
+                "method": "select",
+                "name": "posting_out",
+                "selected": "JSON",
+                "tool_mode": true,
+                "types": [
+                  "JSON"
+                ],
+                "value": "__UNDEFINED__"
+              }
+            ],
+            "pinned": false,
+            "template": {
+              "_type": "Component",
+              "code": {
+                "advanced": true,
+                "api_editable": false,
+                "dynamic": true,
+                "fileTypes": [],
+                "file_path": "",
+                "info": "",
+                "list": false,
+                "load_from_db": false,
+                "multiline": true,
+                "name": "code",
+                "password": false,
+                "placeholder": "",
+                "required": true,
+                "show": true,
+                "title_case": false,
+                "type": "code",
+                "value": "\"\"\"AJS Evidence Selector: picks the CV bullets that best support each must_have (no LLM).\n\nBullets are embedded with bge-m3 (cached by content hash) and ranked by cosine similarity to each\nrequirement. Every bullet keeps its role heading (`### Employer - Title`) and dates, so a writer\ncan cite it without guessing. The agent model is warmed up first, because Ollama evicts a\nresident bge-m3 when Gemma loads second (plan 04).\n\"\"\"\n\nimport asyncio\nimport hashlib\nimport math\nimport re\nimport sys\nimport types\n\nimport httpx\nfrom lfx.custom.custom_component.component import Component\nfrom lfx.io import DataInput, IntInput, Output, StrInput\nfrom lfx.schema.data import Data\n\n_cache_module = sys.modules.setdefault(\"ajs_evidence_cache\", types.ModuleType(\"ajs_evidence_cache\"))\nCACHE: dict[str, list[float]] = _cache_module.__dict__.setdefault(\"cache\", {})\nNOT_SCORED = re.compile(r\"\\b(danish|dansk|english|engelsk|fluent|spoken|work permit|relocat\\w*|on-?site)\\b\", re.I)\n\n\ndef cosine(a: list[float], b: list[float]) -> float:\n    dot = sum(x * y for x, y in zip(a, b, strict=True))\n    norm = math.sqrt(sum(x * x for x in a)) * math.sqrt(sum(y * y for y in b))\n    return dot / norm if norm else 0.0\n\n\ndef parse_bullets(cv_markdown: str) -> list[dict]:\n    \"\"\"Every `- ` bullet with the nearest `###` role heading and the italic date line under it.\"\"\"\n    bullets: list[dict] = []\n    section = role = dates = \"\"\n    for line in cv_markdown.splitlines():\n        if line.startswith(\"## \"):\n            section, role, dates = line[3:].strip(), \"\", \"\"\n        elif line.startswith(\"### \"):\n            role, dates = line[4:].strip(), \"\"\n        elif re.fullmatch(r\"\\*[^*]+\\*\", line.strip()) and role and not dates:\n            dates = line.strip().strip(\"*\")\n        elif line.lstrip().startswith(\"- \") and section.lower() != \"overview\":\n            text = line.lstrip()[2:].strip()\n            if text:\n                bullets.append({\"section\": section, \"role\": role, \"dates\": dates, \"text\": text})\n    return bullets\n\n\ndef pick(similarities: dict[str, list[float]], count: int, per_requirement: int) -> list[int]:\n    \"\"\"Indexes of the chosen bullets: the top `per_requirement` for each requirement, no duplicates.\"\"\"\n    chosen: list[int] = []\n    for sims in similarities.values():\n        ranked = sorted(range(count), key=lambda i: sims[i], reverse=True)\n        for index in ranked[:per_requirement]:\n            if index not in chosen:\n                chosen.append(index)\n    return chosen\n\n\nclass AjsEvidenceSelector(Component):\n    display_name = \"AJS Evidence Selector\"\n    description = \"Choose the CV bullets that best match each must_have (bge-m3 cosine, no LLM).\"\n    name = \"AjsEvidenceSelector\"\n    icon = \"search-check\"\n\n    inputs = [\n        DataInput(name=\"posting\", display_name=\"Posting\", input_types=[\"Data\"]),\n        IntInput(name=\"per_requirement\", display_name=\"Bullets per requirement\", value=3, advanced=True),\n        StrInput(\n            name=\"ollama_base_url\",\n            display_name=\"Ollama base URL\",\n            info=\"Global variable OLLAMA_BASE_URL.\",\n            value=\"OLLAMA_BASE_URL\",\n            load_from_db=True,\n        ),\n        StrInput(\n            name=\"embed_model\",\n            display_name=\"Embedding model\",\n            info=\"Global variable EMBED_MODEL.\",\n            value=\"EMBED_MODEL\",\n            load_from_db=True,\n        ),\n        StrInput(\n            name=\"warm_model\",\n            display_name=\"Model to warm up first\",\n            info=\"Global variable LLM_AGENT_MODEL.\",\n            value=\"LLM_AGENT_MODEL\",\n            load_from_db=True,\n            advanced=True,\n        ),\n        StrInput(\n            name=\"keep_alive\",\n            display_name=\"Keep alive\",\n            info=\"Global variable LLM_KEEP_ALIVE.\",\n            value=\"LLM_KEEP_ALIVE\",\n            load_from_db=True,\n            advanced=True,\n        ),\n    ]\n\n    outputs = [Output(display_name=\"Posting\", name=\"posting_out\", method=\"select\")]\n\n    async def _embed(self, client: httpx.AsyncClient, texts: list[str]) -> list[list[float]]:\n        body = {\"model\": self.embed_model, \"input\": texts, \"keep_alive\": self.keep_alive}\n        for attempt in range(3):\n            response = await client.post(f\"{self.ollama_base_url.rstrip('/')}/api/embed\", json=body)\n            if response.status_code == 200:\n                return response.json()[\"embeddings\"]\n            if attempt == 2:\n                response.raise_for_status()\n            await asyncio.sleep(2)\n        return []\n\n    async def select(self) -> Data:\n        data = dict(self.posting.data)\n        brief = data[\"job_brief\"]\n        bullets = parse_bullets(data[\"cv_markdown\"])\n        if not bullets:\n            msg = \"cv.md has no bullet items to use as evidence\"\n            raise ValueError(msg)\n        requirements = [r for r in (brief.get(\"must_have\") or []) if not NOT_SCORED.search(r)]\n        requirements += [r for r in (brief.get(\"nice_to_have\") or []) if not NOT_SCORED.search(r)][:3]\n        if not requirements:\n            requirements = [brief.get(\"title\") or data[\"title\"]]\n\n        base = self.ollama_base_url.rstrip(\"/\")\n        async with httpx.AsyncClient(timeout=httpx.Timeout(300.0, connect=10.0)) as client:\n            warm = await client.post(\n                f\"{base}/api/generate\",\n                json={\"model\": self.warm_model, \"prompt\": \"\", \"stream\": False, \"keep_alive\": self.keep_alive},\n            )\n            warm.raise_for_status()\n            keys = [hashlib.sha256(f\"{self.embed_model}\\n{b['text']}\".encode()).hexdigest() for b in bullets]\n            missing = list({k: b[\"text\"] for k, b in zip(keys, bullets, strict=True) if k not in CACHE}.items())\n            if missing:\n                vectors = await self._embed(client, [text for _, text in missing])\n                for (key, _), vector in zip(missing, vectors, strict=True):\n                    CACHE[key] = vector\n            req_vectors = await self._embed(client, requirements)\n\n        similarities = {\n            req: [cosine(vector, CACHE[key]) for key in keys]\n            for req, vector in zip(requirements, req_vectors, strict=True)\n        }\n        chosen = pick(similarities, len(bullets), max(1, int(self.per_requirement)))\n        evidence = []\n        for index in chosen:\n            best = max(requirements, key=lambda r: similarities[r][index])\n            evidence.append({**bullets[index], \"for\": best, \"similarity\": round(similarities[best][index], 4)})\n        evidence.sort(key=lambda e: e[\"similarity\"], reverse=True)  # the guard trims from the end\n        data[\"evidence\"] = evidence\n        self.status = f\"{len(evidence)} evidence bullets for {len(requirements)} requirements\"\n        return Data(data=data)\n"
+              },
+              "embed_model": {
+                "_input_type": "StrInput",
+                "advanced": false,
+                "api_editable": false,
+                "display_name": "Embedding model",
+                "dynamic": false,
+                "info": "Global variable EMBED_MODEL.",
+                "list": false,
+                "list_add_label": "Add More",
+                "load_from_db": true,
+                "name": "embed_model",
+                "override_skip": false,
+                "placeholder": "",
+                "required": false,
+                "show": true,
+                "title_case": false,
+                "tool_mode": false,
+                "trace_as_metadata": true,
+                "track_in_telemetry": false,
+                "type": "str",
+                "value": "EMBED_MODEL"
+              },
+              "keep_alive": {
+                "_input_type": "StrInput",
+                "advanced": true,
+                "api_editable": false,
+                "display_name": "Keep alive",
+                "dynamic": false,
+                "info": "Global variable LLM_KEEP_ALIVE.",
+                "list": false,
+                "list_add_label": "Add More",
+                "load_from_db": true,
+                "name": "keep_alive",
+                "override_skip": false,
+                "placeholder": "",
+                "required": false,
+                "show": true,
+                "title_case": false,
+                "tool_mode": false,
+                "trace_as_metadata": true,
+                "track_in_telemetry": false,
+                "type": "str",
+                "value": "LLM_KEEP_ALIVE"
+              },
+              "ollama_base_url": {
+                "_input_type": "StrInput",
+                "advanced": false,
+                "api_editable": false,
+                "display_name": "Ollama base URL",
+                "dynamic": false,
+                "info": "Global variable OLLAMA_BASE_URL.",
+                "list": false,
+                "list_add_label": "Add More",
+                "load_from_db": true,
+                "name": "ollama_base_url",
+                "override_skip": false,
+                "placeholder": "",
+                "required": false,
+                "show": true,
+                "title_case": false,
+                "tool_mode": false,
+                "trace_as_metadata": true,
+                "track_in_telemetry": false,
+                "type": "str",
+                "value": "OLLAMA_BASE_URL"
+              },
+              "per_requirement": {
+                "_input_type": "IntInput",
+                "advanced": true,
+                "api_editable": false,
+                "display_name": "Bullets per requirement",
+                "dynamic": false,
+                "info": "",
+                "list": false,
+                "list_add_label": "Add More",
+                "name": "per_requirement",
+                "override_skip": false,
+                "placeholder": "",
+                "required": false,
+                "show": true,
+                "title_case": false,
+                "tool_mode": false,
+                "trace_as_metadata": true,
+                "track_in_telemetry": true,
+                "type": "int",
+                "value": 3
+              },
+              "posting": {
+                "_input_type": "JSONInput",
+                "advanced": false,
+                "api_editable": false,
+                "display_name": "Posting",
+                "dynamic": false,
+                "info": "",
+                "input_types": [
+                  "Data"
+                ],
+                "list": false,
+                "list_add_label": "Add More",
+                "name": "posting",
+                "override_skip": false,
+                "placeholder": "",
+                "required": false,
+                "show": true,
+                "title_case": false,
+                "tool_mode": false,
+                "trace_as_input": true,
+                "trace_as_metadata": true,
+                "track_in_telemetry": false,
+                "type": "other",
+                "value": ""
+              },
+              "warm_model": {
+                "_input_type": "StrInput",
+                "advanced": true,
+                "api_editable": false,
+                "display_name": "Model to warm up first",
+                "dynamic": false,
+                "info": "Global variable LLM_AGENT_MODEL.",
+                "list": false,
+                "list_add_label": "Add More",
+                "load_from_db": true,
+                "name": "warm_model",
+                "override_skip": false,
+                "placeholder": "",
+                "required": false,
+                "show": true,
+                "title_case": false,
+                "tool_mode": false,
+                "trace_as_metadata": true,
+                "track_in_telemetry": false,
+                "type": "str",
+                "value": "LLM_AGENT_MODEL"
+              }
+            },
+            "tool_mode": false
+          },
+          "showNode": true,
+          "type": "AjsEvidenceSelector"
+        },
+        "id": "AjsEvidenceSelector-evidence",
+        "position": {
+          "x": 800,
+          "y": 300
+        },
+        "type": "genericNode"
+      },
+      {
+        "data": {
+          "description": "Flag claims about the candidate in the generated documents that cv.md does not support.",
+          "display_name": "AJS Fact Check",
+          "id": "AjsFactCheck-fact",
+          "node": {
+            "base_classes": [
+              "JSON"
+            ],
+            "beta": false,
+            "bundle": "ajs",
+            "conditional_paths": [],
+            "custom_fields": {},
+            "description": "Flag claims about the candidate in the generated documents that cv.md does not support.",
+            "display_name": "AJS Fact Check",
+            "documentation": "",
+            "edited": false,
+            "extension": "ajs",
+            "extension_version": "0.0.0",
+            "field_order": [
+              "posting",
+              "system_prompt",
+              "ollama_base_url",
+              "model",
+              "keep_alive"
+            ],
+            "frozen": false,
+            "icon": "shield-check",
+            "legacy": false,
+            "legacy_module": "ajs_fact_check",
+            "metadata": {
+              "code_hash": "6e2ead720326",
+              "dependencies": {
+                "dependencies": [
+                  {
+                    "name": "httpx",
+                    "version": "0.28.1"
+                  },
+                  {
+                    "name": "lfx",
+                    "version": "1.12.3"
+                  }
+                ],
+                "total_dependencies": 2
+              },
+              "module": "_lfx_ext.extra.ajs.ajs_fact_check"
+            },
+            "minimized": false,
+            "name": "AjsFactCheck",
+            "namespaced_id": "ext:ajs:AjsFactCheck@extra",
+            "output_types": [],
+            "outputs": [
+              {
+                "allows_loop": false,
+                "cache": true,
+                "display_name": "Posting",
+                "group_outputs": false,
+                "method": "check",
+                "name": "posting_out",
+                "selected": "JSON",
+                "tool_mode": true,
+                "types": [
+                  "JSON"
+                ],
+                "value": "__UNDEFINED__"
+              }
+            ],
+            "pinned": false,
+            "template": {
+              "_type": "Component",
+              "code": {
+                "advanced": true,
+                "api_editable": false,
+                "dynamic": true,
+                "fileTypes": [],
+                "file_path": "",
+                "info": "",
+                "list": false,
+                "load_from_db": false,
+                "multiline": true,
+                "name": "code",
+                "password": false,
+                "placeholder": "",
+                "required": true,
+                "show": true,
+                "title_case": false,
+                "type": "code",
+                "value": "\"\"\"AJS Fact Check: compares every generated document with cv.md and flags unsupported claims.\n\nUses the agent model (LLM_AGENT_MODEL, same loaded model, no swap) with thinking off at\ntemperature 0.2 and a JSON-schema `format`. It never rewrites anything: the claims go into\n`warnings`, which AJS Save Generation stores in the posting event note for the review UI.\nClaims about the posting or the company are fine; claims about the candidate must be in cv.md.\n\"\"\"\n\nimport json\n\nimport httpx\nfrom lfx.custom.custom_component.component import Component\nfrom lfx.io import DataInput, MultilineInput, Output, StrInput\nfrom lfx.schema.data import Data\n\nSCHEMA = {\n    \"type\": \"object\",\n    \"required\": [\"claims\"],\n    \"properties\": {\n        \"claims\": {\n            \"type\": \"array\",\n            \"items\": {\n                \"type\": \"object\",\n                \"required\": [\"document\", \"claim\", \"reason\"],\n                \"properties\": {\n                    \"document\": {\"enum\": [\"cv\", \"cover_letter\", \"recruiter_email\"]},\n                    \"claim\": {\"type\": \"string\"},\n                    \"reason\": {\"type\": \"string\"},\n                },\n            },\n        }\n    },\n}\n\n\nclass AjsFactCheck(Component):\n    display_name = \"AJS Fact Check\"\n    description = \"Flag claims about the candidate in the generated documents that cv.md does not support.\"\n    name = \"AjsFactCheck\"\n    icon = \"shield-check\"\n\n    inputs = [\n        DataInput(name=\"posting\", display_name=\"Posting\", input_types=[\"Data\"]),\n        MultilineInput(\n            name=\"system_prompt\",\n            display_name=\"System prompt\",\n            info=\"Mirrored in langflow/prompts/fact_check.md.\",\n            value=\"\",\n        ),\n        StrInput(\n            name=\"ollama_base_url\",\n            display_name=\"Ollama base URL\",\n            info=\"Global variable OLLAMA_BASE_URL.\",\n            value=\"OLLAMA_BASE_URL\",\n            load_from_db=True,\n        ),\n        StrInput(\n            name=\"model\",\n            display_name=\"Model\",\n            info=\"Global variable LLM_AGENT_MODEL (never hard-coded).\",\n            value=\"LLM_AGENT_MODEL\",\n            load_from_db=True,\n        ),\n        StrInput(\n            name=\"keep_alive\",\n            display_name=\"Keep alive\",\n            info=\"Global variable LLM_KEEP_ALIVE.\",\n            value=\"LLM_KEEP_ALIVE\",\n            load_from_db=True,\n            advanced=True,\n        ),\n    ]\n\n    outputs = [Output(display_name=\"Posting\", name=\"posting_out\", method=\"check\")]\n\n    async def check(self) -> Data:\n        data = dict(self.posting.data)\n        documents = data[\"documents\"]\n        text = \"\\n\\n\".join(f\"=== DOCUMENT: {kind} ===\\n{body}\" for kind, body in documents.items())\n        messages = [\n            {\"role\": \"system\", \"content\": self.system_prompt},\n            {\"role\": \"user\", \"content\": f\"CV (the only source of truth about the candidate)\\n{data['cv_markdown']}\\n\\n{text}\"},\n        ]\n        body = {\n            \"model\": self.model,\n            \"messages\": messages,\n            \"stream\": False,\n            \"think\": False,\n            \"format\": SCHEMA,\n            \"keep_alive\": self.keep_alive,\n            \"options\": {\"temperature\": 0.2, \"num_predict\": 2000},\n        }\n        claims: list[dict] | None = None\n        async with httpx.AsyncClient(timeout=httpx.Timeout(600.0, connect=10.0)) as client:\n            for _ in range(3):\n                response = await client.post(f\"{self.ollama_base_url.rstrip('/')}/api/chat\", json=body)\n                response.raise_for_status()\n                try:\n                    claims = json.loads(response.json()[\"message\"][\"content\"])[\"claims\"]\n                    break\n                except (json.JSONDecodeError, KeyError, TypeError):\n                    body[\"options\"][\"temperature\"] = 0.5\n        if claims is None:\n            msg = \"fact check returned no valid JSON in 3 attempts\"\n            raise ValueError(msg)\n        data[\"warnings\"] = [c for c in claims if c.get(\"claim\")]\n        self.status = f\"{len(data['warnings'])} warning(s)\"\n        return Data(data=data)\n"
+              },
+              "keep_alive": {
+                "_input_type": "StrInput",
+                "advanced": true,
+                "api_editable": false,
+                "display_name": "Keep alive",
+                "dynamic": false,
+                "info": "Global variable LLM_KEEP_ALIVE.",
+                "list": false,
+                "list_add_label": "Add More",
+                "load_from_db": true,
+                "name": "keep_alive",
+                "override_skip": false,
+                "placeholder": "",
+                "required": false,
+                "show": true,
+                "title_case": false,
+                "tool_mode": false,
+                "trace_as_metadata": true,
+                "track_in_telemetry": false,
+                "type": "str",
+                "value": "LLM_KEEP_ALIVE"
+              },
+              "model": {
+                "_input_type": "StrInput",
+                "advanced": false,
+                "api_editable": false,
+                "display_name": "Model",
+                "dynamic": false,
+                "info": "Global variable LLM_AGENT_MODEL (never hard-coded).",
+                "list": false,
+                "list_add_label": "Add More",
+                "load_from_db": true,
+                "name": "model",
+                "override_skip": false,
+                "placeholder": "",
+                "required": false,
+                "show": true,
+                "title_case": false,
+                "tool_mode": false,
+                "trace_as_metadata": true,
+                "track_in_telemetry": false,
+                "type": "str",
+                "value": "LLM_AGENT_MODEL"
+              },
+              "ollama_base_url": {
+                "_input_type": "StrInput",
+                "advanced": false,
+                "api_editable": false,
+                "display_name": "Ollama base URL",
+                "dynamic": false,
+                "info": "Global variable OLLAMA_BASE_URL.",
+                "list": false,
+                "list_add_label": "Add More",
+                "load_from_db": true,
+                "name": "ollama_base_url",
+                "override_skip": false,
+                "placeholder": "",
+                "required": false,
+                "show": true,
+                "title_case": false,
+                "tool_mode": false,
+                "trace_as_metadata": true,
+                "track_in_telemetry": false,
+                "type": "str",
+                "value": "OLLAMA_BASE_URL"
+              },
+              "posting": {
+                "_input_type": "JSONInput",
+                "advanced": false,
+                "api_editable": false,
+                "display_name": "Posting",
+                "dynamic": false,
+                "info": "",
+                "input_types": [
+                  "Data"
+                ],
+                "list": false,
+                "list_add_label": "Add More",
+                "name": "posting",
+                "override_skip": false,
+                "placeholder": "",
+                "required": false,
+                "show": true,
+                "title_case": false,
+                "tool_mode": false,
+                "trace_as_input": true,
+                "trace_as_metadata": true,
+                "track_in_telemetry": false,
+                "type": "other",
+                "value": ""
+              },
+              "system_prompt": {
+                "_input_type": "MultilineInput",
+                "advanced": false,
+                "ai_enabled": false,
+                "api_editable": false,
+                "copy_field": false,
+                "display_name": "System prompt",
+                "dynamic": false,
+                "info": "Mirrored in langflow/prompts/fact_check.md.",
+                "input_types": [
+                  "Message"
+                ],
+                "list": false,
+                "list_add_label": "Add More",
+                "load_from_db": false,
+                "multiline": true,
+                "name": "system_prompt",
+                "override_skip": false,
+                "password": false,
+                "placeholder": "",
+                "required": false,
+                "show": true,
+                "title_case": false,
+                "tool_mode": false,
+                "trace_as_input": true,
+                "trace_as_metadata": true,
+                "track_in_telemetry": false,
+                "type": "str",
+                "value": "You check generated job application documents against the candidate's CV. The CV is the only source of truth about the candidate.\nList every claim about the candidate in the documents that the CV does not support: an employer, job title, date, degree, certification, number or result, tool, technology, skill or responsibility that does not appear in the CV or cannot be inferred from it directly.\nDo not flag: claims about the job or the company, the candidate's plan to relocate to Denmark and Danish classes, or rephrasing that keeps the CV's meaning.\nFor each problem give the document (cv, cover_letter or recruiter_email), the claim as quoted text, and a short reason. If everything is supported, return an empty list.\nReply with one JSON object and nothing else: {\"claims\": [{\"document\": \"...\", \"claim\": \"...\", \"reason\": \"...\"}]}."
+              }
+            },
+            "tool_mode": false
+          },
+          "showNode": true,
+          "type": "AjsFactCheck"
+        },
+        "id": "AjsFactCheck-fact",
+        "position": {
+          "x": 2800,
+          "y": 300
+        },
+        "type": "genericNode"
+      },
+      {
+        "data": {
+          "description": "Load a matched posting, the CV and the templates; create the folder; set status generating.",
+          "display_name": "AJS Load Generation",
+          "id": "AjsLoadGeneration-load",
+          "node": {
+            "base_classes": [
+              "JSON",
+              "Message"
+            ],
+            "beta": false,
+            "bundle": "ajs",
+            "conditional_paths": [],
+            "custom_fields": {},
+            "description": "Load a matched posting, the CV and the templates; create the folder; set status generating.",
+            "display_name": "AJS Load Generation",
+            "documentation": "",
+            "edited": false,
+            "extension": "ajs",
+            "extension_version": "0.0.0",
+            "field_order": [
+              "input_value",
+              "backend_url",
+              "backend_api_key"
+            ],
+            "frozen": false,
+            "icon": "download",
+            "legacy": false,
+            "legacy_module": "ajs_load_generation",
+            "metadata": {
+              "code_hash": "2aaccaa3f737",
+              "dependencies": {
+                "dependencies": [
+                  {
+                    "name": "httpx",
+                    "version": "0.28.1"
+                  },
+                  {
+                    "name": "lfx",
+                    "version": "1.12.3"
+                  }
+                ],
+                "total_dependencies": 2
+              },
+              "module": "_lfx_ext.extra.ajs.ajs_load_generation"
+            },
+            "minimized": false,
+            "name": "AjsLoadGeneration",
+            "namespaced_id": "ext:ajs:AjsLoadGeneration@extra",
+            "output_types": [],
+            "outputs": [
+              {
+                "allows_loop": false,
+                "cache": true,
+                "display_name": "Posting",
+                "group_outputs": false,
+                "method": "load",
+                "name": "posting",
+                "selected": "JSON",
+                "tool_mode": true,
+                "types": [
+                  "JSON"
+                ],
+                "value": "__UNDEFINED__"
+              },
+              {
+                "allows_loop": false,
+                "cache": true,
+                "display_name": "Skipped",
+                "group_outputs": false,
+                "method": "skipped",
+                "name": "skipped",
+                "selected": "Message",
+                "tool_mode": true,
+                "types": [
+                  "Message"
+                ],
+                "value": "__UNDEFINED__"
+              }
+            ],
+            "pinned": false,
+            "template": {
+              "_type": "Component",
+              "backend_api_key": {
+                "_input_type": "SecretStrInput",
+                "advanced": false,
+                "api_editable": false,
+                "display_name": "Backend API key",
+                "dynamic": false,
+                "info": "Global variable BACKEND_API_KEY.",
+                "input_types": [],
+                "load_from_db": true,
+                "name": "backend_api_key",
+                "override_skip": false,
+                "password": true,
+                "placeholder": "",
+                "required": false,
+                "show": true,
+                "title_case": false,
+                "track_in_telemetry": false,
+                "type": "str",
+                "value": "BACKEND_API_KEY"
+              },
+              "backend_url": {
+                "_input_type": "StrInput",
+                "advanced": false,
+                "api_editable": false,
+                "display_name": "Backend URL",
+                "dynamic": false,
+                "info": "Global variable BACKEND_URL (FastAPI base including /api/v1).",
+                "list": false,
+                "list_add_label": "Add More",
+                "load_from_db": false,
+                "name": "backend_url",
+                "override_skip": false,
+                "placeholder": "",
+                "required": false,
+                "show": true,
+                "title_case": false,
+                "tool_mode": false,
+                "trace_as_metadata": true,
+                "track_in_telemetry": false,
+                "type": "str",
+                "value": "http://backend:8000/api/v1"
+              },
+              "code": {
+                "advanced": true,
+                "api_editable": false,
+                "dynamic": true,
+                "fileTypes": [],
+                "file_path": "",
+                "info": "",
+                "list": false,
+                "load_from_db": false,
+                "multiline": true,
+                "name": "code",
+                "password": false,
+                "placeholder": "",
+                "required": true,
+                "show": true,
+                "title_case": false,
+                "type": "code",
+                "value": "\"\"\"AJS Load Generation: starts the generation phase for one `matched` posting (brief steps 11-12).\n\nInput is {\"posting_id\": 12}. The posting must be `matched` (approved at gate 1, D9) or already\n`generating` (a retry after a crash). The component loads the posting, the full CV and both\ntemplates from the backend, creates the application folder and moves the status to `generating`.\n\"\"\"\n\nimport json\n\nimport httpx\nfrom lfx.custom.custom_component.component import Component\nfrom lfx.io import MessageTextInput, Output, SecretStrInput, StrInput\nfrom lfx.schema.data import Data\nfrom lfx.schema.message import Message\n\nRUNNABLE = {\"matched\", \"generating\"}\n\n\nclass AjsLoadGeneration(Component):\n    display_name = \"AJS Load Generation\"\n    description = \"Load a matched posting, the CV and the templates; create the folder; set status generating.\"\n    name = \"AjsLoadGeneration\"\n    icon = \"download\"\n\n    inputs = [\n        MessageTextInput(\n            name=\"input_value\",\n            display_name=\"Input\",\n            info='JSON: {\"posting_id\": int}',\n            input_types=[\"Message\"],\n        ),\n        StrInput(\n            name=\"backend_url\",\n            display_name=\"Backend URL\",\n            info=\"Global variable BACKEND_URL (FastAPI base including /api/v1).\",\n            value=\"http://backend:8000/api/v1\",\n        ),\n        SecretStrInput(\n            name=\"backend_api_key\",\n            display_name=\"Backend API key\",\n            info=\"Global variable BACKEND_API_KEY.\",\n            value=\"BACKEND_API_KEY\",\n            load_from_db=True,\n        ),\n    ]\n\n    outputs = [\n        Output(display_name=\"Posting\", name=\"posting\", method=\"load\"),\n        Output(display_name=\"Skipped\", name=\"skipped\", method=\"skipped\"),\n    ]\n\n    async def _load(self) -> tuple[dict | None, str | None]:\n        cached = getattr(self, \"_ajs_result\", None)\n        if cached is not None:\n            return cached\n        raw = self.input_value\n        raw = raw.text if hasattr(raw, \"text\") else str(raw or \"\")\n        try:\n            payload = {\"posting_id\": int(raw)} if raw.strip().isdigit() else json.loads(raw)\n            posting_id = int(payload[\"posting_id\"])\n        except (ValueError, KeyError, TypeError) as exc:\n            msg = 'input must be JSON like {\"posting_id\": 12}'\n            raise ValueError(msg) from exc\n        base = self.backend_url.rstrip(\"/\")\n        async with httpx.AsyncClient(headers={\"X-API-Key\": self.backend_api_key}, timeout=30) as client:\n            response = await client.get(f\"{base}/postings/{posting_id}\")\n            response.raise_for_status()\n            detail = response.json()\n            if detail[\"status\"] not in RUNNABLE:\n                reason = f\"posting {posting_id} has status '{detail['status']}', nothing to generate\"\n                self._ajs_result = (None, reason)\n                return self._ajs_result\n            if not detail.get(\"job_brief\"):\n                msg = f\"posting {posting_id} has no job_brief\"\n                raise ValueError(msg)\n            sections = (await client.get(f\"{base}/tools/profile/cv-sections\")).raise_for_status().json()\n            letter = (await client.get(f\"{base}/tools/profile/templates/cover_letter\")).raise_for_status().json()\n            email = (await client.get(f\"{base}/tools/profile/templates/recruiter_email\")).raise_for_status().json()\n            folder = (await client.post(f\"{base}/tools/postings/{posting_id}/folder\")).raise_for_status().json()\n            if detail[\"status\"] == \"matched\":\n                moved = await client.post(\n                    f\"{base}/tools/postings/{posting_id}/status\",\n                    json={\"to\": \"generating\", \"note\": \"generation started\"},\n                )\n                moved.raise_for_status()\n        cv_markdown = \"\\n\\n\".join(s[\"markdown\"] for s in sections).strip()\n        brief = detail[\"job_brief\"]\n        data = {\n            \"posting_id\": posting_id,\n            \"company\": detail[\"company\"],\n            \"title\": detail[\"title\"],\n            \"job_brief\": brief,\n            \"recruiter_name\": detail.get(\"recruiter_name\") or (brief.get(\"contact\") or {}).get(\"name\"),\n            \"cv_markdown\": cv_markdown,\n            \"templates\": {\"cover_letter\": letter[\"markdown\"], \"recruiter_email\": email[\"markdown\"]},\n            \"folder\": folder[\"path\"],\n            \"documents\": {},\n        }\n        self._ajs_result = (data, None)\n        return self._ajs_result\n\n    async def load(self) -> Data:\n        data, reason = await self._load()\n        if data is None:\n            self.stop(\"posting\")\n            return Data(data={\"skipped\": reason})\n        self.stop(\"skipped\")\n        self.status = f\"posting {data['posting_id']} generating\"\n        return Data(data=data)\n\n    async def skipped(self) -> Message:\n        data, reason = await self._load()\n        if data is not None:\n            self.stop(\"skipped\")\n            return Message(text=\"\")\n        self.stop(\"posting\")\n        return Message(text=json.dumps({\"skipped\": True, \"reason\": reason}))\n"
+              },
+              "input_value": {
+                "_input_type": "MessageTextInput",
+                "advanced": false,
+                "api_editable": false,
+                "display_name": "Input",
+                "dynamic": false,
+                "info": "JSON: {\"posting_id\": int}",
+                "input_types": [
+                  "Message"
+                ],
+                "list": false,
+                "list_add_label": "Add More",
+                "load_from_db": false,
+                "name": "input_value",
+                "override_skip": false,
+                "placeholder": "",
+                "required": false,
+                "show": true,
+                "title_case": false,
+                "tool_mode": false,
+                "trace_as_input": true,
+                "trace_as_metadata": true,
+                "track_in_telemetry": false,
+                "type": "str",
+                "value": ""
+              }
+            },
+            "tool_mode": false
+          },
+          "showNode": true,
+          "type": "AjsLoadGeneration"
+        },
+        "id": "AjsLoadGeneration-load",
+        "position": {
+          "x": 400,
+          "y": 300
+        },
+        "type": "genericNode"
+      },
+      {
+        "data": {
+          "description": "Save the generated documents through the backend and mark the posting generated.",
+          "display_name": "AJS Save Generation",
+          "id": "AjsSaveGeneration-save",
+          "node": {
+            "base_classes": [
+              "Message"
+            ],
+            "beta": false,
+            "bundle": "ajs",
+            "conditional_paths": [],
+            "custom_fields": {},
+            "description": "Save the generated documents through the backend and mark the posting generated.",
+            "display_name": "AJS Save Generation",
+            "documentation": "",
+            "edited": false,
+            "extension": "ajs",
+            "extension_version": "0.0.0",
+            "field_order": [
+              "posting",
+              "backend_url",
+              "backend_api_key"
+            ],
+            "frozen": false,
+            "icon": "save",
+            "legacy": false,
+            "legacy_module": "ajs_save_generation",
+            "metadata": {
+              "code_hash": "c905d40b654c",
+              "dependencies": {
+                "dependencies": [
+                  {
+                    "name": "httpx",
+                    "version": "0.28.1"
+                  },
+                  {
+                    "name": "lfx",
+                    "version": "1.12.3"
+                  }
+                ],
+                "total_dependencies": 2
+              },
+              "module": "_lfx_ext.extra.ajs.ajs_save_generation"
+            },
+            "minimized": false,
+            "name": "AjsSaveGeneration",
+            "namespaced_id": "ext:ajs:AjsSaveGeneration@extra",
+            "output_types": [],
+            "outputs": [
+              {
+                "allows_loop": false,
+                "cache": true,
+                "display_name": "Result",
+                "group_outputs": false,
+                "method": "save",
+                "name": "result",
+                "selected": "Message",
+                "tool_mode": true,
+                "types": [
+                  "Message"
+                ],
+                "value": "__UNDEFINED__"
+              }
+            ],
+            "pinned": false,
+            "template": {
+              "_type": "Component",
+              "backend_api_key": {
+                "_input_type": "SecretStrInput",
+                "advanced": false,
+                "api_editable": false,
+                "display_name": "Backend API key",
+                "dynamic": false,
+                "info": "Global variable BACKEND_API_KEY.",
+                "input_types": [],
+                "load_from_db": true,
+                "name": "backend_api_key",
+                "override_skip": false,
+                "password": true,
+                "placeholder": "",
+                "required": false,
+                "show": true,
+                "title_case": false,
+                "track_in_telemetry": false,
+                "type": "str",
+                "value": "BACKEND_API_KEY"
+              },
+              "backend_url": {
+                "_input_type": "StrInput",
+                "advanced": false,
+                "api_editable": false,
+                "display_name": "Backend URL",
+                "dynamic": false,
+                "info": "Global variable BACKEND_URL (FastAPI base including /api/v1).",
+                "list": false,
+                "list_add_label": "Add More",
+                "load_from_db": false,
+                "name": "backend_url",
+                "override_skip": false,
+                "placeholder": "",
+                "required": false,
+                "show": true,
+                "title_case": false,
+                "tool_mode": false,
+                "trace_as_metadata": true,
+                "track_in_telemetry": false,
+                "type": "str",
+                "value": "http://backend:8000/api/v1"
+              },
+              "code": {
+                "advanced": true,
+                "api_editable": false,
+                "dynamic": true,
+                "fileTypes": [],
+                "file_path": "",
+                "info": "",
+                "list": false,
+                "load_from_db": false,
+                "multiline": true,
+                "name": "code",
+                "password": false,
+                "placeholder": "",
+                "required": true,
+                "show": true,
+                "title_case": false,
+                "type": "code",
+                "value": "\"\"\"AJS Save Generation: saves the three documents and sets the status `generated` (brief step 15).\n\nArtifacts go through POST /tools/postings/{id}/artifacts (the backend writes the .md and renders\nthe .pdf). The fact-check warnings go into the event note of the `generating -> generated`\ntransition as JSON after the prefix \"fact-check: \", where the review UI reads them.\n\"\"\"\n\nimport json\n\nimport httpx\nfrom lfx.custom.custom_component.component import Component\nfrom lfx.io import DataInput, Output, SecretStrInput, StrInput\nfrom lfx.schema.message import Message\n\nKINDS = (\"cv\", \"cover_letter\", \"recruiter_email\")\n\n\nclass AjsSaveGeneration(Component):\n    display_name = \"AJS Save Generation\"\n    description = \"Save the generated documents through the backend and mark the posting generated.\"\n    name = \"AjsSaveGeneration\"\n    icon = \"save\"\n\n    inputs = [\n        DataInput(name=\"posting\", display_name=\"Posting\", input_types=[\"Data\"]),\n        StrInput(\n            name=\"backend_url\",\n            display_name=\"Backend URL\",\n            info=\"Global variable BACKEND_URL (FastAPI base including /api/v1).\",\n            value=\"http://backend:8000/api/v1\",\n        ),\n        SecretStrInput(\n            name=\"backend_api_key\",\n            display_name=\"Backend API key\",\n            info=\"Global variable BACKEND_API_KEY.\",\n            value=\"BACKEND_API_KEY\",\n            load_from_db=True,\n        ),\n    ]\n\n    outputs = [Output(display_name=\"Result\", name=\"result\", method=\"save\")]\n\n    async def save(self) -> Message:\n        data = self.posting.data\n        documents = data[\"documents\"]\n        missing = [k for k in KINDS if not documents.get(k)]\n        if missing:\n            msg = f\"missing documents: {missing}\"\n            raise ValueError(msg)\n        base = f\"{self.backend_url.rstrip('/')}/tools/postings/{data['posting_id']}\"\n        warnings = data.get(\"warnings\", [])\n        note = \"fact-check: \" + json.dumps(warnings, ensure_ascii=False)\n        saved = []\n        async with httpx.AsyncClient(headers={\"X-API-Key\": self.backend_api_key}, timeout=120) as client:\n            for kind in KINDS:\n                response = await client.post(f\"{base}/artifacts\", json={\"kind\": kind, \"markdown\": documents[kind]})\n                response.raise_for_status()\n                saved.append(response.json())\n            moved = await client.post(f\"{base}/status\", json={\"to\": \"generated\", \"note\": note[:4000]})\n            moved.raise_for_status()\n        self.status = f\"saved {len(saved)} documents, {len(warnings)} warning(s)\"\n        return Message(\n            text=json.dumps(\n                {\n                    \"posting_id\": data[\"posting_id\"],\n                    \"status\": moved.json()[\"status\"],\n                    \"artifacts\": saved,\n                    \"warnings\": warnings,\n                    \"budget\": data.get(\"budget\"),\n                },\n                default=str,\n            )\n        )\n"
+              },
+              "posting": {
+                "_input_type": "JSONInput",
+                "advanced": false,
+                "api_editable": false,
+                "display_name": "Posting",
+                "dynamic": false,
+                "info": "",
+                "input_types": [
+                  "Data"
+                ],
+                "list": false,
+                "list_add_label": "Add More",
+                "name": "posting",
+                "override_skip": false,
+                "placeholder": "",
+                "required": false,
+                "show": true,
+                "title_case": false,
+                "tool_mode": false,
+                "trace_as_input": true,
+                "trace_as_metadata": true,
+                "track_in_telemetry": false,
+                "type": "other",
+                "value": ""
+              }
+            },
+            "tool_mode": false
+          },
+          "showNode": true,
+          "type": "AjsSaveGeneration"
+        },
+        "id": "AjsSaveGeneration-save",
+        "position": {
+          "x": 3200,
+          "y": 300
+        },
+        "type": "genericNode"
+      },
+      {
+        "data": {
+          "description": "Get chat inputs from the Playground.",
+          "display_name": "Chat Input",
+          "id": "ChatInput-chat_in",
+          "node": {
+            "base_classes": [
+              "Message"
+            ],
+            "beta": false,
+            "conditional_paths": [],
+            "custom_fields": {},
+            "description": "Get chat inputs from the Playground.",
+            "display_name": "Chat Input",
+            "documentation": "https://docs.langflow.org/chat-input-and-output",
+            "edited": false,
+            "field_order": [
+              "input_value",
+              "should_store_message",
+              "sender",
+              "sender_name",
+              "session_id",
+              "context_id",
+              "files"
+            ],
+            "frozen": false,
+            "icon": "MessagesSquare",
+            "legacy": false,
+            "metadata": {
+              "code_hash": "45974e6b1909",
+              "dependencies": {
+                "dependencies": [
+                  {
+                    "name": "lfx",
+                    "version": null
+                  }
+                ],
+                "total_dependencies": 1
+              },
+              "module": "lfx.components.input_output.chat.ChatInput"
+            },
+            "minimized": true,
+            "output_types": [],
+            "outputs": [
+              {
+                "allows_loop": false,
+                "cache": true,
+                "display_name": "Chat Message",
+                "group_outputs": false,
+                "method": "message_response",
+                "name": "message",
+                "selected": "Message",
+                "tool_mode": true,
+                "types": [
+                  "Message"
+                ],
+                "value": "__UNDEFINED__"
+              }
+            ],
+            "pinned": false,
+            "template": {
+              "_type": "Component",
+              "code": {
+                "advanced": true,
+                "api_editable": false,
+                "dynamic": true,
+                "fileTypes": [],
+                "file_path": "",
+                "info": "",
+                "list": false,
+                "load_from_db": false,
+                "multiline": true,
+                "name": "code",
+                "password": false,
+                "placeholder": "",
+                "required": true,
+                "show": true,
+                "title_case": false,
+                "type": "code",
+                "value": "from lfx.base.data.utils import IMG_FILE_TYPES, TEXT_FILE_TYPES\nfrom lfx.base.io.chat import ChatComponent\nfrom lfx.inputs.inputs import BoolInput\nfrom lfx.io import (\n    DropdownInput,\n    FileInput,\n    MessageTextInput,\n    MultilineInput,\n    Output,\n)\nfrom lfx.schema.image import get_file_paths\nfrom lfx.schema.message import Message\nfrom lfx.services.deps import get_settings_service\nfrom lfx.utils.constants import (\n    MESSAGE_SENDER_AI,\n    MESSAGE_SENDER_NAME_USER,\n    MESSAGE_SENDER_USER,\n)\nfrom lfx.utils.file_path_security import (\n    component_file_access_scopes,\n    enforce_local_file_access,\n    is_local_file_access_restricted,\n)\n\n\nclass ChatInput(ChatComponent):\n    display_name = \"Chat Input\"\n    description = \"Get chat inputs from the Playground.\"\n    documentation: str = \"https://docs.langflow.org/chat-input-and-output\"\n    icon = \"MessagesSquare\"\n    name = \"ChatInput\"\n    minimized = True\n\n    inputs = [\n        MultilineInput(\n            name=\"input_value\",\n            display_name=\"Input Text\",\n            value=\"\",\n            info=\"Message to be passed as input.\",\n            input_types=[],\n        ),\n        BoolInput(\n            name=\"should_store_message\",\n            display_name=\"Store Messages\",\n            info=\"Store the message in the history.\",\n            value=True,\n            advanced=True,\n        ),\n        DropdownInput(\n            name=\"sender\",\n            display_name=\"Sender Type\",\n            options=[MESSAGE_SENDER_AI, MESSAGE_SENDER_USER],\n            value=MESSAGE_SENDER_USER,\n            info=\"Type of sender.\",\n            advanced=True,\n        ),\n        MessageTextInput(\n            name=\"sender_name\",\n            display_name=\"Sender Name\",\n            info=\"Name of the sender.\",\n            value=MESSAGE_SENDER_NAME_USER,\n            advanced=True,\n        ),\n        MessageTextInput(\n            name=\"session_id\",\n            display_name=\"Session ID\",\n            info=\"The session ID of the chat. If empty, the current session ID parameter will be used.\",\n            advanced=True,\n        ),\n        MessageTextInput(\n            name=\"context_id\",\n            display_name=\"Context ID\",\n            info=\"The context ID of the chat. Adds an extra layer to the local memory.\",\n            value=\"\",\n            advanced=True,\n        ),\n        FileInput(\n            name=\"files\",\n            display_name=\"Files\",\n            file_types=TEXT_FILE_TYPES + IMG_FILE_TYPES,\n            info=\"Files to be sent with the message.\",\n            advanced=True,\n            is_list=True,\n            temp_file=True,\n        ),\n    ]\n    outputs = [\n        Output(display_name=\"Chat Message\", name=\"message\", method=\"message_response\"),\n    ]\n\n    async def message_response(self) -> Message:\n        # Ensure files is a list and filter out empty/None values\n        files = self.files if self.files else []\n        if files and not isinstance(files, list):\n            files = [files]\n        # Filter out None/empty values\n        files = [f for f in files if f is not None and f != \"\"]\n\n        # Build endpoints inject caller-controlled file references directly into\n        # ChatInput. Resolve and validate local references before the Message can\n        # later read them while constructing model attachment content.\n        if files:\n            settings_service = get_settings_service()\n            storage_type = getattr(getattr(settings_service, \"settings\", None), \"storage_type\", \"local\")\n            # The storage factory falls back to local storage for unsupported\n            # values, so only the explicitly configured S3 backend may bypass\n            # filesystem containment.\n            if str(storage_type).lower() != \"s3\" and is_local_file_access_restricted():\n                scope_ids = list(component_file_access_scopes(self))\n                # Public executions replace graph.flow_id with a per-visitor\n                # virtual ID. Only the server-populated source provenance may\n                # restore the already-validated public attachment namespace.\n                source_flow_id = getattr(self.graph, \"source_flow_id\", None)\n                if source_flow_id:\n                    scope_ids.append(source_flow_id)\n                for file_path in get_file_paths(files):\n                    enforce_local_file_access(file_path, scope_ids=scope_ids)\n\n        session_id = self.session_id or self.graph.session_id or \"\"\n        message = await Message.create(\n            text=self.input_value,\n            sender=self.sender,\n            sender_name=self.sender_name,\n            session_id=session_id,\n            context_id=self.context_id,\n            files=files,\n        )\n        if session_id and isinstance(message, Message) and self.should_store_message:\n            stored_message = await self.send_message(\n                message,\n            )\n            self.message.value = stored_message\n            message = stored_message\n\n        self.status = message\n        return message\n"
+              },
+              "context_id": {
+                "_input_type": "MessageTextInput",
+                "advanced": true,
+                "api_editable": false,
+                "display_name": "Context ID",
+                "dynamic": false,
+                "info": "The context ID of the chat. Adds an extra layer to the local memory.",
+                "input_types": [
+                  "Message"
+                ],
+                "list": false,
+                "list_add_label": "Add More",
+                "load_from_db": false,
+                "name": "context_id",
+                "override_skip": false,
+                "placeholder": "",
+                "required": false,
+                "show": true,
+                "title_case": false,
+                "tool_mode": false,
+                "trace_as_input": true,
+                "trace_as_metadata": true,
+                "track_in_telemetry": false,
+                "type": "str",
+                "value": ""
+              },
+              "files": {
+                "_input_type": "FileInput",
+                "advanced": true,
+                "api_editable": false,
+                "display_name": "Files",
+                "dynamic": false,
+                "fileTypes": [
+                  "csv",
+                  "json",
+                  "pdf",
+                  "txt",
+                  "md",
+                  "mdx",
+                  "yaml",
+                  "yml",
+                  "xml",
+                  "html",
+                  "htm",
+                  "docx",
+                  "py",
+                  "sh",
+                  "sql",
+                  "js",
+                  "ts",
+                  "tsx",
+                  "jpg",
+                  "jpeg",
+                  "png",
+                  "bmp",
+                  "image"
+                ],
+                "file_path": "",
+                "info": "Files to be sent with the message.",
+                "list": true,
+                "list_add_label": "Add More",
+                "name": "files",
+                "override_skip": false,
+                "placeholder": "",
+                "required": false,
+                "show": true,
+                "temp_file": true,
+                "title_case": false,
+                "tool_mode": false,
+                "trace_as_metadata": true,
+                "track_in_telemetry": false,
+                "type": "file",
+                "value": ""
+              },
+              "input_value": {
+                "_input_type": "MultilineInput",
+                "advanced": false,
+                "ai_enabled": false,
+                "api_editable": false,
+                "copy_field": false,
+                "display_name": "Input Text",
+                "dynamic": false,
+                "info": "Message to be passed as input.",
+                "input_types": [],
+                "list": false,
+                "list_add_label": "Add More",
+                "load_from_db": false,
+                "multiline": true,
+                "name": "input_value",
+                "override_skip": false,
+                "password": false,
+                "placeholder": "",
+                "required": false,
+                "show": true,
+                "title_case": false,
+                "tool_mode": false,
+                "trace_as_input": true,
+                "trace_as_metadata": true,
+                "track_in_telemetry": false,
+                "type": "str",
+                "value": ""
+              },
+              "sender": {
+                "_input_type": "DropdownInput",
+                "advanced": true,
+                "api_editable": false,
+                "combobox": false,
+                "dialog_inputs": {},
+                "display_name": "Sender Type",
+                "dynamic": false,
+                "external_options": {},
+                "info": "Type of sender.",
+                "name": "sender",
+                "options": [
+                  "Machine",
+                  "User"
+                ],
+                "options_metadata": [],
+                "override_skip": false,
+                "placeholder": "",
+                "required": false,
+                "show": true,
+                "title_case": false,
+                "toggle": false,
+                "tool_mode": false,
+                "trace_as_metadata": true,
+                "track_in_telemetry": true,
+                "type": "str",
+                "value": "User"
+              },
+              "sender_name": {
+                "_input_type": "MessageTextInput",
+                "advanced": true,
+                "api_editable": false,
+                "display_name": "Sender Name",
+                "dynamic": false,
+                "info": "Name of the sender.",
+                "input_types": [
+                  "Message"
+                ],
+                "list": false,
+                "list_add_label": "Add More",
+                "load_from_db": false,
+                "name": "sender_name",
+                "override_skip": false,
+                "placeholder": "",
+                "required": false,
+                "show": true,
+                "title_case": false,
+                "tool_mode": false,
+                "trace_as_input": true,
+                "trace_as_metadata": true,
+                "track_in_telemetry": false,
+                "type": "str",
+                "value": "User"
+              },
+              "session_id": {
+                "_input_type": "MessageTextInput",
+                "advanced": true,
+                "api_editable": false,
+                "display_name": "Session ID",
+                "dynamic": false,
+                "info": "The session ID of the chat. If empty, the current session ID parameter will be used.",
+                "input_types": [
+                  "Message"
+                ],
+                "list": false,
+                "list_add_label": "Add More",
+                "load_from_db": false,
+                "name": "session_id",
+                "override_skip": false,
+                "placeholder": "",
+                "required": false,
+                "show": true,
+                "title_case": false,
+                "tool_mode": false,
+                "trace_as_input": true,
+                "trace_as_metadata": true,
+                "track_in_telemetry": false,
+                "type": "str",
+                "value": ""
+              },
+              "should_store_message": {
+                "_input_type": "BoolInput",
+                "advanced": true,
+                "api_editable": false,
+                "display_name": "Store Messages",
+                "dynamic": false,
+                "info": "Store the message in the history.",
+                "list": false,
+                "list_add_label": "Add More",
+                "name": "should_store_message",
+                "override_skip": false,
+                "placeholder": "",
+                "required": false,
+                "show": true,
+                "title_case": false,
+                "tool_mode": false,
+                "trace_as_metadata": true,
+                "track_in_telemetry": true,
+                "type": "bool",
+                "value": false
+              }
+            },
+            "tool_mode": false
+          },
+          "showNode": true,
+          "type": "ChatInput"
+        },
+        "id": "ChatInput-chat_in",
+        "position": {
+          "x": 0,
+          "y": 300
+        },
+        "type": "genericNode"
+      },
+      {
+        "data": {
+          "description": "Display a chat message in the Playground.",
+          "display_name": "Chat Output",
+          "id": "ChatOutput-result_out",
+          "node": {
+            "base_classes": [
+              "Message"
+            ],
+            "beta": false,
+            "conditional_paths": [],
+            "custom_fields": {},
+            "description": "Display a chat message in the Playground.",
+            "display_name": "Chat Output",
+            "documentation": "https://docs.langflow.org/chat-input-and-output",
+            "edited": false,
+            "field_order": [
+              "input_value",
+              "should_store_message",
+              "sender",
+              "sender_name",
+              "session_id",
+              "context_id",
+              "data_template",
+              "clean_data"
+            ],
+            "frozen": false,
+            "icon": "MessagesSquare",
+            "legacy": false,
+            "metadata": {
+              "code_hash": "84009527d08c",
+              "dependencies": {
+                "dependencies": [
+                  {
+                    "name": "orjson",
+                    "version": "3.11.9"
+                  },
+                  {
+                    "name": "fastapi",
+                    "version": "0.139.2"
+                  },
+                  {
+                    "name": "lfx",
+                    "version": null
+                  }
+                ],
+                "total_dependencies": 3
+              },
+              "module": "lfx.components.input_output.chat_output.ChatOutput"
+            },
+            "minimized": true,
+            "output_types": [],
+            "outputs": [
+              {
+                "allows_loop": false,
+                "cache": true,
+                "display_name": "Output Message",
+                "group_outputs": false,
+                "method": "message_response",
+                "name": "message",
+                "selected": "Message",
+                "tool_mode": true,
+                "types": [
+                  "Message"
+                ],
+                "value": "__UNDEFINED__"
+              }
+            ],
+            "pinned": false,
+            "template": {
+              "_type": "Component",
+              "clean_data": {
+                "_input_type": "BoolInput",
+                "advanced": true,
+                "api_editable": false,
+                "display_name": "Basic Clean Data",
+                "dynamic": false,
+                "info": "Whether to clean data before converting to string.",
+                "list": false,
+                "list_add_label": "Add More",
+                "name": "clean_data",
+                "override_skip": false,
+                "placeholder": "",
+                "required": false,
+                "show": true,
+                "title_case": false,
+                "tool_mode": false,
+                "trace_as_metadata": true,
+                "track_in_telemetry": true,
+                "type": "bool",
+                "value": true
+              },
+              "code": {
+                "advanced": true,
+                "api_editable": false,
+                "dynamic": true,
+                "fileTypes": [],
+                "file_path": "",
+                "info": "",
+                "list": false,
+                "load_from_db": false,
+                "multiline": true,
+                "name": "code",
+                "password": false,
+                "placeholder": "",
+                "required": true,
+                "show": true,
+                "title_case": false,
+                "type": "code",
+                "value": "from collections.abc import Generator\nfrom typing import Any\n\nimport orjson\nfrom fastapi.encoders import jsonable_encoder\n\nfrom lfx.base.io.chat import ChatComponent\nfrom lfx.helpers.data import safe_convert\nfrom lfx.inputs.inputs import BoolInput, DropdownInput, HandleInput, MessageTextInput\nfrom lfx.schema.data import Data\nfrom lfx.schema.dataframe import DataFrame\nfrom lfx.schema.message import Message\nfrom lfx.schema.properties import Source\nfrom lfx.template.field.base import Output\nfrom lfx.utils.constants import (\n    MESSAGE_SENDER_AI,\n    MESSAGE_SENDER_NAME_AI,\n    MESSAGE_SENDER_USER,\n)\n\n\nclass ChatOutput(ChatComponent):\n    display_name = \"Chat Output\"\n    description = \"Display a chat message in the Playground.\"\n    documentation: str = \"https://docs.langflow.org/chat-input-and-output\"\n    icon = \"MessagesSquare\"\n    name = \"ChatOutput\"\n    minimized = True\n\n    inputs = [\n        HandleInput(\n            name=\"input_value\",\n            display_name=\"Inputs\",\n            info=\"Message to be passed as output.\",\n            input_types=[\"Data\", \"JSON\", \"DataFrame\", \"Table\", \"Message\"],\n            required=True,\n        ),\n        BoolInput(\n            name=\"should_store_message\",\n            display_name=\"Store Messages\",\n            info=\"Store the message in the history.\",\n            value=True,\n            advanced=True,\n        ),\n        DropdownInput(\n            name=\"sender\",\n            display_name=\"Sender Type\",\n            options=[MESSAGE_SENDER_AI, MESSAGE_SENDER_USER],\n            value=MESSAGE_SENDER_AI,\n            advanced=True,\n            info=\"Type of sender.\",\n        ),\n        MessageTextInput(\n            name=\"sender_name\",\n            display_name=\"Sender Name\",\n            info=\"Name of the sender.\",\n            value=MESSAGE_SENDER_NAME_AI,\n            advanced=True,\n        ),\n        MessageTextInput(\n            name=\"session_id\",\n            display_name=\"Session ID\",\n            info=\"The session ID of the chat. If empty, the current session ID parameter will be used.\",\n            advanced=True,\n        ),\n        MessageTextInput(\n            name=\"context_id\",\n            display_name=\"Context ID\",\n            info=\"The context ID of the chat. Adds an extra layer to the local memory.\",\n            value=\"\",\n            advanced=True,\n        ),\n        MessageTextInput(\n            name=\"data_template\",\n            display_name=\"Data Template\",\n            value=\"{text}\",\n            advanced=True,\n            info=\"Template to convert Data to Text. If left empty, it will be dynamically set to the Data's text key.\",\n        ),\n        BoolInput(\n            name=\"clean_data\",\n            display_name=\"Basic Clean Data\",\n            value=True,\n            advanced=True,\n            info=\"Whether to clean data before converting to string.\",\n        ),\n    ]\n    outputs = [\n        Output(\n            display_name=\"Output Message\",\n            name=\"message\",\n            method=\"message_response\",\n        ),\n    ]\n\n    def _build_source(self, id_: str | None, display_name: str | None, source: str | None) -> Source:\n        source_dict = {}\n        if id_:\n            source_dict[\"id\"] = id_\n        if display_name:\n            source_dict[\"display_name\"] = display_name\n        if source:\n            # Handle case where source is a ChatOpenAI object\n            if hasattr(source, \"model_name\"):\n                source_dict[\"source\"] = source.model_name\n            elif hasattr(source, \"model\"):\n                source_dict[\"source\"] = str(source.model)\n            else:\n                source_dict[\"source\"] = str(source)\n        return Source(**source_dict)\n\n    async def message_response(self) -> Message:\n        # First convert the input to string if needed\n        text = self.convert_to_string()\n\n        # Get source properties\n        source, _, display_name, source_id = self.get_properties_from_source_component()\n\n        # Create or use existing Message object\n        if isinstance(self.input_value, Message) and not self.is_connected_to_chat_input():\n            message = self.input_value\n            # Update message properties\n            message.text = text\n            # Preserve existing session_id from the incoming message if it exists\n            existing_session_id = message.session_id\n        else:\n            message = Message(text=text)\n            existing_session_id = None\n\n        # Set message properties\n        message.sender = self.sender\n        message.sender_name = self.sender_name\n        # Preserve session_id from incoming message, or use component/graph session_id\n        message.session_id = (\n            self.session_id or existing_session_id or (self.graph.session_id if hasattr(self, \"graph\") else None) or \"\"\n        )\n        message.context_id = self.context_id\n        message.flow_id = self.graph.flow_id if hasattr(self, \"graph\") else None\n        message.properties.source = self._build_source(source_id, display_name, source)\n\n        # Store message if needed\n        if message.session_id and self.should_store_message:\n            stored_message = await self.send_message(message)\n            self.message.value = stored_message\n            message = stored_message\n\n        # Set accumulated token usage from all upstream LLM vertices.\n        # This must happen AFTER send_message() because streaming captures\n        # usage from chunks and would overwrite accumulated totals.\n        if hasattr(self, \"_vertex\") and self._vertex is not None:\n            accumulated_usage = self._vertex._accumulate_upstream_token_usage()  # noqa: SLF001\n            if accumulated_usage:\n                message.properties.usage = accumulated_usage\n                if self.should_store_message and message.get_id():\n                    message = await self._update_stored_message(message)\n                    await self._send_message_event(message, id_=message.get_id())\n\n        self.status = message\n        return message\n\n    def _serialize_data(self, data: Data) -> str:\n        \"\"\"Serialize Data object to JSON string.\"\"\"\n        # Convert data.data to JSON-serializable format\n        serializable_data = jsonable_encoder(data.data)\n        # Serialize with orjson, enabling pretty printing with indentation\n        json_bytes = orjson.dumps(serializable_data, option=orjson.OPT_INDENT_2)\n        # Convert bytes to string and wrap in Markdown code blocks\n        return \"```json\\n\" + json_bytes.decode(\"utf-8\") + \"\\n```\"\n\n    def _validate_input(self) -> None:\n        \"\"\"Validate the input data and raise ValueError if invalid.\"\"\"\n        if self.input_value is None:\n            msg = \"Input data cannot be None\"\n            raise ValueError(msg)\n        if isinstance(self.input_value, list) and not all(\n            isinstance(item, Message | Data | DataFrame | str) for item in self.input_value\n        ):\n            invalid_types = [\n                type(item).__name__\n                for item in self.input_value\n                if not isinstance(item, Message | Data | DataFrame | str)\n            ]\n            msg = f\"Expected Data or DataFrame or Message or str, got {invalid_types}\"\n            raise TypeError(msg)\n        if not isinstance(\n            self.input_value,\n            Message | Data | DataFrame | str | list | Generator | type(None),\n        ):\n            type_name = type(self.input_value).__name__\n            msg = f\"Expected Data or DataFrame or Message or str, Generator or None, got {type_name}\"\n            raise TypeError(msg)\n\n    def convert_to_string(self) -> str | Generator[Any, None, None]:\n        \"\"\"Convert input data to string with proper error handling.\"\"\"\n        self._validate_input()\n        if isinstance(self.input_value, list):\n            clean_data: bool = getattr(self, \"clean_data\", False)\n            return \"\\n\".join([safe_convert(item, clean_data=clean_data) for item in self.input_value])\n        if isinstance(self.input_value, Generator):\n            return self.input_value\n        return safe_convert(self.input_value)\n"
+              },
+              "context_id": {
+                "_input_type": "MessageTextInput",
+                "advanced": true,
+                "api_editable": false,
+                "display_name": "Context ID",
+                "dynamic": false,
+                "info": "The context ID of the chat. Adds an extra layer to the local memory.",
+                "input_types": [
+                  "Message"
+                ],
+                "list": false,
+                "list_add_label": "Add More",
+                "load_from_db": false,
+                "name": "context_id",
+                "override_skip": false,
+                "placeholder": "",
+                "required": false,
+                "show": true,
+                "title_case": false,
+                "tool_mode": false,
+                "trace_as_input": true,
+                "trace_as_metadata": true,
+                "track_in_telemetry": false,
+                "type": "str",
+                "value": ""
+              },
+              "data_template": {
+                "_input_type": "MessageTextInput",
+                "advanced": true,
+                "api_editable": false,
+                "display_name": "Data Template",
+                "dynamic": false,
+                "info": "Template to convert Data to Text. If left empty, it will be dynamically set to the Data's text key.",
+                "input_types": [
+                  "Message"
+                ],
+                "list": false,
+                "list_add_label": "Add More",
+                "load_from_db": false,
+                "name": "data_template",
+                "override_skip": false,
+                "placeholder": "",
+                "required": false,
+                "show": true,
+                "title_case": false,
+                "tool_mode": false,
+                "trace_as_input": true,
+                "trace_as_metadata": true,
+                "track_in_telemetry": false,
+                "type": "str",
+                "value": "{text}"
+              },
+              "input_value": {
+                "_input_type": "HandleInput",
+                "advanced": false,
+                "api_editable": false,
+                "display_name": "Inputs",
+                "dynamic": false,
+                "info": "Message to be passed as output.",
+                "input_types": [
+                  "Data",
+                  "JSON",
+                  "DataFrame",
+                  "Table",
+                  "Message"
+                ],
+                "list": false,
+                "list_add_label": "Add More",
+                "name": "input_value",
+                "override_skip": false,
+                "placeholder": "",
+                "required": true,
+                "show": true,
+                "title_case": false,
+                "trace_as_metadata": true,
+                "track_in_telemetry": false,
+                "type": "other",
+                "value": ""
+              },
+              "sender": {
+                "_input_type": "DropdownInput",
+                "advanced": true,
+                "api_editable": false,
+                "combobox": false,
+                "dialog_inputs": {},
+                "display_name": "Sender Type",
+                "dynamic": false,
+                "external_options": {},
+                "info": "Type of sender.",
+                "name": "sender",
+                "options": [
+                  "Machine",
+                  "User"
+                ],
+                "options_metadata": [],
+                "override_skip": false,
+                "placeholder": "",
+                "required": false,
+                "show": true,
+                "title_case": false,
+                "toggle": false,
+                "tool_mode": false,
+                "trace_as_metadata": true,
+                "track_in_telemetry": true,
+                "type": "str",
+                "value": "Machine"
+              },
+              "sender_name": {
+                "_input_type": "MessageTextInput",
+                "advanced": true,
+                "api_editable": false,
+                "display_name": "Sender Name",
+                "dynamic": false,
+                "info": "Name of the sender.",
+                "input_types": [
+                  "Message"
+                ],
+                "list": false,
+                "list_add_label": "Add More",
+                "load_from_db": false,
+                "name": "sender_name",
+                "override_skip": false,
+                "placeholder": "",
+                "required": false,
+                "show": true,
+                "title_case": false,
+                "tool_mode": false,
+                "trace_as_input": true,
+                "trace_as_metadata": true,
+                "track_in_telemetry": false,
+                "type": "str",
+                "value": "AI"
+              },
+              "session_id": {
+                "_input_type": "MessageTextInput",
+                "advanced": true,
+                "api_editable": false,
+                "display_name": "Session ID",
+                "dynamic": false,
+                "info": "The session ID of the chat. If empty, the current session ID parameter will be used.",
+                "input_types": [
+                  "Message"
+                ],
+                "list": false,
+                "list_add_label": "Add More",
+                "load_from_db": false,
+                "name": "session_id",
+                "override_skip": false,
+                "placeholder": "",
+                "required": false,
+                "show": true,
+                "title_case": false,
+                "tool_mode": false,
+                "trace_as_input": true,
+                "trace_as_metadata": true,
+                "track_in_telemetry": false,
+                "type": "str",
+                "value": ""
+              },
+              "should_store_message": {
+                "_input_type": "BoolInput",
+                "advanced": true,
+                "api_editable": false,
+                "display_name": "Store Messages",
+                "dynamic": false,
+                "info": "Store the message in the history.",
+                "list": false,
+                "list_add_label": "Add More",
+                "name": "should_store_message",
+                "override_skip": false,
+                "placeholder": "",
+                "required": false,
+                "show": true,
+                "title_case": false,
+                "tool_mode": false,
+                "trace_as_metadata": true,
+                "track_in_telemetry": true,
+                "type": "bool",
+                "value": false
+              }
+            },
+            "tool_mode": false
+          },
+          "showNode": true,
+          "type": "ChatOutput"
+        },
+        "id": "ChatOutput-result_out",
+        "position": {
+          "x": 3600,
+          "y": 300
+        },
+        "type": "genericNode"
+      },
+      {
+        "data": {
+          "description": "Display a chat message in the Playground.",
+          "display_name": "Chat Output",
+          "id": "ChatOutput-skipped_out",
+          "node": {
+            "base_classes": [
+              "Message"
+            ],
+            "beta": false,
+            "conditional_paths": [],
+            "custom_fields": {},
+            "description": "Display a chat message in the Playground.",
+            "display_name": "Chat Output",
+            "documentation": "https://docs.langflow.org/chat-input-and-output",
+            "edited": false,
+            "field_order": [
+              "input_value",
+              "should_store_message",
+              "sender",
+              "sender_name",
+              "session_id",
+              "context_id",
+              "data_template",
+              "clean_data"
+            ],
+            "frozen": false,
+            "icon": "MessagesSquare",
+            "legacy": false,
+            "metadata": {
+              "code_hash": "84009527d08c",
+              "dependencies": {
+                "dependencies": [
+                  {
+                    "name": "orjson",
+                    "version": "3.11.9"
+                  },
+                  {
+                    "name": "fastapi",
+                    "version": "0.139.2"
+                  },
+                  {
+                    "name": "lfx",
+                    "version": null
+                  }
+                ],
+                "total_dependencies": 3
+              },
+              "module": "lfx.components.input_output.chat_output.ChatOutput"
+            },
+            "minimized": true,
+            "output_types": [],
+            "outputs": [
+              {
+                "allows_loop": false,
+                "cache": true,
+                "display_name": "Output Message",
+                "group_outputs": false,
+                "method": "message_response",
+                "name": "message",
+                "selected": "Message",
+                "tool_mode": true,
+                "types": [
+                  "Message"
+                ],
+                "value": "__UNDEFINED__"
+              }
+            ],
+            "pinned": false,
+            "template": {
+              "_type": "Component",
+              "clean_data": {
+                "_input_type": "BoolInput",
+                "advanced": true,
+                "api_editable": false,
+                "display_name": "Basic Clean Data",
+                "dynamic": false,
+                "info": "Whether to clean data before converting to string.",
+                "list": false,
+                "list_add_label": "Add More",
+                "name": "clean_data",
+                "override_skip": false,
+                "placeholder": "",
+                "required": false,
+                "show": true,
+                "title_case": false,
+                "tool_mode": false,
+                "trace_as_metadata": true,
+                "track_in_telemetry": true,
+                "type": "bool",
+                "value": true
+              },
+              "code": {
+                "advanced": true,
+                "api_editable": false,
+                "dynamic": true,
+                "fileTypes": [],
+                "file_path": "",
+                "info": "",
+                "list": false,
+                "load_from_db": false,
+                "multiline": true,
+                "name": "code",
+                "password": false,
+                "placeholder": "",
+                "required": true,
+                "show": true,
+                "title_case": false,
+                "type": "code",
+                "value": "from collections.abc import Generator\nfrom typing import Any\n\nimport orjson\nfrom fastapi.encoders import jsonable_encoder\n\nfrom lfx.base.io.chat import ChatComponent\nfrom lfx.helpers.data import safe_convert\nfrom lfx.inputs.inputs import BoolInput, DropdownInput, HandleInput, MessageTextInput\nfrom lfx.schema.data import Data\nfrom lfx.schema.dataframe import DataFrame\nfrom lfx.schema.message import Message\nfrom lfx.schema.properties import Source\nfrom lfx.template.field.base import Output\nfrom lfx.utils.constants import (\n    MESSAGE_SENDER_AI,\n    MESSAGE_SENDER_NAME_AI,\n    MESSAGE_SENDER_USER,\n)\n\n\nclass ChatOutput(ChatComponent):\n    display_name = \"Chat Output\"\n    description = \"Display a chat message in the Playground.\"\n    documentation: str = \"https://docs.langflow.org/chat-input-and-output\"\n    icon = \"MessagesSquare\"\n    name = \"ChatOutput\"\n    minimized = True\n\n    inputs = [\n        HandleInput(\n            name=\"input_value\",\n            display_name=\"Inputs\",\n            info=\"Message to be passed as output.\",\n            input_types=[\"Data\", \"JSON\", \"DataFrame\", \"Table\", \"Message\"],\n            required=True,\n        ),\n        BoolInput(\n            name=\"should_store_message\",\n            display_name=\"Store Messages\",\n            info=\"Store the message in the history.\",\n            value=True,\n            advanced=True,\n        ),\n        DropdownInput(\n            name=\"sender\",\n            display_name=\"Sender Type\",\n            options=[MESSAGE_SENDER_AI, MESSAGE_SENDER_USER],\n            value=MESSAGE_SENDER_AI,\n            advanced=True,\n            info=\"Type of sender.\",\n        ),\n        MessageTextInput(\n            name=\"sender_name\",\n            display_name=\"Sender Name\",\n            info=\"Name of the sender.\",\n            value=MESSAGE_SENDER_NAME_AI,\n            advanced=True,\n        ),\n        MessageTextInput(\n            name=\"session_id\",\n            display_name=\"Session ID\",\n            info=\"The session ID of the chat. If empty, the current session ID parameter will be used.\",\n            advanced=True,\n        ),\n        MessageTextInput(\n            name=\"context_id\",\n            display_name=\"Context ID\",\n            info=\"The context ID of the chat. Adds an extra layer to the local memory.\",\n            value=\"\",\n            advanced=True,\n        ),\n        MessageTextInput(\n            name=\"data_template\",\n            display_name=\"Data Template\",\n            value=\"{text}\",\n            advanced=True,\n            info=\"Template to convert Data to Text. If left empty, it will be dynamically set to the Data's text key.\",\n        ),\n        BoolInput(\n            name=\"clean_data\",\n            display_name=\"Basic Clean Data\",\n            value=True,\n            advanced=True,\n            info=\"Whether to clean data before converting to string.\",\n        ),\n    ]\n    outputs = [\n        Output(\n            display_name=\"Output Message\",\n            name=\"message\",\n            method=\"message_response\",\n        ),\n    ]\n\n    def _build_source(self, id_: str | None, display_name: str | None, source: str | None) -> Source:\n        source_dict = {}\n        if id_:\n            source_dict[\"id\"] = id_\n        if display_name:\n            source_dict[\"display_name\"] = display_name\n        if source:\n            # Handle case where source is a ChatOpenAI object\n            if hasattr(source, \"model_name\"):\n                source_dict[\"source\"] = source.model_name\n            elif hasattr(source, \"model\"):\n                source_dict[\"source\"] = str(source.model)\n            else:\n                source_dict[\"source\"] = str(source)\n        return Source(**source_dict)\n\n    async def message_response(self) -> Message:\n        # First convert the input to string if needed\n        text = self.convert_to_string()\n\n        # Get source properties\n        source, _, display_name, source_id = self.get_properties_from_source_component()\n\n        # Create or use existing Message object\n        if isinstance(self.input_value, Message) and not self.is_connected_to_chat_input():\n            message = self.input_value\n            # Update message properties\n            message.text = text\n            # Preserve existing session_id from the incoming message if it exists\n            existing_session_id = message.session_id\n        else:\n            message = Message(text=text)\n            existing_session_id = None\n\n        # Set message properties\n        message.sender = self.sender\n        message.sender_name = self.sender_name\n        # Preserve session_id from incoming message, or use component/graph session_id\n        message.session_id = (\n            self.session_id or existing_session_id or (self.graph.session_id if hasattr(self, \"graph\") else None) or \"\"\n        )\n        message.context_id = self.context_id\n        message.flow_id = self.graph.flow_id if hasattr(self, \"graph\") else None\n        message.properties.source = self._build_source(source_id, display_name, source)\n\n        # Store message if needed\n        if message.session_id and self.should_store_message:\n            stored_message = await self.send_message(message)\n            self.message.value = stored_message\n            message = stored_message\n\n        # Set accumulated token usage from all upstream LLM vertices.\n        # This must happen AFTER send_message() because streaming captures\n        # usage from chunks and would overwrite accumulated totals.\n        if hasattr(self, \"_vertex\") and self._vertex is not None:\n            accumulated_usage = self._vertex._accumulate_upstream_token_usage()  # noqa: SLF001\n            if accumulated_usage:\n                message.properties.usage = accumulated_usage\n                if self.should_store_message and message.get_id():\n                    message = await self._update_stored_message(message)\n                    await self._send_message_event(message, id_=message.get_id())\n\n        self.status = message\n        return message\n\n    def _serialize_data(self, data: Data) -> str:\n        \"\"\"Serialize Data object to JSON string.\"\"\"\n        # Convert data.data to JSON-serializable format\n        serializable_data = jsonable_encoder(data.data)\n        # Serialize with orjson, enabling pretty printing with indentation\n        json_bytes = orjson.dumps(serializable_data, option=orjson.OPT_INDENT_2)\n        # Convert bytes to string and wrap in Markdown code blocks\n        return \"```json\\n\" + json_bytes.decode(\"utf-8\") + \"\\n```\"\n\n    def _validate_input(self) -> None:\n        \"\"\"Validate the input data and raise ValueError if invalid.\"\"\"\n        if self.input_value is None:\n            msg = \"Input data cannot be None\"\n            raise ValueError(msg)\n        if isinstance(self.input_value, list) and not all(\n            isinstance(item, Message | Data | DataFrame | str) for item in self.input_value\n        ):\n            invalid_types = [\n                type(item).__name__\n                for item in self.input_value\n                if not isinstance(item, Message | Data | DataFrame | str)\n            ]\n            msg = f\"Expected Data or DataFrame or Message or str, got {invalid_types}\"\n            raise TypeError(msg)\n        if not isinstance(\n            self.input_value,\n            Message | Data | DataFrame | str | list | Generator | type(None),\n        ):\n            type_name = type(self.input_value).__name__\n            msg = f\"Expected Data or DataFrame or Message or str, Generator or None, got {type_name}\"\n            raise TypeError(msg)\n\n    def convert_to_string(self) -> str | Generator[Any, None, None]:\n        \"\"\"Convert input data to string with proper error handling.\"\"\"\n        self._validate_input()\n        if isinstance(self.input_value, list):\n            clean_data: bool = getattr(self, \"clean_data\", False)\n            return \"\\n\".join([safe_convert(item, clean_data=clean_data) for item in self.input_value])\n        if isinstance(self.input_value, Generator):\n            return self.input_value\n        return safe_convert(self.input_value)\n"
+              },
+              "context_id": {
+                "_input_type": "MessageTextInput",
+                "advanced": true,
+                "api_editable": false,
+                "display_name": "Context ID",
+                "dynamic": false,
+                "info": "The context ID of the chat. Adds an extra layer to the local memory.",
+                "input_types": [
+                  "Message"
+                ],
+                "list": false,
+                "list_add_label": "Add More",
+                "load_from_db": false,
+                "name": "context_id",
+                "override_skip": false,
+                "placeholder": "",
+                "required": false,
+                "show": true,
+                "title_case": false,
+                "tool_mode": false,
+                "trace_as_input": true,
+                "trace_as_metadata": true,
+                "track_in_telemetry": false,
+                "type": "str",
+                "value": ""
+              },
+              "data_template": {
+                "_input_type": "MessageTextInput",
+                "advanced": true,
+                "api_editable": false,
+                "display_name": "Data Template",
+                "dynamic": false,
+                "info": "Template to convert Data to Text. If left empty, it will be dynamically set to the Data's text key.",
+                "input_types": [
+                  "Message"
+                ],
+                "list": false,
+                "list_add_label": "Add More",
+                "load_from_db": false,
+                "name": "data_template",
+                "override_skip": false,
+                "placeholder": "",
+                "required": false,
+                "show": true,
+                "title_case": false,
+                "tool_mode": false,
+                "trace_as_input": true,
+                "trace_as_metadata": true,
+                "track_in_telemetry": false,
+                "type": "str",
+                "value": "{text}"
+              },
+              "input_value": {
+                "_input_type": "HandleInput",
+                "advanced": false,
+                "api_editable": false,
+                "display_name": "Inputs",
+                "dynamic": false,
+                "info": "Message to be passed as output.",
+                "input_types": [
+                  "Data",
+                  "JSON",
+                  "DataFrame",
+                  "Table",
+                  "Message"
+                ],
+                "list": false,
+                "list_add_label": "Add More",
+                "name": "input_value",
+                "override_skip": false,
+                "placeholder": "",
+                "required": true,
+                "show": true,
+                "title_case": false,
+                "trace_as_metadata": true,
+                "track_in_telemetry": false,
+                "type": "other",
+                "value": ""
+              },
+              "sender": {
+                "_input_type": "DropdownInput",
+                "advanced": true,
+                "api_editable": false,
+                "combobox": false,
+                "dialog_inputs": {},
+                "display_name": "Sender Type",
+                "dynamic": false,
+                "external_options": {},
+                "info": "Type of sender.",
+                "name": "sender",
+                "options": [
+                  "Machine",
+                  "User"
+                ],
+                "options_metadata": [],
+                "override_skip": false,
+                "placeholder": "",
+                "required": false,
+                "show": true,
+                "title_case": false,
+                "toggle": false,
+                "tool_mode": false,
+                "trace_as_metadata": true,
+                "track_in_telemetry": true,
+                "type": "str",
+                "value": "Machine"
+              },
+              "sender_name": {
+                "_input_type": "MessageTextInput",
+                "advanced": true,
+                "api_editable": false,
+                "display_name": "Sender Name",
+                "dynamic": false,
+                "info": "Name of the sender.",
+                "input_types": [
+                  "Message"
+                ],
+                "list": false,
+                "list_add_label": "Add More",
+                "load_from_db": false,
+                "name": "sender_name",
+                "override_skip": false,
+                "placeholder": "",
+                "required": false,
+                "show": true,
+                "title_case": false,
+                "tool_mode": false,
+                "trace_as_input": true,
+                "trace_as_metadata": true,
+                "track_in_telemetry": false,
+                "type": "str",
+                "value": "AI"
+              },
+              "session_id": {
+                "_input_type": "MessageTextInput",
+                "advanced": true,
+                "api_editable": false,
+                "display_name": "Session ID",
+                "dynamic": false,
+                "info": "The session ID of the chat. If empty, the current session ID parameter will be used.",
+                "input_types": [
+                  "Message"
+                ],
+                "list": false,
+                "list_add_label": "Add More",
+                "load_from_db": false,
+                "name": "session_id",
+                "override_skip": false,
+                "placeholder": "",
+                "required": false,
+                "show": true,
+                "title_case": false,
+                "tool_mode": false,
+                "trace_as_input": true,
+                "trace_as_metadata": true,
+                "track_in_telemetry": false,
+                "type": "str",
+                "value": ""
+              },
+              "should_store_message": {
+                "_input_type": "BoolInput",
+                "advanced": true,
+                "api_editable": false,
+                "display_name": "Store Messages",
+                "dynamic": false,
+                "info": "Store the message in the history.",
+                "list": false,
+                "list_add_label": "Add More",
+                "name": "should_store_message",
+                "override_skip": false,
+                "placeholder": "",
+                "required": false,
+                "show": true,
+                "title_case": false,
+                "tool_mode": false,
+                "trace_as_metadata": true,
+                "track_in_telemetry": true,
+                "type": "bool",
+                "value": false
+              }
+            },
+            "tool_mode": false
+          },
+          "showNode": true,
+          "type": "ChatOutput"
+        },
+        "id": "ChatOutput-skipped_out",
+        "position": {
+          "x": 800,
+          "y": 650
+        },
+        "type": "genericNode"
+      }
+    ]
+  },
+  "description": "Brief steps 11-15. Input: JSON {posting_id} of a `matched` posting. Selects CV evidence (bge-m3), keeps every call inside num_ctx, writes the CV, cover letter and recruiter email in English (writer model), fact-checks them against cv.md and saves them through the backend (status generated). One run per posting.",
+  "endpoint_name": "generate_documents",
+  "gradient": null,
+  "icon": "Workflow",
+  "icon_bg_color": null,
+  "id": "892b588f-596d-5240-aa9a-4bac077161c0",
+  "is_component": false,
+  "locked": false,
+  "mcp_enabled": false,
+  "name": "generate_documents",
+  "tags": [
+    "ajs"
+  ],
+  "webhook": false
+}
