@@ -1,7 +1,7 @@
 flowchart TD
-  feed["Jobindex RSS feeds"] --> dedup{"Duplicate?"}
-  dedup -- yes --> dup(["duplicate"])
-  dedup -- no --> analyse["Analysis + match<br/>(Ollama, local)"]
+  paste["Add job<br/>(you paste the description)"] --> dedup{"Already stored?"}
+  dedup -- "same URL, or similar and you cancel" --> dup(["not added"])
+  dedup -- "no, or you choose Add anyway" --> analyse["Analysis + match<br/>(Ollama, local)"]
   analyse --> thr{"Score at or above threshold?"}
   thr -- no --> low(["low_match"])
   thr -- yes --> g1{{"Gate 1: Matches<br/>(you decide)"}}

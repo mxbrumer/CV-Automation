@@ -83,7 +83,7 @@ Blind 1–5 ratings by the user (run r2): **cover letters 4.00** (6 of 6 rated 4
 
 ### Co-residency *(0.40.3)*
 
-- `/api/ps` showed both models fully on GPU in 11/12 checks after postings. The miss is the first load: Gemma loaded after `bge-m3` evicts it. Controlled test: `bge-m3` then Gemma leaves **only Gemma**; Gemma then `bge-m3` leaves **both**, 100% GPU. Same behaviour as 0.34.4, so the worker still warms up `ajs-gemma` first.
+- `/api/ps` showed both models fully on GPU in 11/12 checks after postings. The miss is the first load: Gemma loaded after `bge-m3` evicts it. Controlled test: `bge-m3` then Gemma leaves **only Gemma**; Gemma then `bge-m3` leaves **both**, 100% GPU. Same behaviour as 0.34.4, so the flow components still warm up `ajs-gemma` first.
 - Peak `nvidia-smi` memory.used: 10,747 MiB of 12,227 MiB.
 
 ### VRAM (both models loaded, `nvidia-smi`)
