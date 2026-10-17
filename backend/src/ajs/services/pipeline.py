@@ -1,29 +1,33 @@
-"""Pipeline orchestrator (architecture §5). Imports only the `JobSource` interface (D3)."""
+"""Pipeline runner (architecture §5): analysis for `new` postings, generation for `matched` ones.
+
+Started in the background after an Add job submit, a gate-1 approval and Process pending (D3).
+One run at a time, guarded by a Postgres advisory lock.
+"""
 
 import json
 import logging
 import time
-from collections.abc import Callable
+from collections.abc import Callable, Iterator
+from contextlib import contextmanager
 from dataclasses import dataclass, field
 from datetime import UTC, datetime
 from typing import Protocol
 
 import httpx
-from sqlalchemy import select
-from sqlalchemy.dialects.postgresql import insert
+from sqlalchemy import Engine, select, text
 from sqlalchemy.orm import Session
 
-from ajs.db.models import Actor, FactPosting, FeedItem, PostingStatus, WorkflowRun
+from ajs.db.models import Actor, FactPosting, PostingStatus, WorkflowRun
+from ajs.db.session import get_engine
 from ajs.domain.status import transition
 from ajs.services import postings
-from ajs.services.fetch_posting import FetchResult
 from ajs.services.langflow_client import FlowRef, LangflowClient, LangflowError
 from ajs.settings import Settings
-from ajs.worker.sources.base import JobSource, RawJob, split_title
 
 log = logging.getLogger(__name__)
 
 MAX_RETRIES = 2  # extra attempts for transient flow errors
+LOCK_KEY = 70_707_001  # pg advisory lock: one pipeline run at a time
 
 
 class FlowError(Exception):
@@ -32,10 +36,6 @@ class FlowError(Exception):
     def __init__(self, message: str, transient: bool = False) -> None:
         super().__init__(message)
         self.transient = transient
-
-
-class TextFetcher(Protocol):
-    def get_text(self, url: str, snippet_html: str) -> FetchResult: ...
 
 
 class FlowRunner(Protocol):
@@ -72,14 +72,18 @@ class LangflowFlowRunner:
 
 @dataclass
 class RunSummary:
-    feed_items_new: int = 0
-    postings_created: int = 0
-    duplicates: int = 0
-    needs_manual_text: int = 0
+    flow_runs: int = 0  # postings sent to a flow, whatever the outcome
     analyzed: int = 0
     generated: int = 0
     errors: int = 0
     notes: list[str] = field(default_factory=list)
+
+    def add(self, other: "RunSummary") -> None:
+        self.flow_runs += other.flow_runs
+        self.analyzed += other.analyzed
+        self.generated += other.generated
+        self.errors += other.errors
+        self.notes += other.notes
 
 
 class Pipeline:
@@ -87,140 +91,68 @@ class Pipeline:
         self,
         session: Session,
         settings: Settings,
-        source: JobSource,
-        fetcher: TextFetcher,
         flows: FlowRunner,
         sleep: Callable[[float], None] = time.sleep,
     ) -> None:
-        self._s, self._settings = session, settings
-        self._source, self._fetcher, self._flows = source, fetcher, flows
+        self._s, self._settings, self._flows = session, settings, flows
         self._sleep = sleep
 
-    # -- analysis phase: steps 1-10 -------------------------------------------------------
+    def run_all(self) -> RunSummary:
+        """Drafts for approved matches first, then analysis, until nothing is pending.
 
-    def run_analysis(self) -> RunSummary:
+        Every trigger (Add job, gate-1 approval, Process pending) starts this same run, and a
+        trigger that finds the lock taken is skipped, so the running one must pick up whatever
+        arrived meanwhile in either phase.
+        """
+        total = RunSummary()
+        while True:
+            step = self.run_generation()
+            step.add(self.analyze_pending())
+            total.add(step)
+            if step.flow_runs == 0:
+                return total
+
+    # -- analysis phase: steps 6-10 -------------------------------------------------------
+
+    def analyze_pending(self) -> RunSummary:
+        """Run the analysis flow for every `new` posting that has text (also retries).
+
+        Re-queries until nothing is left, so a job submitted while this run holds the lock
+        (its own run was skipped) is analyzed too. Each posting is tried once per call.
+        """
         summary = RunSummary()
-        self.store_feed_items(self._source.fetch(), summary)
-        pending = self._s.scalars(
-            select(FeedItem).where(FeedItem.processed_at.is_(None)).order_by(FeedItem.feed_item_id)
-        ).all()
-        for item in pending:
-            try:
-                self.intake_item(item, summary)
-            except Exception as exc:  # isolate each job
-                self._s.rollback()
-                log.exception("intake failed for %s", item.source_job_id)
-                summary.errors += 1
-                summary.notes.append(f"{item.source_job_id}: {exc}")
-        self.analyze_pending(summary)
-        return summary
-
-    def store_feed_items(self, jobs: list[RawJob], summary: RunSummary) -> None:
-        """Idempotent upsert on (source, source_job_id): repeats are skipped."""
-        for job in jobs:
-            result = self._s.execute(
-                insert(FeedItem)
-                .values(
-                    source=job.source,
-                    source_job_id=job.source_job_id,
-                    feed_url=job.feed_url,
-                    title=f"{job.title}, {job.company}" if job.company else job.title,
-                    link=job.url,
-                    description_html=job.snippet_html,
-                    published_at=job.published_at,
-                )
-                .on_conflict_do_nothing(constraint="uq_feed_item_source_job")
-                .returning(FeedItem.feed_item_id)
-            )
-            summary.feed_items_new += len(result.all())
-        self._s.commit()
-
-    def intake_item(self, item: FeedItem, summary: RunSummary) -> None:
-        """Dedup (A5), create the posting row and get its text. processed_at comes last."""
-        title, company = split_title(item.title, item.description_html or "")
-        company = company or "Unknown company"
-        existing, why = postings.find_duplicate(
-            self._s,
-            self._settings,
-            company=company,
-            title=title,
-            source=item.source,
-            source_job_id=item.source_job_id,
-        )
-        if existing is not None:
-            log.info("duplicate of posting %s (%s): %s", existing.posting_id, why, item.title)
-            summary.duplicates += 1
-            self._finish_item(item)
-            return
-
-        try:
-            posting = postings.create_posting(
-                self._s,
-                company=company,
-                title=title,
-                source=item.source,
-                source_job_id=item.source_job_id,
-                feed_item_id=item.feed_item_id,
-            )
-        except postings.Conflict:
-            summary.duplicates += 1
-            self._finish_item(item)
-            return
-        summary.postings_created += 1
-
-        result = self._fetcher.get_text(item.link, item.description_html or "")
-        self._apply_fetch(posting, result, summary)
-        self._finish_item(item)
-
-    def _apply_fetch(self, posting: FactPosting, result: FetchResult, summary: RunSummary) -> None:
-        if result.text is None:
-            note = f"{result.method}: {result.detail}".rstrip(": ")
-            transition(self._s, posting, PostingStatus.NEEDS_MANUAL_TEXT, Actor.SYSTEM, note)
-            summary.needs_manual_text += 1
-            return
-        posting.posting_text = result.text
-        clash = self._s.scalars(
-            select(FactPosting).where(
-                FactPosting.source_url == result.source_url,
-                FactPosting.posting_id != posting.posting_id,
-                FactPosting.status != PostingStatus.DUPLICATE,
-            )
-        ).first()
-        if clash is not None:
-            note = f"same source url as posting {clash.posting_id}"
-            transition(self._s, posting, PostingStatus.DUPLICATE, Actor.SYSTEM, note)
-            summary.duplicates += 1
-            return
-        posting.source_url = result.source_url
-
-    def _finish_item(self, item: FeedItem) -> None:
-        item.processed_at = datetime.now(UTC)
-        self._s.commit()
-
-    def analyze_pending(self, summary: RunSummary) -> None:
-        """Run the analysis flow for every `new` posting that has text (also retries)."""
         if not self._flows.available("analysis"):
             summary.notes.append("analysis flow not configured; postings stay 'new'")
-            return
-        ids = self._s.scalars(
-            select(FactPosting.posting_id)
-            .where(FactPosting.status == PostingStatus.NEW, FactPosting.posting_text.is_not(None))
-            .order_by(FactPosting.posting_id)
-        ).all()
-        for posting_id in ids:
-            self._run_flow_for(posting_id, "analysis", summary)
+            return summary
+        tried: set[int] = set()
+        while True:
+            ids = [
+                pid
+                for pid in self._s.scalars(
+                    select(FactPosting.posting_id)
+                    .where(
+                        FactPosting.status == PostingStatus.NEW,
+                        FactPosting.posting_text.is_not(None),
+                    )
+                    .order_by(FactPosting.posting_id)
+                ).all()
+                if pid not in tried
+            ]
+            if not ids:
+                return summary
+            for posting_id in ids:
+                tried.add(posting_id)
+                self._run_flow_for(posting_id, "analysis", summary)
 
     # -- generation phase: steps 11-15 ----------------------------------------------------
 
-    def run_generation(self, posting_id: int | None = None) -> RunSummary:
+    def run_generation(self) -> RunSummary:
         """Run the generation flow for postings the user approved at gate 1 (D9)."""
         summary = RunSummary()
         if not self._flows.available("generation"):
             summary.notes.append("generation flow not configured")
             return summary
         query = select(FactPosting.posting_id).where(FactPosting.status == PostingStatus.MATCHED)
-        if posting_id is not None:
-            query = query.where(FactPosting.posting_id == posting_id)
         for pid in self._s.scalars(query.order_by(FactPosting.posting_id)).all():
             self._run_flow_for(pid, "generation", summary)
         return summary
@@ -228,6 +160,7 @@ class Pipeline:
     # -- shared ---------------------------------------------------------------------------
 
     def _run_flow_for(self, posting_id: int, phase: str, summary: RunSummary) -> None:
+        summary.flow_runs += 1
         try:
             self._call_with_retry(phase, posting_id)
             self._s.expire_all()
@@ -293,3 +226,32 @@ class Pipeline:
         if ref is not None:
             run.langflow_run_id, run.phoenix_trace_id = ref.session_id, ref.trace_id
         self._s.commit()
+
+
+@contextmanager
+def advisory_lock(engine: Engine) -> Iterator[bool]:
+    """Hold a session-level Postgres advisory lock on a dedicated connection."""
+    with engine.connect() as conn:
+        acquired = bool(
+            conn.execute(text("SELECT pg_try_advisory_lock(:k)"), {"k": LOCK_KEY}).scalar()
+        )
+        try:
+            yield acquired
+        finally:
+            if acquired:
+                conn.execute(text("SELECT pg_advisory_unlock(:k)"), {"k": LOCK_KEY})
+            conn.commit()
+
+
+def run_once(settings: Settings) -> RunSummary | None:
+    """One locked run of everything pending (`Pipeline.run_all`); skipped if one is running."""
+    engine = get_engine()
+    with advisory_lock(engine) as acquired:
+        if not acquired:
+            log.info("another pipeline run holds the lock; skipping")
+            return None
+        with Session(engine) as session:
+            pipeline = Pipeline(session, settings, LangflowFlowRunner(LangflowClient(settings)))
+            summary = pipeline.run_all()
+            log.info("run finished: %s", summary)
+            return summary

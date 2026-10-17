@@ -5,7 +5,7 @@ from datetime import UTC, datetime
 from typing import Annotated, Literal
 
 from fastapi import APIRouter, BackgroundTasks, HTTPException, Query
-from fastapi.responses import FileResponse
+from fastapi.responses import FileResponse, JSONResponse
 from sqlalchemy import func, or_, select, text
 from sqlalchemy.orm import Session
 
@@ -20,7 +20,7 @@ from ajs.db.models import (
 )
 from ajs.db.models import DimCompany as Company
 from ajs.domain.status import transition
-from ajs.services import postings
+from ajs.services import pipeline, postings
 from ajs.services.blob import BlobStore
 from ajs.services.langflow_client import LangflowError
 from ajs.settings import Settings
@@ -105,6 +105,53 @@ def list_postings(
     )
 
 
+def _duplicate(reason: schemas.DuplicateReason, posting: FactPosting) -> JSONResponse:
+    body = schemas.DuplicateResponse(reason=reason, posting=_summary(posting))
+    return JSONResponse(body.model_dump(mode="json"), status_code=409)
+
+
+@router.post(
+    "/postings",
+    status_code=201,
+    response_model=schemas.PostingSummary,
+    responses={409: {"model": schemas.DuplicateResponse, "description": "Duplicate (A5)"}},
+)
+def add_job(
+    body: schemas.CreateJobRequest,
+    session: SessionDep,
+    background: BackgroundTasks,
+    settings: SettingsDep,
+) -> schemas.PostingSummary | JSONResponse:
+    """Add job form (D3): dedup (A5), store the pasted posting and start its analysis."""
+    if body.url is not None:  # the URL is unique across every row, `duplicate` ones included
+        same = session.scalars(
+            select(FactPosting).where(FactPosting.source_url == body.url)
+        ).first()
+        if same is not None:
+            return _duplicate(schemas.DuplicateReason.SAME_URL, same)
+    hit, _ = postings.find_duplicate(
+        session,
+        settings,
+        company=body.company,
+        title=body.title,
+        source="manual",
+        source_url=body.url,
+    )
+    if hit is not None and not body.force:
+        return _duplicate(schemas.DuplicateReason.SIMILAR, hit)
+    posting = postings.create_posting(
+        session,
+        company=body.company,
+        title=body.title,
+        source="manual",
+        source_url=body.url,
+        posting_text=body.text,
+    )
+    session.commit()  # the analysis run must see the new posting
+    background.add_task(run_pipeline, settings)
+    return _summary(posting)
+
+
 @router.get("/workflow/last-run")
 def last_workflow_run(session: SessionDep) -> schemas.LastRun | None:
     run = session.scalars(select(WorkflowRun).order_by(WorkflowRun.run_id.desc()).limit(1)).first()
@@ -180,7 +227,7 @@ def match_decision(
     posting.match_reviewed_at = datetime.now(UTC)
     if target is PostingStatus.MATCHED:
         session.commit()  # the generation run must see the new status
-        background.add_task(run_pipeline, settings, posting_id)  # no-op until plan 09's flow
+        background.add_task(run_pipeline, settings)
     return schemas.StatusResponse(posting_id=posting_id, status=posting.status)
 
 
@@ -241,17 +288,17 @@ def get_file(posting_id: int, filename: str, session: SessionDep, store: BlobDep
     return FileResponse(path)
 
 
-def run_pipeline(settings: Settings, generation_only: int | None = None) -> None:
-    """Background job: the same locked run the worker does (a second run is skipped)."""
+def run_pipeline(settings: Settings) -> None:
+    """Background job: one locked run of everything pending. A run started while another holds
+    the lock is skipped; the running one picks up what arrived before it ends."""
     if settings.env == "test":  # browser e2e: no LangFlow, drafts are seeded
         return
-    from ajs.worker.__main__ import run_once
-
-    run_once(settings, generation_only)
+    pipeline.run_once(settings)
 
 
-@router.post("/workflow/poll", status_code=202)  # manual trigger of the worker's job
-def poll_now(background: BackgroundTasks, settings: SettingsDep) -> dict[str, str]:
+@router.post("/workflow/process-pending", status_code=202)
+def process_pending(background: BackgroundTasks, settings: SettingsDep) -> dict[str, str]:
+    """Recovery after a lost background run: analysis for `new`, generation for `matched`."""
     background.add_task(run_pipeline, settings)
     return {"status": "queued"}
 

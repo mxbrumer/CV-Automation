@@ -1,6 +1,6 @@
 # AI Job Search
 
-Local-only pipeline: Jobindex RSS feeds → LangFlow agents (Ollama) → FastAPI/Postgres → React review UI. Applications are drafted automatically and always submitted manually. Two human gates: Matches (approve a match) and Review (approve drafts).
+Local-only pipeline: jobs pasted into the Add job form → LangFlow agents (Ollama) → FastAPI/Postgres → React review UI. Applications are drafted automatically and always submitted manually. Two human gates: Matches (approve a match) and Review (approve drafts).
 
 - Design and decisions D1–D11, assumptions A1–A6: [docs/architecture.md](docs/architecture.md)
 - Work is split into session-sized plans: [docs/plans/README.md](docs/plans/README.md) (use `/execute-plan`)

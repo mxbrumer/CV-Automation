@@ -90,23 +90,6 @@ class DimCompany(Base):
     )
 
 
-class FeedItem(Base):
-    __tablename__ = "feed_item"
-
-    feed_item_id: Mapped[int] = mapped_column(primary_key=True)
-    source: Mapped[str] = mapped_column(String(50), default="jobindex")
-    source_job_id: Mapped[str] = mapped_column(String(100))
-    feed_url: Mapped[str] = mapped_column(Text)
-    title: Mapped[str] = mapped_column(Text)
-    link: Mapped[str] = mapped_column(Text)
-    description_html: Mapped[str | None] = mapped_column(Text)
-    published_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
-    fetched_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
-    processed_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
-
-    __table_args__ = (UniqueConstraint("source", "source_job_id", name="uq_feed_item_source_job"),)
-
-
 class FactPosting(Base):
     __tablename__ = "fact_posting"
 
@@ -114,7 +97,7 @@ class FactPosting(Base):
     company_id: Mapped[int] = mapped_column(ForeignKey("dim_company.company_id"))
     title: Mapped[str] = mapped_column(Text)
     title_normalized: Mapped[str] = mapped_column(Text)
-    source: Mapped[str] = mapped_column(String(50), default="jobindex")
+    source: Mapped[str] = mapped_column(String(50), default="manual")
     source_job_id: Mapped[str | None] = mapped_column(String(100))
     source_url: Mapped[str | None] = mapped_column(Text)
     posting_text: Mapped[str | None] = mapped_column(Text)
@@ -135,7 +118,6 @@ class FactPosting(Base):
     match_reviewed_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
     artifact_folder: Mapped[str | None] = mapped_column(Text)
     queue_position: Mapped[int | None] = mapped_column(Integer)
-    feed_item_id: Mapped[int | None] = mapped_column(ForeignKey("feed_item.feed_item_id"))
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
     updated_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True), server_default=func.now(), onupdate=func.now()

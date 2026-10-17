@@ -95,7 +95,7 @@ try {
             }
             Invoke-Compose up -d --wait postgres
             # Stop every client of the DBs; `stop` ignores services that are not running.
-            Invoke-Compose --profile app stop worker langflow backend frontend
+            Invoke-Compose --profile app stop langflow backend frontend
             # Single-quoted: $POSTGRES_USER expands inside the container.
             Invoke-Compose exec -T postgres sh -c 'psql -v ON_ERROR_STOP=1 -U $POSTGRES_USER -d postgres -f /scripts/reset-databases.sql'
             Invoke-Compose up -d --wait
@@ -114,7 +114,7 @@ try {
                 $answer = Read-Host "Type 'restore' to continue"
                 if ($answer -ne 'restore') { Write-Host 'Aborted.'; exit 1 }
             }
-            Invoke-Compose --profile app stop worker langflow backend frontend
+            Invoke-Compose --profile app stop langflow backend frontend
             Invoke-Compose exec -T postgres sh /scripts/restore.sh "/backups/$name"
             Invoke-Compose up -d --wait
             Write-Host "Restored from $name."

@@ -49,6 +49,7 @@ export default function Layout() {
       <header className="border-b border-line bg-surface">
         <nav aria-label="Main" className="mx-auto flex max-w-5xl overflow-x-auto px-2">
           <Tab to="/" label="Home" end />
+          <Tab to="/add" label="Add job" />
           <Tab to="/matches" label="Matches" count={stats.data?.awaiting_match_review} />
           <Tab to="/review" label="Review" count={generated.data} />
           <Tab to="/queue" label="Queue" count={approved.data} />

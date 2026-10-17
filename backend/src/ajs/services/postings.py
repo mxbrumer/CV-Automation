@@ -42,11 +42,14 @@ def find_duplicate(
     *,
     company: str,
     title: str,
-    source: str = "jobindex",
+    source: str = "manual",
     source_url: str | None = None,
     source_job_id: str | None = None,
 ) -> tuple[FactPosting | None, str]:
-    """A5: same (source, job id) OR same URL OR fuzzy company and title within the window."""
+    """A5: same (source, job id) OR same URL OR fuzzy company and title within the window.
+
+    Manual postings have no job id; old `jobindex` rows still match on it.
+    """
     live = FactPosting.status != PostingStatus.DUPLICATE
     if source_job_id:
         hit = session.scalars(

@@ -46,6 +46,7 @@ jobs:
             langflow:
               - 'langflow/**'
               - 'scripts/governance_check.py'
+              - 'backend/src/**' # governance rule `egress` reads it
               - '.github/workflows/ci.yml'
             infra:
               - 'infra/**'

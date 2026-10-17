@@ -1,16 +1,15 @@
-"""Review endpoints (plan 12): chat editing of a generated document, rejection, pasted text."""
+"""Review endpoints (plan 12): chat editing of a generated document and rejection."""
 
 import json
 from collections.abc import Iterator
 from typing import Annotated
 
-from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException
 from fastapi.responses import StreamingResponse
 from sqlalchemy import select
 
 from ajs.api import schemas
 from ajs.api.deps import BlobDep, SessionDep, SettingsDep
-from ajs.api.ui.postings import run_pipeline
 from ajs.db.models import Actor, ArtifactKind, ChatMessage, ChatRole, PostingStatus
 from ajs.domain.status import transition
 from ajs.services import chat, postings
@@ -158,21 +157,4 @@ def reject(
     transition(
         session, posting, PostingStatus.DECLINED, Actor.USER, body.note or "review: rejected"
     )
-    return schemas.StatusResponse(posting_id=posting_id, status=posting.status)
-
-
-@router.patch("/postings/{posting_id}/posting-text")
-def paste_posting_text(
-    posting_id: int,
-    body: schemas.PostingTextRequest,
-    session: SessionDep,
-    background: BackgroundTasks,
-    settings: SettingsDep,
-) -> schemas.StatusResponse:
-    """Text for a `needs_manual_text` posting: save it and send the posting back to analysis."""
-    posting = postings.get_posting(session, posting_id)
-    transition(session, posting, PostingStatus.NEW, Actor.USER, "posting text pasted")
-    posting.posting_text = body.text.strip()
-    session.commit()  # the analysis run must see the new status and text
-    background.add_task(run_pipeline, settings)
     return schemas.StatusResponse(posting_id=posting_id, status=posting.status)

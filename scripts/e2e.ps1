@@ -1,6 +1,7 @@
 <#
 .SYNOPSIS
-  End-to-end check (plan 14): feed -> analysis -> gate 1 -> generation, on a throwaway DATA_ROOT.
+  End-to-end check (plans 14, 15): Add job -> analysis -> gate 1 -> generation, on a throwaway
+  DATA_ROOT.
 
 .DESCRIPTION
   Runs the whole Docker stack against a separate DATA_ROOT (default C:\dev\JobSearchData-e2e):
@@ -8,9 +9,9 @@
   docs/profile-examples/*.example.md. Your real DATA_ROOT (infra/.env) is not read or written
   by the stack during the run, so no reset is needed.
 
-  The feed is scripts/e2e/www/feed.xml (synthetic, 4 postings), served on 127.0.0.1:8765.
-  Expected outcome:
-    1 duplicate  (second copy of the Nordlys posting)
+  The jobs are scripts/e2e/jobs.json (synthetic, 4 postings), sent to POST /postings the way the
+  Add job form sends them. Expected outcome:
+    1 duplicate  (second copy of the Nordlys posting, same URL: refused with 409 same_url)
     1 low_match  (nurse posting)
     2 awaiting_match_review -> approve Nordlys (generated), decline Fjordbyg (match_declined)
     the approved posting has cv, cover letter and recruiter email, with the two PDFs on disk.
@@ -23,7 +24,6 @@
 #>
 param(
     [string]$DataRoot = 'C:/dev/JobSearchData-e2e',
-    [int]$FixturePort = 8765,
     [int]$TimeoutMin = 45,
     [switch]$NoRestore
 )
@@ -32,9 +32,8 @@ $ErrorActionPreference = 'Stop'
 
 $RepoRoot = Split-Path -Parent $PSScriptRoot
 $Dev = Join-Path $PSScriptRoot 'dev.ps1'
-$WwwRoot = Join-Path $PSScriptRoot 'e2e\www'
+$JobsFile = Join-Path $PSScriptRoot 'e2e\jobs.json'
 $Api = 'http://127.0.0.1:8000/api/v1'
-$FeedUrl = "http://host.docker.internal:$FixturePort/feed.xml"
 
 $results = New-Object System.Collections.Generic.List[object]
 function Check([string]$Name, [bool]$Ok, [string]$Detail = '') {
@@ -58,6 +57,22 @@ function Get-Postings {
     (Invoke-RestMethod -Headers $headers -Uri "$Api/postings?page_size=100&sort=recent").items
 }
 
+# POST /postings; returns the HTTP status and the parsed body (a 409 is an answer, not an error).
+function Add-Job($Job) {
+    $bytes = [Text.Encoding]::UTF8.GetBytes(($Job | ConvertTo-Json -Compress))
+    try {
+        $created = Invoke-RestMethod -Headers $headers -Method Post -Uri "$Api/postings" `
+            -ContentType 'application/json; charset=utf-8' -Body $bytes
+        return [pscustomobject]@{ Status = 201; Body = $created }
+    }
+    catch {
+        $response = $_.Exception.Response
+        if (-not $response) { throw }
+        $body = if ($_.ErrorDetails.Message) { $_.ErrorDetails.Message | ConvertFrom-Json } else { $null }
+        return [pscustomobject]@{ Status = [int]$response.StatusCode; Body = $body }
+    }
+}
+
 function Wait-Until([string]$What, [scriptblock]$Done, [int]$Minutes) {
     $deadline = (Get-Date).AddMinutes($Minutes)
     while ((Get-Date) -lt $deadline) {
@@ -68,11 +83,9 @@ function Wait-Until([string]$What, [scriptblock]$Done, [int]$Minutes) {
     return $false
 }
 
-$fixture = $null
 $env:DATA_ROOT = $DataRoot
 # PowerShell deletes an env var set to '' instead of emptying it, and compose would then fall back
-# to the real values in infra/.env. So the first start gets a feed and key that cannot work.
-$env:JOBINDEX_FEEDS = "http://host.docker.internal:9/no-feed.xml"
+# to the real value in infra/.env. So the first start gets a key that cannot work.
 $env:LANGFLOW_API_KEY = 'e2e-pending'
 try {
     # 1. Ollama must be up on the host (D2); the pipeline cannot run without it.
@@ -139,14 +152,7 @@ Python | SQL | PostgreSQL | Apache Airflow | dbt | Docker | Git | Data modelling
     Copy-Item -Force (Join-Path $RepoRoot 'docs\profile-examples\recruiter_email_template.example.md') (Join-Path $DataRoot 'profile\recruiter_email_template.md')
     Write-Host "Seeded $DataRoot\profile from docs/profile-examples."
 
-    # 4. Feed fixture on the host; the worker reaches it through host.docker.internal.
-    $py = Find-Python
-    $pyArgs = if ($py -eq 'py') { @('-3') } else { @() }
-    $fixture = Start-Process -PassThru -WindowStyle Hidden -FilePath $py -ArgumentList ($pyArgs + @(
-            '-m', 'http.server', "$FixturePort", '--bind', '127.0.0.1', '--directory', $WwwRoot))
-    Start-Sleep -Seconds 2
-
-    # 5. Stack up with no feed yet, so nothing is polled before the LangFlow key exists.
+    # 4-5. Stack up. No job is added before the LangFlow key exists.
     & $Dev up
     if ($LASTEXITCODE -ne 0) { throw 'dev.ps1 up failed' }
 
@@ -163,36 +169,36 @@ Python | SQL | PostgreSQL | Apache Airflow | dbt | Docker | Git | Data modelling
     if ($LASTEXITCODE -ne 0) { throw 'import-flows.ps1 failed' }
     Check 'flows imported' $true
 
-    # 8. Restart backend and worker with the key and the fixture feed.
+    # 8. Restart the backend with the key.
     $env:LANGFLOW_API_KEY = $created.api_key
-    $env:JOBINDEX_FEEDS = $FeedUrl
     & $Dev up
-    if ($LASTEXITCODE -ne 0) { throw 'dev.ps1 up (with key and feed) failed' }
-    # The worker runs in a container: the fixture must be reachable from there, or nothing is ingested.
-    $probe = cmd /c "docker exec ajs-worker-1 python -c ""import urllib.request,sys; sys.stdout.write(str(urllib.request.urlopen('$FeedUrl', timeout=10).status))"" 2>&1"
-    if ("$probe" -ne '200') { throw "worker cannot reach the fixture feed at $FeedUrl (got: $probe)" }
-    Check 'worker reaches fixture feed' $true
-    Invoke-RestMethod -Headers $headers -Method Post -Uri "$Api/workflow/poll" | Out-Null
+    if ($LASTEXITCODE -ne 0) { throw 'dev.ps1 up (with key) failed' }
 
-    # 9. Wait for the analysis of the 3 stored postings to settle. The 4th feed item is a
-    # duplicate: it is never stored, so it only shows in the run logs.
+    # 9. Add the 4 jobs as the form does. Each 201 starts an analysis run in the background; a
+    # run that finds the lock taken is skipped, and the running one picks the posting up.
+    $jobs = Get-Content -Raw -Encoding UTF8 $JobsFile | ConvertFrom-Json
+    $answers = @(foreach ($job in $jobs) {
+            $job | Add-Member -NotePropertyName force -NotePropertyValue $false -PassThru | Out-Null
+            Add-Job $job
+        })
+    $createdCount = @($answers | Where-Object Status -eq 201).Count
+    $refused = @($answers | Where-Object Status -eq 409)
+    Check '3 jobs added (201)' ($createdCount -eq 3) "got $(($answers | ForEach-Object Status) -join ', ')"
+    $sameUrl = ($refused.Count -eq 1) -and ($refused[0].Body.reason -eq 'same_url')
+    Check '1 duplicate refused (409)' $sameUrl "409s: $($refused.Count), reason: $($refused | ForEach-Object { $_.Body.reason })"
+
+    # 10. Wait for the analysis of the 3 stored postings to settle.
     $settled = Wait-Until 'analysis of 3 postings' {
         $items = Get-Postings
         Write-Host ("  {0} postings: {1}" -f $items.Count, (($items | Group-Object status | ForEach-Object { "$($_.Name)=$($_.Count)" }) -join ', '))
-        $items.Count -ge 3 -and -not ($items | Where-Object { $_.status -in 'new', 'analyzed', 'needs_manual_text' })
+        $items.Count -ge 3 -and -not ($items | Where-Object { $_.status -in 'new', 'analyzed' })
     } $TimeoutMin
     $items = Get-Postings
-    Check 'feed stored 3 postings' ($items.Count -eq 3) "found $($items.Count)"
+    Check '3 postings stored' ($items.Count -eq 3) "found $($items.Count)"
     Check 'analysis settled' $settled
 
-    # A duplicate is stopped before a row is stored, and the backend does not log it at INFO, so
-    # check it from the data: the feed has 4 items, the copy (e2e000002) must not be stored.
-    $stored = @($items | ForEach-Object source_url)
-    $dups = 4 - $stored.Count
-    $copyStored = [bool]($stored | Where-Object { $_ -like '*e2e000002' })
     $lows = @($items | Where-Object status -eq 'low_match').Count
     $awaiting = @($items | Where-Object status -eq 'awaiting_match_review')
-    Check '1 duplicate stopped' (($dups -eq 1) -and -not $copyStored) "feed items not stored: $dups, copy stored: $copyStored"
     Check '1 low_match' ($lows -eq 1) "found $lows"
     Check '2 awaiting gate 1' ($awaiting.Count -eq 2) "found $($awaiting.Count)"
 
@@ -200,14 +206,14 @@ Python | SQL | PostgreSQL | Apache Airflow | dbt | Docker | Git | Data modelling
     $fjordbyg = $awaiting | Where-Object company -eq 'Fjordbyg Data ApS' | Select-Object -First 1
     if (-not $nordlys -or -not $fjordbyg) { throw 'expected Nordlys Analytics and Fjordbyg Data ApS to await review' }
 
-    # 10. Gate 1: approve one match, decline the other.
+    # 11. Gate 1: approve one match, decline the other.
     $body = { param($d) @{ decision = $d } | ConvertTo-Json }
     Invoke-RestMethod -Headers $headers -Method Post -ContentType 'application/json' `
         -Uri "$Api/postings/$($nordlys.posting_id)/match-decision" -Body (& $body 'approve') | Out-Null
     Invoke-RestMethod -Headers $headers -Method Post -ContentType 'application/json' `
         -Uri "$Api/postings/$($fjordbyg.posting_id)/match-decision" -Body (& $body 'decline') | Out-Null
 
-    # 11. Generation runs in the background (and on the worker tick) until generated.
+    # 12. Generation runs in the background, started by the approval.
     $generated = Wait-Until 'generation of the approved posting' {
         $p = Invoke-RestMethod -Headers $headers -Uri "$Api/postings/$($nordlys.posting_id)"
         Write-Host "  approved posting status: $($p.status)"
@@ -220,7 +226,7 @@ Python | SQL | PostgreSQL | Apache Airflow | dbt | Docker | Git | Data modelling
     $declined = @(Get-Postings | Where-Object status -eq 'match_declined').Count
     Check '1 match_declined' ($declined -eq 1) "found $declined"
 
-    # 12. Artifacts: text for all three kinds, and the two PDFs on disk.
+    # 13. Artifacts: text for all three kinds, and the two PDFs on disk.
     foreach ($kind in 'cv', 'cover_letter', 'recruiter_email') {
         $ok = $false
         try {
@@ -239,8 +245,7 @@ catch {
     Check 'run completed' $false $_.Exception.Message
 }
 finally {
-    if ($fixture -and -not $fixture.HasExited) { Stop-Process -Id $fixture.Id -Force }
-    Remove-Item Env:DATA_ROOT, Env:JOBINDEX_FEEDS, Env:LANGFLOW_API_KEY -ErrorAction SilentlyContinue
+    Remove-Item Env:DATA_ROOT, Env:LANGFLOW_API_KEY -ErrorAction SilentlyContinue
     if (-not $NoRestore) {
         Write-Host 'Restoring the stack on your own DATA_ROOT...'
         & $Dev up

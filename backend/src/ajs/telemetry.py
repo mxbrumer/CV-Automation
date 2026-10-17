@@ -1,6 +1,6 @@
 """OpenTelemetry export to Phoenix (plan 10).
 
-Backend and worker send spans to the local Phoenix (OTLP over HTTP) in the project `ajs-backend`.
+The backend sends spans to the local Phoenix (OTLP over HTTP) in the project `ajs-backend`.
 LangFlow has its own tracer and sends to one Phoenix project per flow; the two sides are linked by
 the LangFlow `session_id`, which `LangflowClient` sets on every run and records on the span and in
 `workflow_run` (LangFlow 1.12 does not continue an incoming trace context).

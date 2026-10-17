@@ -1,9 +1,10 @@
-"""Runtime egress guard (plan 10): which outbound HTTP the backend and worker may make.
+"""Runtime egress guard (plans 10, 15): which outbound HTTP the backend may make.
 
-Allowed: LangFlow (fixed host), the Jobindex feeds and posting pages (public web, via the fetcher
-and RSS source, minus the denylist) and Phoenix (OpenTelemetry exporter, not an httpx client).
-Ollama is the only model endpoint and is called by LangFlow, not from here. Anything addressed to
-a hosted-LLM API is refused whatever the purpose.
+The backend never reaches the public web (D4: posting text is pasted, never fetched). Allowed:
+LangFlow (flow runs), Ollama (chat editing, plan 12) and Phoenix (OTLP traces from the
+OpenTelemetry exporter, not an httpx client). Every httpx client is pinned to its one host with
+`only_hosts`, and anything addressed to a hosted-LLM API is refused whatever the purpose.
+`scripts/governance_check.py` (rule `egress`) and a backend test check that every client is pinned.
 """
 
 from collections.abc import Callable
@@ -39,16 +40,14 @@ def _on_domain(host: str, domain: str) -> bool:
     return host == domain or host.endswith("." + domain)
 
 
-def egress_hook(
-    purpose: str, only_hosts: set[str] | None = None
-) -> Callable[[httpx.Request], None]:
-    """An httpx `request` event hook. `only_hosts` pins the client to those hosts."""
+def egress_hook(purpose: str, only_hosts: set[str]) -> Callable[[httpx.Request], None]:
+    """An httpx `request` event hook that pins the client to `only_hosts`."""
 
     def check(request: httpx.Request) -> None:
         host = (urlsplit(str(request.url)).hostname or "").lower()
         if any(_on_domain(host, d) for d in MODEL_API_DOMAINS):
             raise EgressBlocked(f"{purpose}: {host} is a hosted-LLM endpoint", request=request)
-        if only_hosts is not None and host not in only_hosts:
+        if host not in only_hosts:
             raise EgressBlocked(f"{purpose}: {host} is not an allowed host", request=request)
 
     return check

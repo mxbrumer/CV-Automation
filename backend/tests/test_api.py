@@ -97,6 +97,108 @@ def test_create_duplicate_source_id_conflicts(client: TestClient) -> None:
     assert r.status_code == 409
 
 
+# ---- Add job (plan 15, D3) -------------------------------------------------------------------
+
+JOB = {
+    "company": "Novo Nordisk A/S",
+    "title": "Data Engineer",
+    "url": "https://careers.novonordisk.com/job/42",
+    "text": "We are looking for a data engineer. " * 40,
+}
+
+
+@pytest.fixture
+def queued(monkeypatch: pytest.MonkeyPatch) -> list[tuple[Any, ...]]:
+    calls: list[tuple[Any, ...]] = []
+    monkeypatch.setattr("ajs.api.ui.postings.run_pipeline", lambda *a: calls.append(a))
+    return calls
+
+
+def test_add_job_stores_a_manual_posting_and_starts_analysis(
+    client: TestClient, queued: list[tuple[Any, ...]]
+) -> None:
+    r = client.post(f"{U}/postings", json=JOB)
+    assert r.status_code == 201, r.text
+    body = r.json()
+    assert (body["status"], body["company"], body["source_url"]) == (
+        "new",
+        "Novo Nordisk A/S",
+        JOB["url"],
+    )
+    detail = client.get(f"{U}/postings/{body['posting_id']}").json()
+    assert detail["posting_text"] == JOB["text"].strip()
+    assert [e["to_status"] for e in detail["events"]] == ["new"]
+    assert len(queued) == 1  # the analysis run is queued at once
+
+
+def test_add_job_without_url(client: TestClient, queued: list[tuple[Any, ...]]) -> None:
+    r = client.post(f"{U}/postings", json=JOB | {"url": "  "})
+    assert r.status_code == 201, r.text
+    assert r.json()["source_url"] is None
+
+
+def test_add_job_same_url_is_refused_even_with_force(
+    client: TestClient, queued: list[tuple[Any, ...]]
+) -> None:
+    first = client.post(f"{U}/postings", json=JOB).json()
+    other = JOB | {"company": "Maersk", "title": "Marketing Manager"}
+    for force in (False, True):
+        r = client.post(f"{U}/postings", json=other | {"force": force})
+        assert r.status_code == 409, r.text
+        assert r.json()["reason"] == "same_url"
+        assert r.json()["posting"]["posting_id"] == first["posting_id"]
+    assert len(queued) == 1
+
+
+def test_add_job_url_of_a_duplicate_row_is_refused(
+    client: TestClient, queued: list[tuple[Any, ...]]
+) -> None:
+    pid = make_posting(client, source_url=JOB["url"])
+    assert client.post(f"{T}/postings/{pid}/status", json={"to": "duplicate"}).status_code == 200
+    r = client.post(f"{U}/postings", json=JOB | {"company": "Maersk", "force": True})
+    assert r.status_code == 409 and r.json()["reason"] == "same_url"
+    assert r.json()["posting"]["posting_id"] == pid
+
+
+def test_add_job_similar_asks_then_force_adds(
+    client: TestClient, queued: list[tuple[Any, ...]]
+) -> None:
+    first = client.post(f"{U}/postings", json=JOB).json()
+    again = JOB | {"company": "NOVO NORDISK", "url": None}
+    r = client.post(f"{U}/postings", json=again)
+    assert r.status_code == 409 and r.json()["reason"] == "similar"
+    assert r.json()["posting"]["posting_id"] == first["posting_id"]
+    r = client.post(f"{U}/postings", json=again | {"force": True})
+    assert r.status_code == 201, r.text
+    assert r.json()["posting_id"] != first["posting_id"]
+    assert len(queued) == 2
+
+
+@pytest.mark.parametrize(
+    "change",
+    [
+        {"company": " "},
+        {"title": ""},
+        {"text": "   "},
+        {"url": "ftp://example.com/job"},
+        {"url": "careers.example.com/job"},
+    ],
+)
+def test_add_job_validation(
+    client: TestClient, queued: list[tuple[Any, ...]], change: dict[str, Any]
+) -> None:
+    assert client.post(f"{U}/postings", json=JOB | change).status_code == 422
+    body = {k: v for k, v in JOB.items() if k != "text"}
+    assert client.post(f"{U}/postings", json=body).status_code == 422
+    assert queued == []
+
+
+def test_process_pending_queues_a_run(client: TestClient, queued: list[tuple[Any, ...]]) -> None:
+    r = client.post(f"{U}/workflow/process-pending")
+    assert r.status_code == 202 and len(queued) == 1
+    assert client.post(f"{U}/workflow/poll").status_code == 404
+
+
 # ---- match score and gate 1 -------------------------------------------------------------------
 
 
@@ -391,23 +493,6 @@ def test_reject_generated_posting(client: TestClient, settings: Settings) -> Non
     r = client.post(f"{U}/postings/{pid}/reject", json={"note": "not for me"})
     assert r.json()["status"] == "declined"
     assert client.post(f"{U}/postings/{pid}/reject", json={}).status_code == 409
-
-
-def test_pasted_text_requeues_analysis(
-    client: TestClient, settings: Settings, monkeypatch: pytest.MonkeyPatch
-) -> None:
-    monkeypatch.setattr("ajs.api.ui.chat.run_pipeline", lambda *_: None)
-    pid = make_posting(client)
-    assert (
-        client.post(f"{T}/postings/{pid}/status", json={"to": "needs_manual_text"}).status_code
-        == 200
-    )
-    r = client.patch(f"{U}/postings/{pid}/posting-text", json={"text": "x" * 30})
-    assert r.status_code == 200 and r.json()["status"] == "new"
-    assert client.get(f"{U}/postings/{pid}").json()["posting_text"] == "x" * 30
-    assert (
-        client.patch(f"{U}/postings/{pid}/posting-text", json={"text": "x" * 30}).status_code == 409
-    )
 
 
 def test_parse_reply_variants() -> None:

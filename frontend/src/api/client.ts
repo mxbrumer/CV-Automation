@@ -10,6 +10,8 @@ export const api = createClient<paths>({
 
 export type PostingSummary = components['schemas']['PostingSummary']
 export type PostingStatus = components['schemas']['PostingStatus']
+export type CreateJobRequest = components['schemas']['CreateJobRequest']
+export type DuplicateResponse = components['schemas']['DuplicateResponse']
 
 /** Throws on an error response so React Query can surface it. */
 export function unwrap<T>(result: { data?: T; error?: unknown; response: Response }): T {

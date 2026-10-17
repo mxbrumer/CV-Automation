@@ -6,9 +6,7 @@ from ajs.db.models import Actor, FactPosting, PostingEvent
 from ajs.db.models import PostingStatus as S
 
 ALLOWED: dict[S, frozenset[S]] = {
-    S.NEW: frozenset(
-        {S.ANALYZED, S.DUPLICATE, S.NEEDS_MANUAL_TEXT, S.UNSUPPORTED_LANGUAGE, S.ERROR}
-    ),
+    S.NEW: frozenset({S.ANALYZED, S.DUPLICATE, S.UNSUPPORTED_LANGUAGE, S.ERROR}),
     S.ANALYZED: frozenset({S.LOW_MATCH, S.AWAITING_MATCH_REVIEW, S.UNSUPPORTED_LANGUAGE, S.ERROR}),
     S.LOW_MATCH: frozenset(),
     S.AWAITING_MATCH_REVIEW: frozenset({S.MATCHED, S.MATCH_DECLINED}),  # gate 1 (D9)
@@ -20,7 +18,7 @@ ALLOWED: dict[S, frozenset[S]] = {
     S.SUBMITTED: frozenset(),
     S.DECLINED: frozenset(),
     S.DUPLICATE: frozenset(),
-    S.NEEDS_MANUAL_TEXT: frozenset({S.NEW, S.ERROR}),
+    S.NEEDS_MANUAL_TEXT: frozenset({S.NEW, S.ERROR}),  # no longer set (D3); keeps the map total
     S.UNSUPPORTED_LANGUAGE: frozenset(),
     S.ERROR: frozenset({S.NEW, S.MATCHED}),  # retry after a failed analysis / generation
 }

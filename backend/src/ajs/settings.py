@@ -45,22 +45,6 @@ class Settings(BaseSettings):
     dedup_similarity: float = 0.85
     dedup_window_days: int = 120
 
-    # Feed intake (plan 07, D3/D4).
-    jobindex_feeds: str = ""  # comma-separated Jobindex RSS URLs, one per saved search
-    feed_poll_interval_min: int = 1440  # never below the feed ttl (1440)
-    fetch_user_agent: str = "ai-job-search/0.1 (personal, local; contact via GitHub mxbrumer)"
-    fetch_denylist: str = "linkedin.com"  # comma-separated domains that are never fetched
-    fetch_min_snippet_words: int = 150
-    fetch_min_text_words: int = 80
-
-    @property
-    def feed_urls(self) -> list[str]:
-        return [u.strip() for u in self.jobindex_feeds.split(",") if u.strip()]
-
-    @property
-    def denylist(self) -> list[str]:
-        return [d.strip().lower() for d in self.fetch_denylist.split(",") if d.strip()]
-
     @property
     def applications_root(self) -> Path:
         return self.data_root / "applications"

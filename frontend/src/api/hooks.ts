@@ -1,6 +1,12 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import type { ArtifactKind } from './chat'
-import { api, unwrap, type PostingStatus } from './client'
+import {
+  api,
+  unwrap,
+  type CreateJobRequest,
+  type DuplicateResponse,
+  type PostingStatus,
+} from './client'
 
 const POLL_MS = 15_000
 
@@ -55,12 +61,38 @@ export const useLastRun = () =>
     refetchInterval: POLL_MS,
   })
 
-/** Starts the analysis phase for every new posting (POST /workflow/poll would also fetch the feed). */
-export const useRunPipeline = () => {
+/** Re-runs analysis for `new` postings and generation for `matched` ones (after a lost run). */
+export const useProcessPending = () => {
   const qc = useQueryClient()
   return useMutation({
-    mutationFn: async () => unwrap(await api.POST('/api/v1/workflow/poll')),
+    mutationFn: async () => unwrap(await api.POST('/api/v1/workflow/process-pending')),
     onSettled: () => qc.invalidateQueries(),
+  })
+}
+
+// ---- add job (plan 15) -----------------------------------------------------------------------
+
+/** A 409 from `POST /postings`: same URL (refused) or a similar company and title (A5). */
+export class DuplicateError extends Error {
+  readonly duplicate: DuplicateResponse
+  constructor(duplicate: DuplicateResponse) {
+    super(`duplicate: ${duplicate.reason}`)
+    this.duplicate = duplicate
+  }
+}
+
+/** Stores a pasted job; the backend starts its analysis at once. */
+export const useAddJob = () => {
+  const qc = useQueryClient()
+  return useMutation({
+    mutationFn: async (body: CreateJobRequest) => {
+      const res = await api.POST('/api/v1/postings', { body })
+      if (res.response.status === 409 && res.error && 'reason' in res.error) {
+        throw new DuplicateError(res.error)
+      }
+      return unwrap(res)
+    },
+    onSuccess: () => qc.invalidateQueries(),
   })
 }
 
@@ -111,7 +143,6 @@ const listByStatus = (status: PostingStatus) => ({
 })
 
 export const useGenerated = () => useQuery(listByStatus('generated'))
-export const useNeedsText = () => useQuery(listByStatus('needs_manual_text'))
 
 export const useArtifact = (id: number, kind: ArtifactKind, version?: number) =>
   useQuery({
@@ -201,20 +232,6 @@ export const useReject = () => {
         await api.POST('/api/v1/postings/{posting_id}/reject', {
           params: { path: { posting_id: v.id } },
           body: { note: v.note || null },
-        }),
-      ),
-    onSettled: () => qc.invalidateQueries(),
-  })
-}
-
-export const usePasteText = () => {
-  const qc = useQueryClient()
-  return useMutation({
-    mutationFn: async (v: { id: number; text: string }) =>
-      unwrap(
-        await api.PATCH('/api/v1/postings/{posting_id}/posting-text', {
-          params: { path: { posting_id: v.id } },
-          body: { text: v.text },
         }),
       ),
     onSettled: () => qc.invalidateQueries(),

@@ -31,7 +31,11 @@ export interface paths {
         /** List Postings */
         get: operations["list_postings_api_v1_postings_get"];
         put?: never;
-        post?: never;
+        /**
+         * Add Job
+         * @description Add job form (D3): dedup (A5), store the pasted posting and start its analysis.
+         */
+        post: operations["add_job_api_v1_postings_post"];
         delete?: never;
         options?: never;
         head?: never;
@@ -150,26 +154,6 @@ export interface paths {
         options?: never;
         head?: never;
         patch?: never;
-        trace?: never;
-    };
-    "/api/v1/postings/{posting_id}/posting-text": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        /**
-         * Paste Posting Text
-         * @description Text for a `needs_manual_text` posting: save it and send the posting back to analysis.
-         */
-        patch: operations["paste_posting_text_api_v1_postings__posting_id__posting_text_patch"];
         trace?: never;
     };
     "/api/v1/postings/{posting_id}/reject": {
@@ -410,7 +394,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workflow/poll": {
+    "/api/v1/workflow/process-pending": {
         parameters: {
             query?: never;
             header?: never;
@@ -419,8 +403,11 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** Poll Now */
-        post: operations["poll_now_api_v1_workflow_poll_post"];
+        /**
+         * Process Pending
+         * @description Recovery after a lost background run: analysis for `new`, generation for `matched`.
+         */
+        post: operations["process_pending_api_v1_workflow_process_pending_post"];
         delete?: never;
         options?: never;
         head?: never;
@@ -569,17 +556,34 @@ export interface components {
          * @enum {string}
          */
         ChatRole: "user" | "assistant";
+        /**
+         * CreateJobRequest
+         * @description The Add job form (D3). `force` adds a job that only looks similar to an existing one.
+         */
+        CreateJobRequest: {
+            /** Company */
+            company: string;
+            /**
+             * Force
+             * @default false
+             */
+            force: boolean;
+            /** Text */
+            text: string;
+            /** Title */
+            title: string;
+            /** Url */
+            url?: string | null;
+        };
         /** CreatePostingRequest */
         CreatePostingRequest: {
             /** Company */
             company: string;
-            /** Feed Item Id */
-            feed_item_id?: number | null;
             /** Posting Text */
             posting_text?: string | null;
             /**
              * Source
-             * @default jobindex
+             * @default manual
              */
             source: string;
             /** Source Job Id */
@@ -603,6 +607,16 @@ export interface components {
          * @enum {string}
          */
         Decision: "approve" | "decline";
+        /**
+         * DuplicateReason
+         * @enum {string}
+         */
+        DuplicateReason: "same_url" | "similar";
+        /** DuplicateResponse */
+        DuplicateResponse: {
+            posting: components["schemas"]["PostingSummary"];
+            reason: components["schemas"]["DuplicateReason"];
+        };
         /** EventOut */
         EventOut: {
             /** Actor */
@@ -625,7 +639,7 @@ export interface components {
             company: string;
             /**
              * Source
-             * @default jobindex
+             * @default manual
              */
             source: string;
             /** Source Job Id */
@@ -800,11 +814,6 @@ export interface components {
              */
             updated_at: string;
         };
-        /** PostingTextRequest */
-        PostingTextRequest: {
-            /** Text */
-            text: string;
-        };
         /**
          * QueueAction
          * @enum {string}
@@ -968,6 +977,50 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["PostingPage"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    add_job_api_v1_postings_post: {
+        parameters: {
+            query?: never;
+            header?: {
+                "x-api-key"?: string | null;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CreateJobRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PostingSummary"];
+                };
+            };
+            /** @description Duplicate (A5) */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["DuplicateResponse"];
                 };
             };
             /** @description Validation Error */
@@ -1245,43 +1298,6 @@ export interface operations {
         requestBody: {
             content: {
                 "application/json": components["schemas"]["MatchDecisionRequest"];
-            };
-        };
-        responses: {
-            /** @description Successful Response */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["StatusResponse"];
-                };
-            };
-            /** @description Validation Error */
-            422: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["HTTPValidationError"];
-                };
-            };
-        };
-    };
-    paste_posting_text_api_v1_postings__posting_id__posting_text_patch: {
-        parameters: {
-            query?: never;
-            header?: {
-                "x-api-key"?: string | null;
-            };
-            path: {
-                posting_id: number;
-            };
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["PostingTextRequest"];
             };
         };
         responses: {
@@ -1787,7 +1803,7 @@ export interface operations {
             };
         };
     };
-    poll_now_api_v1_workflow_poll_post: {
+    process_pending_api_v1_workflow_process_pending_post: {
         parameters: {
             query?: never;
             header?: {
