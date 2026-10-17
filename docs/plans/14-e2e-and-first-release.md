@@ -15,7 +15,7 @@ Prove the whole loop works from email to queue, harden operations, and cut the f
 7. Review `docs/plans/README.md` Follow-ups with the user and propose the next plans.
 
 ## Acceptance criteria
-- [ ] `scripts/e2e.ps1` passes on a clean machine state.
-- [ ] Playwright suite green in CI.
-- [ ] GitHub Release `v0.1.0` exists with changelog and artifacts.
-- [ ] User has done one real run with their own Jobindex feeds and approved at least one application through both gates.
+- [x] `scripts/e2e.ps1` passes on a clean machine state (verified 2026-10-14).
+- [x] Playwright suite green in CI (`e2e` job passed on PR #7, 2026-10-15).
+- [x] GitHub Release `v0.1.0` exists with changelog and artifacts (released 2026-10-15 from PR #2; asset `langflow-flows-v0.1.0.zip`).
+- [ ] ~~User has done one real run with their own Jobindex feeds and approved at least one application through both gates.~~ Waived 2026-10-17: superseded by plan 15 (manual intake replaces the Jobindex feed).
