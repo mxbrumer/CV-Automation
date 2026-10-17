@@ -69,6 +69,26 @@ def test_cloud_sdk_strings_fail(tree: Path, line: str) -> None:
     assert gov.check_sdk_strings(tree)
 
 
+@pytest.mark.parametrize(
+    "code",
+    [
+        'hook = egress_hook("fetcher")',
+        "client = httpx.Client(base_url='https://example.com')",
+    ],
+)
+def test_unpinned_http_client_fails(tree: Path, code: str) -> None:
+    (tree / "backend" / "src").mkdir()
+    (tree / "backend" / "src" / "client.py").write_text(code, encoding="utf-8")
+    assert gov.check_egress(tree)
+
+
+def test_pinned_http_client_passes(tree: Path) -> None:
+    (tree / "backend" / "src").mkdir()
+    code = 'c = httpx.Client(event_hooks={"request": [egress_hook("x", {"langflow"})]})'
+    (tree / "backend" / "src" / "client.py").write_text(code, encoding="utf-8")
+    assert gov.check_egress(tree) == []
+
+
 def test_changed_prompt_fails(tree: Path) -> None:
     prompt = tree / "langflow" / "prompts" / "analyst_job_brief.md"
     prompt.write_text(prompt.read_text(encoding="utf-8") + "\nExtra instruction.\n", encoding="utf-8")

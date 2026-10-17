@@ -276,23 +276,56 @@
         "title": "ChatRole",
         "type": "string"
       },
+      "CreateJobRequest": {
+        "description": "The Add job form (D3). `force` adds a job that only looks similar to an existing one.",
+        "properties": {
+          "company": {
+            "maxLength": 300,
+            "minLength": 1,
+            "title": "Company",
+            "type": "string"
+          },
+          "force": {
+            "default": false,
+            "title": "Force",
+            "type": "boolean"
+          },
+          "text": {
+            "minLength": 1,
+            "title": "Text",
+            "type": "string"
+          },
+          "title": {
+            "minLength": 1,
+            "title": "Title",
+            "type": "string"
+          },
+          "url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Url"
+          }
+        },
+        "required": [
+          "company",
+          "title",
+          "text"
+        ],
+        "title": "CreateJobRequest",
+        "type": "object"
+      },
       "CreatePostingRequest": {
         "properties": {
           "company": {
             "minLength": 1,
             "title": "Company",
             "type": "string"
-          },
-          "feed_item_id": {
-            "anyOf": [
-              {
-                "type": "integer"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Feed Item Id"
           },
           "posting_text": {
             "anyOf": [
@@ -306,7 +339,7 @@
             "title": "Posting Text"
           },
           "source": {
-            "default": "jobindex",
+            "default": "manual",
             "title": "Source",
             "type": "string"
           },
@@ -376,6 +409,30 @@
         "title": "Decision",
         "type": "string"
       },
+      "DuplicateReason": {
+        "enum": [
+          "same_url",
+          "similar"
+        ],
+        "title": "DuplicateReason",
+        "type": "string"
+      },
+      "DuplicateResponse": {
+        "properties": {
+          "posting": {
+            "$ref": "#/components/schemas/PostingSummary"
+          },
+          "reason": {
+            "$ref": "#/components/schemas/DuplicateReason"
+          }
+        },
+        "required": [
+          "reason",
+          "posting"
+        ],
+        "title": "DuplicateResponse",
+        "type": "object"
+      },
       "EventOut": {
         "properties": {
           "actor": {
@@ -434,7 +491,7 @@
             "type": "string"
           },
           "source": {
-            "default": "jobindex",
+            "default": "manual",
             "title": "Source",
             "type": "string"
           },
@@ -1034,20 +1091,6 @@
         "title": "PostingSummary",
         "type": "object"
       },
-      "PostingTextRequest": {
-        "properties": {
-          "text": {
-            "minLength": 20,
-            "title": "Text",
-            "type": "string"
-          }
-        },
-        "required": [
-          "text"
-        ],
-        "title": "PostingTextRequest",
-        "type": "object"
-      },
       "QueueAction": {
         "enum": [
           "submitted",
@@ -1530,6 +1573,74 @@
           }
         },
         "summary": "List Postings",
+        "tags": [
+          "ui"
+        ]
+      },
+      "post": {
+        "description": "Add job form (D3): dedup (A5), store the pasted posting and start its analysis.",
+        "operationId": "add_job_api_v1_postings_post",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "x-api-key",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Api-Key"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateJobRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PostingSummary"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DuplicateResponse"
+                }
+              }
+            },
+            "description": "Duplicate (A5)"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Add Job",
         "tags": [
           "ui"
         ]
@@ -2094,75 +2205,6 @@
         "summary": "Match Decision",
         "tags": [
           "ui"
-        ]
-      }
-    },
-    "/api/v1/postings/{posting_id}/posting-text": {
-      "patch": {
-        "description": "Text for a `needs_manual_text` posting: save it and send the posting back to analysis.",
-        "operationId": "paste_posting_text_api_v1_postings__posting_id__posting_text_patch",
-        "parameters": [
-          {
-            "in": "path",
-            "name": "posting_id",
-            "required": true,
-            "schema": {
-              "title": "Posting Id",
-              "type": "integer"
-            }
-          },
-          {
-            "in": "header",
-            "name": "x-api-key",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "title": "X-Api-Key"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/PostingTextRequest"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/StatusResponse"
-                }
-              }
-            },
-            "description": "Successful Response"
-          },
-          "422": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            },
-            "description": "Validation Error"
-          }
-        },
-        "summary": "Paste Posting Text",
-        "tags": [
-          "review"
         ]
       }
     },
@@ -3023,9 +3065,10 @@
         ]
       }
     },
-    "/api/v1/workflow/poll": {
+    "/api/v1/workflow/process-pending": {
       "post": {
-        "operationId": "poll_now_api_v1_workflow_poll_post",
+        "description": "Recovery after a lost background run: analysis for `new`, generation for `matched`.",
+        "operationId": "process_pending_api_v1_workflow_process_pending_post",
         "parameters": [
           {
             "in": "header",
@@ -3052,7 +3095,7 @@
                   "additionalProperties": {
                     "type": "string"
                   },
-                  "title": "Response Poll Now Api V1 Workflow Poll Post",
+                  "title": "Response Process Pending Api V1 Workflow Process Pending Post",
                   "type": "object"
                 }
               }
@@ -3070,7 +3113,7 @@
             "description": "Validation Error"
           }
         },
-        "summary": "Poll Now",
+        "summary": "Process Pending",
         "tags": [
           "ui"
         ]

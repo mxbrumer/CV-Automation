@@ -1,10 +1,13 @@
 import { expect, test, type Page } from '@playwright/test'
 import { REAL_LLM } from './env.ts'
 
-// The whole human loop on seeded fake data: dashboard -> gate 1 (Matches) -> gate 2 (Review, with a
-// chat edit) -> Queue -> submitted -> dashboard. One test, because each step builds on the last.
+// The whole human loop on seeded fake data: Add job -> dashboard -> gate 1 (Matches) -> gate 2
+// (Review, with a chat edit) -> Queue -> submitted -> dashboard. One test, because each step
+// builds on the last.
 const MATCH = 'BI Developer' // awaiting_match_review, score 62
 const DRAFT = 'Machine Learning Scientist' // generated, highest score (83)
+// "Fake Company ..." so `seed_dev.py --reset` removes it before the next run.
+const ADDED = { company: 'Fake Company 99 E2E A/S', title: 'Pasted Role For E2E' }
 
 const tab = (page: Page, name: string) =>
   page.getByRole('navigation', { name: 'Main' }).getByRole('link', { name: new RegExp(`^${name}`) })
@@ -14,6 +17,26 @@ const tile = (page: Page, label: string) =>
 
 test('from the dashboard through both gates to a submitted application', async ({ page }) => {
   let submittedBefore = 0
+
+  await test.step('add job: paste a job and see it stored', async () => {
+    await page.goto('/')
+    await tab(page, 'Add job').click()
+    await page.getByLabel('Company').fill(ADDED.company)
+    await page.getByLabel('Job title').fill(ADDED.title)
+    await page.getByLabel('Application URL (optional)').fill('https://jobs.example.com/e2e-added')
+    await page
+      .getByLabel(/Job description/)
+      .fill('We need an analyst who writes Python and SQL every day. '.repeat(15))
+    await expect(page.getByText(/Only \d+ words/)).toHaveCount(0)
+    await page.getByRole('button', { name: 'Add job' }).click()
+    await expect(page.getByRole('status')).toContainText(`Added “${ADDED.title}”`)
+    await expect(page.getByLabel('Company')).toHaveValue('')
+    // ENV=test makes the background run a no-op, so the row stays `new`.
+    await tab(page, 'Home').click()
+    const row = page.getByRole('row').filter({ hasText: ADDED.title })
+    await expect(row).toContainText(ADDED.company)
+    await expect(row).toContainText('new')
+  })
 
   await test.step('dashboard shows the counts', async () => {
     await page.goto('/')

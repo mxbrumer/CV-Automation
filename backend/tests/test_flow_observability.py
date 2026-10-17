@@ -1,19 +1,21 @@
 """Plan 10: egress guard, run records with trace links, and telemetry switch."""
 
+import ast
 import json
+from pathlib import Path
 
 import httpx
 import pytest
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
-from ajs.db.models import FactPosting, PostingStatus, WorkflowRun
+from ajs.db.models import PostingStatus, WorkflowRun
 from ajs.services.egress import EgressBlocked, egress_hook
 from ajs.services.langflow_client import FlowRef, LangflowClient
+from ajs.services.pipeline import FlowError, Pipeline
 from ajs.settings import Settings
 from ajs.telemetry import setup_telemetry
-from ajs.worker.pipeline import FlowError, Pipeline
-from test_intake import FakeFetcher, FakeFlows, FakeSource, raw
+from test_pipeline import FakeFlows, add
 
 
 @pytest.mark.parametrize(
@@ -26,15 +28,33 @@ from test_intake import FakeFetcher, FakeFlows, FakeSource, raw
 )
 def test_hosted_llm_hosts_are_refused(url: str) -> None:
     with pytest.raises(EgressBlocked):
-        egress_hook("test")(httpx.Request("POST", url))
+        egress_hook("test", {"api.openai.com", "api.anthropic.com", "x.groq.com"})(
+            httpx.Request("POST", url)
+        )
 
 
-def test_public_job_pages_pass_and_pinned_clients_refuse_others() -> None:
-    egress_hook("fetcher")(httpx.Request("GET", "https://www.jobindex.dk/vis-job/1"))
+def test_pinned_clients_refuse_other_hosts() -> None:
     pinned = egress_hook("langflow", {"langflow"})
     pinned(httpx.Request("POST", "http://langflow:7860/api/v1/run/x"))
     with pytest.raises(EgressBlocked):
         pinned(httpx.Request("GET", "https://example.com/"))
+
+
+def test_every_egress_hook_call_pins_its_hosts() -> None:
+    """Plan 15: no backend client may reach the public web, so every hook passes only_hosts."""
+    src = Path(__file__).resolve().parents[1] / "src"
+    calls = []
+    for path in src.rglob("*.py"):
+        for node in ast.walk(ast.parse(path.read_text(encoding="utf-8"))):
+            if (
+                isinstance(node, ast.Call)
+                and isinstance(node.func, ast.Name)
+                and node.func.id == "egress_hook"
+            ):
+                calls.append(node)
+                pinned = len(node.args) >= 2 or any(k.arg == "only_hosts" for k in node.keywords)
+                assert pinned, f"{path.name}:{node.lineno}: egress_hook without only_hosts"
+    assert len(calls) >= 2  # the LangFlow and the Ollama chat clients
 
 
 def test_langflow_client_sends_a_session_id(settings: Settings) -> None:
@@ -73,12 +93,8 @@ class RefFlows(FakeFlows):
 
 
 def test_pipeline_records_workflow_runs(db: Session, settings: Settings) -> None:
-    flows = RefFlows(db)
-    pipe = Pipeline(
-        db, settings, FakeSource([raw("o-1")]), FakeFetcher(), flows, sleep=lambda s: None
-    )
-    pipe.run_analysis()
-    posting = db.scalars(select(FactPosting).where(FactPosting.source_job_id == "o-1")).one()
+    posting = add(db)
+    Pipeline(db, settings, RefFlows(db), sleep=lambda s: None).analyze_pending()
     assert posting.status is PostingStatus.AWAITING_MATCH_REVIEW
     run = db.scalars(select(WorkflowRun).where(WorkflowRun.posting_id == posting.posting_id)).one()
     assert (run.phase, run.status) == ("analysis", "succeeded")
@@ -87,12 +103,10 @@ def test_pipeline_records_workflow_runs(db: Session, settings: Settings) -> None
 
 
 def test_failed_flow_is_recorded(db: Session, settings: Settings) -> None:
+    add(db)
     flows = FakeFlows(db)
     flows.error = FlowError("boom")
-    pipe = Pipeline(
-        db, settings, FakeSource([raw("o-2")]), FakeFetcher(), flows, sleep=lambda s: None
-    )
-    pipe.run_analysis()
+    Pipeline(db, settings, flows, sleep=lambda s: None).analyze_pending()
     run = db.scalars(select(WorkflowRun).order_by(WorkflowRun.run_id.desc())).first()
     assert run is not None and run.status == "failed" and run.error == "boom"
 

@@ -1,5 +1,5 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import { render, screen, waitFor } from '@testing-library/react'
+import { render, screen, waitFor, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { MemoryRouter } from 'react-router'
 import { afterEach, describe, expect, it, vi } from 'vitest'
@@ -46,7 +46,8 @@ function mockApi(opts: { down?: boolean; empty?: boolean } = {}) {
           finished_at: '2026-10-14T08:02:00Z',
           error: null,
         })
-      if (url.pathname === '/api/v1/workflow/poll') return json({ status: 'queued' }, 202)
+      if (url.pathname === '/api/v1/workflow/process-pending')
+        return json({ status: 'queued' }, 202)
       if (url.pathname === '/api/v1/postings') {
         const status = url.searchParams.get('status')
         if (status) return json({ items: [], total: totals[status] ?? 0, page: 1, page_size: 1 })
@@ -93,6 +94,8 @@ describe('Home dashboard', () => {
     mockApi({ empty: true })
     renderApp()
     expect(await screen.findByText(/No postings yet/)).toBeInTheDocument()
+    const main = screen.getByRole('main')
+    expect(within(main).getByRole('link', { name: 'Add job' })).toHaveAttribute('href', '/add')
   })
 
   it('shows a banner when the backend is down', async () => {
@@ -101,11 +104,11 @@ describe('Home dashboard', () => {
     expect(await screen.findByText(/Cannot reach the backend/)).toBeInTheDocument()
   })
 
-  it('starts the pipeline from the button', async () => {
+  it('processes pending postings from the button', async () => {
     const calls = mockApi()
     renderApp()
-    await userEvent.click(await screen.findByRole('button', { name: 'Run pipeline now' }))
-    expect(await screen.findByText('Pipeline run queued.')).toBeInTheDocument()
-    expect(calls).toContain('POST /api/v1/workflow/poll')
+    await userEvent.click(await screen.findByRole('button', { name: 'Process pending' }))
+    expect(await screen.findByText('Processing queued.')).toBeInTheDocument()
+    expect(calls).toContain('POST /api/v1/workflow/process-pending')
   })
 })

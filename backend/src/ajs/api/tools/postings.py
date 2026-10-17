@@ -44,7 +44,6 @@ def create_posting(
         source_job_id=body.source_job_id,
         source_url=body.source_url,
         posting_text=body.posting_text,
-        feed_item_id=body.feed_item_id,
     )
     return schemas.PostingIdResponse(posting_id=posting.posting_id)
 

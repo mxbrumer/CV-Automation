@@ -1,5 +1,6 @@
 import { Route, Routes } from 'react-router'
 import Layout from './components/Layout'
+import AddJob from './pages/AddJob'
 import Home from './pages/Home'
 import Matches from './pages/Matches'
 import Placeholder from './pages/Placeholder'
@@ -12,6 +13,7 @@ export default function App() {
     <Routes>
       <Route element={<Layout />}>
         <Route index element={<Home />} />
+        <Route path="add" element={<AddJob />} />
         <Route path="matches" element={<Matches />} />
         <Route path="review" element={<Review />} />
         <Route path="review/:id" element={<ReviewDetail />} />

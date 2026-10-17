@@ -2,9 +2,9 @@
 
 from datetime import datetime
 from enum import StrEnum
-from typing import Any
+from typing import Annotated, Any
 
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import BaseModel, ConfigDict, Field, StringConstraints, field_validator
 
 from ajs.db.models import ArtifactKind, ChatRole, PostingStatus
 
@@ -19,7 +19,7 @@ class ORMModel(BaseModel):
 class FindRequest(BaseModel):
     company: str
     title: str
-    source: str = "jobindex"
+    source: str = "manual"
     source_url: str | None = None
     source_job_id: str | None = None
 
@@ -33,11 +33,10 @@ class FindResponse(BaseModel):
 class CreatePostingRequest(BaseModel):
     company: str = Field(min_length=1)
     title: str = Field(min_length=1)
-    source: str = "jobindex"
+    source: str = "manual"
     source_job_id: str | None = None
     source_url: str | None = None
     posting_text: str | None = None
-    feed_item_id: int | None = None
 
 
 class PostingIdResponse(BaseModel):
@@ -164,6 +163,36 @@ class PostingDetail(PostingSummary):
     events: list[EventOut]
 
 
+class CreateJobRequest(BaseModel):
+    """The Add job form (D3). `force` adds a job that only looks similar to an existing one."""
+
+    company: Annotated[str, StringConstraints(strip_whitespace=True, min_length=1, max_length=300)]
+    title: Annotated[str, StringConstraints(strip_whitespace=True, min_length=1)]
+    url: str | None = None
+    text: Annotated[str, StringConstraints(strip_whitespace=True, min_length=1)]
+    force: bool = False
+
+    @field_validator("url")
+    @classmethod
+    def _http_url(cls, value: str | None) -> str | None:
+        value = (value or "").strip()
+        if not value:
+            return None
+        if not value.lower().startswith(("http://", "https://")):
+            raise ValueError("url must start with http:// or https://")
+        return value
+
+
+class DuplicateReason(StrEnum):
+    SAME_URL = "same_url"  # refused: the URL is unique
+    SIMILAR = "similar"  # similar company and title (A5): the user may add it anyway
+
+
+class DuplicateResponse(BaseModel):
+    reason: DuplicateReason
+    posting: PostingSummary
+
+
 class PostingPage(BaseModel):
     items: list[PostingSummary]
     total: int
@@ -244,7 +273,3 @@ class ChatAcceptRequest(BaseModel):
 
 class RejectRequest(BaseModel):
     note: str | None = None
-
-
-class PostingTextRequest(BaseModel):
-    text: str = Field(min_length=20)

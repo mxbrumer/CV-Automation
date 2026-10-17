@@ -1,7 +1,8 @@
+import { Link } from 'react-router'
 import {
   useLastRun,
+  useProcessPending,
   useRecentPostings,
-  useRunPipeline,
   useStats,
   useStatusCount,
 } from '../api/hooks'
@@ -14,7 +15,7 @@ export default function Home() {
   const submitted = useStatusCount('submitted')
   const recent = useRecentPostings(10)
   const lastRun = useLastRun()
-  const run = useRunPipeline()
+  const run = useProcessPending()
 
   const items = recent.data?.items ?? []
   const last = lastRun.data
@@ -33,18 +34,19 @@ export default function Home() {
             type="button"
             onClick={() => run.mutate()}
             disabled={run.isPending}
+            title="Re-runs analysis for new jobs and drafting for approved matches, for example after a backend restart"
             className="rounded-md bg-accent px-3 py-1.5 font-medium text-bg disabled:opacity-60"
           >
-            {run.isPending ? 'Starting…' : 'Run pipeline now'}
+            {run.isPending ? 'Starting…' : 'Process pending'}
           </button>
         </div>
       </div>
       {run.isError && (
         <p role="alert" className="text-sm text-warn-fg">
-          Could not start the pipeline: {run.error.message}
+          Could not start processing: {run.error.message}
         </p>
       )}
-      {run.isSuccess && <p className="text-sm text-muted">Pipeline run queued.</p>}
+      {run.isSuccess && <p className="text-sm text-muted">Processing queued.</p>}
 
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
         <StatTile label="Job postings reviewed" value={stats.data?.reviewed} />
@@ -56,8 +58,11 @@ export default function Home() {
         <h2 className="mb-2 text-base font-semibold">Latest postings</h2>
         {recent.isSuccess && items.length === 0 ? (
           <p className="rounded-lg border border-dashed border-line p-6 text-center text-muted">
-            No postings yet. Add a Jobindex feed to <code>JOBINDEX_FEEDS</code> and press “Run
-            pipeline now”.
+            No postings yet. Paste a job description in{' '}
+            <Link to="/add" className="text-accent underline">
+              Add job
+            </Link>
+            .
           </p>
         ) : (
           <div className="overflow-x-auto rounded-lg border border-line bg-surface">

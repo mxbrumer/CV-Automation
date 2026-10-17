@@ -8,11 +8,14 @@ Exit code 1 when a rule is broken. Rules:
   sdk      no cloud-LLM SDK or key strings in backend/, langflow/ or frontend/src
   prompts  every langflow/prompts/*.md body is embedded verbatim in a flow
   tracked  no profile data, .eml or .env file is tracked by git
+  egress   every httpx client in backend/src gets event hooks, and every egress_hook call pins
+           the client with only_hosts (plan 15: the backend never reaches the public web)
 """
 
 from __future__ import annotations
 
 import argparse
+import ast
 import json
 import re
 import subprocess
@@ -167,6 +170,38 @@ def check_tracked(files: list[str]) -> list[str]:
     return problems
 
 
+HTTPX_CLIENTS = {"Client", "AsyncClient"}
+
+
+def _call_name(node: ast.Call) -> str:
+    func = node.func
+    if isinstance(func, ast.Attribute):
+        return func.attr
+    return func.id if isinstance(func, ast.Name) else ""
+
+
+def check_egress(root: Path) -> list[str]:
+    problems: list[str] = []
+    for path in sorted((root / "backend" / "src").rglob("*.py")):
+        rel = path.relative_to(root).as_posix()
+        tree = ast.parse(path.read_text(encoding="utf-8"), filename=rel)
+        for node in ast.walk(tree):
+            if not isinstance(node, ast.Call):
+                continue
+            name, keywords = _call_name(node), {k.arg for k in node.keywords}
+            if name == "egress_hook" and len(node.args) < 2 and "only_hosts" not in keywords:
+                problems.append(f"{rel}:{node.lineno}: egress_hook without only_hosts")
+            elif (
+                name in HTTPX_CLIENTS
+                and isinstance(node.func, ast.Attribute)
+                and isinstance(node.func.value, ast.Name)
+                and node.func.value.id == "httpx"
+                and "event_hooks" not in keywords
+            ):
+                problems.append(f"{rel}:{node.lineno}: httpx.{name} without an egress_hook")
+    return problems
+
+
 def run_all(root: Path, files: list[str] | None = None) -> dict[str, list[str]]:
     if files is None:
         try:
@@ -179,6 +214,7 @@ def run_all(root: Path, files: list[str] | None = None) -> dict[str, list[str]]:
         "sdk": check_sdk_strings(root),
         "prompts": check_prompts(root),
         "tracked": check_tracked(files),
+        "egress": check_egress(root),
     }
 
 
