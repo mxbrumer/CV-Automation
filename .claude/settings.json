@@ -18,7 +18,8 @@
       "Bash(ollama ps *)",
       "Bash(ollama show *)",
       "Bash(gh pr *)",
-      "Bash(gh run *)"
+      "Bash(gh run *)",
+      "Bash(gh pr create:*)"
     ],
     "deny": [
       "Read(**/.env)",
