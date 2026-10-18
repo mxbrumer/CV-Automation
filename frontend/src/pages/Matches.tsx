@@ -218,11 +218,11 @@ export default function Matches() {
       )}
       {queue.isSuccess && items.length === 0 && Object.keys(pending).length === 0 ? (
         <p className="rounded-lg border border-dashed border-line p-6 text-center text-muted">
-          Nothing to confirm.{' '}
-          <Link to="/" className="text-accent underline">
-            Go to Home
-          </Link>{' '}
-          and press “Run pipeline now”.
+          Nothing to confirm. Paste a job in{' '}
+          <Link to="/add" className="text-accent underline">
+            Add job
+          </Link>
+          ; good matches show up here after their analysis.
         </p>
       ) : (
         <ul className="space-y-2">
