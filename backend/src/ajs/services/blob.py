@@ -22,8 +22,25 @@ def folder_name(created: datetime, company: str, title: str, posting_id: int) ->
     return f"{created:%Y-%m}_{slugify(company)}_{slugify(title)}_{posting_id}"
 
 
-def artifact_filename(kind: str, version: int, ext: str) -> str:
-    return f"{kind}_v{version}.{ext}"
+VERSIONS_DIR = "versions"
+DOC_LABELS = {"cv": "CV"}  # other kinds keep their name: cover_letter, recruiter_email
+# NFKD splits å and é into letter + accent, but has no decomposition for these.
+TRANSLITERATE = str.maketrans({"æ": "ae", "Æ": "Ae", "ø": "o", "Ø": "O", "ß": "ss"})
+
+
+def file_token(text: str, max_len: int = 40) -> str:
+    """`Danske Commodities` -> `Danske_Commodities`: ASCII, case kept, underscores between words."""
+    ascii_text = unicodedata.normalize("NFKD", text.translate(TRANSLITERATE))
+    ascii_text = ascii_text.encode("ascii", "ignore").decode()
+    token = re.sub(r"[^A-Za-z0-9]+", "_", ascii_text).strip("_")
+    return token[:max_len].strip("_") or "x"
+
+
+def artifact_filename(kind: str, company: str, ext: str, version: int | None = None) -> str:
+    """`CV_Danske_Commodities.pdf` for the latest version; with `version`, the name of an older
+    one (`CV_Danske_Commodities_v2.pdf`), which is kept in the `versions/` subfolder."""
+    stem = f"{DOC_LABELS.get(kind, kind)}_{file_token(company)}"
+    return f"{stem}_v{version}.{ext}" if version is not None else f"{stem}.{ext}"
 
 
 def _bad_segment(part: str) -> bool:
@@ -71,6 +88,17 @@ class BlobStore:
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_bytes(content)
         return path
+
+    def move(self, relative_path: str, *parts: str) -> str:
+        """Move a stored file to `parts` under the root; returns the new relative path. A file that
+        is already gone is left alone and its old path returned."""
+        source = self.resolve(*relative_path.split("/"))
+        if not source.is_file():
+            return relative_path
+        target = self.resolve(*parts)
+        target.parent.mkdir(parents=True, exist_ok=True)
+        source.replace(target)
+        return self.relative(target)
 
     def relative(self, path: Path) -> str:
         """Path relative to the applications root, with forward slashes (stored in the DB)."""

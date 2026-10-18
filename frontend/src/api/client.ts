@@ -13,6 +13,11 @@ export type PostingStatus = components['schemas']['PostingStatus']
 export type CreateJobRequest = components['schemas']['CreateJobRequest']
 export type DuplicateResponse = components['schemas']['DuplicateResponse']
 
+/** URL of a stored file; `path` is relative to the applications root (`<folder>/versions/x.pdf`). */
+export function fileUrl(postingId: number, path: string): string {
+  return `/api/v1/files/${postingId}/${path.split('/').slice(1).join('/')}`
+}
+
 /** Throws on an error response so React Query can surface it. */
 export function unwrap<T>(result: { data?: T; error?: unknown; response: Response }): T {
   if (result.data === undefined) {

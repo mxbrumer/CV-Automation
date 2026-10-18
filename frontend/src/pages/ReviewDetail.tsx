@@ -2,6 +2,7 @@ import clsx from 'clsx'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router'
 import { streamChat, type ArtifactKind, type ChatMessage } from '../api/chat'
+import { fileUrl } from '../api/client'
 import {
   useAcceptProposal,
   useApprove,
@@ -264,7 +265,7 @@ function DocumentPane({
     if (markdown !== undefined && isLatest) onProposalBase(markdown)
   }, [markdown, isLatest, onProposalBase])
 
-  const pdf = shown?.pdf_path?.split('/').pop()
+  const pdf = shown?.pdf_path ? fileUrl(id, shown.pdf_path) : undefined
 
   return (
     <div className="space-y-3">
@@ -307,7 +308,7 @@ function DocumentPane({
         )}
         {source === 'generated' && pdf && (
           <a
-            href={`/api/v1/files/${id}/${pdf}`}
+            href={pdf}
             target="_blank"
             rel="noreferrer"
             className="text-accent underline"

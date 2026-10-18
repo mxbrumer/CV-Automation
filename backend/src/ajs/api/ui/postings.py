@@ -277,12 +277,13 @@ def queue_action(
     return _summary(posting)
 
 
-@router.get("/files/{posting_id}/{filename}")
+@router.get("/files/{posting_id}/{filename:path}")
 def get_file(posting_id: int, filename: str, session: SessionDep, store: BlobDep) -> FileResponse:
+    """`filename` is relative to the posting's folder, e.g. `versions/CV_Acme_v1.pdf`."""
     posting = postings.get_posting(session, posting_id)
     if posting.artifact_folder is None:
         raise HTTPException(404, "posting has no folder yet")
-    path = store.resolve(posting.artifact_folder, filename)
+    path = store.resolve(posting.artifact_folder, *filename.split("/"))
     if not path.is_file():
         raise HTTPException(404, "file not found")
     return FileResponse(path)

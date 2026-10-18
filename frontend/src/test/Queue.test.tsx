@@ -22,8 +22,8 @@ const artifact = (kind: string, pdf: boolean) => ({
   artifact_id: kind.length,
   kind,
   version: 2,
-  md_path: `x/${kind}_v2.md`,
-  pdf_path: pdf ? `x/${kind}_v2.pdf` : null,
+  md_path: `x/${kind}_Acme.md`,
+  pdf_path: pdf ? `x/${kind}_Acme.pdf` : null,
   approved: true,
   created_at: 'x',
 })
@@ -109,7 +109,7 @@ describe('Queue', () => {
     ).toBeInTheDocument()
     expect(screen.getByRole('link', { name: /CV \(v2/ })).toHaveAttribute(
       'href',
-      '/api/v1/files/1/cv_v2.pdf',
+      '/api/v1/files/1/cv_Acme.pdf',
     )
     expect(await screen.findByText('Data engineer application')).toBeInTheDocument()
     expect(screen.getByText('anna@example.com')).toBeInTheDocument()

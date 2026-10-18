@@ -170,14 +170,39 @@ def artifact_version(
     ).first()
 
 
+def archive_artifact(
+    store: blob.BlobStore, artifact: ApplicationArtifact, folder: str, company: str
+) -> None:
+    """Move a superseded version's files into `versions/` and point its row at them."""
+    kind, version = artifact.kind.value, artifact.version
+    artifact.md_path = store.move(
+        artifact.md_path,
+        folder,
+        blob.VERSIONS_DIR,
+        blob.artifact_filename(kind, company, "md", version),
+    )
+    if artifact.pdf_path:
+        artifact.pdf_path = store.move(
+            artifact.pdf_path,
+            folder,
+            blob.VERSIONS_DIR,
+            blob.artifact_filename(kind, company, "pdf", version),
+        )
+
+
 def save_artifact(
     session: Session, store: blob.BlobStore, posting: FactPosting, kind: ArtifactKind, markdown: str
 ) -> ApplicationArtifact:
-    """Write a new version: `<kind>_v{n}.md`, plus a PDF when the renderer is available."""
+    """Write a new version as `CV_<Company>.md`, plus a PDF when the renderer is available. The
+    version it replaces moves to `versions/CV_<Company>_v{n}.*`, so the folder's top level always
+    holds the files to send."""
     folder = ensure_folder(session, store, posting)
+    company = posting.company.name
     previous = latest_artifact(session, posting.posting_id, kind)
     version = previous.version + 1 if previous else 1
-    md_path = store.write_text(folder, blob.artifact_filename(kind.value, version, "md"), markdown)
+    if previous:
+        archive_artifact(store, previous, folder, company)
+    md_path = store.write_text(folder, blob.artifact_filename(kind.value, company, "md"), markdown)
     pdf_rel: str | None = None
     if kind is not ArtifactKind.RECRUITER_EMAIL:  # the email is pasted as rich text, no PDF
         try:
@@ -186,7 +211,7 @@ def save_artifact(
             pass  # WeasyPrint's system libraries are missing (host runs); the .md is still saved
         else:
             pdf_rel = store.relative(
-                store.write_bytes(folder, blob.artifact_filename(kind.value, version, "pdf"), pdf)
+                store.write_bytes(folder, blob.artifact_filename(kind.value, company, "pdf"), pdf)
             )
     artifact = ApplicationArtifact(
         posting_id=posting.posting_id,

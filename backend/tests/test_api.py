@@ -333,12 +333,19 @@ def test_artifact_versions_and_files(client: TestClient, settings: Any) -> None:
     r = client.post(f"{T}/postings/{pid}/artifacts", json={"kind": "cv", "markdown": "# CV v1"})
     assert r.status_code == 201 and r.json()["version"] == 1
     # A PDF exists wherever WeasyPrint's system libraries do (CI, Docker), not on the Windows host.
-    assert r.json()["pdf_path"] in (None, f"{folder.rsplit('/', 1)[-1]}/cv_v1.pdf")
+    name = folder.rsplit("/", 1)[-1]
+    assert r.json()["md_path"] == f"{name}/CV_Novo_Nordisk_A_S.md"
+    assert r.json()["pdf_path"] in (None, f"{name}/CV_Novo_Nordisk_A_S.pdf")
     r = client.put(f"{U}/postings/{pid}/artifacts/cv", json={"markdown": "# CV v2"})
     assert r.json()["version"] == 2 and r.json()["markdown"] == "# CV v2"
     assert client.get(f"{U}/postings/{pid}/artifacts/cv").json()["markdown"] == "# CV v2"
     assert client.get(f"{U}/postings/{pid}/artifacts/cover_letter").status_code == 404
-    assert client.get(f"{U}/files/{pid}/cv_v1.md").text == "# CV v1"
+    # The latest version keeps the clean name; the one it replaced moved to versions/.
+    assert client.get(f"{U}/files/{pid}/CV_Novo_Nordisk_A_S.md").text == "# CV v2"
+    old = client.get(f"{U}/postings/{pid}/artifacts/cv", params={"version": 1}).json()
+    assert old["md_path"] == f"{name}/versions/CV_Novo_Nordisk_A_S_v1.md"
+    assert client.get(f"{U}/files/{pid}/versions/CV_Novo_Nordisk_A_S_v1.md").text == "# CV v1"
+    assert client.get(f"{U}/files/{pid}/versions/..%2F..%2F..%2Fsecret").status_code == 400
     assert client.get(f"{U}/files/{pid}/nope.pdf").status_code == 404
     assert client.get(f"{U}/files/{pid}/..%2F..%2Fsecret").status_code in (400, 404)
 
