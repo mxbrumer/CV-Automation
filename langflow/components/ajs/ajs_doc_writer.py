@@ -6,6 +6,7 @@ failed check triggers a retry that names the problem (temperature 0.7, 0.5, 0.3)
   - no `{{ }}` or HTML comment may be left;
   - the CV must keep every role heading of cv.md (no invented or dropped employers);
   - the letter is 200-450 words; the email body is at most 170 words (the template alone is ~135).
+The email writer also gets the finished cover letter, so the email reuses its hook and evidence.
 The email subject line is built here, not by the model.
 """
 
@@ -78,10 +79,17 @@ def user_message(kind: str, data: dict, today: str) -> str:
     if kind == "cv":
         return f"JOB BRIEF\n{brief}\n\nPRIORITY EVIDENCE (bullets that match the requirements best)\n{evidence}\n\nCV\n{data['cv_markdown']}"
     template = COMMENT.sub("", data["templates"][kind]).strip()
-    return (
+    message = (
         f"TODAY: {today}\nROLE: {data['title']}\nCOMPANY: {data['company']}\nRECRUITER NAME: {recruiter}\n\n"
-        f"JOB BRIEF\n{brief}\n\nEVIDENCE FROM THE CV\n{evidence}\n\nTEMPLATE\n{template}"
+        f"JOB BRIEF\n{brief}\n\nEVIDENCE FROM THE CV\n{evidence}\n\n"
     )
+    if kind == "recruiter_email":
+        letter = data.get("documents", {}).get("cover_letter")
+        if not letter:
+            msg = "the recruiter email needs the cover letter; run the letter writer first"
+            raise ValueError(msg)
+        message += f"COVER LETTER\n{letter}\n\n"
+    return message + f"TEMPLATE\n{template}"
 
 
 class AjsDocWriter(Component):

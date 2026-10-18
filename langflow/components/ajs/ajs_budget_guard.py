@@ -16,6 +16,7 @@ from lfx.io import DataInput, IntInput, Output
 from lfx.schema.data import Data
 
 CHARS_PER_TOKEN = 3.0
+LETTER_TOKENS = 1200  # the letter is at most 450 words (AJS Doc Writer), about 3000 characters
 HTML_COMMENT = re.compile(r"<!--.*?-->\s*", re.DOTALL)
 
 
@@ -47,9 +48,10 @@ def trim(data: dict, limits: dict[str, int]) -> tuple[dict, list[str]]:
             brief[field] = []
             log.append(f"brief {field} dropped")
     # CV, brief, evidence and the larger template all go into one call; check the worst call.
+    # The email call carries the finished letter instead of the CV, so count the larger of the two.
     worst = (
         limits["instructions"]
-        + estimate_tokens(data["cv_markdown"])
+        + max(estimate_tokens(data["cv_markdown"]), LETTER_TOKENS)
         + estimate_tokens(json.dumps(brief))
         + estimate_tokens(evidence_text(evidence))
         + max(estimate_tokens(t) for t in templates.values())
