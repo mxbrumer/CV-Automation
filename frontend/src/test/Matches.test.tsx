@@ -1,5 +1,5 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import { act, render, screen } from '@testing-library/react'
+import { act, render, screen, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { MemoryRouter } from 'react-router'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
@@ -144,10 +144,11 @@ describe('Matches tab (gate 1)', () => {
     expect(screen.getByText('Must have: Python')).toBeInTheDocument()
   })
 
-  it('shows an empty state linking to Home', async () => {
+  it('shows an empty state linking to Add job', async () => {
     mockApi({ empty: true })
     renderMatches()
     expect(await screen.findByText(/Nothing to confirm/)).toBeInTheDocument()
-    expect(screen.getByRole('link', { name: 'Go to Home' })).toHaveAttribute('href', '/')
+    const main = screen.getByRole('main')
+    expect(within(main).getByRole('link', { name: 'Add job' })).toHaveAttribute('href', '/add')
   })
 })
