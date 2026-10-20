@@ -1,4 +1,4 @@
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import { keepPreviousData, useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import type { ArtifactKind } from './chat'
 import {
   api,
@@ -47,6 +47,37 @@ export const useRecentPostings = (limit = 10) =>
           params: { query: { sort: 'recent', page_size: limit } },
         }),
       ),
+    refetchInterval: POLL_MS,
+  })
+
+export type PostingFilter = {
+  status?: PostingStatus
+  q?: string
+  sort: 'recent' | 'score'
+  page: number
+}
+
+export const JOBS_PAGE_SIZE = 25
+
+/** One page of every posting (Jobs tab); keeps the last page on screen while the next loads. */
+export const usePostings = (f: PostingFilter) =>
+  useQuery({
+    queryKey: ['postings', 'all', f],
+    queryFn: async () =>
+      unwrap(
+        await api.GET('/api/v1/postings', {
+          params: {
+            query: {
+              status: f.status,
+              q: f.q || undefined,
+              sort: f.sort,
+              page: f.page,
+              page_size: JOBS_PAGE_SIZE,
+            },
+          },
+        }),
+      ),
+    placeholderData: keepPreviousData,
     refetchInterval: POLL_MS,
   })
 
