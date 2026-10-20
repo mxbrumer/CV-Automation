@@ -82,7 +82,7 @@ describe('Add job', () => {
     const tabs = within(nav)
       .getAllByRole('link')
       .map((a) => a.textContent)
-    expect(tabs).toEqual(['Home', 'Add job', 'Matches', 'Review', 'Queue'])
+    expect(tabs).toEqual(['Home', 'Add job', 'Matches', 'Review', 'Queue', 'Jobs'])
   })
 
   it('needs company, title and description before it can be sent', async () => {

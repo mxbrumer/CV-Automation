@@ -55,7 +55,12 @@ export default function Home() {
       </div>
 
       <section>
-        <h2 className="mb-2 text-base font-semibold">Latest postings</h2>
+        <div className="mb-2 flex items-baseline justify-between gap-3">
+          <h2 className="text-base font-semibold">Latest postings</h2>
+          <Link to="/jobs" className="text-sm text-accent underline">
+            All jobs
+          </Link>
+        </div>
         {recent.isSuccess && items.length === 0 ? (
           <p className="rounded-lg border border-dashed border-line p-6 text-center text-muted">
             No postings yet. Paste a job description in{' '}
@@ -78,7 +83,11 @@ export default function Home() {
               <tbody>
                 {items.map((p) => (
                   <tr key={p.posting_id} className="border-b border-line last:border-0">
-                    <td className="px-3 py-2">{p.title}</td>
+                    <td className="px-3 py-2">
+                      <Link to={`/jobs/${p.posting_id}`} className="text-accent underline">
+                        {p.title}
+                      </Link>
+                    </td>
                     <td className="px-3 py-2">{p.company}</td>
                     <td className="px-3 py-2 text-right tabular-nums">
                       {p.match_score === null ? '–' : Math.round(p.match_score)}
