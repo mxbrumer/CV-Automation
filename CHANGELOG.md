@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.2.0](https://github.com/mxbrumer/Moving-To-Denmark/compare/v0.1.0...v0.2.0) (2026-10-20)
+
+
+### Features
+
+* manual job intake through the Add job form (plan 15) ([#11](https://github.com/mxbrumer/Moving-To-Denmark/issues/11)) ([2241144](https://github.com/mxbrumer/Moving-To-Denmark/commit/2241144fd7425f31528f17e9d7cb52abb9272b94))
+* write the recruiter email from the cover letter and name documents after the company ([#12](https://github.com/mxbrumer/Moving-To-Denmark/issues/12)) ([2d58384](https://github.com/mxbrumer/Moving-To-Denmark/commit/2d58384d998041ea981c900c6aa7a56f43f23940))
+
+
+### Documentation
+
+* close plan 14 and record the manual intake decisions for plan 15 ([#9](https://github.com/mxbrumer/Moving-To-Denmark/issues/9)) ([334b471](https://github.com/mxbrumer/Moving-To-Denmark/commit/334b471461c2ede8c1eee07447aeae4d51a79b33))
+* rewrite the README for readers new to the project ([#14](https://github.com/mxbrumer/Moving-To-Denmark/issues/14)) ([0648015](https://github.com/mxbrumer/Moving-To-Denmark/commit/0648015bba066e66995b88185b862151a5f436e4))
+
 ## 0.1.0 (2026-10-15)
 
 
