@@ -136,6 +136,23 @@ def test_writer_checks() -> None:
     assert writer.clean("<!-- gone -->\nText") == "Text"
 
 
+def test_email_writer_gets_the_cover_letter() -> None:
+    writer = load("ajs_doc_writer")
+    data = posting() | {"title": "Data Engineer", "company": "Acme", "documents": {"cover_letter": "Dear Maja, LETTER"}}
+    email = writer.user_message("recruiter_email", data, "18 October 2026")
+    assert "COVER LETTER\nDear Maja, LETTER" in email
+    assert email.index("COVER LETTER") < email.index("TEMPLATE")
+    assert "COVER LETTER" not in writer.user_message("cover_letter", data, "18 October 2026")
+    with pytest.raises(ValueError, match="needs the cover letter"):
+        writer.user_message("recruiter_email", data | {"documents": {}}, "18 October 2026")
+
+
+def test_budget_guard_counts_the_letter_when_the_cv_is_shorter() -> None:
+    guard = load("ajs_budget_guard")
+    data, _ = guard.trim(posting(cv="# Tiny"), LIMITS)
+    assert data["budget"]["prompt_tokens_worst_case"] >= LIMITS["instructions"] + guard.LETTER_TOKENS
+
+
 def test_evidence_parsing_and_picking() -> None:
     selector = load("ajs_evidence_selector")
     bullets = selector.parse_bullets(CV)

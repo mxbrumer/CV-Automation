@@ -1397,6 +1397,7 @@
   "paths": {
     "/api/v1/files/{posting_id}/{filename}": {
       "get": {
+        "description": "`filename` is relative to the posting's folder, e.g. `versions/CV_Acme_v1.pdf`.",
         "operationId": "get_file_api_v1_files__posting_id___filename__get",
         "parameters": [
           {

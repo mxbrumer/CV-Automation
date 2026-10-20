@@ -70,6 +70,28 @@ def test_blob_paths_and_host_mapping(store: BlobStore) -> None:
     assert store.host_path(path) == "C:\\dev\\JobSearchData\\applications\\2026-10_x_y_1\\cv_v1.md"
 
 
+def test_artifact_filenames() -> None:
+    from ajs.services.blob import artifact_filename, file_token
+
+    assert artifact_filename("cv", "Danske Commodities", "pdf") == "CV_Danske_Commodities.pdf"
+    assert (
+        artifact_filename("cover_letter", "Novo Nordisk A/S", "md", 2)
+        == "cover_letter_Novo_Nordisk_A_S_v2.md"
+    )
+    danish = "Ørsted Æble & Smørrebrød København"
+    assert file_token(danish) == "Orsted_Aeble_Smorrebrod_Kobenhavn"
+    assert file_token("///") == "x"
+
+
+def test_blob_move(store: BlobStore) -> None:
+    store.write_text("f", "a.md", "hi")
+    assert store.move("f/a.md", "f", "versions", "a_v1.md") == "f/versions/a_v1.md"
+    assert store.read_text("f/versions/a_v1.md") == "hi"
+    assert store.move("f/gone.md", "f", "versions", "x.md") == "f/gone.md"  # missing: unchanged
+    with pytest.raises(UnsafePath):
+        store.move("f/versions/a_v1.md", "f", "..", "..", "out.md")
+
+
 def test_folder_name() -> None:
     from datetime import datetime
 

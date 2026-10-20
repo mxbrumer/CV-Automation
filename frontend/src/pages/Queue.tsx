@@ -2,6 +2,7 @@ import MarkdownIt from 'markdown-it'
 import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router'
 import { useArtifact, usePosting, useQueue, useQueueAction } from '../api/hooks'
+import { fileUrl } from '../api/client'
 import Markdown from '../components/Markdown'
 
 const UNDO_MS = 5000
@@ -126,7 +127,7 @@ function Files({ id }: { id: number }) {
                 className="text-accent underline"
                 target="_blank"
                 rel="noreferrer"
-                href={`/api/v1/files/${id}/${a.pdf_path?.split('/').pop()}`}
+                href={fileUrl(id, a.pdf_path ?? '')}
               >
                 {a.kind === 'cv' ? 'CV' : 'Cover letter'} (v{a.version}, PDF)
               </a>

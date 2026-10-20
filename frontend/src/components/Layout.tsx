@@ -53,6 +53,7 @@ export default function Layout() {
           <Tab to="/matches" label="Matches" count={stats.data?.awaiting_match_review} />
           <Tab to="/review" label="Review" count={generated.data} />
           <Tab to="/queue" label="Queue" count={approved.data} />
+          <Tab to="/jobs" label="Jobs" />
         </nav>
       </header>
       {health.isError && (

@@ -120,13 +120,19 @@ def test_matched_posting_gets_all_documents(english: tuple[int, dict]) -> None:
     assert detail["status"] == "generated"
     by_kind = {a["kind"]: a for a in detail["artifacts"]}
     assert set(by_kind) == {"cv", "cover_letter", "recruiter_email"}
-    assert all(by_kind[k]["md_path"].endswith("_v1.md") for k in by_kind)
+    stem = "_Golden_Test_Generation_EN"
+    assert {k: a["md_path"].rsplit("/", 1)[-1] for k, a in by_kind.items()} == {
+        "cv": f"CV{stem}.md",
+        "cover_letter": f"cover_letter{stem}.md",
+        "recruiter_email": f"recruiter_email{stem}.md",
+    }
     assert by_kind["cv"]["pdf_path"] and by_kind["cover_letter"]["pdf_path"]
     assert by_kind["recruiter_email"]["pdf_path"] is None
     folder = Path(detail["host_folder"]) if detail["host_folder"] else None
     if folder and folder.is_dir():  # the test may run where the app folder is not visible
         names = {p.name for p in folder.iterdir()}
-        assert {"cv_v1.md", "cv_v1.pdf", "cover_letter_v1.md", "cover_letter_v1.pdf", "recruiter_email_v1.md"} <= names
+        expected = {f"CV{stem}.md", f"CV{stem}.pdf", f"cover_letter{stem}.md", f"cover_letter{stem}.pdf"}
+        assert expected | {f"recruiter_email{stem}.md"} <= names
 
 
 def test_documents_use_the_recruiter_name_and_have_no_placeholders(

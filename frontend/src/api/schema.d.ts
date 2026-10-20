@@ -11,7 +11,10 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** Get File */
+        /**
+         * Get File
+         * @description `filename` is relative to the posting's folder, e.g. `versions/CV_Acme_v1.pdf`.
+         */
         get: operations["get_file_api_v1_files__posting_id___filename__get"];
         put?: never;
         post?: never;
