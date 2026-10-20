@@ -58,6 +58,7 @@ The command was tested on 2026-10-14 on a throwaway stack (a marker row was adde
 - **Models**: `scripts/pull-models.ps1` pulls `gemma4:12b` and `bge-m3` and rebuilds the `ajs-gemma` alias from `infra/ollama/Gemma.Modelfile`. Change the model in `infra/.env` (`LLM_AGENT_MODEL`, `LLM_WRITER_MODEL`, `EMBED_MODEL`) and re-run `scripts/import-flows.ps1` so LangFlow's variables follow. Keep one `num_ctx` everywhere: a different value reloads the model.
 - **LangFlow version**: change the tag in `infra/docker-compose.yml` (`langflowai/langflow:1.12.3`), run `scripts/dev.ps1 up`, then `scripts/import-flows.ps1`. Custom components are mounted from `langflow/components`; restart the LangFlow container after changing one. After editing a flow in the UI, run `scripts/export-flows.ps1` and commit the JSON.
 - **Phoenix traces**: `scripts/dev.ps1 prune-traces`.
+- **Workflow diagram**: after changing the Mermaid diagram in `README.md`, copy it to `docs/assets/workflow.mmd` and re-render the PNG that the recruiter email links to: `npx -p @mermaid-js/mermaid-cli mmdc -i docs/assets/workflow.mmd -o docs/assets/workflow.png -s 1.6 -b white`.
 
 ## Tests
 
