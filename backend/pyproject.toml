@@ -16,7 +16,7 @@ dependencies = [
     "opentelemetry-sdk>=1.45.1",
     "psycopg[binary]>=3.2",
     "pydantic-settings>=2.6",
-    "sqlalchemy>=2.0,<2.1",  # the OpenTelemetry instrumentation supports < 2.1
+    "sqlalchemy>=2.0,<2.2",  # the OpenTelemetry instrumentation supports < 2.1
     "uvicorn[standard]>=0.32",
     "weasyprint>=70.0",
 ]
